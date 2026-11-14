@@ -39,3 +39,13 @@
 - 30/10: luật suy luận prototype phải theo đúng bài từng phương pháp: FedProto/FedTGP dùng prototype toàn cục, **TinyProto Eq. 12 dùng
   prototype cục bộ dense c̄^L_ij**. Target thưa × μ của TinyProto chỉ là đích regularizer (0 ngoài mask) ⇒ dùng làm prototype suy luận
   cho F1 0,24 vs head 0,79. Audit: view prototype thấp xa view head là dấu hiệu sai luật suy luận.
+- 30/10 (bổ sung, r3): gap prototype/head **không chỉ** do luật suy luận. TinyProto đã dùng dense local Eq.12 nhưng r2 F1 0,8165 → r50
+  0,2904; norm target 35,5→2.943, loss r5 43,2. μ=1/mean(n_ij) là heuristic bản dựng; trên v4 làm gain benign 3,43× mỗi gộp nếu
+  feature cùng hướng. Đã tái hiện khuếch đại qua `Method.round`; sửa μ=1,5e-4 theo cấu hình mẫu tác giả, chưa chứng minh hội tụ full-K/r50.
+  Không quy kết phương pháp yếu trước khi audit scale + deviation. Chi tiết: [TinyProto](docs/methods/tinyproto.md).
+- 30/10: audit CM/metric và tensor snapshot hữu hạn chỉ là **PASS_BOUNDED**. Harness lọc snapshot >10M phần tử nên bank private và
+  prototype local của 2.672 xe có thể không còn trong snapshot từng round; thiếu prediction thì không replay CM từ suy luận được.
+  Ghi giới hạn cạnh kết quả, không gọi đầy đủ "audit model PASS" chỉ từ các metric đúng.
+- 30/10: `run_fl.py` cũ lưu `env.gen` (shuffle), nhưng dropout grouped dùng global Torch RNG; checkpoint không lưu CPU/CUDA RNG toàn cục.
+  Nối NILM đã phục hồi bank/round/shuffle state, **không chứng nhận bit-exact** với run không gián đoạn. Giữ source chuỗi đang chạy;
+  bổ sung contract/test global RNG cho harness tương lai, không gọi state round-trip/eval là test exact resume.

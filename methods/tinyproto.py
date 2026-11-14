@@ -8,10 +8,10 @@ Client loss (Eq. 5, 11): CE + λ·ρ(f(x), μ·c̃^G_y), c̃^G = ĉ^G scattered 
 sample as FedProto's code, λ = 1 (paper, following FedProto). Local prototypes from an eval-mode pass after training
 (the authors' code base, PFLlib). Inference: nearest dense local prototype c̄^L_ij of the client over the classes it holds
 ("client_proto", Eq. 12; before 30/10 this used μ·c̃^G, which is zero off the mask) and the classifier head ("client").
-Choices the paper leaves open here: s = ceil(d / 10) (paper default s = 50 of d = 500, 90 % compression); masks = blocks of
-a seeded permutation of the d dims, cyclically (16·s > d forces overlaps; blocks spread them evenly); μ = 1 / n̄ with n̄
-the mean n_ij over (client, class) pairs, computed once at start (the paper's μ-selection rule is in its appendix, not
-in the PDF).
+Choices: s = ceil(d / 10) (paper default s = 50 of d = 500, 90 % compression); masks = blocks of a seeded permutation,
+cyclically (16·s > d forces overlaps). μ = 1.5e-4, the published CIFAR-10 value and official README run command; fixed
+before the VeReMi rerun, not tuned on its test. Transferring this constant to VeReMi is a documented deviation. The old
+heuristic 1 / mean(n_ij) amplified benign-aligned features 3.43x per aggregation on v4 and is no longer the default.
 """
 import math
 
@@ -39,8 +39,10 @@ class Method:
         cnt = torch.zeros(env.K, 16, device=env.dev)
         client = torch.repeat_interleave(torch.arange(env.K, device=env.dev), env.train.off[1:] - env.train.off[:-1])
         cnt.index_put_((client, env.train.Y.long()), torch.ones(len(env.train.Y), device=env.dev), accumulate=True)
-        pairs = env.allreduce(torch.stack([(cnt > 0).sum().float(), cnt.sum()]))
-        self.mu = hp.get("mu", float(pairs[0] / pairs[1]))
+        self.mu = hp.get("mu", 1.5e-4)
+        totals = env.allreduce(cnt.sum(0))
+        holders = env.allreduce((cnt > 0).sum(0).float())
+        self.aps_gain_max = float((self.mu * totals / holders.clamp_min(1)).max())
         p0, b0 = env.lay.init(hp["seed"], 1, env.dev)
         self.bank_p, self.bank_b = p0.repeat(env.K, 1), b0.repeat(env.K, 1)
         self.target = None                                           # μ·c̃^G (16, d)
@@ -73,7 +75,9 @@ class Method:
         scaled, holders = env.allreduce(scaled), env.allreduce(holders)
         self.target = self.mu * scaled / holders.clamp_min(1)[:, None]
         tot = env.allreduce(env.n.sum().clone())
-        return {"train_loss": float(env.allreduce((loss * env.n).sum()) / tot)}
+        return {"train_loss": float(env.allreduce((loss * env.n).sum()) / tot), "aps_mu": self.mu,
+                "aps_gain_max": self.aps_gain_max, "proto_target_l2": float(self.target.norm()),
+                "proto_target_absmax": float(self.target.abs().max())}
 
     def evaluate(self):
         env = self.env

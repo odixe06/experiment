@@ -17,7 +17,7 @@ Nguồn local: `~/Cloud/OneDrive/NCKH/mobihet_ref/`; bài arXiv tải ngày 29/1
 | `fedproto.pdf` | FedProto | Tan et al., AAAI 2022 | arXiv 2105.00243 |
 | `fedtgp.pdf` | FedTGP | Zhang et al., AAAI 2024 | arXiv 2401.03230 |
 
-**Còn thiếu — owner tải tay, đặt đúng tên file:**
+**Đã có PDF local (kiểm 30/10 17:20); không cần owner tải lại:**
 
 | file | bài | link |
 |---|---|---|

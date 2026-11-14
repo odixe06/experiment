@@ -1,0 +1,332 @@
+{
+  "checked_at": "2026-10-31T01:10:12.127131+07:00",
+  "root": {
+    "id": "409730ce-e68d-81f1-9259-d14bea45ea61",
+    "title": "50 round with new dataset 5000 client",
+    "url": "https://app.notion.com/p/409730cee68d81f19259d14bea45ea61"
+  },
+  "dataset_clients": 5343,
+  "root_rows": 16,
+  "all_ten_metrics_recomputed": true,
+  "children": [
+    {
+      "id": "409730ce-e68d-8189-b63e-c73d9405a1cb",
+      "url": "https://app.notion.com/p/409730cee68d8189b63ec73d9405a1cb?pvs=204",
+      "properties": {
+        "title": "Centralized DAGSNet"
+      },
+      "alias": "centralized"
+    },
+    {
+      "id": "409730ce-e68d-8195-b142-c34df4a02579",
+      "url": "https://app.notion.com/p/409730cee68d8195b142c34df4a02579?pvs=204",
+      "properties": {
+        "title": "FedAvg"
+      },
+      "alias": "fedavg"
+    },
+    {
+      "id": "409730ce-e68d-8165-afae-ce45a2f2d8ff",
+      "url": "https://app.notion.com/p/409730cee68d8165afaece45a2f2d8ff?pvs=204",
+      "properties": {
+        "title": "FedProx"
+      },
+      "alias": "fedprox"
+    },
+    {
+      "id": "409730ce-e68d-81ea-aaeb-f961e6ee8a71",
+      "url": "https://app.notion.com/p/409730cee68d81eaaaebf961e6ee8a71?pvs=204",
+      "properties": {
+        "title": "SCAFFOLD"
+      },
+      "alias": "scaffold"
+    },
+    {
+      "id": "409730ce-e68d-811d-9da1-de38dae9fc6d",
+      "url": "https://app.notion.com/p/409730cee68d811d9da1de38dae9fc6d?pvs=204",
+      "properties": {
+        "title": "AFPHA"
+      },
+      "alias": "afpha"
+    },
+    {
+      "id": "409730ce-e68d-8199-8959-db030f875664",
+      "url": "https://app.notion.com/p/409730cee68d81998959db030f875664?pvs=204",
+      "properties": {
+        "title": "FD-IDS"
+      },
+      "alias": "fd_ids"
+    },
+    {
+      "id": "409730ce-e68d-811c-bcbe-fc0d04ac6bb0",
+      "url": "https://app.notion.com/p/409730cee68d811cbcbefc0d04ac6bb0?pvs=204",
+      "properties": {
+        "title": "APFed"
+      },
+      "alias": "apfed"
+    },
+    {
+      "id": "409730ce-e68d-8178-88b5-ea2ad68e5461",
+      "url": "https://app.notion.com/p/409730cee68d817888b5ea2ad68e5461?pvs=204",
+      "properties": {
+        "title": "LwFedNIDS"
+      },
+      "alias": "lwfednids"
+    },
+    {
+      "id": "409730ce-e68d-81a2-8505-d8b134d9824f",
+      "url": "https://app.notion.com/p/409730cee68d81a28505d8b134d9824f?pvs=204",
+      "properties": {
+        "title": "V2X-HtFL"
+      },
+      "alias": "v2x_htfl"
+    },
+    {
+      "id": "409730ce-e68d-8164-be84-ed3105f3c795",
+      "url": "https://app.notion.com/p/409730cee68d8164be84ed3105f3c795?pvs=204",
+      "properties": {
+        "title": "CANPerFL"
+      },
+      "alias": "canperfl"
+    },
+    {
+      "id": "409730ce-e68d-81ca-be4b-f47b16eb4b47",
+      "url": "https://app.notion.com/p/409730cee68d81cabe4bf47b16eb4b47?pvs=204",
+      "properties": {
+        "title": "pFedES"
+      },
+      "alias": "pfedes"
+    },
+    {
+      "id": "409730ce-e68d-8185-9f80-f97502914260",
+      "url": "https://app.notion.com/p/409730cee68d81859f80f97502914260?pvs=204",
+      "properties": {
+        "title": "FedTGP"
+      },
+      "alias": "fedtgp"
+    },
+    {
+      "id": "409730ce-e68d-81b5-bdfc-c2b6d29cbc2a",
+      "url": "https://app.notion.com/p/409730cee68d81b5bdfcc2b6d29cbc2a?pvs=204",
+      "properties": {
+        "title": "PerFed-SKD"
+      },
+      "alias": "perfedskd"
+    },
+    {
+      "id": "409730ce-e68d-81de-89ce-f37e2a5f5b31",
+      "url": "https://app.notion.com/p/409730cee68d81de89cef37e2a5f5b31?pvs=204",
+      "properties": {
+        "title": "FedProto"
+      },
+      "alias": "fedproto"
+    },
+    {
+      "id": "409730ce-e68d-81ec-955f-fa94fae0f171",
+      "url": "https://app.notion.com/p/409730cee68d81ec955ffa94fae0f171?pvs=204",
+      "properties": {
+        "title": "NILM-FL"
+      },
+      "alias": "nilm"
+    },
+    {
+      "id": "409730ce-e68d-8143-aec3-c852e56a6677",
+      "url": "https://app.notion.com/p/409730cee68d8143aec3c852e56a6677?pvs=204",
+      "properties": {
+        "title": "TinyProto"
+      },
+      "alias": "tinyproto"
+    }
+  ],
+  "read_back": [
+    {
+      "alias": "centralized",
+      "id": "409730ce-e68d-8189-b63e-c73d9405a1cb",
+      "length": 8837,
+      "tableRounds": [
+        50
+      ],
+      "tableOk": true,
+      "pdf": true,
+      "truncated": false
+    },
+    {
+      "alias": "fedavg",
+      "id": "409730ce-e68d-8195-b142-c34df4a02579",
+      "length": 10083,
+      "tableRounds": [
+        50
+      ],
+      "tableOk": true,
+      "pdf": true,
+      "truncated": false
+    },
+    {
+      "alias": "fedprox",
+      "id": "409730ce-e68d-8165-afae-ce45a2f2d8ff",
+      "length": 10089,
+      "tableRounds": [
+        50
+      ],
+      "tableOk": true,
+      "pdf": true,
+      "truncated": false
+    },
+    {
+      "alias": "scaffold",
+      "id": "409730ce-e68d-81ea-aaeb-f961e6ee8a71",
+      "length": 10246,
+      "tableRounds": [
+        50
+      ],
+      "tableOk": true,
+      "pdf": true,
+      "truncated": false
+    },
+    {
+      "alias": "afpha",
+      "id": "409730ce-e68d-811d-9da1-de38dae9fc6d",
+      "length": 10095,
+      "tableRounds": [
+        50
+      ],
+      "tableOk": true,
+      "pdf": true,
+      "truncated": false
+    },
+    {
+      "alias": "fd_ids",
+      "id": "409730ce-e68d-8199-8959-db030f875664",
+      "length": 10092,
+      "tableRounds": [
+        50
+      ],
+      "tableOk": true,
+      "pdf": true,
+      "truncated": false
+    },
+    {
+      "alias": "apfed",
+      "id": "409730ce-e68d-811c-bcbe-fc0d04ac6bb0",
+      "length": 17515,
+      "tableRounds": [
+        50,
+        50
+      ],
+      "tableOk": true,
+      "pdf": true,
+      "truncated": false
+    },
+    {
+      "alias": "lwfednids",
+      "id": "409730ce-e68d-8178-88b5-ea2ad68e5461",
+      "length": 10105,
+      "tableRounds": [
+        50
+      ],
+      "tableOk": true,
+      "pdf": true,
+      "truncated": false
+    },
+    {
+      "alias": "v2x_htfl",
+      "id": "409730ce-e68d-81a2-8505-d8b134d9824f",
+      "length": 17435,
+      "tableRounds": [
+        50,
+        50
+      ],
+      "tableOk": true,
+      "pdf": true,
+      "truncated": false
+    },
+    {
+      "alias": "canperfl",
+      "id": "409730ce-e68d-8164-be84-ed3105f3c795",
+      "length": 13816,
+      "tableRounds": [
+        50,
+        10,
+        10
+      ],
+      "tableOk": true,
+      "pdf": true,
+      "truncated": false
+    },
+    {
+      "alias": "pfedes",
+      "id": "409730ce-e68d-81ca-be4b-f47b16eb4b47",
+      "length": 10086,
+      "tableRounds": [
+        50
+      ],
+      "tableOk": true,
+      "pdf": true,
+      "truncated": false
+    },
+    {
+      "alias": "fedtgp",
+      "id": "409730ce-e68d-8185-9f80-f97502914260",
+      "length": 17371,
+      "tableRounds": [
+        50,
+        50
+      ],
+      "tableOk": true,
+      "pdf": true,
+      "truncated": false
+    },
+    {
+      "alias": "perfedskd",
+      "id": "409730ce-e68d-81b5-bdfc-c2b6d29cbc2a",
+      "length": 10177,
+      "tableRounds": [
+        50
+      ],
+      "tableOk": true,
+      "pdf": true,
+      "truncated": false
+    },
+    {
+      "alias": "fedproto",
+      "id": "409730ce-e68d-81de-89ce-f37e2a5f5b31",
+      "length": 17433,
+      "tableRounds": [
+        50,
+        50
+      ],
+      "tableOk": true,
+      "pdf": true,
+      "truncated": false
+    },
+    {
+      "alias": "nilm",
+      "id": "409730ce-e68d-81ec-955f-fa94fae0f171",
+      "length": 16519,
+      "tableRounds": [
+        50,
+        50
+      ],
+      "tableOk": true,
+      "pdf": true,
+      "truncated": false
+    },
+    {
+      "alias": "tinyproto",
+      "id": "409730ce-e68d-8143-aec3-c852e56a6677",
+      "length": 16590,
+      "tableRounds": [
+        50,
+        50
+      ],
+      "tableOk": true,
+      "pdf": true,
+      "truncated": false
+    }
+  ],
+  "pending_not_published": [
+    "nilm",
+    "tinyproto_r4"
+  ],
+  "mobihet_excluded_by_owner": true
+}

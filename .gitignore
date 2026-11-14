@@ -17,8 +17,9 @@ __pycache__/
 # Data, runs, weights (local + Kaggle, never Git)
 /cache/
 /data/
-/runs/
+/runs/*
 **/pulls/
+!/runs/pulls/
 **/weights/
 **/checkpoints/
 wandb/

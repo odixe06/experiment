@@ -84,3 +84,24 @@ def test_canperfl_finetunes_fedavg_state(tmp_path):
     assert (before == M.evaluate()["global"]).all()                  # untouched clients = the FedAvg model
     assert np.isfinite(M.round(1, 1e-3)["train_loss"])
     assert not torch.equal(M.bank_p[0], p[0])
+
+
+def test_tinyproto_aligned_prototypes_do_not_amplify(monkeypatch):
+    """Replay APS with perfectly aligned features: the observed runaway target must not feed itself upward."""
+    from methods import tinyproto
+
+    env = ToyEnv()
+    M = tinyproto.Method(env)
+    cnt = torch.zeros(env.K, 16)
+    client = torch.repeat_interleave(torch.arange(env.K), env.train.off[1:] - env.train.off[:-1])
+    cnt.index_put_((client, env.train.Y.long()), torch.ones(len(env.train.Y)), accumulate=True)
+
+    def class_sums(*args, **kwargs):
+        feature = torch.ones(16, env.cfg["head_hidden"]) if M.target is None else M.target
+        return cnt[..., None] * feature[None], cnt
+
+    monkeypatch.setattr(tinyproto.evaluate, "class_sums", class_sums)
+    monkeypatch.setattr(tinyproto.local, "local_epoch", lambda lay, flat, *args, **kwargs: {"loss": flat.new_zeros(len(flat))})
+    for r in range(1, 11):
+        M.round(r, 1e-3)
+        assert M.target.abs().max() <= 1.0, f"APS amplifies aligned features at r{r}: {M.target.abs().max()}"

@@ -19,12 +19,14 @@ Dựng lại **15 phương pháp** trong bảng owner + **MobiHet** (đề xuấ
 - Task < 1 h chạy local; task dài chạy Kaggle (16 account; CLI mới đăng nhập 6, owner bổ sung sau). Env conda `nckh`.
 - Tốc độ train phải tối ưu ⇒ `core/grouped.py`: nhiều client một bước (bmm), dữ liệu thường trú GPU.
 
-## Trạng thái — 30/10 11:15 (giờ VN)
+## Trạng thái — 30/10 ~23:45 (giờ VN)
 
-- 19/19 phương pháp code + test. **W = 1 khóa** (DAGSNet 395.408 tham số).
-- 14 run FL 50 round + centralized + CANPerFL **xong, audit PASS** ⇒ [results](docs/research/results.md) (centralized 0,9593;
-  FL tốt nhất APFed client 0,9119; FedAvg 0,9042). Còn chạy: NILM-FL (cần session 2), TinyProto r3 (sửa luật prototype).
-- Chi phí FLOPs/băng thông mọi phương pháp: [cost](docs/research/cost.md). MobiHet: repo riêng (bên dưới).
+- W=1, protocol không đổi. **Đủ 16/16 kết quả hoàn tất** (centralized + 15 baseline FL, CANPerFL = FedAvg r50 + fine-tune 10 epoch).
+- **NILM-FL**: `accanniez/fl2-nilm-r2s2` nối tiếp s2 thành công đủ 50 round (preflight r1–36 byte-identical), audit PASS_BOUNDED (client F1 0,8846, proxy F1 0,8993).
+- **TinyProto-FP**: `anhtruong1909/fl2-tinyproto-r4` (sửa μ=1,5e-4) hoàn tất đủ 50 round, audit PASS_BOUNDED (overlay SHA256 match, target L2 0,2657 ổn định, prototype F1 đạt 0,8534, head F1 0,8693).
+- Tất cả CM và 10 metric đã tính lại, audit và cập nhật vào [results](docs/research/results.md). Đã đồng bộ đủ 16/16 phương pháp lên Notion [50 round with new dataset 5000 client](https://app.notion.com/p/409730cee68d81f19259d14bea45ea61) (16 hàng headline + 16 page con có PDF đính kèm).
+- Cải tiến MobiHet thuộc **repo `../mobihet`** (H0–H4 đang chạy theo bàn giao này). Owner 31/10 đã cho ghi MobiHet gốc r50 từ branch `codex/mobihet-v4-relkd` lên Notion; đã pull hai session và audit PASS_BOUNDED đủ50round, nhập lịch sử private/proxy r1–50 ([chi tiết](docs/operations/notion-results.md)).
+  Quyền chạy / trạng thái chi tiết: [continue](docs/operations/continue.md). Kết quả: [results](docs/research/results.md).
 
 ## Cần biết → mở
 
@@ -32,6 +34,8 @@ Dựng lại **15 phương pháp** trong bảng owner + **MobiHet** (đề xuấ
 |---|---|
 | Đang làm gì, bước tiếp, việc tay? | [continue](docs/operations/continue.md) |
 | Kết quả 50 round, audit, lưu ý từng run | [results](docs/research/results.md) |
+| Báo cáo Notion, page IDs, bổ sung run hoàn tất | [notion-results](docs/operations/notion-results.md) |
+| TinyProto r3 suy giảm và bản sửa r4 | [tinyproto](docs/methods/tinyproto.md) |
 | Cấu hình chung, cách chấm, cổng độ rộng | [protocol](docs/research/protocol.md) |
 | Danh sách phương pháp, trạng thái | [methods](docs/research/methods.md) |
 | Dataset, cột, số liệu, caveat | [knowledge/dataset](knowledge/dataset.md) |

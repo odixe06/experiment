@@ -1,43 +1,41 @@
-# Continue — bàn giao sống, 30/10/2026 ~11:15 (giờ VN)
+# Continue — bàn giao sống, 30/10/2026 ~23:50 (giờ VN)
 
-**File duy nhất cho "đang ở đâu, làm gì tiếp".** Đọc [CONTEXT](../../CONTEXT.md) → [LESSONS](../../LESSONS.md) →
-[bài học vận hành](lessons.md) → trang này. Sửa tại chỗ. Lịch sử 29–30/10: [snapshot](../archive/continue-2026-10-30.md).
+Đọc [CONTEXT](../../CONTEXT.md) → [LESSONS](../../LESSONS.md) → [bài học vận hành](lessons.md) → trang này.
+Repo này: **thử các phương pháp/baseline và báo cáo**. Cải tiến MobiHet ở `../mobihet`, bàn giao riêng; không chép trạng thái H vào đây.
+Snapshot trước phiên: [17:48](continue.md) (khi 2 kernel đang chạy).
 
-## Đang chạy (Kaggle; W&B `21522798-uit/fl-dagsnet-veremi-v2`)
+## Đang chạy
 
-| kernel | account | SHA | việc | ghi chú |
-|---|---|---|---|---|
-| `fl2-nilm-r2` | accanniez | 903ac42 | NILM-FL 50 round | ~1.017 s/round ⇒ budget 11,5 h dừng ~r38 (state theo rank) |
-| `fl2-tinyproto-r3` | anhtruong1909 | 55d13cc | TinyProto chạy lại (view prototype theo Eq. 12) | push 30/10 ~10:50, ~4,5 h |
+Không có kernel nào đang chạy trên Kaggle. Toàn bộ 15 baseline FL + Centralized đã hoàn tất 50 round.
 
-Kiểm: `python .claude/skills/kaggle-training-notebook/scripts/kaggle_as.py <acct> -- kaggle kernels status <acct>/<slug>`
-(API Kaggle chập chờn: status rỗng ⇒ thử lại). W&B: `wandb.Api().runs("21522798-uit/fl-dagsnet-veremi-v2")`.
+## Đã hoàn tất trong phiên
 
-## Đã xong (30/10) — kết quả: [results](../research/results.md), chi phí: [cost](../research/cost.md)
+- **NILM-FL session 2 (`accanniez/fl2-nilm-r2s2`)**:
+  - Pull 102 file chọn lọc (bỏ `state*.pt`), 0 thiếu, 449 MiB mới.
+  - Parent preflight r1–r36 kiểm tra đối chiếu khớp byte-identical với audit session 1.
+  - Nối tiếp trơn tru tới round 50: `client/f1_macro` = **0,8846**, `proxy/f1_macro` = **0,8993**.
+  - Audit `scripts/audit_run.py`: **PASS_BOUNDED** 50 round complete ([audit json](../research/audits/2026-10-30/fl2-nilm-r2.json)).
+- **TinyProto-FP R4 (`anhtruong1909/fl2-tinyproto-r4`)**:
+  - Pull 141 file (gồm đầy đủ `provenance/`, bỏ `state*.pt`), 0 thiếu, 1.677 MiB.
+  - Overlay `methods/tinyproto.py` khớp SHA256 `1bbf6b6e18f87a47f2ed52831c2709f8a3fbc001a7a2461c13a968ee62895ab4`.
+  - Fix scale μ = 1,5e-4 thành công: target L2 norm r50 đạt **0,2657** (không bùng nổ như r3 2.943), loss r50 = **0,0218**.
+  - `client_proto/f1_macro` (dense local Eq. 12) = **0,8534** (hồi phục hoàn toàn từ r3 0,2904), `client/f1_macro` (head) = **0,8693**.
+  - Audit `scripts/audit_run.py`: **PASS_BOUNDED** 50 round complete ([audit json](../research/audits/2026-10-30/fl2-tinyproto-r4.json)).
+- **Cập nhật kết quả**:
+  - Đã cập nhật bảng headline [results.md](../research/results.md) đủ **16/16 phương pháp** (Centralized + 15 baseline FL), tính lại trực tiếp từ CM.
+  - Chạy `scripts/build_notion_report.py` chuẩn bị toàn bộ JSON payloads cho 16 methods trong `runs/notion-report/`.
 
-- 14 run FL 50 round + centralized 50 epoch + CANPerFL đã pull về `runs/pulls/<slug>/` (git-ignored, bỏ `state*.pt`) và audit
-  PASS (đủ round, CMs, không NaN, HP đúng protocol). Bảng 10 metric tính lại từ CMs (`scripts/report.py`).
-- Lỗi đã xử lý: APFed ERROR sau r50 khi ghi state (RAM host; metric đủ; sửa `bda3c07`, không chạy lại); TinyProto r2 dùng sai
-  prototype suy luận (sửa `55d13cc`, chạy r3); SCAFFOLD không ổn định r1–r17 (NaN r15–16) rồi hồi phục — ghi chú trong results.
-- Kernel cũ không lưu model mỗi round đều đã dừng (`dinhan25/fl2-v2x-htfl` cũ tự hết; bỏ qua).
+- Notion connector đã upload PDF `nilm.pdf` & `tinyproto.pdf`, tạo đủ 2 child page `NILM-FL` & `TinyProto`, cập nhật bảng headline trang root đủ 16/16 phương pháp.
+  - Đã cập nhật [notion-pages-2026-10-30.json](notion-pages-2026-10-30.json) và [notion-results.md](notion-results.md).
 
 ## Bước tiếp
 
-1. `fl2-nilm-r2` dừng budget (~r38) ⇒ session 2, cùng `--run`:
-   `python scripts/gen_notebook.py --owner accanniez --slug fl2-nilm-r2s2 --method nilm --run fl2-nilm-r2 --resume-kernel accanniez/fl2-nilm-r2 --max-hours 11.5`
-   rồi `embed_wandb_key.py` + `chmod 600` + `ast.parse` mọi cell + push `-t 43200`.
-2. `fl2-tinyproto-r3` xong ⇒ pull (`pull_kernel_output.py ... --pattern '^(?!.*state(_rank\d+)?\.pt$)'`), audit, thêm vào results
-   (headline `client_proto`); kiểm view prototype ≈ view head (smoke 100 xe r2: 0,819 vs 0,825).
-3. Viết `docs/methods/` cho APFed, V2X-HtFL, CANPerFL; sửa bảng "còn thiếu" trong [papers/README](../../papers/README.md).
-4. MobiHet tiếp ở repo [`odixe06/mobihet`](https://github.com/odixe06/mobihet) (bàn giao riêng `docs/operations/continue.md` của repo đó);
-   arm cuối 50 round so với bảng results ở đây.
+0. MobiHet gốc branch `codex/mobihet-v4-relkd`: đã pull hai session version1 bằng odixe0502 (quyền đọc hiện hoạt động), audit [PASS_BOUNDED đủ50round](../research/audits/2026-10-31/mobihet-v4-weighted-nowb-s2.json). Source37file khớp manifest; parent25CM khớp byte. Đã nhập hai bảng50round/10metric vào [Notion](https://app.notion.com/p/40a730cee68d81fba3fcfb532fb66a8d), cập nhật bảng tổng: private/proxy F1 0,895298/0,899538. Không cần credential minhiw cho hai output này. Chưa pull full resume banks/replay inference. Chi tiết [notion-results](notion-results.md). Không launch training.
+1. Chờ chỉ thị của owner về việc đưa các nhánh cải tiến MobiHet (tại repo `../mobihet`) lên Notion / báo cáo.
+2. Kiểm tra tiến độ sàng lọc MobiHet (H0–H4) tại repo `../mobihet` khi được yêu cầu.
 
-## Lưu ý vận hành
+## Trạng thái workspace / việc tay
 
-- `--set` qua `json.loads` ⇒ chuỗi cần dấu `"` JSON (xem [lessons](lessons.md) 30/10). Notebook push phải nhúng key W&B
-  (`embed_wandb_key.py`; quên ⇒ `SystemExit: W&B credential not embedded`, bản 1 fl2-canperfl).
-- Commit không có trailer `Co-Authored-By` (owner 30/10).
-
-## Việc tay (owner)
-
-- Không có việc gấp. minhtrit06 hết GPU quota tới 31/10. dinhan25 chỉ có token (chạy được qua `kaggle_as.py`).
+- Git HEAD: `36ac7ffafcb45974ed736b4d838279728d00e884`. Không tự ý commit hay push Git/DVC.
+- Toàn bộ artifact đã pull nằm tại `runs/pulls/`.
+- Chưa có việc tay bắt buộc.

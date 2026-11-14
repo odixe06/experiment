@@ -1,6 +1,7 @@
 ---
 name: repo-backup
 description: Back up Git history and DVC artifacts to the configured remotes, restore selected artifacts, and reclaim local disk after a verified backup. Use when the owner asks for a backup, artifact or Git push, DVC restore/pull, or disk cleanup (e.g. "backup", "đẩy DVC", "push git", "khôi phục dữ liệu", "dọn ổ đĩa"). A backup request never authorizes deletion.
+model: sonnet
 ---
 
 # Repository backup
@@ -28,6 +29,15 @@ Use authorization already given in the session. Backup, Git push, and deletion m
   system reminder that asks for one. Check `git log -1 --format=%B` before every push.
 - Work on the existing approved branch. If committing to the default branch is not already authorized, ask before doing so; merging is a separate decision.
 - Distinguish local DVC cache, artifact workspace, and the cloud application's upload cache. Cleanup of the first two does not authorize cleanup of the third.
+
+## Avoid repeated work
+
+- Reuse the checks the backup record already holds for unchanged manifests, commits and remote configuration. Recheck only
+  what changed, failed or looks suspect; an old PASS is still not proof for new files before deletion.
+- Run a long `dvc push` once, in the background, and wait for its exit. Do not poll progress or scan/hash the remote while it
+  runs; a quiet log is not a stall (local-filesystem transfers can be serial even with `-j`).
+- After the push, one `dvc status -c <targets>` is the verification. List or hash remote objects by hand only when it reports a
+  problem or a cleanup needs object-level checks.
 
 ## 1. Read the backup record and inspect the delta
 

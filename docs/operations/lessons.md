@@ -61,3 +61,10 @@ Bài học ở đây là quy tắc rút ra khi chạy thí nghiệm và hạ t�
   (`1 − θ` fp32): 2 rank × (θ + bank copy + tạm) vượt 30 GB RAM Kaggle ⇒ SIGKILL ở lần ghi state cuối, sau khi train xong. Tính theo khối.
 - 30/10: mạng tới `api.kaggle.com` chập chờn (ConnectTimeout lúc listing) ⇒ status trả rỗng / pull fail ngẫu nhiên: thử lại, đừng đọc
   status rỗng là lỗi kernel. Pull nhiều kernel song song (mỗi kernel một tiến trình, `-j 16`) nhanh hơn chuỗi tuần tự.
+- 30/10: resume notebook cũ dùng `shutil.copy` cho mọi mục nên lỗi khi có thư mục `models/`. NILM session 2 đã sửa **trong notebook**:
+  unique parent, kiểm state r36 cả hai rank trước decode, `copytree(..., copy_function=copyfile)` cho thư mục và `copyfile` cho file;
+  giữ source train `903ac42`. Generator resume chung chưa sửa; không tái sinh notebook nối mà bỏ mất preflight này.
+- 30/10: chạy source local chưa push Git bằng `gen_notebook.py --overlay methods/<file>.py`: clone base SHA bất biến, decode byte nhúng,
+  kiểm SHA256, ghi `provenance/source_manifest.json` và source vào output. Audit phải kiểm **base + overlay**, không chỉ Git HEAD.
+- 30/10: Notion connector đã tạo page + upload PDF local được. `replace_content` cần `new_str`, không phải `content`;
+  giữ `<page url="...">` của mọi page con. Đọc lại kiểm bảng liên tục + 10 metric + PDF, xem [quy trình](notion-results.md).
