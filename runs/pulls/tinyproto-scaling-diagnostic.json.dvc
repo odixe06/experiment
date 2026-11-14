@@ -1,0 +1,5 @@
+outs:
+- md5: fe15682f712cccb099fa274399246ccc
+  size: 859
+  hash: md5
+  path: tinyproto-scaling-diagnostic.json

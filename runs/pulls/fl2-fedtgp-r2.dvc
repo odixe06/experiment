@@ -1,0 +1,6 @@
+outs:
+- md5: 15edbfc173748ae4dde3460d1ed2604a.dir
+  size: 1787577829
+  nfiles: 103
+  hash: md5
+  path: fl2-fedtgp-r2

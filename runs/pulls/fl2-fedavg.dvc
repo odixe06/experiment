@@ -1,0 +1,6 @@
+outs:
+- md5: 085bf0d9bd1b1f6cdd69e54b7b345621.dir
+  size: 17903223
+  nfiles: 53
+  hash: md5
+  path: fl2-fedavg

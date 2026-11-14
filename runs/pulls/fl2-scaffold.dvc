@@ -1,0 +1,6 @@
+outs:
+- md5: ff9a33aa7fd6f382998ad59e338c0adc.dir
+  size: 17956557
+  nfiles: 53
+  hash: md5
+  path: fl2-scaffold

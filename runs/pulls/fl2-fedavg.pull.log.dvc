@@ -1,0 +1,5 @@
+outs:
+- md5: f164ed4643c0447df5c9ee29d82cc266
+  size: 124
+  hash: md5
+  path: fl2-fedavg.pull.log

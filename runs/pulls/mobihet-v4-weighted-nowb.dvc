@@ -1,0 +1,6 @@
+outs:
+- md5: 2f7b1cf06868122cb378918ce30fbedf.dir
+  size: 18650205
+  nfiles: 35
+  hash: md5
+  path: mobihet-v4-weighted-nowb

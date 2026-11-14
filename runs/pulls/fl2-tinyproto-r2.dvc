@@ -1,0 +1,6 @@
+outs:
+- md5: 3682955ce3b9cf502d713e554f971a94.dir
+  size: 1792096678
+  nfiles: 103
+  hash: md5
+  path: fl2-tinyproto-r2

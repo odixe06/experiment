@@ -1,0 +1,5 @@
+outs:
+- md5: b01baf438da57c8d1f87f26d3f65dc0f
+  size: 125
+  hash: md5
+  path: fl2-fedprox.pull.log

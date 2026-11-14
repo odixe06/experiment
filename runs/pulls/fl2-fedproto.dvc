@@ -1,0 +1,6 @@
+outs:
+- md5: 97e161725e30166dcc41c85dbbdb1d01.dir
+  size: 42948625
+  nfiles: 53
+  hash: md5
+  path: fl2-fedproto

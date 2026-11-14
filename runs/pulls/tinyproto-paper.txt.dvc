@@ -1,0 +1,5 @@
+outs:
+- md5: 0bff9b70012fcded2629e8d237c7f918
+  size: 59917
+  hash: md5
+  path: tinyproto-paper.txt

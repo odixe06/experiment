@@ -1,0 +1,6 @@
+outs:
+- md5: 8267c0caa3e48ddee8e82251893864ac.dir
+  size: 17877402
+  nfiles: 53
+  hash: md5
+  path: fl2-fedprox
