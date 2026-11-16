@@ -14,7 +14,6 @@ OUT = ROOT / 'runs/maintenance-20261116'
 NAMES = dict(fedavg='FedAvg', fedprox='FedProx', afpha='AFPHA', fd_ids='FD-IDS', apfed='APFed',
              lwfednids='LwFedNIDS', v2x_htfl='V2X-HtFL', canperfl='CANPerFL', tinyproto='TinyProto',
              pfedes='pFedES', nilm='NILM-FL', fedtgp='FedTGP', perfedskd='PerFed-SKD', fedproto='FedProto', mobihet='MobiHet')
-NAMES.pop('pfedes')  # Owner16/11: omit until final seed41 continuation audit.
 HEAD = dict(fedproto='client_proto', fedtgp='client_proto', tinyproto='client_proto')
 KEYS = ['accuracy', 'precision_macro', 'precision_micro', 'precision_weighted', 'recall_macro', 'recall_micro',
         'recall_weighted', 'f1_macro', 'f1_micro', 'f1_weighted', 'client_f1_macro_p10', 'client_f1_macro_min']
@@ -49,11 +48,10 @@ def build():
     for seed in [41, 42, 43]:
         batch = ROOT / ('runs/batch' if seed == 42 else f'runs/batch-s{seed}')
         for p in sorted((batch / 'audit').glob('*.json')):
-            if 'pfedes' in p.name: continue
             m, v, stats = audit_metric(p)
             evidence['BERT'].setdefault(m, []).append(dict(seed=seed, view=v, metrics=stats, source=str(p)))
         for p in sorted((DAG / 'runs/seeds/audit').glob(f'*-s{seed}.json')) if seed != 42 else []:
-            if 'scaffold' in p.name or 'pfedes' in p.name: continue
+            if 'scaffold' in p.name: continue
             m, v, stats = audit_metric(p)
             evidence['DAGSNet'].setdefault(m, []).append(dict(seed=seed, view=v, metrics=stats, source=str(p)))
     for c in (OUT / 'dagsnet42').glob('*/**/config.json'):

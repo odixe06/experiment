@@ -6,4 +6,7 @@
 - `operations/`: [README](operations/README.md).
 - Dữ kiện bất biến: [knowledge/](../knowledge/README.md).
 
-Bảng hiện hành2kiến trúc, chỉT3/MobiHet: [comparison](research/comparison.md), [số liệu và nguồn](research/comparison.json). pFedES tạmẩn theoowner16/11, đợiBERT41r50.
+Bảng hiện hành2kiến trúc, chỉT3/MobiHet: [comparison](research/comparison.md), [số liệu và nguồn](research/comparison.json). pFedES đủr50/3seed và đã bổ sung sau audit16/11.
+
+Vận hành cũ/launchers đã đóng: [archive16/11](../archive/operations-20261116/README.md);
+entrypoint còn dùng tại [scripts](../scripts/README.md). Không nạp archive đầu phiên.

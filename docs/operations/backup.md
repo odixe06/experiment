@@ -1,39 +1,34 @@
-# Git/DVC backup —16/11/2026
+# Backup / restore — nguồn hiện hành
 
-Owner16/11 cho phép push toàn bộ thay đổi hợp lệ, không xóa local. Env `nckh`.
+Trạng thái job và quyền thao tác tại [continue](continue.md). Đọc skill `repo-backup` trước push/restore/cleanup.
+Lịch sử các lô/cleanup/hash: [snapshot](../../archive/operations-20261116/before/docs/operations/backup.md).
 
-## Đích và phạm vi
+## Đích
 
-- Git `https://github.com/odixe06/fl_veremi_bert.git`,branch `main`.
-- DVC default `onedrive`: `/home/odixe/Cloud/OneDrive/NCKH/veremi_build/fl_veremi_bert/dvc-storage` (rclonemount thật);cachehardlink,copy.
-- Bundle dự kiến `/home/odixe/Cloud/OneDrive/NCKH/veremi_build/fl_veremi_bert/fl_veremi_bert.bundle`, verify trước thay.
-- `artifacts/baseline-pulls.dvc`: hardlink snapshot cácsession đãdone,source/config/CM/snapshot vàstatecó lưu; sourcegốc `runs/pulls/`.
-- `artifacts/t3-pulls.dvc`: outputT3 đãpull, gồmcheckpoint2rank vàprovenance; sourcegốc `runs/t3/pulls/`.
-- `artifacts/research-evidence-20261116.dvc`: audit/report/config/pushreceipt/log/testsupport vàendpointCM DAGSNet42 đãrestore/MD5verify.
-- Không backupnotebook cóinlinecredential, cachev4npy/file.part, checkpointdatasetupload tạm hoặc bảnpack/copytrùng ởruns/transfer. Dataset gốc dùng Kaggle/DVCnguồn; recoverymodel dùngcheckpointđãgiữtrongpulls. Không xóa cácfiletạm này.
+- Git `https://github.com/odixe06/fl_veremi_bert.git`, branch `main`.
+- DVC default `onedrive`: `/home/odixe/Cloud/OneDrive/NCKH/veremi_build/fl_veremi_bert/dvc-storage`.
+- Git bundle: `/home/odixe/Cloud/OneDrive/NCKH/veremi_build/fl_veremi_bert/fl_veremi_bert.bundle`.
+- OneDrive là rclone mount; kiểm mount thật trước ghi. Google Drive không dùng làm upload fallback.
 
-## Trạng thái hiện hành
+## Artifact và trạng thái đã kiểm
 
-Baselinepush-j16 **VERIFIED**:108session,17129files/6457073344B,8396objects pushed, status-c in sync; manifestmd5 `c994b3163bee65d450cf08c0cbbcad98.dir`. Controller succeeded;receipt `runs/maintenance-20261116/bert-baseline-backup.json`.
-Job: `bert-baseline-backup-20261116-r2`, log `runs/maintenance-20261116/bert-baseline-dvc-push.log`.
-T3/evidence **VERIFIED**:811objects pushed;status-c in sync. T3manifest `33ddae696e279eb52c39e2c8f3a45b91.dir`(10989948636B/896files), evidence `235bf5096e0e7fef2dba373833813360.dir`(20056472B/720files).
-Job: `bert-t3-backup-20261116-r2`, log `runs/maintenance-20261116/bert-t3-backup-r2.log`.
-Không chạyDVCcùngrepo song song. Xác minhhoàn tất riêngtừngtarget bằngstatus-c; chưacoi logquiet làstall.
-Cloud upload: kiểm16/11 còn7762VFSdirtyfiles;filesystemmountsync đãPASS. Rclonecache bền trên đĩa, upload tiếp khi máy/mount chạy lại; không gọi cloud đãsync. Receipt `runs/maintenance-20261116/cloud-upload-status.json`. Không cleanup hoặc xóaVFSdirtycache.
-Git/bundle cuối sẽghi saupush; trạng tháijob sống tại [continue](continue.md).
+- `artifacts/baseline-pulls.dvc`: baseline session đã backup trước pFedES41p4 cuối.
+- `artifacts/t3-pulls.dvc`: T3 BERT, state/provenance.
+- `artifacts/research-evidence-20261116.dvc`: audit/report/source receipts đã đóng tại thời điểm backup.
+- Output/receipt pFedES41p4 mới đang collect/audit; **chưa xác minh backup cho phần mới**.
 
-## Khôi phục
+Lần xác minh filesystem remote gần nhất:16/11/2026,16:57:46VN, push-j16 + status-c in sync cho các target trong
+[receipt reboot](../../archive/operations-20261116/receipts/backup-reboot-20261116.json).
+Đó là snapshot, không chứng minh output mới đã backup hoặc cloud upload đã hoàn tất.
+VFSdirty có thể còn trênlocal; không xóa cache/artifact hoặc restart mount khỏe để ép sync.
 
-`dvc pull artifacts/t3-pulls.dvc` hoặc `dvc pull artifacts/baseline-pulls.dvc`; kiểm disk trước.
-Snapshotbackup nằm dướiartifacts, không tự chép vềruns. Audit/recoverychỉdùngexactkernel/version/source/HP/roundđãghi.
-Manifest lịch sử không đượcaddlại từworkspacepartial.
+## Restore / cập nhật
 
-## Recovery mount16/11 sau reboot — đã xác minh DVC
+```bash
+dvc pull PATH/TO/RUN.dvc
+```
 
-OneDrive tại `/home/odixe/Cloud/OneDrive`, source `onedrive:`,type `fuse.rclone`; servicePID8985active/running, cả2projectpathPASS. Startup trước timeout1h bịsystemdngắt khi reload/uploadVFS. Drop-in `~/.config/systemd/user/rclone-onedrive.service.d/zz-recovery-timeout.conf` đặtTimeoutStartSec6h;daemon-reloadgiữprocess/cache. [Timeout systemd](https://www.freedesktop.org/software/systemd/man/255/systemd.service.html).
-
-Job `onedrive-remount-dvc-20261116` **succeeded16:57:46VN**,exit0+markerPASS. BERT3manifest vàMobiHet10manifest đềupush-j16: `Everything is up to date.`; từng `dvc status -c` báo **Cache and remote 'onedrive' are in sync.** [Receipt/target/manifestSHA](backup-reboot-20261116.json). Khôngadd lại manifest lịch sử từworkspacepartial.
-
-Đây là xác minhfilesystemremote; cloudupload chưaxácminh riêng. Snapshot16:55 còn225VFSdirtyfile/15.37GB; giữlocal/cache. Gitmainhai repo đãpush; bundleallrefsverify/copylênmount sauphụchồiPASS, nguồnreceipt repoBERT `runs/maintenance-20261116/reboot-backup/git-bundles-after-remount.json`. Cậpnhậtbundle saucommitcuối.
-
-Jobwaitmountcũfail trướcgọiDVC; đãthay bằngjobthànhcôngởtrên. Receiptmount/repair repoBERT `runs/maintenance-20261116/reboot-backup/{mount-restored,mount-timeout-repair,dirty-after-timeout}.json`. TrạngtháipFedEShiện hành ở [continue](continue.md). Khôngxóa dữliệu.
+Kiểmdisk và manifest trước restore. Workspace partial/thiếu model không `dvc add` đè manifest đầy đủ;
+đối chiếu `.dir`/entry cũ trước mọi cập nhật. Không dời hoặc sửa byte payload/metadata DVC khi chỉ dọn docs.
+DVC cùngrepo chạy nối tiếp; push xong mới status-c. Git stage/push chỉ phạm vi owner giao; không credential/notebook inlinekey,
+không `Co-Authored-By:`. Gitbundle tạo `--all`, verify rồi mới thay bản trênmount. Quyền backup không cho phép cleanup.

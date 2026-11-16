@@ -1,28 +1,22 @@
-# Công cụ fl_veremi_bert
+# Công cụ còn dùng — FeatureBERT
 
-Chạy Python trong env `nckh`, từ root repo.
+Từ repo root, env `nckh`; quyền/job tại [continue](../docs/operations/continue.md).
+Launch/resume/reboot/watcher riêng các đợt đã đóng ở [archive16/11](../archive/operations-20261116/README.md).
 
-| Script | Công việc |
+| Tác vụ | Entry point |
 |---|---|
-| `run_batch.py`, `watch_three_seeds.py` | Baseline 3 seed: collect, nối checkpoint, audit |
-| `run_t3.py`, `run_t3_batch.py` | Driver T3 BERT và build/launch batch khóa |
-| `resume_t3_remaining.py` | Nối seed42/43 từ checkpoint đã audit, live quota/slot gate + watcher |
-| `resume_t3_s41.py` | Receipt/launcher lịch sử seed41 p3; không chạy lại khi intent tồn tại |
-| `watch_kaggle_batch.py` | Watch exact owner/slug/version, interval 1200s; không launch |
-| `kaggle_cli_bounded.py` | Kaggle CLI timeout hữu hạn, dùng qua kaggle_as.py |
-| `audit_run.py`, `audit_t3_state.py` | CM/10metric và state/source/HP/RNG hai rank |
-| `collect_t3_completed.sh` | Pull T3 BERT 3 seed + audit, rồi pull DAGSNet41 về repo mobihet |
-| `build_project_comparison.py` | Tái sinh8bảng performance/communication/client/server cho2model từaudit; pFedES tạm loại theoowner16/11 |
-| `verify_batch_provenance.py` | Kiểm executedsource baseline với commit/manifest đãkhóa |
-| `run_local_guarded.py` | Guard RAM cho tác vụ local |
+| Driver baseline / T3 | `run_fl.py`, `run_t3.py` |
+| Ledger baseline: audit/collect theo quyền | `run_batch.py` (collect có thể launch continuation; không dùng chỉ để đọc status) |
+| Sinh notebook / import dataset checkpoint | `gen_notebook.py`, `verify_checkpoint_dataset.py`, `transfer_global.py` |
+| Watch exact kernel / inventory / CLI bounded | `watch_kaggle_batch.py`, `kaggle_inventory.py`, `kaggle_cli_bounded.py` |
+| Audit CM/10metric / T3 state | `audit_run.py`, `audit_t3_state.py`, `audit_t3_smoke.py` |
+| Tái sinh bảng hai model | `build_project_comparison.py`; require đủ endpoint/audit mọi hàng |
+| Source / parity / port | `verify_batch_provenance.py`, `check_t3_port.py` |
+| Đo cost / báo cáo | `cost.py`, `report.py` |
+| Local guard/fixture/benchmark/data listing | `run_local_guarded.py`, `cache_subset.py`, `bench_grouped.py`, `list_dataset.py` |
+| Link active | `check_docs.py` |
 
-## Tách công cụ khỏi mobihet — 15/11/2026
-
-`watch_kaggle_batch.py`, `kaggle_cli_bounded.py` được chép nguyên byte từ `../mobihet/scripts/`.
-T3 launcher, resume và smoke dùng helper local. HP tham chiếu DAGSNet được giữ tại
-[knowledge/t3-dagsnet-reference.json](../knowledge/t3-dagsnet-reference.json), nguyên byte từ
-`../mobihet/runs/t3-s41/batch.json`. Các method T3 và driver đã port trước phiên này.
-Helper shared vẫn giữ trong mobihet vì các pipeline DAGSNet còn dùng; script nghiên cứu DAGSNet khác thuộc repo đó.
-Không sửa overlay/source train đã khóa hoặc notebook đã push khi chuyển helper.
-
-Recovery16/11 sau reboot: `recover_pfedes41_final.py` chỉ phục hồi phiên cuối đãủyquyền; `push_after_reboot.py` chờ mount thật rồi push-j16/status hai repo. Không rerun launcher có intent.
+`run_p21_recovery.py` tên cũ nhưng notebook generator còn import helper; giữ nguyên byte/đường dẫn,
+không phải hướng dẫn launch P21. T3 reference: [t3-dagsnet-reference](../knowledge/t3-dagsnet-reference.json).
+Worker pFedES hiện tại và script one-off của phiên nằm trong `runs/maintenance-20261116/`; owner tại continue,
+không di chuyển trong khi job sống. [Manifest dọn context](../archive/operations-20261116/migration.json).

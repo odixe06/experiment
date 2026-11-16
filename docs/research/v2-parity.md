@@ -20,3 +20,7 @@ CUDA regression head-dim 5 đều PASS. Những khác biệt này không phải 
 
 Hạ tầng riêng repo: GitHub/W&B project, phân account/quota/slot, notebook/collect/watch và báo cáo/audit.
 CANPerFL giữ snapshot bank-only của v2; bank lớn bị lọc khỏi snapshot nhỏ, nên audit ghi rõ không có bằng chứng hữu hạn của weight đó.
+
+Checker13/11 đã [archive](../../archive/operations-20261116/scripts/check_v2_parity.py): glob mọi method không còn đúng scope sau khi thêm T3.
+20PASS trên là bằng chứng của inventory13/11; không gọi checker cũ là gate toàn bộ methods hiện tại.
+Port T3 hiện hành dùng `scripts/check_t3_port.py`; migration kiểm riêng hash source không đổi.
