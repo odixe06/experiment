@@ -20,7 +20,8 @@ pFedES exact `outlookcheck/flb-pfedes-s41-p4/2`: pull158file/0thiếu; audit r50
 
 ## Tiếp theo
 
-1. Hoàn tất commit/push GitHub BERT và refresh Gitbundle theo [backup](backup.md); owner đã cho phép. Không commit credential/notebook/cache.
+1. GitHub `main` đã nhận kết quả pFedES + dọn context tại commit `0eea5d3`; bản ghi xác nhận phiên được push tiếp.
+   Gitbundle theo [backup](backup.md); receipt xác minh cuối ở `runs/maintenance-20261116/final-publish.json`.
 2. Owner dùng [task_brief](../../../mobihet/task_brief.md) để reasoning phương pháp mới. Chưa có quyền launch training mới.
 3. Output pFedES cuối giữ local; DVC snapshot trước16:57 không bao gồm output mới. Chưa có lệnh DVCpush mới trong yêu cầu hiện tại.
 

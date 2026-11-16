@@ -32,3 +32,9 @@ Kiểmdisk và manifest trước restore. Workspace partial/thiếu model không
 đối chiếu `.dir`/entry cũ trước mọi cập nhật. Không dời hoặc sửa byte payload/metadata DVC khi chỉ dọn docs.
 DVC cùngrepo chạy nối tiếp; push xong mới status-c. Git stage/push chỉ phạm vi owner giao; không credential/notebook inlinekey,
 không `Co-Authored-By:`. Gitbundle tạo `--all`, verify rồi mới thay bản trênmount. Quyền backup không cho phép cleanup.
+
+## Git phiên16/11 cuối
+
+Kết quả pFedES và dọncontext đã push `origin/main`, commit `0eea5d3`; không DVCpush thêm trong yêu cầu hiện tại.
+Bản ghi xác nhận cập nhật tiếp trên cùngbranch. Gitbundle allrefs sẽ được verify/copy sau commitcuối;
+receipt cuối: `runs/maintenance-20261116/final-publish.json`. Output mới vẫn local, không coi snapshot DVC cũ đã chứa p4.
