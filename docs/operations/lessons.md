@@ -113,3 +113,5 @@ Bài học ở đây là quy tắc rút ra khi chạy thí nghiệm và hạ t�
 - Cachev4npy .part còn từpullfull không làmCM/state đãaudit thànhpartial; backup bỏcacheset táitạođược, giữmodel/source/CM vàgiữfile.part local, khôngtựxóa.
 - Test dùngrootdataset phải kiểm actualparquet train/test, không chỉ thưmục tồn tại. ToyAFPHA cầnmetadatafixture riêng, không dựa dữliệulocal đangonline.
 - Shutdown sauDVCsyncmứcmount cóthểcòncloudVFSdirty; ghi riênghai trạngthái, giữcachevàlocalartifact đểrclonetiếpupload saubậtmáy.
+
+- Kaggle importzip dataset tựgiải nén: readylisting trả memberpaths, archive-name download404 không chứngminh datafail. Verify memberSHA vớisource, khôngreupload. SDK dataset_download_file giữrelativepath; truyền path=downloadroot, không path=parentlầnnữa. Kiểm mộtfilethật trướcfanout/fullstate.

@@ -1,5 +1,8 @@
 """Recover the authorized last five rounds after reboot, with a verified archive input; no scientific changes."""
 import ast
+import glob
+import shutil
+import tempfile
 import hashlib
 import json
 import os
@@ -34,7 +37,12 @@ def digest(path):
 
 
 def ka(*args):
-    return B.sh([sys.executable, str(B.SK / 'kaggle_as.py'), ACCOUNT, '--', *args], timeout=1800)
+    try:
+        return B.sh([sys.executable, str(B.SK / 'kaggle_as.py'), ACCOUNT, '--', *args], timeout=1800)
+    except subprocess.CalledProcessError as exc:
+        detail = (exc.stdout or '') + '\n' + (exc.stderr or '')
+        (OUT / 'last-cli-error.log').write_text(re.sub(r'(https?://[^\s?]+)\?[^\s]+', r'\1?<REDACTED>', detail))
+        raise
 
 
 def main():
@@ -79,11 +87,21 @@ def main():
     else:
         raise RuntimeError('Checkpoint dataset not ready; inspect receipt, do not relaunch blindly')
     verify = OUT / 'verify'; verify.mkdir(exist_ok=True)
-    remote_copy = verify / archive.name
-    if not remote_copy.exists():
-        (OUT / 'dataset-download.log').write_text(ka('kaggle', 'datasets', 'download', '-d', REF, '-f', archive.name, '-p', str(verify)))
-    assert digest(remote_copy) == archive_sha, 'Downloaded checkpoint archive SHA mismatch'
-    (OUT / 'dataset-verified.json').write_text(json.dumps(dict(ref=REF, archive_sha256=archive_sha, round=45, clients=clients), indent=2))
+    # Kaggle expands uploaded zip files. Verify the actual extracted files, not a nonexistent archive endpoint.
+    (OUT / 'dataset-download.log').write_text(ka(sys.executable, 'scripts/verify_checkpoint_dataset.py', '--ref', REF,
+        '--parent', str(PARENT), '--out', str(verify), '--report', str(OUT / 'dataset-file-hashes.json')))
+    # Exercise the emitted import guard against the real downloaded parent, including nested path resolution.
+    from scripts.gen_notebook import cells
+    from types import SimpleNamespace
+    cfg_args = SimpleNamespace(run=RUN, slug=SLUG, method='pfedes', rounds=50, args='', set=['seed=41'], overlay=[],
+                               resume_kernel='', resume_dataset=REF, max_hours=3.8)
+    source = next(code for kind, code in cells(cfg_args, 'unused-preflight') if kind=='code' and code.startswith('prev ='))
+    with tempfile.TemporaryDirectory(prefix='pfedes-import-', dir=OUT) as tmp:
+        source = source.replace('/kaggle/input', str(verify)).replace('/kaggle/working', tmp)
+        exec(source, dict(glob=glob, Path=Path, torch=torch, os=os, shutil=shutil))
+        assert (Path(tmp) / RUN / 'state_rank1.pt').stat().st_size == (PARENT / 'state_rank1.pt').stat().st_size
+    (OUT / 'dataset-verified.json').write_text(json.dumps(dict(ref=REF, archive_sha256=archive_sha, round=45, clients=clients,
+                                                              extracted_file_hashes=True, emitted_import_guard=True), indent=2))
     print('CHECKPOINT_DATASET_VERIFIED', REF, flush=True)
     live = B.inventory(ACCOUNT)
     assert len(live['busy']) < 2 and live['gpu_left'] >= 4.2 and SLUG not in live['versions'], live
@@ -94,24 +112,6 @@ def main():
     folder = ROOT / 'notebooks' / SLUG; path = folder / (SLUG + '.ipynb')
     nb = json.loads(path.read_text())
     for cell in nb['cells']:
-        source = ''.join(cell['source'])
-        if source.startswith('prev ='):
-            preamble = f'''if not glob.glob("/kaggle/input/**/{RUN}/state.pt", recursive=True):
-    import zipfile, hashlib
-    archives = glob.glob("/kaggle/input/**/{RUN}.zip", recursive=True)
-    assert len(archives) == 1, "checkpoint archive missing or ambiguous"
-    h = hashlib.sha256()
-    with open(archives[0], "rb") as stream:
-        for block in iter(lambda: stream.read(4 << 20), b""):
-            h.update(block)
-    assert h.hexdigest() == "{archive_sha}", "checkpoint archive hash mismatch"
-    with zipfile.ZipFile(archives[0]) as z:
-        assert all(not Path(n).is_absolute() and ".." not in Path(n).parts and n.startswith("{RUN}/") for n in z.namelist())
-        z.extractall("/kaggle/temp/pfedes-parent")
-'''
-            source = preamble + source.replace(f'prev = [p for p in glob.glob("/kaggle/input/**/{RUN}/state.pt", recursive=True)]',
-                f'prev = glob.glob("/kaggle/input/**/{RUN}/state.pt", recursive=True) or glob.glob("/kaggle/temp/pfedes-parent/{RUN}/state.pt")')
-            cell['source'] = source.splitlines(True)
         if cell['cell_type'] == 'code':
             ast.parse(''.join(cell['source']))
     path.write_text(json.dumps(nb, indent=1) + '\n')
