@@ -24,3 +24,5 @@ T3 launcher, resume và smoke dùng helper local. HP tham chiếu DAGSNet đư�
 `../mobihet/runs/t3-s41/batch.json`. Các method T3 và driver đã port trước phiên này.
 Helper shared vẫn giữ trong mobihet vì các pipeline DAGSNet còn dùng; script nghiên cứu DAGSNet khác thuộc repo đó.
 Không sửa overlay/source train đã khóa hoặc notebook đã push khi chuyển helper.
+
+Recovery16/11 sau reboot: `recover_pfedes41_final.py` chỉ phục hồi phiên cuối đãủyquyền; `push_after_reboot.py` chờ mount thật rồi push-j16/status hai repo. Không rerun launcher có intent.

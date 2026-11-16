@@ -106,3 +106,10 @@ Bài học ở đây là quy tắc rút ra khi chạy thí nghiệm và hạ t�
 - T3 resume15/11: gen_notebook --args chỉ đổi command train; ô import vẫn lấy --method mặc định fedavg nếu không truyền riêng. Luôn truyền method và kiểm guard notebook bằng checkpoint thật trước push.
 
 - Watcher batch hash gắn thư mục state với manifest bất biến; đổi slug/version phải dùng thư mục watch mới. Hash mismatch sau push chỉ cần phục hồi watcher, không push lại training.
+
+## Backup và kiểm tra16/11
+
+- DVCadd/status/push cùngrepo giữlock; chạy nối tiếp, đa luồng bằngpush-j16 trongmộtprocess. Lockcontention không phải artifactcorruption; không xóalock của jobkhỏe.
+- Cachev4npy .part còn từpullfull không làmCM/state đãaudit thànhpartial; backup bỏcacheset táitạođược, giữmodel/source/CM vàgiữfile.part local, khôngtựxóa.
+- Test dùngrootdataset phải kiểm actualparquet train/test, không chỉ thưmục tồn tại. ToyAFPHA cầnmetadatafixture riêng, không dựa dữliệulocal đangonline.
+- Shutdown sauDVCsyncmứcmount cóthểcòncloudVFSdirty; ghi riênghai trạngthái, giữcachevàlocalartifact đểrclonetiếpupload saubậtmáy.
