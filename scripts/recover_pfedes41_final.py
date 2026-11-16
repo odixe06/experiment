@@ -91,7 +91,7 @@ def main():
     (OUT / 'dataset-download.log').write_text(ka(sys.executable, 'scripts/verify_checkpoint_dataset.py', '--ref', REF,
         '--parent', str(PARENT), '--out', str(verify), '--report', str(OUT / 'dataset-file-hashes.json')))
     # Exercise the emitted import guard against the real downloaded parent, including nested path resolution.
-    from scripts.gen_notebook import cells
+    from gen_notebook import cells
     from types import SimpleNamespace
     cfg_args = SimpleNamespace(run=RUN, slug=SLUG, method='pfedes', rounds=50, args='', set=['seed=41'], overlay=[],
                                resume_kernel='', resume_dataset=REF, max_hours=3.8)

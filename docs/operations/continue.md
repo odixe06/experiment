@@ -1,60 +1,47 @@
-# Bàn giao sống —16/11/2026, sau reboot; tiếp tục hoàn tất công việc
+# Bàn giao sống —16/11/2026, sau reboot
 
 Đọc [CONTEXT](../../CONTEXT.md) → [LESSONS](../../LESSONS.md) → [bài học vận hành](lessons.md).
-Snapshot chi tiết phiên: [milestone16/11](../../archive/handoffs/2026-11-16-before-shutdown-handoff.md). Đây là bàn giao hiện hành duy nhất.
+Snapshot mốc trước reboot: [handoff16/11](../../archive/handoffs/2026-11-16-before-shutdown-handoff.md); không dùng snapshot làm trạng thái sống.
 
-## Quyền owner hiện hành
+## Quyền và công việc đã xong
 
-Owner đã reboot và yêu cầu tiếp tục push/hoàn tất; **không còn yêu cầu dừng để reboot**. Giữ quyền Git+DVC hai repo, Notion và nối pFedES41 r45→50. Không xóa artifact/cache, không cancel kernel khỏe hoặc đổi scientific settings.
+Owner đã reboot, yêu cầu hoàn tất và push Git+DVC hai repo; không còn yêu cầu dừng/reboot. Được nối pFedES41 r45→50 và cập nhật Notion. Không xóa artifact/cache, không cancel kernel khỏe, không đổi scientific settings.
 
-## Đã hoàn tất / nguồn chính
+- Baseline108session:105COMPLETE+3ERROR lịch sử;105source manifest×41file khớp source khóa `cb193e6fd56fc2f0c6810745cc57d8242c77c366`, không overlay. 41/42run đủendpoint; pFedES41 cònr45. CANPerFL endpoint10fine-tune sauFedAvg50.
+- **MobiHet=T3**, BERT vàDAGSNet đủr50 cả3seed41/42/43. BERT CM/support/10metric+state/source/HP/RNGhai rank/strict rebuildPASS; parentCM36/35/32round byte-identical. Phạm vi PASS_BOUNDED, chưa replay inference toàn mạng.
+- BERT exacthead: `minhtran0601/flb-t3-s41-p3/1`, `annhtnt/flb-t3-s42-p3/1`, `trietbackup/flb-t3-s43-p4/1`. Tất cảCOMPLETE; không launchlại.
+- [Results](../research/results.md), [8bảng hai model](../research/comparison.md), [JSON/nguồn](../research/comparison.json). NotionProposal2 đã thay bằngT3/MobiHet, ranking/bold vàgiữchildMininote; [receipt](notion-20261116.json). **pFedES tạm ẩn mọi bảng** theo owner, chờr50/audit.
+- Tests:35PASS suiteđầu; sửa fixture, rerun9PASS/1SKIP(parquetoffline); T3compute12PASS; notebook8PASS. Linkactive/diffcheckhai repoPASS. Không sửa production train đểqua test.
 
-- Inventory baseline108session:105COMPLETE+3ERROR lịch sử;105source manifest×41file khớp commit khóa `cb193e6fd56fc2f0c6810745cc57d8242c77c366`, không overlay.
-- Baseline41/42run đủendpoint (r50; CANPerFL10fine-tune sauFedAvg50). pFedES41p3 chỉr45, auditPASS_BOUNDED/completeFalse; đangnối riêng.
-- **MobiHet=T3**: BERT vàDAGSNet đủr50 cả3seed41/42/43. BERT CM/support/10metric+state/source/HP/RNGhai rank/strictrebuildPASS; parentCM36/35/32round byte-identical. Không prediction→CM replay toàn mạng.
-- BERT exacthead: `minhtran0601/flb-t3-s41-p3/1`, `annhtnt/flb-t3-s42-p3/1`, `trietbackup/flb-t3-s43-p4/1`, cả3COMPLETE. Không nối/launch lại.
-- Kết quả: [results](../research/results.md), [8bảng hai model](../research/comparison.md), [JSON/nguồn](../research/comparison.json); DAGSNetT3 thêm `../mobihet/docs/research/results-t3.md` (từroot repo).
-- Macro-F1 BERT .914770238±.000211920(hạng1), DAGSNet .907956319±.000331909(hạng3). Mean±sampleSD3seed, chưa significance/mixed-model proof.
-- NotionProposal2 đã thay bằng T3/MobiHet,8bảng/ranking/bold; childMininote giữ nguyên; pFedESẩn. Receipt [notion](notion-20261116.json), page `40d730cee68d80f0a49ad050377772d2`.
-- Tests:35PASS ởsuiteđầu; lỗifixture đã sửa, rerun9PASS/1SKIP(parquetoffline); T3compute12PASS. Linkactive vàdiffcheck2repoPASS. Không đổi production train để qua test.
+## Job sống — thread sở hữu phiên này
 
-## Backup/Git
+Ownerthread `01a1e31b-3489-76b3-a36f-f8ce699825eb`, deliveryqueue. Controllerstate chuẩn dưới `/home/odixe/.codex/long-jobs/jobs/<job>/state.json`; sau reboot luôn kiểm PID/startidentity, không tin `running` cũ.
 
-[Backup record](backup.md) là nguồn cho target/hash/remote. BERT3manifest đãpush-j16/status-c in sync; MobiHet10manifest tươngtự. Không dvcadd lại manifest lịch sử từworkspacepartial.
-Git docs/source/results/manifest đãpushmain cả2repo; bundleallrefs verifyPASS rồi thay trênOneDrive. Finalhandoff commit sẽchốt saureceiptpFedES; `git log -1`/`git ls-remote origin refs/heads/main` là nguồn đỉnh cuối.
-**OneDrivecloud còn7762VFSdirtyfiles** khi kiểm; chỉfilesystemmountsync đãPASS. Giữ `~/.cache/rclone/` vàlocalartifact; upload tiếp khi máy/mount chạy lại. Không gọicloudsyncxong hoặc cleanup.
+| Job | PID supervisor | Worker / log (từrootrepo) | Công việc |
+|---|---|---|---|
+| `pfedes41-reboot-launch-20261116-r5` |7400| `scripts/recover_pfedes41_final.py`; `runs/maintenance-20261116/pfedes-reboot-launch-r5.log` | Đãkiểm running; checkpoint verified→livequota/slots→push p4; chỉ nhận PUSHED sau exactversion receipt |
+| `dvc-reboot-push-20261116` |5438| `scripts/push_after_reboot.py`; `runs/maintenance-20261116/reboot-dvc.log` | Chờ mountOneDrive thật→push-j16 BERT3manifest rồiMobiHet10manifest→status-c; không ghi dưới mountchưa sẵn sàng |
 
-## Việc duy nhất còn đang thực hiện: pFedES41 phiên cuối
+Theo dõi: `tail -n 200 -F runs/maintenance-20261116/pfedes-reboot-launch-r5.log` hoặc `tail -n 200 -F runs/maintenance-20261116/reboot-dvc.log`.
+Chỉ còn chờ thì kết thúc turn; worker/completion đánh thức phiên, không modelpoll.
 
-- Parent `emtrangtri/flb-pfedes-s41-p3/1`,r45; state2672+2671xe,bankfinite,HP/source vàsavedmethodgenPASS. Baseline cũ không lưu torchCPU/CUDA RNG riêng; giữ nguyên resume semantics, không gọi fullRNGexactresume.
-- Owner mới đã chọn **outlookcheck**,quota19.6296h lúcgate; budgetphiên3.8h (5round×~1682s +startup/save), cùngsource/HP/cosine50.
-- **Đangstaging private checkpointdataset; chưa gọiPUSHED trướcreceipt.** Target dựkiến `outlookcheck/flb-pfedes-s41-p4/1`. Không launchtrùng.
-- Mainjob `pfedes41-final-20261116`,supervisorPID281246;ownerthread `01a1e31b-3489-76b3-a36f-f8ce699825eb`;deliveryqueue. State `/home/odixe/.codex/long-jobs/jobs/pfedes41-final-20261116/state.json`.
-- Log `runs/maintenance-20261116/pfedes41-final.log`; workerbảnbền `runs/maintenance-20261116/workers/resume_pfedes41_20261116.py`.
-- Mainworker stage/push →watchexact1200s →fullpull-j16 →audit. Notifier `pfedes41-launch-receipt-20261116`,PID287248 chỉchờreceiptlocal, khôngqueryKaggle/launch. Log `runs/maintenance-20261116/pfedes-launch-receipt.log`.
-- Receipt khiđãpush: `runs/maintenance-20261116/pfedes41-final/launched.json`, `batch.json`, `watch/latest.json`; ledger `runs/batch-s41/flb-pfedes-s41-p4.{intent,pushed,push-reply}`. Checkpointdataset/ready tại `runs/transfer/flb-pfedes-s41-p3/ready.json`.
+## pFedES41 — checkpoint đã xác minh, chưa kết luận launch thành công
 
-## Bật máy / resume — không chạy lại launcher có intent
+- Parent exact `emtrangtri/flb-pfedes-s41-p3/1`,r45; hai state2672+2671client,finite,HP/source/savedmethodgenPASS. Baseline cũ không lưu torchCPU/CUDA RNG riêng; giữ resume semantics gốc, không gọi fullRNGexactresume.
+- Private dataset mới **`outlookcheck/flb-pfedes-s41-r45-final`**, ready94file. **94/94file tải thực đãSHA256 khớp parent**; guard import thật nạp đủhai rankr45; mọi cell ASTparsePASS. Receipt `runs/maintenance-20261116/pfedes-reboot/{dataset-file-hashes,offline-preflight}.json`.
+- Target `outlookcheck/flb-pfedes-s41-p4`, budget3.8h, seed41/sourcecb193e6/HP/cosine50 giữ nguyên. Gate gầnnhất quota19.6296h/0busy; launcher đọc lại ngaytrướcpush. Check `runs/maintenance-20261116/pfedes-reboot/launched.json` và `runs/batch-s41/flb-pfedes-s41-p4.{intent,push-reply,pushed}` trước mọi retry.
+- r1–r4 lỗi localchecker, không trainingfail: Kaggle tựgiải nénzip; SDK giữrelativepath; thiếuimportos; r4 importmodule khi chạy scripttrực tiếp. Đã sửa đúngstage, giữdataset/checkpoint, offlinepreflightPASS trước r5. Không uploadlại hoặc launchtrùng.
+- Job `pfedes41-final-20261116`/notifier trước reboot không sống; không chạy lại. Notification lặp jobcũ chỉ là evidence, không yêu cầu rerun.
 
-1. Đọc hub/lessons/bàn giao. Kiểm mountOneDrive vàPID/startidentity; controllerstate running saureboot cóthểstale.
-2. Đọc receiptp4; queryexactaccount/slug/version qua helperaccount-scoped. QUERY_ERROR làUNKNOWN, không restart training.
-3. RUNNING/QUEUED: chỉ watch1200s bằngworkerlocal/codex-long-jobs. Không modelpoll, không chạy lại `resume_pfedes41_20261116.py` (nó đã sở hữu launch).
-4. COMPLETE/ERROR: pulloutputexactp4 về `runs/pulls/flb-pfedes-s41-p4` bằnghelper-j16, auditCM/support/source/HP/round50; kiểm parentCM45round làprefix. ERROR vẫnpull/chẩnđoán trướcretry.
-5. Nếu đủr50/auditPASS: cập nhật done/status/reportseed41; bỏ dòng `NAMES.pop('pfedes')` trong `scripts/build_project_comparison.py`, táisinhbảng/Notion, thêm lạipFedES chỉ sauaudit. Backup outputp4/receipt mới, commit/push/bundle theo quyền16/11.
-6. Partial: chỉnối checkpoint tươngthích đãaudit trong quyền tới50, giữscientificsettings; khôngstartfresh đểlấykếtquả.
+## Backup
 
-Cácjob collect/server-profile/test/backup trước đã xử lý; notificationlặp không là yêu cầu rerun. Không còn watcher baseline/T3 cũ cần phục hồi. Chưa có thao tác tay bắt buộc ngoài owner tắt/bật máy theo ý muốn sau thông báo bàn giao cuối.
+[Backup record](backup.md) giữtarget/hash/remote. Trước reboot: BERT3manifest vàMobiHet10manifest đãpush-j16/status-c in sync; Gitmainhai repo đãpush, bundleverifyPASS. **Push lại sau reboot chưa kết luận xong** cho tới receipt jobDVC.
+OneDrive service đang phục hồiVFS; lầnđo16:20dirty giảm7762→3294file. Đây là snapshot tiếnđộ, không chứngminh cloudsync. Giữ `~/.cache/rclone/` vàlocalartifact; khôngrestart servicekhỏe/xóacache. Không dvcadd lại manifest lịch sử từworkspacepartial.
 
-## Recovery sau reboot — kiểm16/11 15:54 VN
+## Tiếp theo sau completion
 
-Process launcher/watcher cũ không sống; state running cũ là stale. Exact p4 chưa tồn tại trong owned inventory outlookcheck. Dataset cũ `outlookcheck/flb-pfedes-s41` nhận create-reply nhưng không có trong owned listing, status403; không coi đãready hoặc checkpoint đãmount.
-- Job **pfedes41-reboot-launch-20261116**, supervisorPID5355, queue/cùng ownerthread. Worker repoBERT `scripts/recover_pfedes41_final.py`; logBERT `runs/maintenance-20261116/pfedes-reboot-launch.log`; state `/home/odixe/.codex/long-jobs/jobs/pfedes41-reboot-launch-20261116/state.json`. Đã kiểm running. Đóng archive parentr45 (2rank/CM/history, bỏ Inductorcache), private dataset mới `outlookcheck/flb-pfedes-s41-r45-final`; verify archiveSHA sau download, rồi generate/testsyntax/private2T4/sourcecb193e6/seed41/50round và pushp4. Không launchtrùng.
-- Job **dvc-reboot-push-20261116**, supervisorPID5438, queue/cùng ownerthread. WorkerBERT `scripts/push_after_reboot.py`; logBERT `runs/maintenance-20261116/reboot-dvc.log`; state `/home/odixe/.codex/long-jobs/jobs/dvc-reboot-push-20261116/state.json`. Đã kiểm running. Chờ mountOneDrive thật (serviceđangactivating); sau đó push-j16 BERT3manifest/MobiHet10manifest nối tiếp và status-c. Không ghi vào thưmục bên dưới mount khi chưa mount.
-- Script recovery/backup source mới trackedGit; notebook chứa credential vẫn PRIVATE/gitignored. Parent source/model/loss/HP/schedule không đổi; cachemiss chỉ compile lại.
-- Completion launch: đọc launched.json/intent/pushed/exactversion, querymộtlần; sau đó watch1200s bằng worker→terminal pull/audit. Đủr50 mới thêm pFedES trở lại comparison/Notion và backup outputp4. Không modelpoll trong lúc chờ.
-- Completion DVC: kiểm exit0+status-c in sync hai repo; cập nhật backuprecord. Cloudupload tách riêng mứcmount; giữVFSdirtycache.
-
-## Recovery dataset —16/11 16:20 VN
-
-Dataset mới `outlookcheck/flb-pfedes-s41-r45-final` đãready vàlisting94file (gồmstate2rank832642276/832329888B). Kaggle tựgiải nénzip khiimport: downloadtênarchive trả404, không phải mấtcheckpoint. Checker cũ truyềnpathparent hai lần gâythưmụclồng; đãtách helper `scripts/verify_checkpoint_dataset.py`, sửa rootdownload, giữvàchuẩnhóa file đãtải. Repro fileCMr1thật SHA256PASS saufix. Không uploadlại dataset hoặc đổi method.
-Launchr1/r2/r3 lỗiđúngbướcchecker, chưa cókernelpush. Job hiện hành **pfedes41-reboot-launch-20261116-r4**,supervisorPID6828,deliveryqueue;logBERT `runs/maintenance-20261116/pfedes-reboot-launch-r4.log`,state `/home/odixe/.codex/long-jobs/jobs/pfedes41-reboot-launch-20261116-r4/state.json`; đãkiểm running. VerifySHA94file→importguardrealcheckpoint→pushp4. JobDVC PID5438 vẫnsống/chờmount; OneDriveVFSdirty giảm7762→3294 sau reboot, cótiếnđộupload, khôngrestart/xóacache.
+1. Launch: kiểmstate/log+launched.json+intent/pushed/exactversion; queryexactmộtlần. RUNNING/QUEUED→watcherworker1200s, khôngpushlại. TerminalCOMPLETE/ERROR đều pullfulloutput-j16 rồiaudit, không lấy exit0 thayartifact.
+2. p4 đủr50: kiểmsourcecb193e6/HP/CM/support/10metric/finite2rank vàparent45CMprefix. Cập nhật done/status/reportseed41. Trong comparisonbuilder bỏ cả3chỗlọc pFedES, táisinhhai repo/Notion, giữchildMininote. Chưa đủr50 thì vẫnẩn pFedES.
+3. Backup outputp4/receipt mới bằngmanifestmới; khôngghi đè snapshotpartial. Gitpushhai repo, bundleallrefsverify rồi thay trênmountthật. DVCpush/status-c nối tiếp cùngrepo.
+4. DVCcompletion: đọc từngpush/statuslog trong `runs/maintenance-20261116/reboot-backup/`; chỉ nhận `ALL_REBOOT_DVC_PUSHES_VERIFIED` cùng status-c insync. Cập nhậtbackuprecord, táchmountsync/cloudsync.
+5. Bàn giao cập nhật tạiđây, hub chỉtrỏ. Chưa có việc tay bắt buộc; nếu quota/access/mount lỗi ngoài recovery thì báo đúngblocker.
