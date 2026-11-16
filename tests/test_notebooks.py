@@ -16,10 +16,10 @@ from scripts.gen_notebook import cells
 
 def args(**kw):
     return SimpleNamespace(**(dict(run='flb-fedavg', slug='flb-fedavg-p2', method='fedavg', rounds=50,
-                                  args='', set=['seed=42'], overlay=[], resume_kernel='', max_hours=5) | kw))
+                                  args='', set=['seed=42'], overlay=[], resume_kernel='', resume_dataset='', max_hours=5) | kw))
 
 
-@pytest.mark.parametrize('cfg', [args(), args(resume_kernel='owner/flb-fedavg'),
+@pytest.mark.parametrize('cfg', [args(), args(resume_kernel='owner/flb-fedavg'), args(resume_dataset='owner/checkpoint'),
                                args(method='canperfl', rounds=10,
                                     set=["init='\\\"/kaggle/input/**/flb-fedavg/state.pt\\\"'"])])
 def test_emitted_notebook_arguments(cfg):
@@ -62,3 +62,12 @@ def test_resume_requires_matching_ranks_before_copy(tmp_path, rank1_round):
         exec(source, env)
         assert (target / 'models/r002.pt').read_bytes() == b'snapshot'
         assert (target / 'state.pt').stat().st_mode & 0o200  # read-only parent does not make imported state read-only
+
+
+def test_cache_archive_wraps_training_and_npy_reuses_parent():
+    sources = [s for kind, s in cells(args(resume_kernel='owner/flb-fedavg'), 'abc123') if kind == 'code']
+    data = next(s for s in sources if 'npy cache ready' in s)
+    assert 'D.build_npy' in data and 'if len(parents) == 1:' in data
+    train = next(s for s in sources if 'rc = subprocess.run(cmd' in s)
+    assert train.index('"-xf"') < train.index('rc = subprocess.run(cmd') < train.index('"-cf"') < train.index('assert rc')
+    assert 'TORCHINDUCTOR_CACHE_DIR="/kaggle/temp/inductor"' in train

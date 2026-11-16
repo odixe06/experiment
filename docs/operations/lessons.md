@@ -92,3 +92,17 @@ Bài học ở đây là quy tắc rút ra khi chạy thí nghiệm và hạ t�
 - Plan không được hủy toàn batch vì chưa đủ account đọc được: khóa phần đã xác minh, giữ method còn lại trong `deferred`.
   Collector thử cấp account mới cho deferred mỗi tick 1.200 s, kiểm lại quota/slot trước push; source/scientific config giữ nguyên.
   Test allocation một account/quota thiếu, deferred chỉ launch khi inventory đọc được: PASS.
+
+- Resume13/11: notebook v1 chỉ lưu state/model, cache NPY/Inductor ở temp không vào output. Không thể khôi phục cache chưa được lưu. Generator mới export Inductor tar, reuse parent NPY khi có; giữ pinned runtime, compile gate và scientific source. Thời gian warmup T4 mới cần đo, không coi cache config là bằng chứng tăng tốc.
+
+- 15/11: worker gọi Python bằng absolute path vẫn cần `PATH` chứa env `nckh/bin` nếu subprocess gọi `kaggle` bằng tên. Thiếu PATH gây status UNKNOWN rỗng; không suy kernel lỗi. Worker collect mới export PATH trước chạy.
+
+- 15/11: nbformat tự sinh ID cell ngẫu nhiên; tái sinh notebook cùng source/HP vẫn đổi SHA và phá batch khóa. T3 launcher cố định `t3-cell-NNN`; repro sinh hai lần: trước FAIL chỉ `/cells/*/id`, sau PASS không diff. Chỉ cập nhật notebook hash trước push khi không có intent/marker, giữ receipt batch cũ; không nới kiểm hash source/HP.
+
+- 15/11: quota có thể giảm giữa plan và live pre-push; assertion `quota changed; inspect budget` xảy ra trước intent. Collector phải ghi WAIT cho run này rồi xử lý run khác, không dừng toàn batch. Regression collect2run: run đầu thiếu quota, run sau vẫn push; RED→GREEN, suite batch4/4 PASS. Không bỏ gate quota hoặc sửa scientific settings.
+
+- 15/11 T3 resume: worker gọi Python tuyệt đối nhưng subprocess `kaggle` vẫn cần PATH conda. Thiếu PATH làm FileNotFoundError trước gửi push; giữ intent/reply lỗi, prepend thư mục sys.executable rồi retry. Xác minh CLI2.2.5 trong env nckh.
+
+- T3 resume15/11: gen_notebook --args chỉ đổi command train; ô import vẫn lấy --method mặc định fedavg nếu không truyền riêng. Luôn truyền method và kiểm guard notebook bằng checkpoint thật trước push.
+
+- Watcher batch hash gắn thư mục state với manifest bất biến; đổi slug/version phải dùng thư mục watch mới. Hash mismatch sau push chỉ cần phục hồi watcher, không push lại training.

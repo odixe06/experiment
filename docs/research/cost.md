@@ -8,7 +8,7 @@ Số liệu đo bằng [scripts/cost.py](../../scripts/cost.py) và ghi ra [cost
 
 Thời gian GPU thật lấy từ `t_train`/`t_eval` trong `rounds.jsonl`.
 
-F = forward FeatureBERT = **10,23 MFLOP/dòng** (DAGSNet W1: 4,45). P = 77.904 (DAGSNet 395.408 + 3.295 buffer).
+F = forward FeatureBERT = **10,23 MFLOP/dòng** (DAGSNet W1: 4,45). P = 77.904 (DAGSNet 395.408 + 3.264 buffer).
 
 | phương pháp | client / dòng / round | × F | byte lên / xuống / xe / round | P |
 |---|---:|---:|---|---:|

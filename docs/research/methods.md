@@ -1,7 +1,7 @@
 # Danh mục phương pháp: 14 baseline FL trên FeatureBERT
 
 Nguồn: danh mục của [`fl_dagsnet_veremi_v2`](https://github.com/odixe06/fl_dagsnet_veremi_v2/blob/main/docs/research/methods.md).
-Owner 13/11 bỏ SCAFFOLD, không chạy MobiHet và centralized. Cấu hình chung: [protocol](protocol.md). Bài báo: [papers/](../../papers/README.md).
+Owner13/11 bỏSCAFFOLD/centralized; owner15/11 bổ sungMobiHet/T3,3seed41/42/43. Cấu hình chung: [protocol](protocol.md). Bài báo: [papers/](../../papers/README.md).
 Đặc tả từng phương pháp nằm ở **docstring đầu file** `methods/<alias>.py`: công thức theo số phương trình của bài, siêu tham số, deviation.
 Code method chép từ v2 (working tree đã chạy seed 41/43, 12/11). Chỉ sửa những chỗ phụ thuộc kiến trúc (cột "đổi cho BERT").
 
@@ -24,6 +24,6 @@ Cột "model chấm": **toàn cục** = một model, chấm trên toàn test; **
 | 13 | perfedskd | Singh 2024 (TCE) | client | θ (client được chọn) | — |
 | 14 | fedproto | Tan 2022 (AAAI) | client_proto (headline) + head | prototype | representation = CLS (d = 64) |
 
-Đã loại: SCAFFOLD (owner 13/11), MobiHet/CBB (owner 13/11), centralized (owner 13/11).
+Đã loại:SCAFFOLD/centralized. MobiHet được bổ sung lại dưới phương pháp **T3** ngày15/11, method `mobihet_compute`: syntheticS64→64/M64→32/L48→16 từr26,floor16, traoQ8+bootstrapKM16/lite6; clientown-test. Cơ chế tại `../mobihet/docs/research/method.md` (tính từ root repo).
 Đối chiếu code với v2: [parity](v2-parity.md) (20 kiểm tra AST PASS).
 Trạng thái chạy: [continue](../operations/continue.md). Kết quả: [results](results.md).

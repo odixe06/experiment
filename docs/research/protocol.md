@@ -25,8 +25,8 @@ Mọi thứ dưới đây dùng chung một bộ code (`core/`), không sửa ri
 | Optimizer | AdamW, β (0,9; 0,999), ε 1e-8, weight decay 1e-4. Trạng thái optimizer khởi tạo lại mỗi round |
 | LR | cosine theo round: 1e-3 ở r1 → 1e-5 ở r50 (cố định trong một round) |
 | Khác | grad-norm clip 1,0 theo từng client; AMP fp16 (T4); dropout 0,1 (FeatureBERT: dropout ở residual, FFN và attention) |
-| Seed | **42** (owner 13/11: bản đầu chỉ chạy seed 42) |
-| Init | mọi model khởi tạo từ cùng θ⁰ (seed 42), trùng θ⁰ của BERT centralized |
+| Seed | **41,42,43** (owner bổ sung14/11; mỗi seed batch riêng) |
+| Init | mọi model trong một run khởi tạo từ cùng θ⁰ theo seed của run; seed42 trùng θ⁰ của BERT centralized |
 
 **Gộp model:** mọi trung bình tham số giữa client tính theo số mẫu n_k (owner 29/10). FeatureBERT không có BN buffer.
 Gộp prototype giữ đúng cơ chế của bài (TinyProto APS, FedTGP Q^c, FedProto Eq. 6).
@@ -42,7 +42,7 @@ Giá trị phải giống v2, kể cả TinyProto μ = 1,5e-4. Không quét siê
 
 - **14 phương pháp FL** của v2: FedAvg, FedProx, AFPHA, FD-IDS, APFed, LwFedNIDS, V2X-HtFL, CANPerFL, TinyProto, pFedES, NILM-FL, FedTGP,
   PerFed-SKD, FedProto ([danh mục](methods.md)).
-- **Bỏ SCAFFOLD.** Không chạy MobiHet / CBB. Không chạy centralized (BERT centralized ep1–18 nằm ở repo veremi-bert-77, chỉ để tham chiếu).
+- **Bỏ SCAFFOLD.** Owner15/11 bổ sung **T3/MobiHet** 3seed41/42/43, cùng HP/code T3 DAGSNet, chỉ đổi model/engine (production group_rows4096). Không chạy centralized (BERT centralized ep1–18 nằm ở repo veremi-bert-77, chỉ để tham chiếu).
 
 ## Đánh giá (mỗi round)
 

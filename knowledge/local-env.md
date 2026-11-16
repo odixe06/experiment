@@ -10,8 +10,8 @@
 | Conda | `/home/odixe/Tools/miniconda3`, env **`nckh`** (Python 3.12.15) — dùng chung với `mobihet`, `mobihet-features`, `fl_dagsnet_veremi_v2` |
 | Package | torch 2.13.0+cu130 (CUDA 13.0, cuDNN 9.20), numpy 2.5.2, pyarrow 25.0.0, scikit-learn 1.9.0, wandb 0.29.0, kaggle 2.2.5 — [local-runtime.json](local-runtime.json), [environment.yml](../environment.yml) |
 | Checkout | `/home/odixe/project/fl_veremi_bert` (anh em: `../fl_dagsnet_veremi_v2` bản DAGSNet, `../mobihet`) |
-| Dataset v4 local | `/home/odixe/project/mobihet-features/data/v4-scaled` (4,3 GB parquet) — xem [dataset](dataset.md) |
-| Kaggle CLI | `~/.kaggle/` (roster 16 account, token theo account); helper `.claude/skills/kaggle-training-notebook/scripts/kaggle_as.py` |
+| Dataset v4 local | `/home/odixe/project/mobihet-features/data/v4-scaled` (đường dẫn lịch sử; parquet đã offline khi kiểm16/11, dùng cache subset cho local) — xem [dataset](dataset.md) |
+| Kaggle CLI | `~/.kaggle/` (roster saved accounts, kiểm quota/identity sống; không suy số account từ ghi chú cũ); helper `.agents/skills/kaggle-training-notebook/scripts/kaggle_as.py` |
 | W&B | key trong `~/.netrc` |
 | GitHub | `gh` đăng nhập `odixe06` |
 

@@ -48,3 +48,10 @@
 - 13 W&B config đã kiểm: world 2, clients 5.343, backend compiled, HP đúng protocol; TinyProto μ 1,5e-4;
   LwFedNIDS d20/FFN39/4 head, 10.194 tham số. Khi kiểm 09:59 VN chỉ AFPHA có metric r1; các run khác chưa có round metric.
   Đây là quan sát live, chưa thay final artifact audit/CM.
+
+## Tổng hợp báo cáo16/11
+
+- `fold_counts.npy` shape `(5343,2,16)`: trục1=train/val; cộng trục0 sẽ mất client và cho32ô thay vì số prototype client×class.
+  Ước lượng server phải kiểm shape/count trước profile. Toy server FLOPs=0 ở phép cộng elementwise không có nghĩa server miễn phí.
+- CANPerFL có endpoint10fine-tune sau FedAvg50; auditor DAGSNet cũ ghi `complete=False` dù đủ10.
+  Tổng hợp phải kiểm method+round thực, không áp endpoint50 đồng loạt hoặc bỏ completeness gate cho mọi method.

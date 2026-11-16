@@ -74,7 +74,7 @@ raise SystemExit("W&B credential not embedded: run embed_wandb_key.py")
 # END INLINE WANDB CREDENTIAL
 print("W&B authenticated")"""
     resume = ""
-    if a.resume_kernel:
+    if a.resume_kernel or a.resume_dataset:
         resume = f"""prev = [p for p in glob.glob("/kaggle/input/**/{run}/state.pt", recursive=True)]
 assert len(prev) == 1, "resume requested: missing or ambiguous {run}/state.pt"
 parent = Path(prev[0]).parent
@@ -94,15 +94,28 @@ print("resumed from", prev[0])
     yield "code", """t = time.monotonic()
 sys.path.insert(0, "/kaggle/temp/src")
 from core import data as D
-D.build_npy(D.find_root(), "/kaggle/temp/v4npy")    # one reader; every rank then memmaps (V4_NPY)
-print(f"npy cache built in {time.monotonic() - t:.0f}s")"""
+npy = Path("/kaggle/working/v4npy")
+parents = [p.parent for p in Path("/kaggle/input").glob("**/v4npy/done")]
+if len(parents) == 1:
+    npy = parents[0]  # immutable parent output; no 7 GB copy
+    assert all((npy / f"{split}_{key}.npy").is_file() for split in ("train", "test") for key in ("X", "Y", "off", "ids", "F"))
+else:
+    assert not parents, "ambiguous npy cache"
+    D.build_npy(D.find_root(), str(npy))
+print(f"npy cache ready in {time.monotonic() - t:.0f}s: {npy}")"""
     yield "code", f"""os.environ.update(TORCHINDUCTOR_COMPILE_THREADS="1", PYTHONUNBUFFERED="1", OMP_NUM_THREADS="2",
                   PYTORCH_CUDA_ALLOC_CONF="expandable_segments:True",   # GPU near-full: avoid allocator thrash (MobiHet 30/10)
-                  V4_NPY="/kaggle/temp/v4npy")
+                  V4_NPY=str(npy), TORCHINDUCTOR_CACHE_DIR="/kaggle/temp/inductor",
+                  TORCHINDUCTOR_FX_GRAPH_CACHE="1")
+cache_tar = Path("/kaggle/working/{run}/inductor-cache.tar")
+if cache_tar.exists():
+    subprocess.run(["tar", "-xf", str(cache_tar), "-C", "/kaggle/temp"], check=False)
 budget = {a.max_hours} - (time.monotonic() - T0) / 3600
-cmd = "cd /kaggle/temp/src && torchrun --standalone --nproc_per_node=2 {args}".replace("BUDGET", f"{{budget - 0.4:.2f}}")
+cmd = "cd /kaggle/temp/src && torchrun --standalone --nproc_per_node=2 {args}".replace("BUDGET", f"{{budget - 0.15:.2f}}")
 print(cmd)
 rc = subprocess.run(cmd, shell=True).returncode
+if Path("/kaggle/temp/inductor").exists():
+    subprocess.run(["tar", "-cf", str(cache_tar), "-C", "/kaggle/temp", "inductor"], check=False)
 assert rc == 0, f"training exited {{rc}}"
 """
     yield "code", f"""for f in glob.glob("/kaggle/working/{run}/*.jsonl"):
@@ -122,6 +135,7 @@ def main():
     ap.add_argument("--sha", default="")
     ap.add_argument("--overlay", nargs="*", default=[], help="embed exact local source files over --sha; record hashes, no Git push")
     ap.add_argument("--resume-kernel", default="", help="<owner>/<slug> whose output holds <run>/state.pt")
+    ap.add_argument("--resume-dataset", default="", help="<owner>/<slug> private dataset holding <run>/state.pt (cross-account)")
     ap.add_argument("--input-kernel", default="", help="<owner>/<slug> mounted read-only under /kaggle/input (e.g. CANPerFL's FedAvg)")
     a = ap.parse_args()
     sha = a.sha or subprocess.run(["git", "-C", ROOT, "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
@@ -138,7 +152,7 @@ def main():
     meta = {"id": f"{a.owner}/{a.slug}", "title": a.slug, "code_file": f"{a.slug}.ipynb", "language": "python",
             "kernel_type": "notebook", "is_private": True, "enable_gpu": True, "enable_internet": True,
             "machine_shape": "NvidiaTeslaT4", "docker_image": RUNTIME["docker_image"],
-            "dataset_sources": [DATASET], "kernel_sources": [k for k in (a.resume_kernel, a.input_kernel) if k],
+            "dataset_sources": [DATASET] + ([a.resume_dataset] if a.resume_dataset else []), "kernel_sources": [k for k in (a.resume_kernel, a.input_kernel) if k],
             "competition_sources": [], "model_sources": []}
     json.dump(meta, open(os.path.join(out, "kernel-metadata.json"), "w"), indent=1)
     print(out, sha)

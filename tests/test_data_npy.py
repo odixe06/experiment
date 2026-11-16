@@ -1,5 +1,5 @@
 """build_npy + load_npy (V4_NPY) give the same arrays as the parquet loader, for client and fold subsets."""
-import os
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -9,7 +9,8 @@ from core import data as D
 ROOT = "/home/odixe/project/mobihet-features/data/v4-scaled"
 
 
-@pytest.mark.skipif(not os.path.exists(ROOT), reason="local v4 data only")
+@pytest.mark.skipif(not all(any((Path(ROOT) / split).rglob('*.parquet')) for split in ('train', 'test')),
+                    reason="local v4 train/test parquet data only")
 def test_npy_matches_parquet(tmp_path):
     ids = [5, 17, 99, 1234, 4000]
     D.build_npy(ROOT, str(tmp_path), clients=ids)

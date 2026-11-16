@@ -40,3 +40,34 @@ def test_deferred_launch_requires_readable_free_account(tmp_path, monkeypatch, r
         r, head = pushed[0]
         assert head == 'frozen' and r['account'] == 'owner' and r['max_hours'] * batch.MARGIN <= 8
         assert rows[r['slug']] == r
+
+
+def test_collect_quota_change_waits_and_continues_other_run(tmp_path, monkeypatch):
+    out = tmp_path / 'batch'
+    out.mkdir()
+    monkeypatch.setattr(batch, 'ROOT', tmp_path)
+    monkeypatch.setattr(batch, 'OUT', out)
+    rows = {}
+    for method in ('fedavg', 'fedprox'):
+        slug = batch.slug(method)
+        rows[slug] = dict(slug=slug, run=slug, method=method, account='owner', part=1, set=[], max_hours=1)
+        (out / f'{slug}.pushed').write_text('ok')
+        (out / f'{slug}.done').write_text('COMPLETE')
+        manifest = tmp_path / 'runs/pulls' / slug / 'provenance/source_manifest.json'
+        manifest.parent.mkdir(parents=True)
+        manifest.write_text(json.dumps(dict(base_sha='frozen', overlay={}, files={})))
+    monkeypatch.setattr(batch, 'sessions', lambda: ({'head': 'frozen'}, rows))
+    monkeypatch.setattr(batch, 'launch_deferred', lambda *args: None)
+    monkeypatch.setattr(batch, 'last_round', lambda r: 1)
+    monkeypatch.setattr(batch, 'quota', lambda: {'owner': 6})
+    attempted = []
+    def push(r, head):
+        attempted.append(r['method'])
+        if r['method'] == 'fedavg':
+            raise AssertionError(('quota changed; inspect budget', 'owner'))
+    monkeypatch.setattr(batch, 'push', push)
+    batch.collect()
+    status = json.loads((out / 'status.json').read_text())['runs']
+    assert attempted == ['fedavg', 'fedprox']
+    assert 'WAIT' in status[batch.slug('fedavg')]['next']
+    assert 'PUSHED' in status[batch.slug('fedprox')]['next']

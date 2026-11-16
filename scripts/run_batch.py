@@ -24,23 +24,24 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "runs/batch"
 SK = ROOT / ".agents/skills/kaggle-training-notebook/scripts"
 PY = sys.executable
-SEED = 42
+SEED = int(__import__("os").environ.get("FLB_SEED", 42))   # 41/43: separate batch dir + slug suffix (owner 14/11)
+OUT = ROOT / ("runs/batch" if SEED == 42 else f"runs/batch-s{SEED}")
 # method, extra --set, measured seed-42 train+eval hours of the DAGSNet build (fl_dagsnet_veremi_v2 runs/pulls rounds.jsonl)
 METHODS = [("nilm", [], 14.4), ("apfed", [], 7.4), ("pfedes", [], 7.1), ("perfedskd", [], 5.2), ("v2x_htfl", [], 5.2),
            ("fedtgp", [], 5.05), ("tinyproto", ["mu=0.00015"], 5.05), ("fd_ids", [], 4.4), ("afpha", [], 3.9),
            ("fedproto", [], 3.85), ("fedprox", [], 3.7), ("fedavg", [], 3.4), ("lwfednids", [], 1.1)]
 CANPERFL_H = 0.83
 FACTOR = 1.5          # BERT / DAGSNet time, planning guess (local RTX 3050: 0.85x on real data, 2.05x synthetic) -> re-fit
-SETUP, MARGIN, CAP, MIN_SESSION = 0.8, 1.15, 11.5, 3.0
-EXCLUDE = {"novahihi", "keocaosu", "emtrangtri", "minhtran0601"}   # mobihet B20 (owner 13/11)
+SETUP, MARGIN, CAP, MIN_SESSION = 0.8, 1.03, 11.5, 0.55
+EXCLUDE = {"minhtran0601",   # mobihet B20 accounts freed 14/11 (B20 done); minhtran0601 holds B21 T4FP
+           "dinhan25", "annhtnt", "trietbackup", "annhannh331"}  # mobihet B21 (14/11); outlookcheck shared: flb-apfed chain lives there
 PULL = r"(^provenance/|/(config\.json|rounds\.jsonl|cms_r\d{3}\.npz|models/r\d{3}\.pt)$)"
 
 
 def slug(m, part=1):
-    return f"flb-{m.replace('_', '-')}" + (f"-p{part}" if part > 1 else "")
+    return f"flb-{m.replace('_', '-')}" + ("" if SEED == 42 else f"-s{SEED}") + (f"-p{part}" if part > 1 else "")
 
 
 def sh(args, **kw):
@@ -118,6 +119,8 @@ def push(r, head):
             "--set", f"seed={SEED}", *r["set"]]
     if r.get("resume"):
         args += ["--resume-kernel", f"{a}/{r['resume']}"]
+    if r.get("resume_dataset"):
+        args += ["--resume-dataset", r["resume_dataset"]]
     if r.get("input"):
         args += ["--input-kernel", f"{a}/{r['input']}"]
     sh(args)
@@ -205,13 +208,13 @@ def launch_deferred(p, rows):
         except (subprocess.SubprocessError, ValueError):
             print("WAIT inventory unknown", account, flush=True)
             continue
-        if live["busy"]:
+        if len(live["busy"]) >= 2:   # one free slot is enough (other project/seed holds the other)
             continue
         left = min(hours, live["gpu_left"]) / MARGIN - reserved
         if left >= MIN_SESSION:
-            available[account] = left
-    slots = {a: 2 - sum(1 for x in rows.values() if x["account"] == a
-                       and not (OUT / f"{x['slug']}.done").exists()) for a in available}
+            available[account] = (left, 2 - len(live["busy"]))
+    slots = {a: v[1] for a, v in available.items()}
+    available = {a: v[0] for a, v in available.items()}
     for r in pending:
         candidates = [a for a, h in available.items() if h >= MIN_SESSION and slots[a] > 0]
         if not candidates:
@@ -270,8 +273,10 @@ def collect():
         if rr < target:
             nxt = dict(r, slug=slug(r["method"], r["part"] + 1), part=r["part"] + 1, resume=r["slug"])
             nxt.pop("max_hours", None)
-        elif r["method"] == "fedavg" and "flb-canperfl" not in head:
-            nxt = dict(slug="flb-canperfl", run="flb-canperfl", method="canperfl", account=r["account"], part=1, rounds=10,
+            nxt.pop("resume_dataset", None)   # cross-account parent only for the first session on the new owner
+            nxt.pop("transfer_from", None)
+        elif r["method"] == "fedavg" and slug("canperfl") not in head:
+            nxt = dict(slug=slug("canperfl"), run=slug("canperfl"), method="canperfl", account=r["account"], part=1, rounds=10,
                        set=[f"init='\\\"/kaggle/input/**/{r['run']}/state.pt\\\"'"], input=r["slug"])
         if nxt is None or (OUT / f"{nxt['slug']}.intent").exists():
             continue
@@ -282,15 +287,20 @@ def collect():
             state[run]["next"] = f"WAIT quota {q.get(r['account'], 0):.1f}h busy {busy}: {nxt['slug']}"
             continue
         nxt["max_hours"] = budget
-        push(nxt, p["head"])
+        try:
+            push(nxt, p["head"])
+        except AssertionError as e:   # live slots taken by another project's session: wait, keep going with other runs
+            if not any(reason in str(e) for reason in ("GPU slots occupied", "quota changed; inspect budget")): raise
+            state[run]["next"] = f"WAIT quota/slots changed: {nxt['slug']}"
+            continue
         q[r["account"]] -= budget * MARGIN
         state[run]["next"] = f"PUSHED {nxt['slug']}"
     (OUT / "status.json").write_text(json.dumps({"at": time.strftime("%FT%T%z"), "runs": state}, indent=1))
     for run, s in sorted(state.items()):
         print(f"{s['status']:10s} r{s['round']:02d} {run:22s} {s['session']:24s} {s.get('next', '')}")
-    expected = {slug(m) for m, _, _ in METHODS} | {"flb-canperfl"}
+    expected = {slug(m) for m, _, _ in METHODS} | {slug("canperfl")}
     finished = {run for run, s in state.items() if s["status"] in ("ERROR", "CANCEL")
-                or (s["status"] == "COMPLETE" and s["round"] >= (10 if run == "flb-canperfl" else 50))}
+                or (s["status"] == "COMPLETE" and s["round"] >= (10 if run == slug("canperfl") else 50))}
     left = sorted(expected - finished)
     print("ALL_TERMINAL" if not left else f"REMAINING {len(left)}: {' '.join(left)}", flush=True)
 
@@ -326,7 +336,7 @@ def audit():
         rep = sh([PY, "scripts/report.py", *dirs])
         (OUT / "report.md").write_text(rep)
         print("REPORT", OUT / "report.md")
-    expected = {slug(m) for m, _, _ in METHODS} | {"flb-canperfl"}
+    expected = {slug(m) for m, _, _ in METHODS} | {slug("canperfl")}
     assert not failures and set(res) == expected, ("batch audit incomplete/failed", failures, sorted(expected - set(res)))
 
 

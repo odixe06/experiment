@@ -56,8 +56,15 @@ class ToyEnv:
 
 
 @pytest.mark.parametrize("name", METHODS)
-def test_method_runs(name):
+def test_method_runs(name, tmp_path, monkeypatch):
     env = ToyEnv()
+    if name == "afpha":
+        import pandas as pd
+        from core import data
+
+        pd.DataFrame(dict(client_id=env.ids, scenario=['a', 'a', 'b', 'b', 'a', 'b'],
+                          run=[0, 1, 0, 1, 0, 1])).to_parquet(tmp_path / 'clients.parquet')
+        monkeypatch.setattr(data, 'find_root', lambda: str(tmp_path))
     M = importlib.import_module(f"methods.{name}").Method(env)
     for r in (1, 2):
         info = M.round(r, 1e-3)

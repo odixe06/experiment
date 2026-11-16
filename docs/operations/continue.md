@@ -1,67 +1,104 @@
-# Continue: bàn giao sống, 13/11/2026 10:00 VN
+# Bàn giao sống — 16/11/2026
 
-Đọc [CONTEXT](../../CONTEXT.md) → [LESSONS](../../LESSONS.md) → [bài học vận hành](lessons.md) → trang này.
-Artifact, state, exact session/version ưu tiên hơn tóm tắt.
+Đọc [CONTEXT](../../CONTEXT.md), [LESSONS](../../LESSONS.md), [bài học vận hành](lessons.md).
+Artifact/source/config/round thực ưu tiên bản tóm tắt. Lịch sử: [snapshot trước cập nhật](../../archive/handoffs/2026-11-16-before-refresh.md).
 
-## Đã xác minh
+## Quyền owner phiên 16/11
 
-- Code public GitHub `odixe06/fl_veremi_bert`; source train batch khóa **cb193e6fd56fc2f0c6810745cc57d8242c77c366**.
-  [Parity v2](../research/v2-parity.md): 20 kiểm tra PASS, chỉ đổi model/phụ thuộc BERT; CANPerFL đúng code v2.
-- Local smoke 13 method PASS (100 xe, compile, group_rows 2.048; 2–3 round); LwFedNIDS sửa SDPA head-dim 5.
-  `python -m pytest -q tests`: **37 PASS**, log `runs/pytest_partial_batch.log`.
-- Controller **flb-batch-s42-20261113-r3** succeeded 09:59:14 VN; marker `BATCHW_FIRST_ROUND`.
-  Log `runs/batch-watch/controller-r3.log`; state `/home/odixe/.codex/long-jobs/jobs/flb-batch-s42-20261113-r3/state.json`.
-  Completion đã xử lý. Hai controller trước failed ở inventory/plan, không có training launch từ chúng.
-- **13 kernel v1 đã push** (reply + `.intent` + `.pushed`); exact status 09:59:08 VN: cả 13 RUNNING.
-  W&B đã có 13 run: config world2/client5343/compiled/HP đúng protocol; mới AFPHA có r1 lúc kiểm.
-  Chưa pull/audit output, chưa hoàn tất 50 round.
-- AFPHA r1 T4: train **573,432 s**, eval **56,981 s**. So v2 seed42 r1: **1,693× train**, **1,355× train+eval**.
-  Đã ghi [LESSONS](../../LESSONS.md); bằng chứng `runs/batch-watch/first_round.json`, `initial-health.json`.
+Ưu tiên kiểm toàn bộ kernel hoàn thành, pull đa luồng và audit; cập nhật tài liệu hai repo BERT/mobihet; gọn CONTEXT;
+cập nhật Notion Proposal 2 chỉ dùng T3 tên MobiHet bên cạnh 14 baseline; commit/push Git và DVC cả hai repo.
+Ranking performance theo macro-F1 giảm dần, communication tổng50round **gồm bootstrap** tăng dần (cột riêng không bootstrap), compute tăng dần.
+Không xóa artifact, không khởi training mới trong bước collect này; không đổi source/HP frozen.
 
-## Batch đang chạy
+## Job đang sở hữu collect/audit
 
-Plan bất biến `runs/batch/plan.json`; không replan, không push lại slug đã có intent. Deferred r3 = 0.
-Owner thread **01a1d288-3551-7de3-9e0d-3b0b4f8b3401**; mọi controller delivery queue.
+- `repo-collect-audit-20261116`, supervisor PID269238; owner thread `01a1e31b-3489-76b3-a36f-f8ce699825eb`; delivery queue.
+- State `/home/odixe/.codex/long-jobs/jobs/repo-collect-audit-20261116/state.json`.
+- Log `runs/maintenance-20261116/collect.log`; worker `/tmp/collect_repo_20261116.py`.
+- Status toàn bộ baseline42/41/43 (4 query đồng thời), pull phiên terminal chưa done bằng16luồng, audit từng seed;
+  T3 head41p3/42p3/43p4 pull đầy đủ + CM/state/source/HP/RNG hai rank khi terminal. Không launch/nối training.
+- Đã kiểm running lúc14:05 VN. Process watcher/collector cũ không sống lúc đầu phiên. Không mở collector trùng.
+- Theo dõi: `tail -n 200 -F -- /home/odixe/project/fl_veremi_bert/runs/maintenance-20261116/collect.log`.
 
-| method | exact kernel | budget phiên đầu (h) |
-|---|---|---:|
-| nilm | outlookcheck/flb-nilm/1 | 11.50 |
-| apfed | outlookcheck/flb-apfed/1 | 11.50 |
-| pfedes | anhtruong1909/flb-pfedes/1 | 10.49 |
-| perfedskd | thuyanh316/flb-perfedskd/1 | 8.60 |
-| v2x_htfl | chuchimnon/flb-v2x-htfl/1 | 8.53 |
-| fedtgp | minhtriethihi/flb-fedtgp/1 | 8.31 |
-| tinyproto | accanniez/flb-tinyproto/1 | 6.69 |
-| fd_ids | heykewtiie/flb-fd-ids/1 | 6.60 |
-| afpha | nguyetquedo/flb-afpha/1 | 5.83 |
-| fedproto | khanhmay0304/flb-fedproto/1 | 5.44 |
-| fedprox | minhtrit06/flb-fedprox/1 | 5.05 |
-| fedavg | nguyenminhtran060113/flb-fedavg/1 | 4.73 |
-| lwfednids | odixeuit/flb-lwfednids/1 | 2.45 |
+## Trước khi có completion
 
-**CANPerFL chưa launch**: collector tự dùng output FedAvg r50, fine-tune 10 round, cùng account nguyenminhtran060113.
-Phần chưa đủ 50 round tự nối `-pN` khi quota >= 3h; reset thứ Bảy **14/11 00:00 UTC = 07:00 VN**.
-Không đổi loss/optimizer/participation/HP; group_rows production 8.192 như v2.
+T3 BERT41 r50 audit CM+state PASS;42 r35/43r32 là kết quả partial cũ, head mới cần audit.
+DAGSNet T3 cả3seed đã r50; evidence `../mobihet/runs/t3-s41/` và `../mobihet/runs/b21-r50/`.
+Không dùng seed42/43 partial vào headline r50. Baseline seed42 trước phiên14/14 complete; seed41/43 cần lượt collect hiện hành.
 
-## Watcher / bước tiếp
+## Sau completion — việc đã được ủy quyền
 
-Watcher cũ đã kết thúc có chủ ý khi thấy r1. **Job hiện hành flb-batch-s42-20261113-watch1 RUNNING**,
-supervisor PID **126921**; chỉ chạy `scripts/watch_batch.py`, không plan/launch lại.
-Controller log `runs/batch-watch/controller-watch1.log`; durable state
-`/home/odixe/.codex/long-jobs/jobs/flb-batch-s42-20261113-watch1/state.json`.
-Delivery **queue** (`auto-queue`) về owner thread ghi trên.
-Theo dõi: `tail -n 200 -F -- /home/odixe/project/fl_veremi_bert/runs/batch-watch/controller-watch1.log`.
-Nó giữ `runs/batch-watch/state.json` với `first_round` đã có, nên không đánh thức r1 lần nữa.
-Log watcher `runs/batch-watch/watch.log`; poll **1.200 s**. Chỉ worker polling, không model polling.
+1. Đọc log/state/inventory; kiểm provenance baseline base `cb193e6`, CM/support/10metric/round50 (CANPerFL10), giới hạn PASS_BOUNDED.
+2. T3: audit hai rank, overlap CM với parent, source/config và rounds; xác định đủ r50 hay partial. Không restart run để sửa collector.
+3. Tính bảng performance/bytes/client-compute/server-compute hai model; sửa method/proposal/results + mọi thông tin hiện hành sai.
+4. Notion `40d730cee68d80f0a49ad050377772d2`: thay mô tả + bảng cũ bằng T3/MobiHet; tổng8bảng (2performance+2communication+2client+2server). Giữ child pages nếu có.
+5. Kiểm link active hai repo, test thay đổi code có sẵn; DVC repo BERT chưa init/remote, dùng OneDrive sibling đã cấu hình ở mobihet; kiểm mount/disk và manifest đầy đủ trước add.
+6. DVC push nhiều luồng, status-cloud xác minh; commit/push toàn bộ thay đổi hợp lệ hai repo, không credential/notebook có key/PDF. Bundle verify. Không xóa local.
 
-1. Completion watcher → đọc state + log + artifact thực. ERROR: collect/chẩn đoán/sửa đúng bước, source/version mới;
-   giữ kernel khỏe, không restart từ đầu nếu có checkpoint tương thích đã xác minh.
-2. ALL_TERMINAL → audit → [results](../research/results.md): 10 metric từ CM, so v2; nêu giới hạn PASS_BOUNDED.
-3. Cập nhật handoff hiện hành, kiểm link; không chạy lại plan/launch batch.
+## Việc tay
 
-## Quyền / việc tay
+Chưa phát hiện blocker cần owner.
 
-Owner cho phép 14 baseline seed42, cấu hình v2; không SCAFFOLD/MobiHet/centralized.
-Chừa **novahihi, keocaosu, emtrangtri, minhtran0601**; kiểm artifact xác nhận chưa dùng 4 account này, <=2 kernel/account.
-Public code GitHub; không data/PDF/credential, không Co-Authored-By. Notebook PRIVATE có W&B key inline theo quyền đã cấp;
-key ở version history private vĩnh viễn. Không đổi global credential, không hủy job khỏe, không xóa artifact. Chưa có việc tay.
+## Job phân tích độc lập cùng phiên
+
+- `repo-server-cost-20261116`, PID272088: profile server FedTGP/V2X-HtFL bằng FlopCounterMode trên số prototype thật; log `runs/maintenance-20261116/server-cost.log`.
+- `mobihet-inventory-20261116`, PID272971: query B20/B21/T341 đã push; log `/home/odixe/project/mobihet/runs/maintenance-20261116/inventory.log`.
+- `dagsnet42-evidence-20261116`, PID273507: restore chọn lọc config/rounds/CM endpoint14baseline DAGSNet42 từ OneDrive DVC, kiểm MD5; log `runs/maintenance-20261116/dagsnet42-restore.log`. Không sửa manifest/workspace partial repo DAGSNet.
+- Cả3 delivery queue, owner thread như collector; state `/home/odixe/.codex/long-jobs/jobs/<job>/state.json`. Kết quả mới phải inspect khi completion.
+- Đã cập nhật method T3 đúng Laplace local/global LA, loss synthetic r1 hard/r2+Q, dose/floor; protocol BERT sửa scope3seed+T3; hub gọn. Chưa cập nhật bảng Notion/Git/DVC: chờ audit ưu tiên owner.
+
+## Phân tích đã chuẩn bị, chưa publish
+
+`scripts/build_project_comparison.py` sinh8bảng + JSON evidence; yêu cầu mọi baseline/T3 đủ endpoint và audit.
+DAGSNet42 đã restore chọn lọc từ14manifest DVC, MD5 PASS (`runs/maintenance-20261116/dagsnet42/restore.json`);
+không thay manifest cũ. Mobihet inventory24/24 COMPLETE; artifact/audit B20/B21 trước đó phải đối chiếu marker.
+DAGSNet CANPerFL41/43 audit PASS_BOUNDED rounds10 nhưng `complete=False` do auditor cũ đòi50; script nhận đúng endpoint10 **chỉ CANPerFL**, không nới cho phương pháp khác.
+Server profiler lần đầu lỗi API `env_at(w)` ở DAGSNet và sum nhầm chiều count; kết quả lần đầu không hợp lệ.
+Job thay thế `repo-server-cost-20261116-r2`,PID274259,queue; log `runs/maintenance-20261116/server-cost-r2.log`;
+script `/tmp/profile_server_20261116.py` sửa sum fold axis1 và env_at(1.0), ghi đè output profile sai. Kiểm Np~hàng chục nghìn, không32.
+Sau collect xong chạy build_project_comparison.py, xử lý assert thiếu bằng chứng; tuyệt đối không bỏ completeness gate để publish partial.
+
+## Completion server-cost xử lý16/11
+
+Job `repo-server-cost-20261116` failed đã xử lý: lỗi env_at thiếu width; output32prototype sai đã bị thay, không sử dụng. Bảnr2 succeeded, Np69993/batch3500 đã kiểm từ artifact; BERT FedTGP30.242GFLOP/V2X33.389GFLOP; DAGSNet139.847/190.187GFLOP mỗi round theo phạm vi matmul. Kết quả tại `runs/maintenance-20261116/{fl_veremi_bert,fl_dagsnet_veremi_v2}-server.json`.
+Inventory mobihet24/24COMPLETE; restore DAGSNet42 MD5 PASS. Baseline105COMPLETE+3ERROR lịch sử, chưa đồng nghĩa108run khoa học. Collector đang audit; không mở trùng.
+Job kiểm tra `repo-verify-20261116`, supervisorPID275566, đã kiểm running, delivery queue cùng ownerthread; log `runs/maintenance-20261116/tests.log`, state `/home/odixe/.codex/long-jobs/jobs/repo-verify-20261116/state.json`. Kiểm baseline tests + link hai repo + T3 compute regression; không training production.
+
+## Completion mobihet-inventory xử lý16/11
+
+Inventory24/24exact kernel COMPLETE. Đã kiểm từng slug có artifact/config local và đối chiếu audit B20/B21/T341; mọi artifact check PASS, riêng T4P utility FAIL vẫn giữ verdict. Không pull trùng24phiên đã lưu. T3DAGSNet3seed r50 macro .907956319 ± .000331909(sampleSD), bảng12metric tại `docs/research/results-t3.md` trong repo mobihet. Collector BERT vẫn sở hữu phần baseline/T3BERT; không khởi trùng.
+
+## Backup MobiHet đang chạy16/11
+
+`mobihet-dvc-backup-20261116`, supervisorPID277319, deliveryqueue về ownerthread `01a1e31b-3489-76b3-a36f-f8ce699825eb`; đã kiểm running. State `/home/odixe/.codex/long-jobs/jobs/mobihet-dvc-backup-20261116/state.json`; log `/home/odixe/project/mobihet/runs/maintenance-20261116/backup.log`. Worker `/tmp/backup_mobihet_20261116.py`: chỉ dvcadd run mới chưa có manifest trong b21-chain/b21-transfer/t3-s41 + sanitized receipts/inventory; push-j16 rồi status-c. Không đè manifest partial cũ, không xóa. Target/log chi tiết trong mobihet/runs/maintenance-20261116/. Sau completion kiểm manifest/status thực, cập nhật backup record; Git/bundle và BERT DVC vẫn chờ.
+Theo dõi: `tail -n 200 -F -- /home/odixe/project/mobihet/runs/maintenance-20261116/backup.log`.
+
+Completion DAGSNet42 restore đã xử lý:14method MD5+CMsupport5343×16 PASS, receipt `runs/maintenance-20261116/dagsnet42-verified.json`. Baseline BERT105session COMPLETE đã kiểm executedsource41file/session với frozen GitSHA+manifest, PASS (`baseline-provenance.json`, tái kiểm `scripts/verify_batch_provenance.py`). BaERROR lịch sử không được gọi scientificPASS; head kế tiếp đánh giá riêng bởi collector. Không cần pull lại các phiên này.
+
+## Owner16/11 bổ sung pFedES41 phiên cuối
+
+pFedES41p3 COMPLETE nhưng audit chỉr45, không đủ50. Owner yêu cầu push bổ sungr45→50 và **tạm bỏ pFedES khỏi mọi bảng**. Script comparison đã loại method này (không dùng partial/2seed thay3seed).
+Job `pfedes41-final-20261116`,supervisorPID281246,deliveryqueue cùng ownerthread,đã kiểm running; state `/home/odixe/.codex/long-jobs/jobs/pfedes41-final-20261116/state.json`;log `/home/odixe/project/fl_veremi_bert/runs/maintenance-20261116/pfedes41-final.log`. Worker `/tmp/resume_pfedes41_20261116.py` audit2rankr45/finite/gen → chọn owner quota≥4.2h+slot → private checkpointdataset → pushp4cap3.8h (5round×~1682s +startup/save) → watch1200s → fullpull/audit. Emtrangtri quota0, phải chuyểnaccount; chưa claim launched trước receipt.
+Historical baseline state không lưu riêng torchCPU/CUDARNG; giữ saved methodgen và resume semantics gốc, không gọi exactfullRNGresume. Source/HP/50roundschedule/privatebanks giữ nguyên; không chạy r1. Không sửa source tốc độ trong phiên cuối. Saucompletion kiểm artifact+round50, rồi mới thêm lại pFedES vào bảng.
+Theo dõi: `tail -n 200 -F -- /home/odixe/project/fl_veremi_bert/runs/maintenance-20261116/pfedes41-final.log`.
+
+## Owner yêu cầu chuẩn bị tắt máy
+
+Hoàn tất các task đang dở rồi **dừng phiên**, cập nhật toàn bộ bàn giao để bật máy tiếp tục. pFedES có thể tiếp tục trên Kaggle khi local tắt; không cancel remote. Không tạo nghiên cứu/training mới ngoài phiên cuối đã ủy quyền. Trước dừng: hoàn tất pull/audit/T3/Notion, Git+DVC/bundle; ghi trạng thái cloudVFS riêng và exact run còn sống. Copy worker `/tmp/*.py` dùng trong phiên vào `runs/maintenance-20261116/workers/` (repoBERT) để không mất sau reboot.
+
+MobiHet DVC10manifest/438objects VERIFIED mứcmount (push-j16 exit0/status-c in sync); cloud upload chưa xác minh riêng. RepoBERT baselinebackup đang chạy: `bert-baseline-backup-20261116`,supervisorPID282599,queue;state `/home/odixe/.codex/long-jobs/jobs/bert-baseline-backup-20261116/state.json`;log `/home/odixe/project/fl_veremi_bert/runs/maintenance-20261116/bert-baseline-backup.log`. Khởi tạo DVCOneDrive sibling `fl_veremi_bert/dvc-storage`,hardlink snapshot phiên baseline đãdone, không ghi vào pull collector. T3/receipts backup saucollect.
+
+BERT baselinebackup r1failed trước DVCadd vì phát hiện `v4npy/train_X.npy.part`5.49GB còn từ pull full trước. Đây là cache dataset tạm, không phải model/CM đã audit; không xóa hoặc backup file dở. Worker r2 loại toàn v4npy (dataset cache tái tạo được), tái dùng hardlink đã staging đúnginode; chỉ phần cache này được phép .part, runartifact .part khác vẫn chặnbackup. Job `bert-baseline-backup-20261116-r2`,PID283142,queue;log `runs/maintenance-20261116/bert-baseline-backup-r2.log`,state theo tênjob. DVCinit/remote đã xong; chưa xác nhậnpush trước completion.
+
+## Verify r1 lỗi fixture, sửa test16/11
+
+Suite r1=35PASS/4FAIL:2notebooktest namespace thiếu resume_dataset; NPYintegration thấy root offline nhưng không cònparquet; AFPHAtoy thiếu clientsmetadata. Sửa chỉtest: bổ sung field+case datasetresume; skip integration nếu thiếu parquet train/test; AFPHA toy ghi clients.parquet6xe/tmproot. Không sửa production method/source frozen. Job `repo-verify-20261116-r2`,PID283468,queue,state theo tênjob;log `runs/maintenance-20261116/tests-r2.log`; rerun đúng3testfile nhánh lỗi +link2repo+T3compute;35testđãPASS giữbằngchứng r1.
+
+Verifyr2 completion xử lý:9PASS/1SKIP(offlineparquet)/14deselected cho notebook/NPY/AFPHA; T3compute12PASS; linkactive hai repoPASS.35testkhác đãPASS ởr1, không sửa productioncode để làmtestpass. `git diff --check` hai repoPASS, credential-patternscan candidateGit không phát hiệntokenliteral. Log `runs/maintenance-20261116/tests-r2.log`.
+
+## Collector/Notion hoàn tất —16/11
+
+Collector succeeded nhưng baseline41 vẫnincomplete đúngpFedES45; không đọc exit0 thànhallbaseline50. Cả3T3BERT r50, fullpull164/164file cho42/43,0missing; CM/state/source/HP/RNG2rankPASS. PrefixCM so parent36/35/32round byte-identical. Kết quả/8bảng đã ghi `docs/research/results.md`, `comparison.md`, `comparison.json` hai repo. MacroBERT .914770238±.000211920(hạng1),DAGSNet .907956319±.000331909(hạng3).
+NotionProposal2 replace/readbackPASS:8heading/table, childmininote giữnguyên, bảngcũđãxóa,T3/MobiHet đượcinđậm; pFedESẩn. Receipt `docs/operations/notion-20261116.json`, page40d730cee68d80f0a49ad050377772d2.
+T3backup r1failed DVC lock do baselinepushđangsống, không cólỗiartifact. Worker thaythế `bert-t3-backup-20261116-r2`,PID286160,queue;log `runs/maintenance-20261116/bert-t3-backup-r2.log`,state theo tênjob; chờbaselinebackup succeeded bằngworkerlocal10s rồi mới dvcadd/push/status. Khôngmodelpoll hoặc haiDVCprocesscùngrepo. Workerđãlưu ở `runs/maintenance-20261116/workers/`.
+Còn:Gitcommit/push/bundle2repo;DVCBERTcompletion+backuprecord;pfedescheckpointdataset/pushreceipt;gọnbàn giao cuối vàdừngphiên theoowner.
