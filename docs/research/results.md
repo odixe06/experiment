@@ -16,7 +16,7 @@ Macro-F1 **.914770238 ± .000211920**,mean±sampleSD, hạng1 trên bảng hiệ
 
 ## Bằng chứng và giới hạn
 
-- Baseline105sessionCOMPLETE:executedsource41file/session khớpSHA khóa `cb193e6fd56fc2f0c6810745cc57d8242c77c366`, 0overlay; receipt `runs/maintenance-20261116/baseline-provenance.json`. BaERROR cũ được giữ riêng, không tínhPASS.
+- Baseline105sessionCOMPLETE:executedsource41file/session khớpplan từngseed:44session base `cb193e6fd56fc2f0c6810745cc57d8242c77c366`,61session base `e8246054d476f0d3fe96a3171a4609b8dafd9db4`, 0overlay; hai commit chỉkhácdoc,41filecode cùngbyte; receipt `runs/maintenance-20261116/baseline-provenance.json`. BaERROR cũ được giữ riêng, không tínhPASS.
 - T3BERT:CM/support/10metric PASS_BOUNDED; state2rank hữu hạn, strictrebuild77904tham số, HP/source/driver RNG hai rankPASS;2672+2671xe. ParentCM prefix byte-identical36/35/32round tương ứngseed41/42/43.
 - Exacthead41 `minhtran0601/flb-t3-s41-p3/1`;42 `annhtnt/flb-t3-s42-p3/1`;43 `trietbackup/flb-t3-s43-p4/1`, cả3COMPLETE/r50.
 - Chưa storedprediction→CM replay toàn mạng; baselinepull/snapshot nhỏ không chứng nhậnfullprivatebank hoặc exactresume; dataset feature-content fingerprint lịch sử chưa đủ.
