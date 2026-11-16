@@ -8,7 +8,7 @@ IDS V2X16lớp,77đầu vào;5343xe nhận là5343client. Repo so sánh14baselin
 
 ## Trạng thái kiểm16/11/2026
 
-Sau reboot16/11: owner yêu cầu hoàn tất, không cần dừng/reboot; DVCpush lại đang chờ mount; pFedES41p4 đãpush, watcher1200s chờterminal/audit.
+Sau reboot16/11: owner yêu cầu hoàn tất, không cần dừng/reboot; OneDrive đãmountlại, DVCpush-j16 đang thực hiện; pFedES41p4 đãpush, watcher1200s chờterminal/audit.
 Ưu tiên phiên này: kiểm kernel hoàn thành → pull đa luồng → audit → cập nhật tài liệu/Notion → Git+DVC push hai repo.
 Collector hiện hành và mọi exact head ở [continue](docs/operations/continue.md); không dùng trạng thái watcher cũ sau reboot.
 T3 BERT đủr50 cả3seed, auditCM+statehai rankPASS. DAGSNet T3 đủr50 cả3seed. Không trộn partial vào headline50.

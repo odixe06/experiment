@@ -117,3 +117,5 @@ Bài học ở đây là quy tắc rút ra khi chạy thí nghiệm và hạ t�
 - Kaggle importzip dataset tựgiải nén: readylisting trả memberpaths, archive-name download404 không chứngminh datafail. Verify memberSHA vớisource, khôngreupload. SDK dataset_download_file giữrelativepath; truyền path=downloadroot, không path=parentlầnnữa. Kiểm mộtfilethật trướcfanout/fullstate.
 
 - Recoverylauncher phải preflight bằng đúng cách chạy scripttrực tiếp; import package cóthể khác moduleimport trong REPL. Verify emittedimport trên checkpointthật vàAST toànnotebook trước retry/push; localcheckerfail không làtrainingfail.
+
+- OneDrive sau reboot: rclone phục hồiVFSdirty trước READY cóthể lâu hơn TimeoutStartSec; systemdkill tạo vòngrestart vàmount mất. Kiểm journalboot hiện tại (lọc signedURL), tăngstarttimeout qua drop-in tải sau cấu hình cũ, daemon-reload vàgiữPID; kiểm `findmnt`/ismount/path thật trước DVC. Cache dirty chưaupload khôngxóa.

@@ -11,7 +11,7 @@ OUT = ROOT / 'runs/maintenance-20261116/reboot-backup'
 OUT.mkdir(exist_ok=True)
 os.environ['PATH'] = str(Path(sys.executable).parent) + ':' + os.environ['PATH']
 mount = Path('/home/odixe/Cloud/OneDrive')
-deadline = time.monotonic() + 3600
+deadline = time.monotonic() + 6 * 3600
 while not os.path.ismount(mount):
     if time.monotonic() > deadline:
         raise RuntimeError('OneDrive mount did not become ready; no files written under unmounted path')

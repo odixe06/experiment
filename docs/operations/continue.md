@@ -20,9 +20,9 @@ Ownerthread `01a1e31b-3489-76b3-a36f-f8ce699825eb`, deliveryqueue. Controllersta
 | Job | PID supervisor | Worker / log (từrootrepo) | Công việc |
 |---|---|---|---|
 | `pfedes41-final-watch-20261116` |8022| `scripts/watch_kaggle_batch.py`; `runs/maintenance-20261116/pfedes-final-watch.log` | Watch exact `outlookcheck/flb-pfedes-s41-p4/1` mỗi1200s; terminal đánh thức phiên đểpull/audit |
-| `dvc-reboot-push-20261116` |5438| `scripts/push_after_reboot.py`; `runs/maintenance-20261116/reboot-dvc.log` | Chờ mountOneDrive thật→push-j16 BERT3manifest rồiMobiHet10manifest→status-c; không ghi dưới mountchưa sẵn sàng |
+| `onedrive-remount-dvc-20261116` |12313| `scripts/push_after_reboot.py`; `runs/maintenance-20261116/onedrive-remount-dvc.log` | Mountđãphục hồi/fuse.rclone; push-j16 BERT3manifest rồiMobiHet10manifest→status-c |
 
-Theo dõi: `tail -n 200 -F runs/maintenance-20261116/pfedes-final-watch.log` hoặc `tail -n 200 -F runs/maintenance-20261116/reboot-dvc.log`.
+Theo dõi: `tail -n 200 -F runs/maintenance-20261116/pfedes-final-watch.log` hoặc `tail -n 200 -F runs/maintenance-20261116/onedrive-remount-dvc.log`.
 Chỉ còn chờ thì kết thúc turn; worker/completion đánh thức phiên, không modelpoll.
 
 ## pFedES41 — PUSHED version1; quan sát đầu QUEUED
@@ -36,7 +36,7 @@ Chỉ còn chờ thì kết thúc turn; worker/completion đánh thức phiên, 
 ## Backup
 
 [Backup record](backup.md) giữtarget/hash/remote. Trước reboot: BERT3manifest vàMobiHet10manifest đãpush-j16/status-c in sync; Gitmainhai repo đãpush, bundleverifyPASS. **Push lại sau reboot chưa kết luận xong** cho tới receipt jobDVC.
-OneDrive service đang phục hồiVFS; lầnđo16:20dirty giảm7762→3294file. Đây là snapshot tiếnđộ, không chứngminh cloudsync. Giữ `~/.cache/rclone/` vàlocalartifact; khôngrestart servicekhỏe/xóacache. Không dvcadd lại manifest lịch sử từworkspacepartial.
+OneDrive đãmountlạifuse.rclone,servicePID8985active/running; startupTimeout6h qua `~/.config/systemd/user/rclone-onedrive.service.d/zz-recovery-timeout.conf`. JobDVCcũfail do chờmount60phút; systemd đãkill lầnstart trướcdoTimeout1h. RepairgiữPID/cache, mount/pathhai repoPASS. Lầnđo16:55 còn225dirtyfile/15.37GB; không chứngminh cloudsync. Giữ `~/.cache/rclone/` vàlocalartifact; khôngrestart servicekhỏe/xóacache. Không dvcadd lại manifest lịch sử từworkspacepartial.
 
 ## Tiếp theo sau completion
 

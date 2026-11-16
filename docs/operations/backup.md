@@ -27,3 +27,9 @@ Git/bundle cuối sẽghi saupush; trạng tháijob sống tại [continue](cont
 `dvc pull artifacts/t3-pulls.dvc` hoặc `dvc pull artifacts/baseline-pulls.dvc`; kiểm disk trước.
 Snapshotbackup nằm dướiartifacts, không tự chép vềruns. Audit/recoverychỉdùngexactkernel/version/source/HP/roundđãghi.
 Manifest lịch sử không đượcaddlại từworkspacepartial.
+
+## Recovery mount16/11 sau reboot
+
+OneDrive đãmount lại tại `/home/odixe/Cloud/OneDrive`, source `onedrive:`,type `fuse.rclone`; servicePID8985active/running, cả2projectpathPASS. Startup trước timeout1h bịsystemdngắt khi reload/uploadVFS. Drop-in `~/.config/systemd/user/rclone-onedrive.service.d/zz-recovery-timeout.conf` đặtTimeoutStartSec6h;daemon-reloadgiữprocess/cache. [Hành vi timeout systemd](https://www.freedesktop.org/software/systemd/man/255/systemd.service.html).
+Job `dvc-reboot-push-20261116` fail ởwaitmount60phút, chưa gọiDVC. Jobthaythế `onedrive-remount-dvc-20261116`,PID12313,deliveryqueue, đangpush-j16/status-c hai repo theo target đãkhóa; logrepoBERT `runs/maintenance-20261116/onedrive-remount-dvc.log`. Chưagọi repushVERIFIED trướcreceipt. Lầnđo16:55:225dirtyfile/15.37GB; đó làsnapshotVFSchung, không phải cloudsync hoặc corruption. Không xóa local/cache.
+Receiptmount/repair ởrepoBERT `runs/maintenance-20261116/reboot-backup/{mount-restored,mount-timeout-repair,dirty-after-timeout}.json`; jobhiện hành ở [continue](continue.md).
