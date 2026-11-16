@@ -14,10 +14,12 @@ Owner16/11 cho phép push toàn bộ thay đổi hợp lệ, không xóa local. 
 
 ## Trạng thái hiện hành
 
-Baselinepush-j16 đang chạy: `bert-baseline-backup-20261116-r2`, log `runs/maintenance-20261116/bert-baseline-dvc-push.log`.
-T3/evidence chờbaseline succeeded rồi mớiadd/push/status: `bert-t3-backup-20261116-r2`, log `runs/maintenance-20261116/bert-t3-backup-r2.log`.
+Baselinepush-j16 **VERIFIED**:108session,17129files/6457073344B,8396objects pushed, status-c in sync; manifestmd5 `c994b3163bee65d450cf08c0cbbcad98.dir`. Controller succeeded;receipt `runs/maintenance-20261116/bert-baseline-backup.json`.
+Job: `bert-baseline-backup-20261116-r2`, log `runs/maintenance-20261116/bert-baseline-dvc-push.log`.
+T3/evidence **VERIFIED**:811objects pushed;status-c in sync. T3manifest `33ddae696e279eb52c39e2c8f3a45b91.dir`(10989948636B/896files), evidence `235bf5096e0e7fef2dba373833813360.dir`(20056472B/720files).
+Job: `bert-t3-backup-20261116-r2`, log `runs/maintenance-20261116/bert-t3-backup-r2.log`.
 Không chạyDVCcùngrepo song song. Xác minhhoàn tất riêngtừngtarget bằngstatus-c; chưacoi logquiet làstall.
-Cloud upload vàfilesystemmountsync phải ghi riêng. Không cleanup hoặc xóaVFSdirtycache.
+Cloud upload: kiểm16/11 còn7762VFSdirtyfiles;filesystemmountsync đãPASS. Rclonecache bền trên đĩa, upload tiếp khi máy/mount chạy lại; không gọi cloud đãsync. Receipt `runs/maintenance-20261116/cloud-upload-status.json`. Không cleanup hoặc xóaVFSdirtycache.
 Git/bundle cuối sẽghi saupush; trạng tháijob sống tại [continue](continue.md).
 
 ## Khôi phục

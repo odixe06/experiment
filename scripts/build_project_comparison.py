@@ -88,6 +88,7 @@ def build():
         runpaths['BERT'][m] = next(p.parent for p in (ROOT/'runs/pulls'/r['slug']).rglob('rounds.jsonl') if p.parent.name == r['run'])
     sizes = np.load(MOB / 'cache/train_sizes.npy'); counts = np.load(MOB / 'cache/fold_counts.npy').sum(1)
     assert int(sizes.sum()) == 37361273 and counts.shape == (5343,16)
+    assert np.array_equal(counts.sum(1), sizes)
     steps = (sizes + 63) // 64; tier = np.digitize(sizes, [4096,16384]); doses = np.array([64,48,32])[tier]
     # Match B21's step-normalized logical-work convention, not padded GPU work.
     synth_ratio = float((np.maximum(steps,16) * doses / 64).sum() / steps.sum())
