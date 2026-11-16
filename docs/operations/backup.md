@@ -36,5 +36,5 @@ không `Co-Authored-By:`. Gitbundle tạo `--all`, verify rồi mới thay bản
 ## Git phiên16/11 cuối
 
 Kết quả pFedES và dọncontext đã push `origin/main`, commit `0eea5d3`; không DVCpush thêm trong yêu cầu hiện tại.
-Bản ghi xác nhận cập nhật tiếp trên cùngbranch. Gitbundle allrefs sẽ được verify/copy sau commitcuối;
+Bản ghi xác nhận cập nhật tiếp trên cùngbranch. Gitbundle allrefs được verify/copy theo commitcuối;
 receipt cuối: `runs/maintenance-20261116/final-publish.json`. Output mới vẫn local, không coi snapshot DVC cũ đã chứa p4.
