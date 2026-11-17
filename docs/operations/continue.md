@@ -39,6 +39,7 @@ pFedES exact `outlookcheck/flb-pfedes-s41-p4/2`: pull158file/0thiếu; audit r50
    Task ưu tiên theo [task_brief](../../../mobihet/task_brief.md) §1 và [FB](../../../mobihet/docs/research/screening-budget.md):
    owner duyệt8sim FB DAGSNet; candidate PASS → pilot DAGSNet + BERT. Lite2 BERT r50 hoãn; không giữ quota riêng.
    DAGSNet Lite2 r50 đã auditPASS gate cũ (.905877; .354116MB; estimator1,364×), chưa đạt đíchFB1,01×.
+   MobiHet đã xác nhận đủ8simFB DAGSNet version1; watcher duy nhất ở [bàn giao MobiHet](../../../mobihet/docs/operations/continue.md). Chưa launch pilotFB BERT; chỉ sau simcandidatePASS.
 3. Output pFedES cuối giữ local; DVC snapshot trước16:57 không bao gồm output mới. Chưa có lệnh DVCpush mới trong yêu cầu hiện tại.
 
 Không xóa artifact/cache, không đổi protocol/HP/source frozen. Chưa cần thao tác tay.
