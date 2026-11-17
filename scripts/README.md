@@ -6,6 +6,7 @@ Launch/resume/reboot/watcher riêng các đợt đã đóng ở [archive16/11](.
 | Tác vụ | Entry point |
 |---|---|
 | Driver baseline / T3 | `run_fl.py`, `run_t3.py` |
+| Pilot Lite2 B + U1 (build/launch/collect/audit; control T3 seed 42) | `run_lite2_pilot.py` |
 | Ledger baseline: audit/collect theo quyền | `run_batch.py` (collect có thể launch continuation; không dùng chỉ để đọc status) |
 | Sinh notebook / import dataset checkpoint | `gen_notebook.py`, `verify_checkpoint_dataset.py`, `transfer_global.py` |
 | Watch exact kernel / inventory / CLI bounded | `watch_kaggle_batch.py`, `kaggle_inventory.py`, `kaggle_cli_bounded.py` |

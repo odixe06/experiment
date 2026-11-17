@@ -38,3 +38,8 @@ không `Co-Authored-By:`. Gitbundle tạo `--all`, verify rồi mới thay bản
 Kết quả pFedES và dọncontext đã push `origin/main`, commit `0eea5d3`; không DVCpush thêm trong yêu cầu hiện tại.
 Bản ghi xác nhận cập nhật tiếp trên cùngbranch. Gitbundle allrefs được verify/copy theo commitcuối;
 receipt cuối: `runs/maintenance-20261116/final-publish.json`. Output mới vẫn local, không coi snapshot DVC cũ đã chứa p4.
+
+## Git khôi phục17/11
+
+Owner yêu cầu commit/push thay đổi trên `main` cảhai repo. Phạm vi: source Lite2/FB, tests có sẵn từ Claude, brief/results/handoff, lỗi mạng Kaggle.
+Receipt HEAD/remote/bundle sẽ ghi tại `runs/maintenance-20261117/publish.json` của từngrepo. Không DVCpush hoặc cleanup; artifact Lite2 mới giữ local, chưa backup vào DVCremote.
