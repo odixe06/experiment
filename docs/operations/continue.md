@@ -1,6 +1,9 @@
 # Continue — bàn giao sống, 20/11/2026 (giờ VN)
 
 Đọc [CONTEXT](../../CONTEXT.md) → [LESSONS](../../LESSONS.md) → [bài học vận hành](lessons.md) → trang này.
+Repo local: `~/project/experiment` (symlink `fl_dagsnet_veremi_v2` → `experiment`); GitHub `odixe06/experiment` (URL cũ redirect).
+Worktree tạm `~/project/experiment-wt` (nhánh `fix/central-ddp-compute`) giữ `runs/central-20261120/`, `runs/compute-20261120/`,
+`notebooks/` của phiên này — dời sang `experiment/` rồi `git worktree remove` khi queue compute xong.
 Bàn giao trước khi gộp repo: [continue-20261120-before-reorg](../archive/continue-20261120-before-reorg.md) (ledger mixed/backbone của teammate).
 
 ## Đang chạy
@@ -8,18 +11,18 @@ Bàn giao trước khi gộp repo: [continue-20261120-before-reorg](../archive/c
 ### Centralized (phiên này, private 2×T4, builder `scripts/build_central_backbones.py --seed S --max-hours H`)
 
 Ledger: `runs/central-20261120/ledger.json` (ref, notebook SHA256). Version 1 cả 11 ERROR ở cell test: snapshot nhúng thiếu
-`core/tabm.py` (lỗi builder có sẵn; đã sửa + builder tự chạy test trên snapshot trước khi ghi notebook). Version 2 RUNNING.
+`core/tabm.py` (lỗi builder có sẵn; đã sửa + builder tự chạy test trên snapshot trước khi ghi notebook). Version 2: SAE-CE ×3 ERROR
+(DDP: decoder không vào loss) và TabM s42 ERROR (race `config.json` rank 1) ⇒ sửa runner + test 2 rank, push **version 3**.
 
 | kịch bản | seed | kernel | budget h | ghi chú |
 |---|---:|---|---:|---|
 | bert | 41 | `abbafan/exp-central-bert-s41/2` | 11,25 | ≈ 9 epoch/phiên ⇒ cần ~5 phiên nối (`--parent`) |
 | bert | 43 | `bestyorn/exp-central-bert-s43/2` | 11,25 | như trên |
-| tabm | 41/42/43 | `anhtruong1909/…-tabm-s41/2`, `minhtran0601/…-tabm-s42/2`, `nguyenminhtran060113/…-tabm-s43/2` | 3,4 / 3,05 / 2,8 | budget = quota account − lề |
+| tabm | 41/42/43 | `anhtruong1909/…-tabm-s41/2`, `minhtran0601/…-tabm-s42/3`, `nguyenminhtran060113/…-tabm-s43/2` | 3,4 / 3,05 / 2,8 | budget = quota account − lề |
 | mlp | 41/42/43 | `odixeuit/…-mlp-s41/2`, `nguyetquedo/…-mlp-s42/2`, `annhtnt/…-mlp-s43/2` | 2,75 / 2,65 / 2,5 | |
-| sae (sae-ce) | 41/42/43 | `thuyanh316/…-saece-s41/2`, `takids1909/…-saece-s42/2`, `keocaosu/…-saece-s43/2` | 2,45 / 2,25 / 1,5 | |
+| sae (sae-ce) | 41/42/43 | `thuyanh316/…-saece-s41/3`, `takids1909/…-saece-s42/3`, `keocaosu/…-saece-s43/3` | 2,4 / 2,2 / 1,45 | |
 
-Chưa push (chờ slot/quota reset **21/11 00:00 +07**): BERT s42, CNN-BiGRU s41 (notebook đã sinh, `notebooks/exp-central-*`),
-CNN-BiGRU s43, DAGSNet s41/s43 (DAGSNet dùng `scripts/gen_notebook.py --sha 6617261 --no-wandb --args "scripts/run_central.py --width 1
+Chưa push (chờ slot/quota reset **21/11 00:00 +07**): BERT s42, CNN-BiGRU s41/s43 (`build_central_backbones.py --model bert|cnn-bigru-attention --seed S`), DAGSNet s41/s43 (DAGSNet dùng `scripts/gen_notebook.py --sha 6617261 --no-wandb --args "scripts/run_central.py --width 1
 --epochs 50 --compile --seed S --out /kaggle/working/fl2-central-w1-sS"` để trùng source run s42 `minhtran0601/fl2-central-w1`).
 Run chưa đủ 50 epoch: nối bằng `build_central_backbones.py --parent OWNER/SLUG --parent-artifacts <pull> --parent-epoch E` cùng seed.
 
@@ -45,7 +48,11 @@ DAGSNet/BERT đã đo ở `../mobihet/runs/total-compute-20261119/` (+ `canperfl
    `experiments/<kịch bản>/results.csv` (status `audited`), chạy `python scripts/experiments_status.py`. PARTIAL ⇒ nối phiên.
 2. Sau reset quota 21/11: push BERT s42, CNN-BiGRU s41/s43, DAGSNet s41/s43; nối BERT s41/s43.
 3. Queue FLOP xong: `python scripts/compute/report.py` → `experiments/*/compute.csv`, cập nhật [compute](../research/compute.md).
-4. Mixed 5 run teammate xong: thêm hàng audited vào `experiments/mixed-case{1,3}/results.csv`.
+4. Khi `../mobihet/runs/fbl-r50/orchestrate.log` có `ORCH_DONE` (orchestrator còn gọi `../fl_veremi_bert/scripts/run_fbl_r50.py`):
+   dời artifact baseline BERT (`../fl_veremi_bert/runs/batch*`, `artifacts/*`, ~80 GB, gitignored) vào `bert/runs`, `bert/artifacts`
+   (cùng ổ ⇒ `mv`), đối chiếu DVC `bert/artifacts/*.dvc`; giữ repo GitHub `fl_veremi_bert` (notebook cũ clone SHA của nó).
+   Thay đổi chưa commit ở `../fl_veremi_bert` (FB-L MobiHet) thuộc `../mobihet`, không nhập.
+5. Mixed 5 run teammate xong: thêm hàng audited vào `experiments/mixed-case{1,3}/results.csv`.
 
 ## Việc tay
 
