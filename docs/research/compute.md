@@ -12,11 +12,13 @@ thì đếm trên Kaggle T4 (cùng counter ⇒ cùng số op).
 - Pha: **bootstrap** = constructor phương pháp; **train** = mọi `local_epoch` của round (forward/backward/optimizer của client);
   **ngoài train** = phần còn lại của round (server, gộp, codec, prototype); **eval** báo riêng, không cộng.
 - Panel 200 xe (fold train 1.476.064 dòng, chọn theo 10 tầng kích thước, seed 7), 2 round eager, round 2 = trạng thái ổn định;
-  `group_rows` như production (4.096 đơn model; 8.192 mixed). Engine grouped đệm client theo nhóm ⇒ số dòng executed > dòng thật;
+  **`group_rows` 4.096 cho mọi phương pháp/kịch bản** (owner 20/11, cả mixed, dù production mixed chạy 8.192). Engine grouped đệm client theo nhóm ⇒ số dòng executed > dòng thật;
   cùng engine cho mọi phương pháp của một kịch bản nên tỷ lệ × FedAvg so sánh được.
 - **Tổng FL** = bootstrap + 50 × (train + ngoài train). CANPerFL = tổng FedAvg + 10 epoch fine-tune (đếm bằng state FedAvg 1 round gắn nhãn
   r50; FLOP/epoch không phụ thuộc trọng số).
-- FeatureBERT: count eager ở `group_rows` 2.048 (OOM 4 GB ở 4.096), op train quy đổi về dòng executed của engine 4.096 bằng time run.
+- Job OOM trên GPU local 4 GB (FeatureBERT, mixed, DAGSNet NILM, nửa CNN-BiGRU) đếm trên Kaggle T4 cùng harness ở 4.096
+  (`scripts/compute/build_kaggle_count.py`). Số BERT/mixed trong bảng dưới là bản cũ (BERT 2.048 quy đổi, mixed chưa có) cho tới khi
+  notebook đếm 4.096 xong và sinh lại bảng — xem bàn giao.
 - Panel 200 đệm nặng hơn full-scale (FedAvg DAGSNet 3,77 dòng executed/dòng thật so với 1,087 full-scale) ⇒ dùng **tỷ lệ**, không nhân
   tuyệt đối lên 5.343 xe.
 
