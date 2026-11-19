@@ -18,11 +18,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from core import metrics
 from core.central_backbones import build_model, classification_loss, predict
-from core.central_windows import batch_input
 from core.sae import batch_code_mean, sae_loss
 
-MICRO = {"bert": 32, "tcnn": 8, "cnn-lstm": 128, "cnn-bigru-attention": 256, "mambacnn": 32, "gru-attention": 2048, "mlp": 2048, "tabm": 1024, "grande": 2048, "sae": 2048, "sae-ce": 2048, "dagsnet": 2048}
-MICRO["cnn-lstm-feature"] = 128
+MICRO = {"bert": 32, "cnn-bigru-attention": 256, "mlp": 2048, "tabm": 1024, "sae": 2048, "sae-ce": 2048, "dagsnet": 2048}
 
 
 def commit_epoch(staging, destination):
@@ -73,20 +71,17 @@ def main():
         return torch.from_numpy(arr).to(dev)
     def stream(split):
         x, y = load_array(split, "X"), load_array(split, "Y")
-        prev = load_array(split, "prev") if a.model == "cnn-lstm" else None
-        if x.shape != (len(y), 77) or (prev is not None and len(prev) != len(y)):
+        if x.shape != (len(y), 77):
             raise ValueError("invalid cache layout")
-        return x, y, prev
+        return x, y
     torch.manual_seed(a.seed)
     model = build_model(a.model).to(dev)
     code = hashlib.sha256()
-    for fn in [Path(__file__), ROOT/"core/central_backbones.py", ROOT/"core/central_windows.py",
+    for fn in [Path(__file__), ROOT/"core/central_backbones.py",
                ROOT/"core/data.py", ROOT/"core/metrics.py", ROOT/"knowledge/input_order.json"]:
         code.update(fn.read_bytes())
-    if a.model in ("grande", "dagsnet", "sae", "sae-ce", "mambacnn"):
+    if a.model in ("dagsnet", "sae", "sae-ce"):
         code.update((ROOT / "core" / f"{a.model.removesuffix('-ce')}.py").read_bytes())
-    if a.model == "gru-attention":
-        code.update((ROOT/"core/gru_attention.py").read_bytes())
     if a.model == "cnn-bigru-attention":
         code.update((ROOT/"core/cnn_bigru_attention.py").read_bytes())
     cfg = dict(model=a.model, epochs=a.epochs, batch=a.batch, micro=micro, seed=a.seed,
@@ -127,8 +122,8 @@ def main():
         import wandb
         run = wandb.init(project=a.wandb, name=out.name, id=f"{out.name}-{cfg['source'][:10]}",
                          resume="allow", config=cfg)
-    x, y, prev = stream("train")
-    vx, vy, vp = stream("test")
+    x, y = stream("train")
+    vx, vy = stream("test")
     n = len(y)
     steps = math.ceil(n / a.batch)
     worst = 0.
@@ -164,7 +159,7 @@ def main():
                     ix = rows[:1]  # equal DDP collective count, zero gradient weight
                 sync = ddp.no_sync() if world > 1 and i+1 < calls else nullcontext()
                 with sync:
-                    bx = batch_input(x, ix, prev)
+                    bx = x[ix]
                     with torch.autocast(dev.type, dtype=torch.float16, enabled=not a.cpu):
                         inputs = bx.float() if a.cpu else bx
                         if a.model == "sae":
@@ -203,7 +198,7 @@ def main():
             with torch.inference_mode():
                 for j in range(0, sample, micro*2):
                     ix = torch.arange(j,min(j+2*micro,sample),device=dev) + rank*(len(vy)//world)
-                    bx = batch_input(vx, ix, vp)
+                    bx = vx[ix]
                     with torch.autocast(dev.type, dtype=torch.float16, enabled=not a.cpu):
                         z = model(bx.float() if a.cpu else bx)
                     if not torch.isfinite(z).all():
@@ -232,7 +227,7 @@ def main():
         with torch.inference_mode():
             for j in range(lo, hi, micro*2):
                 ix = torch.arange(j, min(j+micro*2, hi), device=dev)
-                bx = batch_input(vx, ix, vp)
+                bx = vx[ix]
                 with torch.autocast(dev.type, dtype=torch.float16, enabled=not a.cpu):
                     # Transformer encoder eval fast path can bypass autocast on older runtimes.
                     logits = model(bx.float() if a.cpu else bx)

@@ -12,7 +12,7 @@ Mọi tài liệu của repo nằm dưới `docs/` (trừ hub `CONTEXT.md`, `LES
 | [research/aligned-fl-v2.md](research/aligned-fl-v2.md) | căn chỉnh protocol cho các backbone ngoài DAGSNet |
 | [research/compute.md](research/compute.md) | chi phí tính toán (FLOP) mọi kịch bản, cách đo |
 | [research/cost.md](research/cost.md) | byte truyền / chi phí đo trên toy (DAGSNet) |
-| [methods/](methods/) | ghi chú riêng: [global-baselines](methods/global-baselines.md), [tinyproto](methods/tinyproto.md), [mobihet-improvement](methods/mobihet-improvement.md) |
+| [methods/](methods/) | ghi chú riêng: [global-baselines](methods/global-baselines.md), [tinyproto](methods/tinyproto.md) |
 
 ## Theo kịch bản
 

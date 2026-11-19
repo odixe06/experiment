@@ -19,7 +19,7 @@ thuộc [NCKH](https://app.notion.com/p/319730cee68d80c3ace9eaaf52bc2cb4).
 
 Map page IDs và bằng chứng đọc lại: [notion-pages-2026-10-30.json](notion-pages-2026-10-30.json).
 Payloads, upload IDs, bản local từng page: `runs/notion-report/` (ignored).
-Generator local: [scripts/build_notion_report.py](../../scripts/build_notion_report.py); không tự gọi API hoặc tạo page trùng.
+Generator local: scripts/build_notion_report.py (`scripts/build_notion_report.py`, gỡ 20/11, xem commit `5b9d0e3`); không tự gọi API hoặc tạo page trùng.
 
 ## Trạng thái hoàn thành 16/16 phương pháp
 

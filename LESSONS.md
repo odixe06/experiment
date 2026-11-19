@@ -135,7 +135,7 @@
 
 ## Compile
 
-- 13/11 MambaCNN: tổng tham số trong paper không xác định duy nhất kiến trúc student. Cần phân biệt số báo cáo128,11K sau feature selection/KD với bản77feature supervised đã build129.328. Các dimension thiếu phải ghi là lựa chọn chuyển thể; không gọi bản không teacher là KD. Prefix scan kiểm cả output lẫn gradient với recurrence độc lập, kể cả L=1 (transition không ảnh hưởng khi trạng thái đầu0). [Đối chiếu](papers/feng-2026-mambacnn/rebuild.md).
+- 13/11 MambaCNN: tổng tham số trong paper không xác định duy nhất kiến trúc student. Cần phân biệt số báo cáo128,11K sau feature selection/KD với bản77feature supervised đã build129.328. Các dimension thiếu phải ghi là lựa chọn chuyển thể; không gọi bản không teacher là KD. Prefix scan kiểm cả output lẫn gradient với recurrence độc lập, kể cả L=1 (transition không ảnh hưởng khi trạng thái đầu0). Đối chiếu (`papers/feng-2026-mambacnn/rebuild.md`, gỡ 20/11, xem commit `5b9d0e3`).
 
 - **`torch.compile` + AMP fp16 làm gradient NaN ở nhánh AlexNet grouped** (29/10): forward khớp eager (Δlogit 2e-3) nhưng
   backward của `amax` (maxpool 2, ceil) cho NaN ở mọi bước ⇒ optimizer bỏ mọi bước, model đứng ở init, FedAvg smoke acc 0,047 /
@@ -146,7 +146,7 @@
 
 ## Tốc độ (đo 29/10, RTX 3050 4 GiB local)
 
-- 14/11 MambaCNN129.328tham số: prefix scan PyTorch trên2T4/micro32 dự kiến21,79h/epoch (full VeReMi v4), không thể suy nhẹ từ số tham số. Scan materialize B×L×H×N và nhiều phép toán trong6block. Probe-budget gate đã chặn production; bản sửa CUDA phải qua kiểm output/gradient và timing thật trước train. [Bằng chứng và gate](papers/feng-2026-mambacnn/rebuild.md).
+- 14/11 MambaCNN129.328tham số: prefix scan PyTorch trên2T4/micro32 dự kiến21,79h/epoch (full VeReMi v4), không thể suy nhẹ từ số tham số. Scan materialize B×L×H×N và nhiều phép toán trong6block. Probe-budget gate đã chặn production; bản sửa CUDA phải qua kiểm output/gradient và timing thật trước train. Bằng chứng và gate (`papers/feng-2026-mambacnn/rebuild.md`, gỡ 20/11, xem commit `5b9d0e3`).
 
 - DAGSNet đơn, AMP, batch 8.192: full 46k mẫu/s eager, 59k compile; W 0,375: 78k / 113k.
 - Grouped (G model/bước, bmm channels-last) compile: ~45k slot/s full width ≈ 77 % model đơn; eager chậm hơn ~2,5×.

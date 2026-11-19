@@ -16,7 +16,7 @@ Owner15/11 bổ sung **MobiHet/T3**, cùng HP/code phương pháp DAGSNet, chỉ
 ```
 core/      FeatureBERT tham chiếu + bản grouped (nhiều client/bước), dữ liệu thường trú GPU, AdamW theo client, eval, metric
 methods/   một file mỗi phương pháp (chỉ phần cơ chế)
-scripts/   run_fl.py (chạy FL), run_batch.py (Kaggle seed41/42/43), run_t3.py, audit, report, cost, notebook Kaggle
+scripts/   run_fl.py (chạy FL), run_batch.py (Kaggle seed41/42/43), audit, report, cost, notebook Kaggle
 tests/     test tương đương và test đơn vị
 knowledge/ dữ kiện bất biến (máy, dataset, FeatureBERT)
 docs/      protocol, danh mục phương pháp, kết quả, vận hành

@@ -10,7 +10,6 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from core import data
-from core.central_windows import build_index
 
 
 def digest(path):
@@ -21,7 +20,6 @@ def digest(path):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--cache", type=Path, required=True)
-    ap.add_argument("--windows", action="store_true")
     a = ap.parse_args()
     root = Path(data.find_root())
     labels = json.loads((root/"label_mapping.json").read_text())
@@ -42,9 +40,7 @@ def main():
         expected = [32685166,4676107,0] if split == "train" else [0,0,9347679]
         if np.bincount(folds, minlength=3).tolist() != expected or y.min() != 0 or y.max() != 15:
             raise ValueError(f"unexpected v4 {split} folds/classes")
-        if a.windows:
-            build_index(root, split, a.cache)
-        for field in ["X","Y","off","ids","F"] + (["prev"] if a.windows else []):
+        for field in ["X","Y","off","ids","F"]:
             name = f"{split}_{field}.npy"
             identity[name] = digest(a.cache/name)
     (a.cache/"identity.json").write_text(json.dumps(identity, sort_keys=True))
