@@ -26,12 +26,13 @@ phát triển ở repo `../mobihet` (không thuộc bảng kịch bản ở đâ
   - Compute: **chỉ FLOP** (đếm op), bỏ GPU-time vì khác phần cứng; job không vừa GPU local thì đếm trên Kaggle.
 - Task < 1 h chạy local (RTX 3050 4 GB, env conda `nckh`); task dài chạy Kaggle (account ở `~/.kaggle/accounts`, quota live).
 
-## Trạng thái — 20/11/2026
+## Trạng thái — 20/11/2026 ≈ 03:00
 
-- Bảng kịch bản: 6 kịch bản đơn model đủ 14 PP × 3 seed; thiếu centralized (16 run, cả 16 đã push Kaggle 20/11). Mixed: 40/45 audited,
-  5 run đang chạy trên account của teammate. Chi tiết job, ref, bước tiếp: [continue](docs/operations/continue.md).
-- 10 metric đầy đủ trong repo: DAGSNet, BERT, mixed. TabM/SAE/MLP/CNN-BiGRU mới có macro-F1 (artifact ở máy teammate) — việc tay.
-- Compute FLOP: DAGSNet + BERT xong (14 PP); 4 backbone + mixed đang đếm local ([compute](docs/research/compute.md)).
+- Bảng kịch bản: 6 kịch bản đơn model đủ 14 PP × 3 seed. Centralized: MLP/SAE-CE/TabM × 3 + DAGSNet/CNN-BiGRU s42 xong;
+  7 run còn chạy trên Kaggle (BERT × 3 cần nối phiên, DAGSNet/CNN-BiGRU s41/s43). Mixed: 40/45 audited, 5 run teammate đang chạy.
+- 10 metric đầy đủ: DAGSNet, BERT, mixed, centralized. TabM/SAE/MLP/CNN-BiGRU FL mới có macro-F1 (artifact ở máy teammate) — việc tay.
+- Compute FLOP: DAGSNet + TabM/SAE/MLP xong; BERT, CNN-BiGRU, mixed đang đếm trên Kaggle ở group_rows 4096 ([compute](docs/research/compute.md)).
+- Job, lệnh, bước tiếp: [continue](docs/operations/continue.md).
 
 ## Cần biết → mở
 

@@ -1,4 +1,7 @@
 method,seed,view,round,accuracy,precision_macro,precision_micro,precision_weighted,recall_macro,recall_micro,recall_weighted,f1_macro,f1_micro,f1_weighted,status,source
+centralized,43,global,50,0.933517,0.959030,0.933517,0.935000,0.904880,0.933517,0.933517,0.912579,0.933517,0.917297,audited,"kaggle annhtnt/exp-central-mlp-s43/2 (in-kernel audit_central_backbones, 50 epoch)"
+centralized,42,global,50,0.932166,0.953281,0.932166,0.929897,0.903719,0.932166,0.932166,0.910295,0.932166,0.914881,audited,"kaggle nguyetquedo/exp-central-mlp-s42/2 (in-kernel audit_central_backbones, 50 epoch)"
+centralized,41,global,50,0.931485,0.953784,0.931485,0.930089,0.902629,0.931485,0.931485,0.908762,0.931485,0.913553,audited,"kaggle odixeuit/exp-central-mlp-s41/2 (in-kernel audit_central_backbones, 50 epoch)"
 fedavg,41,global,50,,,,,,,,0.875260,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
 fedavg,42,global,50,,,,,,,,0.881220,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
 fedavg,43,global,50,,,,,,,,0.876290,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
