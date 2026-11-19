@@ -25,6 +25,10 @@ import torch
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 from core import fl, grouped, local, metrics  # noqa: E402
 from core.dagsnet import width  # noqa: E402
+from core.sae import fl_config as sae_config  # noqa: E402
+from core.tabm import config as tabm_config  # noqa: E402
+from core.mlp import config as mlp_config
+from core.cnn_bigru_attention import config as bigru_config
 
 PROTOCOL = {"rounds": 50, "batch": 64, "lr_max": 1e-3, "lr_min": 1e-5, "weight_decay": 1e-4, "clip": 1.0, "seed": 42,
             "group_rows": 8192, "amp": True}
@@ -33,6 +37,7 @@ PROTOCOL = {"rounds": 50, "batch": 64, "lr_max": 1e-3, "lr_min": 1e-5, "weight_d
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--method", required=True)
+    ap.add_argument("--backbone", choices=["dagsnet", "tabm", "sae", "mlp", "cnn-bigru-attention"], default="dagsnet")
     ap.add_argument("--out", required=True)
     ap.add_argument("--width", type=float, default=float(os.environ.get("DAGS_WIDTH", 1.0)))
     ap.add_argument("--rounds", type=int, default=PROTOCOL["rounds"])
@@ -59,7 +64,13 @@ def main():
         raise ValueError("--train-fold and --eval-fold must be distinct and supplied together")
     if a.train_fold:
         hp.update(train_fold=a.train_fold, eval_fold=a.eval_fold)
-    cfg = width(a.width)
+    rank = int(os.environ.get("RANK", 0))
+    widths = hp.get("rank_widths")
+    if widths and a.backbone != "dagsnet":
+        raise ValueError("rank_widths is DAGSNet-only")
+    cfg = {"tabm": tabm_config, "sae": sae_config, "mlp": mlp_config,
+           "cnn-bigru-attention": bigru_config}[a.backbone]() if a.backbone != "dagsnet" else \
+        width(widths[rank] if widths else a.width)
     clients = None
     if a.subset:
         clients = np.sort(np.random.default_rng(7).choice(5343, a.subset, replace=False)).tolist()
@@ -84,7 +95,8 @@ def main():
     start = 1
     if os.path.exists(state_p):
         s = torch.load(state_p, map_location="cpu", weights_only=True)
-        assert s["cfg"] == cfg and s["method"] == a.method and s["hp"] == hp, "resume with a different config"
+        expected_cfg = width(widths[0]) if widths else cfg
+        assert s["cfg"] == expected_cfg and s["method"] == a.method and s["hp"] == hp, "resume with a different config"
         if env.rank:
             mine = torch.load(my_state, map_location="cpu", weights_only=True)
             assert mine["round"] == s["round"], f"rank {env.rank} state is round {mine['round']}, rank 0 {s['round']}"
@@ -164,7 +176,9 @@ def main():
             break
         t = time.monotonic()
         lr = fl.cosine_lr(r, hp["rounds"], hp["lr_max"], hp["lr_min"])
+        local.begin_round()
         info = M.round(r, lr)
+        info.update(local.finish_round(env))
         if not math.isfinite(info.get("train_loss", 0)):
             raise RuntimeError(f"non-finite training loss at round {r}")
         if info.get("skipped_frac", 0) > 0.01:

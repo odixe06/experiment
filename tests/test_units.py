@@ -99,6 +99,19 @@ def test_mobihet_reliability_gate_is_per_class_and_client():
     assert rows.tolist() == [[True, True, False, False], [False, True, True, True]]
 
 
+def test_mobihet_pairwise_loss_only_updates_classes_0_and_13_on_pair_rows():
+    from methods.mobihet import pairwise_0_13_loss
+    logits = torch.zeros(1, 4, 16, requires_grad=True)
+    y = torch.tensor([[0, 13, 5, 13]])
+    mask = torch.tensor([[True, True, True, False]])
+    pairwise_0_13_loss(logits, y, mask).sum().backward()
+    assert logits.grad[0, 0, [0, 13]].abs().sum() > 0
+    assert logits.grad[0, 1, [0, 13]].abs().sum() > 0
+    assert logits.grad[0, 2:].abs().sum() == 0
+    assert logits.grad[..., 1:13].abs().sum() == 0
+    assert logits.grad[..., 14:].abs().sum() == 0
+
+
 def test_local_epoch_visits_every_row_once():
     cfg = width(0.25)
     lay = Layout(cfg)

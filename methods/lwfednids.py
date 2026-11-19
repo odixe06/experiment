@@ -13,6 +13,8 @@ import torch
 
 from core.dagsnet import DAGSNet
 from core.flat import Layout
+from core.sae import SupervisedSAE
+from core.tabm import TabM
 from methods import fedavg
 
 RATIO = 0.7
@@ -123,6 +125,24 @@ class Method(fedavg.Method):
     name = "lwfednids"
 
     def __init__(self, env):
+        if env.cfg.get("model") in ("mlp", "cnn-bigru-attention"):
+            from core.prune_dense_recurrent import prune
+            torch.manual_seed(env.hp["seed"])
+            full = env.lay.make(env.cfg)
+            cfg, sd = prune(env.cfg, full.state_dict(), env.hp.get("prune", RATIO))
+            env.cfg, env.lay = cfg, Layout(cfg)
+            self.env = env
+            self.p = torch.cat([sd[k].flatten().float() for k, _ in env.lay.p]).to(env.dev)
+            self.b = (torch.cat([sd[k].flatten().float() for k, _ in env.lay.b])
+                      if env.lay.B else torch.zeros(0)).to(env.dev)
+            self.full_params = sum(p.numel() for p in full.parameters())
+            return
+        if env.cfg.get("model") == "tabm":
+            self._init_tabm(env)
+            return
+        if env.cfg.get("model") == "sae":
+            self._init_sae(env)
+            return
         torch.manual_seed(env.hp["seed"])
         full = DAGSNet(env.cfg)
         cfg, sd = prune_plan(env.cfg, full.state_dict(), env.hp.get("prune", RATIO))
@@ -132,4 +152,82 @@ class Method(fedavg.Method):
         self.env = env
         self.p = torch.cat([sd[k].reshape(-1).float() for k, _ in env.lay.p]).to(env.dev)
         self.b = torch.cat([sd[k].reshape(-1).float() for k, _ in env.lay.b]).to(env.dev)
+        self.full_params = sum(p.numel() for p in full.parameters())
+
+    def _init_sae(self, env):
+        """Physically prune 70% of encoder hidden, bottleneck and decoder hidden dependency groups."""
+        ratio = env.hp.get("prune", RATIO)
+        torch.manual_seed(env.hp["seed"])
+        full = SupervisedSAE(env.cfg)
+        sd = full.state_dict()
+        eh, code, dh = env.cfg["encoder_hidden"], env.cfg.get("code_dim", env.cfg["head_hidden"]), env.cfg["decoder_hidden"]
+
+        def top(score, n):
+            return torch.sort(torch.topk(score, _keep(n, ratio)).indices).values
+
+        ke = top(sd["encoder.0.weight"].abs().sum(1) + sd["encoder.0.bias"].abs()
+                 + sd["encoder.2.weight"].abs().sum(0), eh)
+        kc = top(sd["encoder.2.weight"].abs().sum(1) + sd["encoder.2.bias"].abs()
+                 + sd["decoder.0.weight"].abs().sum(0) + sd["head.weight"][:, 77:].abs().sum(0), code)
+        kd = top(sd["decoder.0.weight"].abs().sum(1) + sd["decoder.0.bias"].abs()
+                 + sd["decoder.2.weight"].abs().sum(0), dh)
+        head_in = torch.cat([torch.arange(77), 77 + kc])
+        out = {
+            "encoder.0.weight": sd["encoder.0.weight"][ke].clone(),
+            "encoder.0.bias": sd["encoder.0.bias"][ke].clone(),
+            "encoder.2.weight": sd["encoder.2.weight"][kc][:, ke].clone(),
+            "encoder.2.bias": sd["encoder.2.bias"][kc].clone(),
+            "decoder.0.weight": sd["decoder.0.weight"][kd][:, kc].clone(),
+            "decoder.0.bias": sd["decoder.0.bias"][kd].clone(),
+            "decoder.2.weight": sd["decoder.2.weight"][:, kd].clone(),
+            "decoder.2.bias": sd["decoder.2.bias"].clone(),
+            "head.weight": sd["head.weight"][:, head_in].clone(),
+            "head.bias": sd["head.bias"].clone(),
+        }
+        cfg = dict(env.cfg, encoder_hidden=len(ke), head_hidden=len(kc), decoder_hidden=len(kd))
+        if env.cfg.get("objective") == "ce":
+            cfg.update(code_dim=len(kc), head_hidden=77 + len(kc))
+        m = SupervisedSAE(cfg)
+        m.load_state_dict(out)
+        env.cfg, env.lay = cfg, Layout(cfg)
+        self.env = env
+        self.p = torch.cat([out[k].reshape(-1).float() for k, _ in env.lay.p]).to(env.dev)
+        self.b = torch.zeros(0, device=env.dev)
+        self.full_params = sum(p.numel() for p in full.parameters())
+
+    def _init_tabm(self, env):
+        """Physically prune 70% of both hidden layers using dependency-aware L1 scores."""
+        ratio = env.hp.get("prune", RATIO)
+        torch.manual_seed(env.hp["seed"])
+        full = TabM(env.cfg)
+        sd = full.state_dict()
+        h = env.cfg["head_hidden"]
+        keep_n = _keep(h, ratio)
+        score0 = (sd["blocks.0.shared.weight"].abs().sum(1)
+                  + sd["blocks.0.s"].abs().sum(0) + sd["blocks.0.bias"].abs().sum(0)
+                  + sd["blocks.1.shared.weight"].abs().sum(0) + sd["blocks.1.r"].abs().sum(0))
+        score1 = (sd["blocks.1.shared.weight"].abs().sum(1)
+                  + sd["blocks.1.s"].abs().sum(0) + sd["blocks.1.bias"].abs().sum(0)
+                  + sd["weight"].abs().sum((0, 2)))
+        k0 = torch.sort(torch.topk(score0, keep_n).indices).values
+        k1 = torch.sort(torch.topk(score1, keep_n).indices).values
+        out = {
+            "blocks.0.shared.weight": sd["blocks.0.shared.weight"][k0].clone(),
+            "blocks.0.r": sd["blocks.0.r"].clone(),
+            "blocks.0.s": sd["blocks.0.s"][:, k0].clone(),
+            "blocks.0.bias": sd["blocks.0.bias"][:, k0].clone(),
+            "blocks.1.shared.weight": sd["blocks.1.shared.weight"][k1][:, k0].clone(),
+            "blocks.1.r": sd["blocks.1.r"][:, k0].clone(),
+            "blocks.1.s": sd["blocks.1.s"][:, k1].clone(),
+            "blocks.1.bias": sd["blocks.1.bias"][:, k1].clone(),
+            "weight": sd["weight"][:, k1].clone(),
+            "bias": sd["bias"].clone(),
+        }
+        cfg = dict(env.cfg, head_hidden=keep_n)
+        m = TabM(cfg)
+        m.load_state_dict(out)
+        env.cfg, env.lay = cfg, Layout(cfg)
+        self.env = env
+        self.p = torch.cat([out[k].reshape(-1).float() for k, _ in env.lay.p]).to(env.dev)
+        self.b = torch.zeros(0, device=env.dev)
         self.full_params = sum(p.numel() for p in full.parameters())

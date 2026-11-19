@@ -50,6 +50,15 @@ def class_reliability_gate(teacher_logits, student_logits, y, mask, margin=0.0):
     return gate, gate.gather(1, y)
 
 
+def pairwise_0_13_loss(logits, y, mask):
+    """Per-client binary CE on raw private logits for benign vs timeDelay rows only."""
+    pair_mask = mask & ((y == 0) | (y == 13))
+    pair_y = (y == 13).long()
+    pair_logits = logits[..., [0, 13]].float()
+    loss = F.cross_entropy(pair_logits.reshape(-1, 2), pair_y.reshape(-1), reduction="none").view_as(y)
+    return local.masked_mean(loss, pair_mask)
+
+
 def quantize(delta, gen=None):
     """antimem.quantize on (G, rows, -1): symmetric per-row scale (fp16), 3-bit codes in [-3, 3]; stochastic if gen."""
     levels = 2 ** (BITS - 1) - 1
@@ -79,6 +88,7 @@ class Method:
     per_client = True
     reliability_gate = False
     reliability_margin = 0.0
+    pairwise_aux = False
 
     def __init__(self, env):
         self.env = env
@@ -115,6 +125,7 @@ class Method:
         self.mu, self.L = mu.float(), torch.linalg.cholesky(cov).float()
         log_pk = ((cnt + 1) / (cnt.sum(1, keepdim=True) + C)).log()
         log_pg = ((tot + 1) / (tot.sum() + C)).log().float()
+        self.log_pg = log_pg
         self.la_shift = log_pk - log_pg                              # (K, 16)
         self.labels = torch.arange(self.aux, device=env.dev) % C
         tri = D * (D + 1) // 2
@@ -139,6 +150,8 @@ class Method:
         y = ctx.y
         shift = self._shift[:, None, :]
         ce = local.masked_mean(F.cross_entropy((zp[:, :b] + shift).reshape(-1, 16), y.reshape(-1), reduction="none").view(G, b), ctx.mask)
+        if self.pairwise_aux:
+            ce = ce + pairwise_0_13_loss(zp[:, :b], y, ctx.mask)
         pce = local.masked_mean(F.cross_entropy(zr.reshape(-1, 16), y.reshape(-1), reduction="none").view(G, b), ctx.mask)
         raw = 1 / (ce + pce).detach().clamp_min(1e-6)
         lsp, lsr = F.log_softmax(zp, -1), F.log_softmax(zr, -1)

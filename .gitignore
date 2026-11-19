@@ -13,6 +13,7 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .ipynb_checkpoints/
+/tmp/fl-test-runtime/
 
 # Data, runs, weights (local + Kaggle, never Git)
 /cache/

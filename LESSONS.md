@@ -1,9 +1,77 @@
 # LESSONS — bài học kỹ thuật (dữ liệu, model, train, đánh giá, code)
 
+- 18/11 BERT/V2X regression: loss thật, batch64, scale4096, seed41/42/43 trên CPU fp16 tái hiện gradient nonfinite ở attention in_proj_bias/out_proj.bias block0. FP32 cùng fixture/loss hữu hạn cả3seed. Sửa precision policy cho BERT+SAE riêng mixed V2X; không đổi kiến trúc/loss/LR/gate1%. tests/test_mixed_bert_precision.py; GPU T4 regression cũng PASS cả3seed (runs/mixed128-bert-precision-gpu.json); còn cần full-data gate, fixture không chứng minh đủ50round.
+
+- 18/11 mixed128: cả 6 V2X case1/3 seed41/42/43 fail full round đầu vì BERT AMP skip 2,62998–3,68301%, vượt gate1%. SAE-only FP32 fix không bao phủ BERT. Không nối/chạy lại nguyên mã lỗi; cần replay/precision proof riêng trước khi sửa và chạy lại.
+
+- 17/11 mixed128 V2X case2 seed42: pilot2round PASS nhưng full-data tới r18
+  SAE skip1,15867% vượt gate1%; seed41/43 complete50. Pilot không chứng minh
+  health dài hạn. Gate riêng backbone phát hiện lỗi dù tỷ lệ skip gộp r17 chỉ0,31531%.
+  Replay checkpoint15 trên T4 bắt batch thật r16 xe1976/1961: AMP scale4096 làm
+  encoder SAE gradient nonfinite; projection-only/loss-only FP32 vẫn lỗi. Scale1
+  hoặc toàn bộ phép tính FP32 đều hữu hạn. a2 cho SAE local training của mixed V2X
+  dùngFP32, giữ AMP của backbone/phương pháp khác và ngưỡng1%. Chạy lại cả3seed
+  cùngpolicy, không ghép a1/a2. Evidence `runs/mixed128-precision-evidence.json`.
+
+- 17/11 mixed-model: kiểm tổng số dòng bằng integer/float64;37.361.273 vượt miền
+  integer chính xác của float32. Dùng env.n.double().sum() cho identity gate, không
+  thay quy tắc trọng số loss của baseline. Health mixed phải kiểm riêng backbone;
+  tỷ lệ skip gộp có thể che nhóm nhỏ bị lỗi. Bảng gán phải tra globalclient_id,
+  không tra vị trí local sau chiaGPU/sortsize; hash cố định qua method/seed/resume.
+
+- 16/11 MLP V2X: notebook a2 còn nhúng projection cũ dù workspace đã sửa FP32 cho TabM.
+  Test gọi loss thật của Method.round, batch64/scale4096, tái hiện seed42 gradient proj_b nonfinite
+  với projection lấy từ notebook a2; projection hiện tại PASS cả41/42/43. Không đổi loss/HP/epsilon.
+  Regression được nhúng trong a4 trước cache/smoke GPU. CPU fixture chưa chứng minh full-data GPU;
+  phải build/push snapshot mới, sửa workspace không sửa notebook đã gửi.
+
+- 16/11 V2X precision follow-up: CPU autocast-fp16 synthetic fixture tái hiện gradient `proj_b`
+  nonfinite ở seed41/42 khi scale4096; FP32 hoặc scale1 hữu hạn. `project()` dùng baddbmm trong
+  autocast ép bias về half; gradient cộng qua batch overflow. Tắt autocast riêng projection,
+  giữ FP32 và khôi phục eps1e-12: fixture cả3seed PASS scale4096; reference TabM PASS.
+  Chưa suy fixture thành full-data proof. a4 có GPU regression + smoke2round trước production.
+
+- 16/11 TabM V2X-HtFL seed42 không suy giảm muộn: F1 đã 0,01888 ở r1 và train loss gần0.
+  Adapter đã bỏ `applied/skipped` của `local_epoch`, nên bước AMP non-finite bị skip có thể hiện thành loss0
+  nhưng marker vẫn COMPLETE. Telemetry mới chứng minh rerun: seed42 skip100% ở r1/r2; seed43 skip100%/98,3%.
+  Normalize fp32 `eps=1e-2` **không sửa được** và giả thuyết gradient gần vector0 bị bác bỏ như nguyên nhân đủ.
+  Không push production tiếp; cần diagnostic eager-FP32/eager-AMP/compiled-AMP trên cùng batch, đồng thời audit
+  DAGSNet V2X với telemetry mới trước khi gọi hai backbone đồng nhất về health.
+
+- 15/11 owner đổi SAE-FL sang CE-only, prototype pre-classifier93; đây là biến thể mới,
+  không còn bắt buộc reconstruction/KL như quyết định14/11 bên dưới. Centralized SAE cũ
+  vẫn giữ objective gốc. Decoder trong layout CE-v2 có gradient0; phân biệt tổngparams
+  vàparams ảnh hưởng prediction. Không resume checkpoint khác objective/representation.
+
+- 15/11: metric history thiếu skipped_frac phải là unknown, không phải zero. V2X-HtFL bỏ
+  st.skipped/applied khi trả round info; CM/history đủround không chứng minh mọi bước optimizer
+  được áp dụng. SAE classifier dùng skip77+code16 nhưng prototype chỉcode16: phải kiểm
+  representation trước quy điểm prototype thấp cho toàn bộ classifier.
+
+- 15/11: khi so backbone giữa các nhánh repo, kiểm cả HP override của run gốc. TinyProto DAGSNet r4
+  dùng μ=0.00015 nhưng TabM/SAE dùng heuristic mặc định; chênh lệch không cô lập tác động backbone.
+  Audit parameter phải tính sau pruning (LwFedNIDS) hoặc thêm projection (V2X), không ép mọi method
+  bằng sốparams backbone gốc. [Bằng chứng](docs/research/tabm-sae-dagsnet-comparison-20261115.md).
+
 Đọc sau [CONTEXT](CONTEXT.md), cùng [bài học vận hành](docs/operations/lessons.md). Bài học kế thừa:
 `../mobihet-features/LESSONS.md` (dataset v4), `../mobihet/LESSONS.md` (grep theo chủ đề; FL/KD/đánh giá trên DAGSNet).
 
+- 14/11 SAE trong FL không được thay objective bằng CE thuần: decoder chỉ nối với reconstruction nên sẽ không nhận
+  gradient. Mọi method có loss riêng phải giữ `reconstruction + KL sparsity + classification CE`, rồi cộng KD/prototype/
+  proximal term của method. Khóa bằng grouped-reference regularizer test và one-round smoke mọi method.
+
 ## Kế thừa — áp dụng thẳng cho repo này
+
+- 14/11: V2X-HtFL server prototype training có generator shuffle riêng gen_s; checkpoint thiếu RNG này
+  làm resume round2 khác confusion matrix uninterrupted. Đã bổ sung state/load và CPU26 adapter resume CM test PASS.
+  Không suy CM equality fixture thành bit-exact weights hoặc CUDA equivalence.
+
+- 14/11 TabM trong FL: member axis không phải client/model federation axis. CE phải trung bình trên 4 member;
+  prediction/KD phải trung bình **xác suất**; prototype dùng trung bình 4 hidden vector. Nếu đưa tensor `(G,B,K,C)`
+  thẳng vào code DAGSNet `(G,B,C)`, chương trình có thể vẫn chạy nhưng objective/eval sai nghĩa. Khóa bằng grouped-reference
+  test và smoke đủ từng nhóm phương pháp trước launch. [Thiết kế](docs/research/tabm-single-model-baselines.md).
+- 14/11 backbone không có BatchNorm cần đường compile/eval trả buffer phẳng `(G,0)` và diff bằng 0; không được
+  `torch.cat([])`. Method smoke eager PASS không cover compile gate. Probe GPU phải chạy gate trước production.
 
 - Model client chỉ học nhãn của chính nó đạt đỉnh trên test có prior toàn cục sau 1–2 epoch rồi giảm (mobihet 13/09). Ở đây model client
   chấm trên test của chính xe ⇒ prior khớp hơn, nhưng Sybil test 17,7 % vs train 8,0 % vẫn lệch theo thời gian.
@@ -12,6 +80,41 @@
 
 ## Dữ liệu
 
+- GRANDE v4 (10/11), với đầu vào chặn ở ±3,72, đếm ngưỡng của **cột được chọn** ngoài miền để phát hiện nút luôn rẽ một phía. Epoch 50 có 153/480 nút vượt ±3,73. Đếm lá khả thi phải xét cả điều kiện từ nút cha. [Checkpoint và kết quả từng lớp](docs/research/central-backbones.md#grande-trên-veremi-v4-10112026).
+
+- 03/11 histmask: sửa đúng implication flag=1⇒value=0 chưa tăng utility; vs hist macro−0,000251,
+  p10−0,006338, cả2 gates FAIL. Không suy chất lượng miền mẫu cải thiện ⇒ FL metric chắc chắn tăng.
+  Histogram same-seed hai lần macro gain0,004766/0,005007 nằm hai phía gate0,005; cần báo dao động,
+  không chọn lần vượt ngưỡng làm xác nhận độc lập.
+
+- 03/11 histogram marginal transport R10 tăng macro0,004766, mean0,004016, p10 0,009668,
+  class13 0,009535 với train overhead0,255%; nhưng primary gate+0,005 vẫn FAIL.
+  Không làm tròn/nới gate cho kết quả sát ngưỡng; tính cả chi phí bootstrap tăng khi đánh giá utility/cost.
+
+- 02/11 Gaussian fidelity: full-train moment Gaussian trên0/11/13/15 dễ tách khỏi real (HGB domain AUC1,0,
+  kể cả bỏ6 NaN flags). Flags synthetic gần100% không binary,31–48% ngoài[0,1]. Binary transfer macro
+  kém real-trained0,0922 và0,0643 ở0↔13/11↔15. Mean/cov đúng không bảo đảm mẫu có miền/quan hệ feature hợp lệ.
+  Đây là sampled HGB diagnostic, không phải FL score hoặc bằng chứng riêng cho multimodality.
+
+- 02/11 Gaussian prior-consistency R10: synthetic CE(z−log_pg) tăng pooled macro0,00395
+  và lớp11/15 nhưng giảm client mean0,01255, p10 0,04471, lớp13 0,05116. Công thức target-prior
+  nhất quán không bảo đảm utility khi Gaussian chỉ xấp xỉ và các client khác nhau. Gate FAIL, không tune strength.
+
+- 02/11 train-support diagnostic trên nogauss paired R10: Gaussian cứu các lớp11/13/15 vắng ở train
+  nhưng xuất hiện ở val (bỏ Gaussian thì F1 đều0; support nhỏ268/258/196). Đồng thời lớp13 có train
+  lại tốt hơn khi bỏ Gaussian, trong khi lớp11/15 kém đi. Không suy từ count thấp ra cùng nhu cầu
+  synthetic cho mọi lớp; không chọn cutoff/gating từ kết quả val rồi coi là xác nhận độc lập.
+
+- 02/11 no-Gaussian paired val R10: bỏ toàn Gaussian nhanh26,35% nhưng macro −0,008963,
+  client mean −0,033406 và p10 −0,075048; class13 lại +0,024601. Không loại bỏ augmentation
+  chỉ dựa trên compute hoặc một lớp. Đây là tác động cả pipeline (BN/dropout đổi), chưa cô lập synthetic CE.
+
+- 01/11 pairwise 0↔13 train→val r10: F1 lớp13 0,0130 → 0,2299, macro +0,0132, client mean +0,00473,
+  p10 +0,00009, nhưng không đạt gate khóa (class13 ≥0,35; macro +0,015; mean +0,005). Objective đúng hướng nhưng
+  chưa đủ mạnh; không nới gate hoặc tune hệ số sau khi xem val. Chuyển câu hỏi cost: bỏ proxy, giữ one-time global statistics.
+- 31/10 RelKD train→val r10: reliability-gated teacher→private KD tăng F1 lớp13 0,0130 → 0,2229 và macro-F1
+  0,8613 → 0,8763, nhưng client mean 0,7746 → 0,7613 và p10 0,5599 → 0,5051. Cải thiện pooled không đủ cho
+  personalized FL: phải khóa cổng cả client mean/p10. Không kéo dài/tune arm; chuyển objective chỉ tác động cặp 0↔13.
 - 31/10 MobiHet P0 r25: thêm `log π_k − log π_g` lúc own-client inference tăng F1 timeDelay 0,0559 → 0,0731 nhưng
   giảm pooled macro-F1 0,8832 → 0,8812, client mean 0,8249 → 0,8117 và p10 0,6772 → 0,6453. Giữ logits raw;
   prior correction lúc train không suy ra rằng phải cộng lại lúc inference.
@@ -32,6 +135,8 @@
 
 ## Compile
 
+- 13/11 MambaCNN: tổng tham số trong paper không xác định duy nhất kiến trúc student. Cần phân biệt số báo cáo128,11K sau feature selection/KD với bản77feature supervised đã build129.328. Các dimension thiếu phải ghi là lựa chọn chuyển thể; không gọi bản không teacher là KD. Prefix scan kiểm cả output lẫn gradient với recurrence độc lập, kể cả L=1 (transition không ảnh hưởng khi trạng thái đầu0). [Đối chiếu](papers/feng-2026-mambacnn/rebuild.md).
+
 - **`torch.compile` + AMP fp16 làm gradient NaN ở nhánh AlexNet grouped** (29/10): forward khớp eager (Δlogit 2e-3) nhưng
   backward của `amax` (maxpool 2, ceil) cho NaN ở mọi bước ⇒ optimizer bỏ mọi bước, model đứng ở init, FedAvg smoke acc 0,047 /
   loss "0,028" (chỉ là tổng các bước được áp = 0). fp32 compile và eager không bị. Sửa: `torch.maximum(x[..., 0::2], x[..., 1::2])`.
@@ -40,6 +145,8 @@
 - Shape tĩnh cho train (nhóm đệm tới đủ G client rỗng), shape động cho eval; mỗi shape mới = một lần compile ~2 phút.
 
 ## Tốc độ (đo 29/10, RTX 3050 4 GiB local)
+
+- 14/11 MambaCNN129.328tham số: prefix scan PyTorch trên2T4/micro32 dự kiến21,79h/epoch (full VeReMi v4), không thể suy nhẹ từ số tham số. Scan materialize B×L×H×N và nhiều phép toán trong6block. Probe-budget gate đã chặn production; bản sửa CUDA phải qua kiểm output/gradient và timing thật trước train. [Bằng chứng và gate](papers/feng-2026-mambacnn/rebuild.md).
 
 - DAGSNet đơn, AMP, batch 8.192: full 46k mẫu/s eager, 59k compile; W 0,375: 78k / 113k.
 - Grouped (G model/bước, bmm channels-last) compile: ~45k slot/s full width ≈ 77 % model đơn; eager chậm hơn ~2,5×.
@@ -53,3 +160,6 @@
 - 30/10: luật suy luận prototype phải theo đúng bài từng phương pháp: FedProto/FedTGP dùng prototype toàn cục, **TinyProto Eq. 12 dùng
   prototype cục bộ dense c̄^L_ij**. Target thưa × μ của TinyProto chỉ là đích regularizer (0 ngoài mask) ⇒ dùng làm prototype suy luận
   cho F1 0,24 vs head 0,79. Audit: view prototype thấp xa view head là dấu hiệu sai luật suy luận.
+- 01/11: với MobiHet v4, trainable proxy không cần để cứu lớp hiếm. Bootstrap một lần bằng sufficient statistics theo lớp
+  (count/Σx/Σxxᵀ), rồi private model học local real CE + pooled Gaussian CE, tăng đồng thời macro/client mean/p10/class13 trên val,
+  giảm 73% train time và đưa payload mỗi round về 0. Kết luận chỉ áp dụng cho arm val seed42; cần final official-test r50.

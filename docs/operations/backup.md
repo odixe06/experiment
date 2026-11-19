@@ -1,5 +1,17 @@
 # Git / DVC backup record
 
+## Deployment riêng — 15/11/2026
+
+Owner yêu cầu hourly cloud dispatcher; đã tạo private repo
+https://github.com/dangvanhoang1711/kaggle-fl-dispatcher . Source commit triển khai
+`cba65ac42971c2fdc62fcf8581269e61ede5881f`,65files (58training source frozen + tooling).
+Ledger queue có commit riêng ban đầu; workflow sẽ ghi tiếp trạng thái. Secrets mã hóa ngoài source.
+Credential scan so với toàn bộ saved Kaggle tokens PASS;13tests local PASS; dry-run cloud SUCCESS43619921537.
+Không backup toàn repo nghiên cứu, không đổi Git HEAD/index gốc, không DVC hoặc cleanup.
+Chi tiết vận hành: [cloud dispatcher](cloud-dispatcher.md); current status: [continue](continue.md).
+
+## Backup lịch sử
+
 Updated: 2026-10-31, Asia/Bangkok — pushed MobiHet v4/RelKD source snapshot to new GitHub branch.
 Procedure: repository `repo-backup` skill.
 

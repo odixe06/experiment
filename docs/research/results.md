@@ -1,4 +1,8 @@
-# Kết quả — 5.343 xe, DAGSNet W = 1, 50 round (31/10/2026)
+# Kết quả — 5.343 xe, DAGSNet W = 1, 50 round (04/11/2026)
+
+**MobiHet Stats bỏ proxy đạt macro-F1 0,8879 trên 9.347.679 dòng test.** Mỗi xe dùng model riêng chấm trên test của xe đó. FedAvg dùng một model chung và đạt 0,9042. APFed đạt 0,9119 với model riêng. Centralized gộp dữ liệu để train và đạt 0,9593 ở epoch 50.
+
+So với model private của MobiHet có proxy, Stats giảm macro-F1 0,0074, trong khi F1 trung bình theo xe giảm 0,0007, p10 tăng 0,0094 và F1 lớp timeDelay tăng từ 0,1159 lên 0,3400. Trên 2 T4, riêng round 50 mất 290,8 giây train với Stats so với 1.127,4 giây với proxy (giảm 74,2%, chưa tính eval). Mỗi xe gửi và nhận 197.184 byte mỗi chiều lúc khởi tạo Stats, sau đó truyền 0 byte mỗi round. FedAvg truyền tổng 159.468.800 byte/xe qua 50 round. [Run Stats](https://www.kaggle.com/code/hoangdang1711/mobihet-v4-stats-final-r50) · [Run có proxy](https://www.kaggle.com/code/minhiw/mobihet-v4-weighted-nowb-s2)
 
 Tính lại từ confusion matrix đã pull (`scripts/report.py runs/pulls/*/`), không chép từ log. Protocol: [protocol](protocol.md).
 Headline mỗi phương pháp = model được đánh giá theo luật của bài (global; model client trên test của chính nó; prototype cho
@@ -15,11 +19,19 @@ Chưa có / lưu ý:
 - **MobiHet v4**: W&B tắt theo owner; hai session nối exact r1–25/r26–50. Audit 50 CM × 2 view PASS,
   mỗi view/round đủ 9.347.679 dòng; source hash/metric/finite/skipped PASS. Lớp timeDelay vẫn là nút thắt:
   F1 private/proxy r50 = 0,1159/0,1173. RelKD train→val là arm sàng lọc riêng, chưa phải kết quả final.
+- **RelKD train→val r10**: audit 20 CM PASS (5.343 client, 4.676.107 dòng/view/round). So control, private
+  class13 +0,2100 và macro-F1 +0,0150, nhưng client mean −0,0133, p10 −0,0548 ⇒ gate FAIL; không chạy test/final.
+- **Pairwise 0↔13 train→val r10**: audit 20 CM PASS. So control, class13 +0,2169, macro-F1 +0,0132,
+  client mean +0,00473, p10 +0,00009; vẫn FAIL gate khóa, nên không kéo dài/tune và không chạy official test.
+- **Proxy-free statistics train→val r10**: audit 20 CM PASS. So control, macro-F1 +0,01398, client mean +0,00710,
+  p10 +0,01133, class13 +0,27724; train nhanh hơn 73,02%, payload mỗi round bằng 0 ⇒ gate PASS. Final r50
+  train+val→official-test đã hoàn tất với Stats gốc. Các thử nghiệm histogram dừng ở validation R10.
 - FedAvg/FedProx/SCAFFOLD/FedProto chạy SHA `6617261` (không có snapshot model từng round; state r50 trên Kaggle).
 
 | method | view | round | accuracy | precision_macro | precision_micro | precision_weighted | recall_macro | recall_micro | recall_weighted | f1_macro | f1_micro | f1_weighted | client F1 mean | p10 | min | byte/client/round |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | centralized (train+val → test) | — | ep50 | 0,9580 | 0,9684 | 0,9580 | 0,9560 | 0,9531 | 0,9580 | 0,9580 | 0,9593 | 0,9580 | 0,9556 | — | — | — | — |
+| **MobiHet Stats (bỏ proxy)** | private (headline) | 50 | 0,9034 | 0,8825 | 0,9034 | 0,8980 | 0,8959 | 0,9034 | 0,9034 | **0,8879** | 0,9034 | 0,8999 | 0,8461 | 0,7257 | 0,1667 | 0 |
 | afpha | global (headline) | 50 | 0,9211 | 0,9300 | 0,9211 | 0,9106 | 0,8932 | 0,9211 | 0,9211 | 0,8990 | 0,9211 | 0,9045 | 0,8652 | 0,7523 | 0,1786 | 3.189.376 |
 | apfed | client (headline) | 50 | 0,9278 | 0,9377 | 0,9278 | 0,9217 | 0,9032 | 0,9278 | 0,9278 | 0,9119 | 0,9278 | 0,9169 | 0,8663 | 0,7533 | 0,1500 | 3.189.376 |
 |  | global | 50 | 0,9216 | 0,9333 | 0,9216 | 0,9132 | 0,8947 | 0,9216 | 0,9216 | 0,9031 | 0,9216 | 0,9075 | 0,8645 | 0,7487 | 0,1806 | 3.189.376 |

@@ -6,7 +6,11 @@ import torch
 from test_methods import ToyEnv
 
 
-@pytest.mark.parametrize("module", ["methods.mobihet", "methods.mobihet_rel"])
+@pytest.mark.parametrize("module", ["methods.mobihet", "methods.mobihet_rel", "methods.mobihet_pair",
+                                    "methods.mobihet_stats", "methods.mobihet_stats_realbn", "methods.mobihet_stats_adaptive",
+                                    "methods.mobihet_stats_massnorm", "methods.mobihet_stats_nogauss",
+                                    "methods.mobihet_stats_prior", "methods.mobihet_stats_hist",
+                                    "methods.mobihet_stats_histmask", "methods.mobihet_core", "methods.mobihet_core_ce"])
 def test_next_round_resume(tmp_path, module):
     Method = __import__(module, fromlist=["Method"]).Method
     env = ToyEnv()

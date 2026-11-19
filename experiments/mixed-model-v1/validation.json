@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "scope": "assignment-only; no training or full dataset audit",
+  "client_ids_evidence": {
+    "artifact": "runs/comparison-20261115/dangthiet__tabm-fl-fedavg-s41-probe__v3/tabm-fl-fedavg-s41-probe/cms_r050.npz",
+    "sha256": "8973f369b3acc34c2add10d8461ef5a22d62633f0c2e419dcd4c4c34a1182dc5",
+    "member": "ids.npy",
+    "ids_sha256": "7c6e3b3f39831a86bddb9a2710a3ff69d0ebe806f09210d141a6fe738727d9f7",
+    "unique_clients": 5343,
+    "min_id": 0,
+    "max_id": 5342
+  },
+  "manifest_sha256": "15599dfcf507577513965e1aa9aa19784f00a8ea26ef229ce5a14725d501fa00",
+  "tests": {
+    "command": "python -m unittest discover -s tests -p test_model_assignment.py -v",
+    "passed": 3
+  },
+  "runner_integration": "pending",
+  "gpu_smoke": "not_run",
+  "kaggle_push": "not_performed"
+}

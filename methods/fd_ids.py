@@ -9,6 +9,7 @@ import torch
 import torch.nn.functional as F
 
 from core import grouped, local
+from core.tabm import log_probs
 from methods import fedavg
 
 
@@ -27,13 +28,19 @@ class Method(fedavg.Method):
             lay = self.env.lay
             self._teacher = (ctx.Gfix, lay.params(self.p[None].repeat(ctx.Gfix, 1)), lay.bufs(self.b[None].repeat(ctx.Gfix, 1)))
         _, Pt, Bt = self._teacher
-        z, nb = grouped.TRAIN(ctx.P, ctx.B, ctx.x, cfg, mask=ctx.mask, train=True)
+        if cfg.get("model") == "sae":
+            z, h, nb = grouped.TRAIN(ctx.P, ctx.B, ctx.x, cfg, mask=ctx.mask, train=True, hidden=True)
+            supervised = local.supervised_loss(ctx.P, ctx.x, z, h, ctx.y, ctx.mask, cfg)
+        else:
+            z, nb = grouped.TRAIN(ctx.P, ctx.B, ctx.x, cfg, mask=ctx.mask, train=True)
+            supervised = local.ce_loss(z, ctx.y, ctx.mask)
         with torch.no_grad():
             zt, _ = grouped.TRAIN(Pt, Bt, ctx.x, cfg, train=False)
         T = self.T
-        lt, ls = F.log_softmax(zt.float() / T, -1), F.log_softmax(z / T, -1)
+        ensemble = cfg.get("model") == "tabm"
+        lt, ls = log_probs(zt / T, ensemble), log_probs(z / T, ensemble)
         soft = local.masked_mean((lt.exp() * (lt - ls)).sum(-1), ctx.mask) * T * T
-        return self.lam * local.ce_loss(z, ctx.y, ctx.mask) + (1 - self.lam) * soft, nb
+        return self.lam * supervised + (1 - self.lam) * soft, nb
 
     def _grad(self, ctx, grad):
         grad += self.beta * self.mu * (ctx.flat - self.p[None])        # ∇ β·(μ/2)‖w − w_G‖²
