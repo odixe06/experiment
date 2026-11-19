@@ -60,6 +60,16 @@ chưa push được lúc ổ đầy — push trước khi build notebook (notebo
 OOM ⇒ status `oom` ⇒ đếm trên Kaggle T4 cùng harness. CANPerFL các model: FedAvg r1 relabel r50 làm điểm bắt đầu fine-tune.
 DAGSNet/BERT đã đo ở `../mobihet/runs/total-compute-20261119/` (+ `canperfl.py` phiên này).
 
+### Dọn file bỏ (owner 20/11, commit `9ff5c8b`)
+
+Đã gỡ khỏi Git: code centralized TCNN/CNN-LSTM/GRANDE/GRU-Attention/MambaCNN + windows, toàn bộ MobiHet/T3/Lite2/P21 (`methods/`,
+`bert/`, `scripts/build_mobihet_*`), script launch/check wave đã xong, probe, Notion one-off. Khôi phục: `git show 5b9d0e3:<path>`.
+Giữ: tool mixed production + `scripts/cloud_dispatch/` (5 run teammate còn chạy; `audit_mixed_results.py` import `dispatcher`).
+Local đã xoá: `../fl_veremi_bert/runs/sm_*` (770 MB smoke), 26 log ImportError trong `runs/compute-20261120/`,
+`../mobihet/runs/total-compute-20261119/bert-nilm.time.perturbed-by-pytest-1957.json`.
+**Còn xoá khi xong việc:** `scratchpad/reg/` + `scratchpad/old/` sau khi so hồi quy; worktree `experiment-wt` sau khi dời
+`runs/{central,compute,count-kaggle}-20261120/` + `notebooks/` về `experiment/` (bước 6).
+
 ## Bước tiếp
 
 1. Khi centralized COMPLETE: pull (`pull_kernel_output.py` qua `kaggle_as.py`), `scripts/audit_central_backbones.py`, thêm hàng vào
@@ -71,6 +81,8 @@ DAGSNet/BERT đã đo ở `../mobihet/runs/total-compute-20261119/` (+ `canperfl
    (cùng ổ ⇒ `mv`), đối chiếu DVC `bert/artifacts/*.dvc`; giữ repo GitHub `fl_veremi_bert` (notebook cũ clone SHA của nó).
    Thay đổi chưa commit ở `../fl_veremi_bert` (FB-L MobiHet) thuộc `../mobihet`, không nhập.
 5. Mixed 5 run teammate xong: thêm hàng audited vào `experiments/mixed-case{1,3}/results.csv`.
+6. Queue local + 3 notebook đếm Kaggle xong: dời `runs/{central,compute,count-kaggle}-20261120/`, `notebooks/` sang
+   `~/project/experiment/`, mở + merge PR nhánh `fix/central-ddp-compute`, `git worktree remove ~/project/experiment-wt`, pull main.
 
 ## Việc tay
 
