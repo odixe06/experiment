@@ -1,0 +1,15 @@
+method,status,bootstrap_tops,train_tops_per_round,other_tops_per_round,eval_tops_per_round,rounds,total_tops,x_fedavg,real_rows,executed_rows_r2,useful_rows_r2,source
+fedavg,done,3.11744e-07,235.709,4.74452e-05,2.84911,50,11785.5,1.0000,1476064,5562368,1476064,mobihet/runs/total-compute-20261119/bert-fedavg.count.json
+fedprox,done,3.11744e-07,235.73,4.74452e-05,2.84911,50,11786.5,1.0001,1476064,5562368,1476064,mobihet/runs/total-compute-20261119/bert-fedprox.count.json
+afpha,done,3.12144e-07,235.73,0.000112264,2.84911,50,11786.5,1.0001,1476064,5562368,1476064,mobihet/runs/total-compute-20261119/bert-afpha.count.json
+fd_ids,done,3.11744e-07,310.803,4.74452e-05,2.84911,50,15540.2,1.3186,1476064,5562368,1476064,mobihet/runs/total-compute-20261119/bert-fd_ids.count.json
+apfed,done,3.16559e-05,471.303,0.000216963,6.23585,50,23565.1,1.9995,1476064,11124736,2952128,mobihet/runs/total-compute-20261119/bert-apfed.count.json
+lwfednids,done,3.93714e-07,48.3191,6.20978e-06,0.551755,50,2415.95,0.2050,1476064,5562368,1476064,mobihet/runs/total-compute-20261119/bert-lwfednids.count.json
+v2x_htfl,done,1.69447e-05,235.898,22.8665,6.7787,50,12938.2,1.0978,1476064,5562368,1476064,mobihet/runs/total-compute-20261119/bert-v2x_htfl.count.json
+canperfl,done,1.56587e-05,235.709,3.1163e-05,6.23585,10,14142.6,1.2000,1476064,5562368,1476064,mobihet/runs/total-compute-20261119/bert-canperfl.count.json
+tinyproto,done,2.18159e-05,235.713,22.8459,6.77348,50,12928,1.0969,1476064,5562368,1476064,mobihet/runs/total-compute-20261119/bert-tinyproto.count.json
+pfedes,done,1.58943e-05,648.529,3.39491e-05,3.38674,50,32426.4,2.7514,1476064,11124736,2952128,mobihet/runs/total-compute-20261119/bert-pfedes.count.json
+nilm,done,1.59704e-05,471.42,0.000125427,6.23585,50,23571,2.0000,1476064,11124736,2952128,mobihet/runs/total-compute-20261119/bert-nilm.count.json
+fedtgp,done,1.59112e-05,235.713,22.8487,6.77348,50,12928.1,1.0970,1476064,5562368,1476064,mobihet/runs/total-compute-20261119/bert-fedtgp.count.json
+perfedskd,done,1.59706e-05,310.783,22.8459,3.38674,50,16681.4,1.4154,1476064,5562368,1476064,mobihet/runs/total-compute-20261119/bert-perfedskd.count.json
+fedproto,done,1.58936e-05,235.714,3.2035e-05,6.77348,50,11785.7,1.0000,1476064,5562368,1476064,mobihet/runs/total-compute-20261119/bert-fedproto.count.json

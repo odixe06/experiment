@@ -12,7 +12,7 @@ streams/resumes downloads; the helper still traverses all pages automatically an
 checks missing files. Verify expected artifacts after either path.
 `kernels push --no-run` saves a version without execution; it does not cancel a worker.
 
-Read repository-root `knowledge/local-env.md` for the measured local hardware/runtime. Short tasks run locally; multi-hour tasks run on Kaggle. The current checkout is `/home/odixe/project/fl_dagsnet_veremi_v2`; use `nckh`.
+Read repository-root `knowledge/local-env.md` for the measured local hardware/runtime. Short tasks run locally; multi-hour tasks run on Kaggle. The current checkout is `/home/odixe/project/mobihet`; use `nckh`.
 Choose an account by live quota and available GPU session slots, not a fixed default. Use process-scoped credentials and leave the global login unchanged. Read `references/kaggle-credentials.md` before using token-only accounts; Quota/health/plan support token-only accounts; global OAuth switches still require snapshots. Environment setup does not authorize a new GPU launch.
 
 ## Paths
@@ -50,17 +50,26 @@ one-client smoke runs, feasibility probes of a few minutes. Anything longer than
 included, goes to Kaggle as its own notebook; so does any job when the local machine is already busy (backup transfers, other
 projects). A long job started locally competes for RAM with everything else and stalls both.
 
+## Kaggle network reads (default)
+
+- **Quota:** `python <skill>/scripts/kaggle_quota.py --out <run>/quota-report.json` (quota only, no kernel list).
+  Child process per account, timeouts on auth + API (10 s connect / 30 s read / 90 s wall), 3 attempts exp backoff +
+  jitter, `--jobs 4`. Exit 3 = some rows `UNVERIFIED` (`gpu_left: null`): rerun with `--retry-failed`, which keeps OK
+  rows and re-queries only `failed`. `OK 0.00h` = real zero; `UNVERIFIED` = unknown, never 0 h or a free slot.
+  Full roster ≈ 15 s. (`kaggle_account.py quota` removed 18/11.)
+- **Kernel status:** project `watch_kaggle_batch.query` retries `QUERY_ERROR` 3× (read-only). Still `QUERY_ERROR`
+  = UNKNOWN, not failed kernel, not empty slot. Check slots only for accounts you intend to push to.
+- **Mutations** (push, dataset create/version, cancel): no automatic retry. On timeout check reply/exact version first.
+- Never log tokens or child stderr; record exception class only. Waiting → local worker (`codex-long-jobs`), not model polling.
+
 ## Route
 
-1. Read [kaggle-mcp.md](references/kaggle-mcp.md), discover callable tools and verify an
-   account-scoped read such as quota. Public dataset metadata does not authenticate the account.
-   Record MCP and CLI results separately. Missing MCP does not prevent local audits or skill
-   edits; respect a user requirement to verify MCP before building models. Never print tokens.
-   Before requesting credentials, inspect the user-designated ~/.kaggle/ directory:
-   credentials.json identifies the active CLI account; accounts/<username>.mcp-token
-   stores its MCP bearer. Follow [saved credentials](references/kaggle-credentials.md).
-   Never print tokens, silently switch accounts, or overwrite OAuth credentials with a
-   bearer. The current Codex header helper does not require an environment export.
+1. Use the authenticated Kaggle CLI in `nckh`. Verify the active account with SDK credential introspection;
+   use `kaggle_as.py <owner> -- <command>` for another saved account, preserving the global login.
+   Read [saved credentials](references/kaggle-credentials.md), then query owner-scoped quota/slots.
+   CLI operations require no MCP JSON, MCP server, header synchronization or client reconnect.
+   If the owner explicitly requests MCP later, read [kaggle-mcp.md](references/kaggle-mcp.md) for that optional setup.
+   Never print tokens or request another login merely because an optional MCP connection is absent.
 2. Extract the method and unresolved choices into `papers/<slug>/paper.md` and `rebuild.md`;
    see [paper-dossier.md](references/paper-dossier.md). Do not invent missing equations,
    optimizer settings or adaptive rules and attribute them to the paper. Resolve scientific
@@ -105,17 +114,19 @@ projects). A long job started locally competes for RAM with everything else and 
    (see [library-runtime.md](references/library-runtime.md) §1-§2): notebooks that carried only
    the JSON metadata came up with zero GPUs. Zero GPUs can be account-scoped -- re-run unchanged
    on another account before editing code, and never respond by removing the assert.
-   Read current quota/session limits. Inspect saved accounts with
+   Read current quota with `kaggle_quota.py` (above), session slots separately. Inspect saved accounts with
    [kaggle_account.py](scripts/kaggle_account.py) `list`, `quota`, `health` and `plan`, none of
    which switch accounts. Size the whole training plan with `plan --gpu-hours`, not one session
    at a time, and read [multi-account.md](references/multi-account.md) before `ensure` or `use`.
    Under the **2026-09-10** policy the agent runs those two with `--confirm` itself, without
    asking; announce which account and why. The user's only account action is reconnecting
    the MCP client when a reconnect is actually needed. Budget free hours after used and
-   reserved time, including all planned simultaneous runs. Reconnect MCP after a switch and verify
-   alignment; use selected CLI OAuth while MCP identity remains uncertain. An account with quota
+   reserved time, including all planned simultaneous runs. After an authorized global switch, verify the new CLI identity with SDK introspection. An account with quota
    is not an account with GPUs -- zero-GPU allocation has been account-scoped here before, and
    only a run proves it. Script creation does not itself authorize launching runs.
+   Plan every free slot before waiting for a quota reset, and chain short sessions on the same owner:
+   [multi-account.md](references/multi-account.md), "Scheduling short quotas". Carry the compile cache into resume sessions:
+   `federated-training-speed` skill, "Session startup".
 7. Pull bulk output with `scripts/pull_kernel_output.py` through `scripts/kaggle_as.py <owner>`
    (parallel, resumable, all-page listing, non-zero exit on gaps; one process per kernel, ~32 connections
    in total); account credentials stay process-scoped. Require exit 0 before artifact verification.

@@ -1,14 +1,17 @@
-# fl_veremi_bert
+# bert/ — FeatureBERT FL (trước 20/11/2026: repo `fl_veremi_bert`)
 
-Repo này là IDS federated cho V2X trên VeReMi NextGen v4: **5.343 client = 5.343 xe nhận**, 16 lớp. Model client là **FeatureBERT**
+Gộp vào repo `experiment` bằng git subtree (giữ lịch sử); tài liệu đã dời sang [docs/bert/](../docs/bert/README.md),
+kết quả theo kịch bản ở [experiments/bert/](../experiments/bert/README.md). Chạy lệnh với cwd `bert/`. Nội dung cũ bên dưới.
+
+Phần này là IDS federated cho V2X trên VeReMi NextGen v4: **5.343 client = 5.343 xe nhận**, 16 lớp. Model client là **FeatureBERT**
 (77 token đặc trưng + CLS, 2 lớp Transformer encoder, 77.904 tham số; từ [veremi-bert-77](https://github.com/dangvanhoang1711/veremi-bert-77)).
 Repo chạy lại 14 phương pháp FL của [`fl_dagsnet_veremi_v2`](https://github.com/odixe06/fl_dagsnet_veremi_v2) với **cùng protocol**:
 FedAvg, FedProx, AFPHA, FD-IDS, APFed, LwFedNIDS, V2X-HtFL, CANPerFL, TinyProto, pFedES, NILM-FL, FedTGP, PerFed-SKD và FedProto.
-Owner15/11 bổ sung **MobiHet/T3**, cùng HP/code phương pháp DAGSNet, chỉ đổi model/engine. Protocol: [docs/research/protocol.md](docs/research/protocol.md).
+Owner15/11 bổ sung **MobiHet/T3**, cùng HP/code phương pháp DAGSNet, chỉ đổi model/engine. Protocol: [docs/research/protocol.md](../docs/bert/research/protocol.md).
 
-- Dataset: Kaggle [`odixe0502/veremi-nextgen-v4-scaled-per-vehicle`](https://www.kaggle.com/datasets/odixe0502/veremi-nextgen-v4-scaled-per-vehicle), [mô tả](knowledge/dataset.md).
-- Model: [FeatureBERT](knowledge/bert.md).
-- Điểm bắt đầu: [CONTEXT.md](CONTEXT.md). Env: conda `nckh` ([environment.yml](environment.yml)).
+- Dataset: Kaggle [`odixe0502/veremi-nextgen-v4-scaled-per-vehicle`](https://www.kaggle.com/datasets/odixe0502/veremi-nextgen-v4-scaled-per-vehicle), [mô tả](../knowledge/bert/dataset.md).
+- Model: [FeatureBERT](../knowledge/bert/bert.md).
+- Điểm bắt đầu: [CONTEXT.md](../docs/bert/context.md). Env: conda `nckh` ([environment.yml](environment.yml)).
 
 ```
 core/      FeatureBERT tham chiếu + bản grouped (nhiều client/bước), dữ liệu thường trú GPU, AdamW theo client, eval, metric

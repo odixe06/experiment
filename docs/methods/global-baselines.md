@@ -1,7 +1,7 @@
 # FedAvg, FedProx, SCAFFOLD — model toàn cục
 
 Cấu hình chung: [protocol](../research/protocol.md). Code: [fedavg.py](../../methods/fedavg.py), [fedprox.py](../../methods/fedprox.py),
-[scaffold.py](../../methods/scaffold.py). Model chấm: θ toàn cục sau round, trên toàn bộ test.
+`scaffold.py` (đã bỏ 20/11/2026, còn trong lịch sử Git). Model chấm: θ toàn cục sau round, trên toàn bộ test.
 
 | | bài (papers/) | cơ chế | siêu tham số riêng | deviation |
 |---|---|---|---|---|

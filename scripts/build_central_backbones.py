@@ -3,6 +3,7 @@ import argparse
 import ast
 import hashlib
 import json
+import os
 from pathlib import Path
 
 import nbformat
@@ -17,15 +18,17 @@ FILES = ["core/data.py","core/metrics.py","core/central_backbones.py","core/cent
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--owner", required=True)
-    ap.add_argument("--model", choices=(*MODELS,"cnn-lstm","grande","gru-attention","cnn-bigru-attention","mambacnn","probe"), required=True)
+    ap.add_argument("--model", choices=(*MODELS,"sae-ce","cnn-lstm","grande","gru-attention","cnn-bigru-attention","mambacnn","probe"), required=True)
     ap.add_argument("--slug", required=True)
     ap.add_argument("--parent", help="attach owner/slug for same-model cross-session resume")
     ap.add_argument("--parent-artifacts", type=Path, help="version-scoped pull with frozen source/config and last epoch checkpoint")
     ap.add_argument("--parent-epoch", type=int)
+    ap.add_argument("--seed", type=int, default=42, help="training seed passed to run_central_backbones.py")
+    ap.add_argument("--max-hours", type=float, default=11.25, help="session budget; set below the account's live GPU quota")
     a = ap.parse_args()
     if a.parent and a.model == "probe":
         ap.error("probe has no parent")
-    source = {f:(ROOT/f).read_text(encoding="utf-8") for f in [*FILES,"core/grande.py","core/dagsnet.py","core/sae.py","core/gru_attention.py","core/cnn_bigru_attention.py","core/mambacnn.py"]}
+    source = {f:(ROOT/f).read_text(encoding="utf-8") for f in [*FILES,"core/grande.py","core/dagsnet.py","core/sae.py","core/tabm.py","core/gru_attention.py","core/cnn_bigru_attention.py","core/mambacnn.py"]}
     if a.model == "mambacnn":
         source["scripts/check_mambacnn_cuda.py"] = (ROOT/"scripts/check_mambacnn_cuda.py").read_text(encoding="utf-8")
     hashes = {f:hashlib.sha256(s.encode()).hexdigest() for f,s in source.items()}
@@ -122,11 +125,11 @@ print("CNN_LSTM_BUDGET", probe["estimated_hours_50_epochs"], "hours/50epochs", f
 assert 0 < epoch_seconds*1.5 < available_seconds, "probe: one epoch cannot safely fit session"
 ''')
     cells.append(f'''for name in {(MODELS if a.model=="probe" else (a.model,))!r}:
-    budget = 11.25-(time.monotonic()-start)/3600
+    budget = {a.max_hours}-(time.monotonic()-start)/3600
     assert budget > 0.25, "session setup consumed training budget"
     print("starting",name,"remaining hours",budget,flush=True)
     run("torchrun","--standalone","--nproc_per_node=2","scripts/run_central_backbones.py",
-        "--cache",cache,"--out",out/("central-"+name),"--model",name,"--epochs","50","--max-hours",budget,
+        "--cache",cache,"--out",out/("central-"+name),"--model",name,"--epochs","50","--max-hours",budget,"--seed",{a.seed},
         *{('["--micro",selected_micro]' if a.model == 'mambacnn' and not a.parent else repr(["--micro",parent_micro] if a.parent else []))},
         *{(["--probe"] if a.model=="probe" else ["--resume"] if a.parent else [])!r})
 ''')
@@ -135,6 +138,16 @@ assert 0 < epoch_seconds*1.5 < available_seconds, "probe: one epoch cannot safel
 complete = (result/"epoch_050").is_dir()
 run(sys.executable,"scripts/audit_central_backbones.py",result,*([] if complete else ["--partial"]))
 print("50 EPOCHS AUDITED" if complete else "PARTIAL; resume from latest committed epoch")''')
+    # 20/11: the embedded snapshot must import on its own (a missing core/tabm.py made 11 sessions ERROR at the test cell)
+    import subprocess, sys, tempfile
+    with tempfile.TemporaryDirectory() as tmp:
+        for f, text in source.items():
+            (Path(tmp)/f).parent.mkdir(parents=True, exist_ok=True)
+            (Path(tmp)/f).write_text(text, encoding="utf-8")
+        r = subprocess.run([sys.executable, "-m", "unittest", "discover", "-s", "tests", "-p", "test_central_backbones.py"],
+                           cwd=tmp, capture_output=True, text=True, env=dict(os.environ, CUDA_VISIBLE_DEVICES="", PYTHONPATH=tmp))
+        if r.returncode:
+            raise SystemExit("embedded source fails its own tests:\n" + r.stderr[-3000:])
     nb = nbformat.v4.new_notebook()
     for cell in cells:
         ast.parse(cell)

@@ -21,7 +21,7 @@ from core.central_backbones import build_model, classification_loss, predict
 from core.central_windows import batch_input
 from core.sae import batch_code_mean, sae_loss
 
-MICRO = {"bert": 32, "tcnn": 8, "cnn-lstm": 128, "cnn-bigru-attention": 256, "mambacnn": 32, "gru-attention": 2048, "mlp": 2048, "tabm": 1024, "grande": 2048, "sae": 2048, "dagsnet": 2048}
+MICRO = {"bert": 32, "tcnn": 8, "cnn-lstm": 128, "cnn-bigru-attention": 256, "mambacnn": 32, "gru-attention": 2048, "mlp": 2048, "tabm": 1024, "grande": 2048, "sae": 2048, "sae-ce": 2048, "dagsnet": 2048}
 MICRO["cnn-lstm-feature"] = 128
 
 
@@ -43,6 +43,7 @@ def main():
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--cache", type=Path, required=True)
     ap.add_argument("--epochs", type=int, default=50)
+    ap.add_argument("--seed", type=int, default=42, help="init, shuffle and dropout streams (default = the seed-42 runs)")
     ap.add_argument("--batch", type=int, default=4096)
     ap.add_argument("--micro", type=int)
     ap.add_argument("--max-hours", type=float, default=11)
@@ -76,19 +77,19 @@ def main():
         if x.shape != (len(y), 77) or (prev is not None and len(prev) != len(y)):
             raise ValueError("invalid cache layout")
         return x, y, prev
-    torch.manual_seed(42)
+    torch.manual_seed(a.seed)
     model = build_model(a.model).to(dev)
     code = hashlib.sha256()
     for fn in [Path(__file__), ROOT/"core/central_backbones.py", ROOT/"core/central_windows.py",
                ROOT/"core/data.py", ROOT/"core/metrics.py", ROOT/"knowledge/input_order.json"]:
         code.update(fn.read_bytes())
-    if a.model in ("grande", "dagsnet", "sae", "mambacnn"):
-        code.update((ROOT / "core" / f"{a.model}.py").read_bytes())
+    if a.model in ("grande", "dagsnet", "sae", "sae-ce", "mambacnn"):
+        code.update((ROOT / "core" / f"{a.model.removesuffix('-ce')}.py").read_bytes())
     if a.model == "gru-attention":
         code.update((ROOT/"core/gru_attention.py").read_bytes())
     if a.model == "cnn-bigru-attention":
         code.update((ROOT/"core/cnn_bigru_attention.py").read_bytes())
-    cfg = dict(model=a.model, epochs=a.epochs, batch=a.batch, micro=micro, seed=42,
+    cfg = dict(model=a.model, epochs=a.epochs, batch=a.batch, micro=micro, seed=a.seed,
                world=world, device=dev.type, torch=str(torch.__version__), source=code.hexdigest(),
                data=json.loads((a.cache/"identity.json").read_text()),
                params=sum(p.numel() for p in model.parameters()), optimizer="AdamW", wd=1e-4,
@@ -129,8 +130,8 @@ def main():
     for ep in range(first, a.epochs + 1):
         tick = time.monotonic()
         # Epoch-local deterministic streams also recover dropout/shuffle after a process restart.
-        torch.manual_seed(42 + ep * world + rank)
-        gen = torch.Generator(device=dev).manual_seed(42 + ep)
+        torch.manual_seed(a.seed + ep * world + rank)
+        gen = torch.Generator(device=dev).manual_seed(a.seed + ep)
         perm = torch.randperm(n, device=dev, generator=gen)
         lr = 1e-5 + .5 * (1e-3-1e-5) * (1 + math.cos(math.pi*(ep-1)/max(1, a.epochs-1)))
         opt.param_groups[0]["lr"] = lr

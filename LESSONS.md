@@ -51,7 +51,7 @@
 - 15/11: khi so backbone giữa các nhánh repo, kiểm cả HP override của run gốc. TinyProto DAGSNet r4
   dùng μ=0.00015 nhưng TabM/SAE dùng heuristic mặc định; chênh lệch không cô lập tác động backbone.
   Audit parameter phải tính sau pruning (LwFedNIDS) hoặc thêm projection (V2X), không ép mọi method
-  bằng sốparams backbone gốc. [Bằng chứng](docs/research/tabm-sae-dagsnet-comparison-20261115.md).
+  bằng sốparams backbone gốc. [Bằng chứng](docs/research/backbones/tabm-sae-dagsnet-comparison-20261115.md).
 
 Đọc sau [CONTEXT](CONTEXT.md), cùng [bài học vận hành](docs/operations/lessons.md). Bài học kế thừa:
 `../mobihet-features/LESSONS.md` (dataset v4), `../mobihet/LESSONS.md` (grep theo chủ đề; FL/KD/đánh giá trên DAGSNet).
@@ -69,7 +69,7 @@
 - 14/11 TabM trong FL: member axis không phải client/model federation axis. CE phải trung bình trên 4 member;
   prediction/KD phải trung bình **xác suất**; prototype dùng trung bình 4 hidden vector. Nếu đưa tensor `(G,B,K,C)`
   thẳng vào code DAGSNet `(G,B,C)`, chương trình có thể vẫn chạy nhưng objective/eval sai nghĩa. Khóa bằng grouped-reference
-  test và smoke đủ từng nhóm phương pháp trước launch. [Thiết kế](docs/research/tabm-single-model-baselines.md).
+  test và smoke đủ từng nhóm phương pháp trước launch. [Thiết kế](docs/research/backbones/tabm-single-model-baselines.md).
 - 14/11 backbone không có BatchNorm cần đường compile/eval trả buffer phẳng `(G,0)` và diff bằng 0; không được
   `torch.cat([])`. Method smoke eager PASS không cover compile gate. Probe GPU phải chạy gate trước production.
 
@@ -80,7 +80,7 @@
 
 ## Dữ liệu
 
-- GRANDE v4 (10/11), với đầu vào chặn ở ±3,72, đếm ngưỡng của **cột được chọn** ngoài miền để phát hiện nút luôn rẽ một phía. Epoch 50 có 153/480 nút vượt ±3,73. Đếm lá khả thi phải xét cả điều kiện từ nút cha. [Checkpoint và kết quả từng lớp](docs/research/central-backbones.md#grande-trên-veremi-v4-10112026).
+- GRANDE v4 (10/11), với đầu vào chặn ở ±3,72, đếm ngưỡng của **cột được chọn** ngoài miền để phát hiện nút luôn rẽ một phía. Epoch 50 có 153/480 nút vượt ±3,73. Đếm lá khả thi phải xét cả điều kiện từ nút cha. [Checkpoint và kết quả từng lớp](docs/research/backbones/central-backbones.md#grande-trên-veremi-v4-10112026).
 
 - 03/11 histmask: sửa đúng implication flag=1⇒value=0 chưa tăng utility; vs hist macro−0,000251,
   p10−0,006338, cả2 gates FAIL. Không suy chất lượng miền mẫu cải thiện ⇒ FL metric chắc chắn tăng.
@@ -173,3 +173,12 @@
 - 01/11: với MobiHet v4, trainable proxy không cần để cứu lớp hiếm. Bootstrap một lần bằng sufficient statistics theo lớp
   (count/Σx/Σxxᵀ), rồi private model học local real CE + pooled Gaussian CE, tăng đồng thời macro/client mean/p10/class13 trên val,
   giảm 73% train time và đưa payload mỗi round về 0. Kết luận chỉ áp dụng cho arm val seed42; cần final official-test r50.
+
+## Compute (20/11/2026)
+
+- Harness `scripts/compute/total_compute.py` móc `importlib.import_module("methods.<m>")`; runner import thẳng (`from methods.mixed
+  import Method` trong `run_mixed_fl.py`) không qua hook ⇒ phải wrap trước khi chạy script, không thì không có pha bootstrap/round/eval.
+- Bỏ time-mode thì count phải chạy đúng `group_rows` production (4096 đơn model, 8192 mixed): report chỉ quy đổi được count ở
+  group nhỏ (BERT eager OOM) về dòng executed của engine khi có time run cùng cấu hình. OOM local ⇒ đếm trên Kaggle T4, không hạ group.
+- CANPerFL = FedAvg r1–50 + 10 epoch fine-tune; constructor cần state FedAvg r50. FLOP/epoch không phụ thuộc trọng số ⇒ state FedAvg
+  1 round cùng panel/cfg gắn nhãn r50 là đủ để đếm pha fine-tune; tổng = FedAvg 50r + bootstrap + 10 × (train + ngoài train).

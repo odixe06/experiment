@@ -24,7 +24,7 @@ SEEDS = (41, 43)
 # method, extra --set, measured seed-42 train+eval hours (runs/pulls rounds.jsonl)
 METHODS = [("nilm", [], 14.4), ("apfed", [], 7.4), ("pfedes", [], 7.1), ("perfedskd", [], 5.2), ("v2x_htfl", [], 5.2),
            ("fedtgp", [], 5.05), ("tinyproto", ["mu=0.00015"], 5.05), ("fd_ids", [], 4.4), ("afpha", [], 3.9),
-           ("scaffold", [], 3.9), ("fedproto", [], 3.85), ("fedprox", [], 3.7), ("fedavg", [], 3.4), ("lwfednids", [], 1.1)]
+           ("fedproto", [], 3.85), ("fedprox", [], 3.7), ("fedavg", [], 3.4), ("lwfednids", [], 1.1)]
 SETUP, MARGIN, CAP = 0.8, 1.15, 11.5
 EXCLUDE = {"thuyanh316"}                       # reserved for CBB s41 (repo mobihet)
 PULL = r"(^provenance/|/(config\.json|rounds\.jsonl|cms_r\d{3}\.npz|models/r\d{3}\.pt)$)"

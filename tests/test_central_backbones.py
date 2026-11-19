@@ -50,7 +50,7 @@ class CentralModelsTest(unittest.TestCase):
                 np.save(root/f"{split}_Y.npy", rng.integers(0,16,size=n,dtype=np.int8))
                 prev = np.arange(-1,n-1,dtype=np.int32)
                 np.save(root/f"{split}_prev.npy", np.stack([prev,prev],axis=1))
-            for name in ("mlp","tabm","bert","cnn-lstm","cnn-lstm-feature","tcnn","grande","sae","gru-attention","cnn-bigru-attention","mambacnn"):
+            for name in ("mlp","tabm","bert","cnn-lstm","cnn-lstm-feature","tcnn","grande","sae","sae-ce","gru-attention","cnn-bigru-attention","mambacnn"):
                 out = root/name
                 args = ["train","--model",name,"--out",str(out),"--cache",str(root),"--cpu",
                         "--batch","8","--micro","3","--epochs","2"]
@@ -73,6 +73,31 @@ class CentralModelsTest(unittest.TestCase):
                     expected = torch.load(continuous/"epoch_002/weights.pt",weights_only=True)
                     for key,tensor in torch.load(final/"weights.pt",weights_only=True).items():
                         self.assertTrue(torch.equal(expected[key],tensor))
+
+    def test_seed_and_sae_ce(self):
+        """--seed changes init/streams and is recorded; sae-ce is the FL SAE network (CE-only objective)."""
+        from scripts import run_central_backbones as driver
+        from core.sae import SupervisedSAE, fl_config
+        ce, fl = build_model("sae-ce"), SupervisedSAE(fl_config())
+        self.assertEqual({k: v.shape for k, v in ce.state_dict().items()}, {k: v.shape for k, v in fl.state_dict().items()})
+        self.assertEqual(sum(p.numel() for p in ce.parameters()), 7613)
+        torch.set_num_threads(2)
+        with tempfile.TemporaryDirectory(dir=".") as work:
+            root = Path(work)
+            rng = np.random.default_rng(1)
+            (root/"identity.json").write_text('{"fixture":1}')
+            for split,n in (("train",13),("test",7)):
+                np.save(root/f"{split}_X.npy", rng.normal(size=(n,77)).astype(np.float16))
+                np.save(root/f"{split}_Y.npy", rng.integers(0,16,size=n,dtype=np.int8))
+            weights = {}
+            for seed in ("42", "41"):
+                out = root/f"mlp-{seed}"
+                with patch.object(sys,"argv",["train","--model","mlp","--out",str(out),"--cache",str(root),"--cpu",
+                                              "--batch","8","--micro","3","--epochs","1","--seed",seed]):
+                    driver.main()
+                self.assertEqual(json.loads((out/"config.json").read_text())["seed"], int(seed))
+                weights[seed] = torch.load(out/"epoch_001/weights.pt",weights_only=True)
+            self.assertFalse(all(torch.equal(weights["42"][k], weights["41"][k]) for k in weights["42"]))
 
     def test_gru_attention_pca(self):
         model = build_model("gru-attention")

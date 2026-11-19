@@ -140,3 +140,14 @@ Bài học ở đây là quy tắc rút ra khi chạy thí nghiệm và hạ t�
   trùng trước lần refresh tiếp theo.
 - MLP + V2X-HtFL không qua smoke telemetry ở cả seed 41/42/43: `skipped_frac` r1 khoảng 39,7–40,8%,
   r2 khoảng 16,3–23,3%, vượt gate 1%. Đây là lỗi số học có lặp lại, không phải lỗi slot; không retry nguyên trạng.
+
+## 20/11/2026 — gộp repo, centralized, compute
+
+- Builder notebook nhúng **danh sách file cố định** (`build_central_backbones.py`): `core/central_backbones.py` đã chuyển sang
+  `from core.tabm import TabM` nhưng danh sách không có `core/tabm.py` ⇒ 11 phiên version 1 ERROR ở cell test (mất vài phút quota mỗi
+  account). Builder giờ dựng snapshot vào thư mục tạm và chạy test của nó trước khi ghi notebook; builder nhúng source khác cần guard tương tự.
+- Orchestrator hop của `../mobihet` chọn account **quota lớn nhất**, không biết slot GPU của job dự án khác. Dùng chung account mới thì
+  chỉ chiếm 1/2 slot mỗi account (để mọi lựa chọn của nó còn slot) hoặc ghi `runs/fbl-r50/exclude.json` + restart orchestrator.
+- Script Python đặt trong thư mục có `queue.py` (vd `runs/total-compute-20261119/`): thư mục script là `sys.path[0]` ⇒ `from queue import
+  Queue` của stdlib (torch.fx) lấy nhầm file ⇒ ImportError. Bỏ thư mục đó khỏi `sys.path` trước khi import torch, nạp queue.py bằng importlib.
+- Account Kaggle quota thấp: đặt `--max-hours` < quota live để runner dừng sạch ở biên epoch (nối tiếp được) thay vì bị Kaggle cắt.

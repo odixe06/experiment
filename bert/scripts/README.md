@@ -1,7 +1,7 @@
 # Công cụ còn dùng — FeatureBERT
 
-Từ repo root, env `nckh`; quyền/job tại [continue](../docs/operations/continue.md).
-Launch/resume/reboot/watcher riêng các đợt đã đóng ở [archive16/11](../archive/operations-20261116/README.md).
+Từ repo root, env `nckh`; quyền/job tại [continue](../../docs/bert/operations/continue.md).
+Launch/resume/reboot/watcher riêng các đợt đã đóng ở [archive16/11](../../docs/archive/bert/operations-20261116/README.md).
 
 | Tác vụ | Entry point |
 |---|---|
@@ -20,4 +20,4 @@ Launch/resume/reboot/watcher riêng các đợt đã đóng ở [archive16/11](.
 `run_p21_recovery.py` tên cũ nhưng notebook generator còn import helper; giữ nguyên byte/đường dẫn,
 không phải hướng dẫn launch P21. T3 reference: [t3-dagsnet-reference](../knowledge/t3-dagsnet-reference.json).
 Worker pFedES hiện tại và script one-off của phiên nằm trong `runs/maintenance-20261116/`; owner tại continue,
-không di chuyển trong khi job sống. [Manifest dọn context](../archive/operations-20261116/migration.json).
+không di chuyển trong khi job sống. [Manifest dọn context](../../docs/archive/bert/operations-20261116/migration.json).

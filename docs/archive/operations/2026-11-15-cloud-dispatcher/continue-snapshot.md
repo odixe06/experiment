@@ -106,7 +106,7 @@ CPU test `tests/test_dense_recurrent_fl.py` PASS forward eval/train, mask, gradi
 28 one-round smokes và26 round-boundary resume CM checks. V2X thiếu gen_s đã sửa lưu/restore.
 Runtime test local riêng `tmp/fl-test-runtime` (torch2.15CPU,pyarrow); Python311 với PYTHONPATH thêm thư mục này và repo.
 Không diễn giải CPU PASS thành GPU PASS. Notebook chạy mandatory tests trước2GPU smoke/resume/production.
-Thiết kế, adaptation và giới hạn: [dense-recurrent-fl](../../../research/dense-recurrent-fl.md).
+Thiết kế, adaptation và giới hạn: [dense-recurrent-fl](../../../research/backbones/dense-recurrent-fl.md).
 
 ## 14/11/2026 — SAE × 14 baseline × 3 seed (build local)
 
@@ -117,14 +117,14 @@ SAE 7.613 tham số giữ objective centralized: reconstruction +1,2 KL sparsity
 AST mọi cell, private2×T4/dataset/owner/seed, embedded source/manifest và CAN parent wiring. Python local hiện không có
 PyTorch nên chưa chạy dynamic `tests/test_sae_fl.py`; test này là hard gate remote trước smoke2 round+resume và production.
 Chưa push theo đúng yêu cầu chỉ build. CANPerFL chỉ push sau FedAvg cùng seed COMPLETE có state round50.
-Thiết kế khóa: [SAE baseline matrix](../../../research/sae-single-model-baselines.md). Builder:
+Thiết kế khóa: [SAE baseline matrix](../../../research/backbones/sae-single-model-baselines.md). Builder:
 `scripts/build_sae_fl.py`; toàn ma trận: `scripts/build_sae_matrix.py`.
 
 ## 14/11/2026 — single-model TabM × 14 baseline × 3 seed
 
 Owner yêu cầu chạy 14 baseline (bỏ SCAFFOLD, centralized, proposal) với duy nhất TabM k=4, seed 41/42/43,
 50 round và metric test từng round. Đã khóa adapter/protocol tại
-[TabM baseline matrix](../../../research/tabm-single-model-baselines.md). Backend thêm `--backbone tabm`; TabM grouped khớp
+[TabM baseline matrix](../../../research/backbones/tabm-single-model-baselines.md). Backend thêm `--backbone tabm`; TabM grouped khớp
 reference tuyệt đối trên CPU, 6.548 tham số. CPU smoke đủ 14/14 PASS, gồm pruning/KD/prototype/V2X/CAN parent.
 Builder private 2×T4: `scripts/build_tabm_fl.py`. Probe v1 xác nhận đúng 2 Tesla T4 rồi ERROR trước test do package
 `tests` của image che namespace local khi gọi `python -m`; không train. Đã sửa gọi file trực tiếp với `PYTHONPATH`, push
@@ -168,11 +168,11 @@ NILM s41/s42/s43, FedTGP s41/s42, V2X-HtFL s43 và CNN-LSTM centralized đang RU
 
 ## 14/11/2026 — CNN–LSTM feature196k đã push
 
-Owner yêu cầu sửa rồi push CNN–LSTM dùng một bản tin77feature; Conv256/128 +2LSTM96,196.240tham số, alias `cnn-lstm-feature`. Đã push private `qwerasdf3004/veremi-central-cnn-lstm-feature-e50/1`, cap12h, train mới từ epoch1 tới mục tiêu50. Quota trước29,650h/reserved0; owner-scoped listing không có slug này. Notebook SHA256 `74b7782d9d6e34559a5e45348d01d762a2ef0987b78d3d732245b1ed24fb7ab8`;16source/hash/schema/AST PASS. Thêm CUDA-fp16 gradient test và probe-budget guard (epoch×1,5 phải vừa session). Local14tests:12PASS+2CUDA skipped; Worker đã nhận đúng 2 Tesla T4; 14 tests chạy 15,569s: 13 PASS, 1 skip (Mamba extension), gồm CUDA-fp16 CNN–LSTM PASS. Probe PASS: 970,900s/epoch train+eval (~16,18phút), 13,48472h/50epoch, peak8,427GiB, skipped0. Production đã vào epoch1, step500/9122 cả2rank, grad3,585 finite, skipped0. Budget phiên còn11,166h lúc bắt đầu; dự kiến cần nối session để đủ50. Kiểm14/11 11:38VN: live log COMMITTED epoch1 macro-F1=0,910649; chưa kéo/audit đủ10metric. Epoch2 tới3500/9122, grad0,3751 finite, AMP skipped2; statusRUNNING. [Chi tiết](../../../research/central-backbones.md). Phiên này sở hữu run; không repush khi còn chạy. Không thay DAGSNet/CNN-BiGRU/SAE sang các kích thước mới đề xuất; không khởi chạy FL. MambaCNN vẫn đóng.
+Owner yêu cầu sửa rồi push CNN–LSTM dùng một bản tin77feature; Conv256/128 +2LSTM96,196.240tham số, alias `cnn-lstm-feature`. Đã push private `qwerasdf3004/veremi-central-cnn-lstm-feature-e50/1`, cap12h, train mới từ epoch1 tới mục tiêu50. Quota trước29,650h/reserved0; owner-scoped listing không có slug này. Notebook SHA256 `74b7782d9d6e34559a5e45348d01d762a2ef0987b78d3d732245b1ed24fb7ab8`;16source/hash/schema/AST PASS. Thêm CUDA-fp16 gradient test và probe-budget guard (epoch×1,5 phải vừa session). Local14tests:12PASS+2CUDA skipped; Worker đã nhận đúng 2 Tesla T4; 14 tests chạy 15,569s: 13 PASS, 1 skip (Mamba extension), gồm CUDA-fp16 CNN–LSTM PASS. Probe PASS: 970,900s/epoch train+eval (~16,18phút), 13,48472h/50epoch, peak8,427GiB, skipped0. Production đã vào epoch1, step500/9122 cả2rank, grad3,585 finite, skipped0. Budget phiên còn11,166h lúc bắt đầu; dự kiến cần nối session để đủ50. Kiểm14/11 11:38VN: live log COMMITTED epoch1 macro-F1=0,910649; chưa kéo/audit đủ10metric. Epoch2 tới3500/9122, grad0,3751 finite, AMP skipped2; statusRUNNING. [Chi tiết](../../../research/backbones/central-backbones.md). Phiên này sở hữu run; không repush khi còn chạy. Không thay DAGSNet/CNN-BiGRU/SAE sang các kích thước mới đề xuất; không khởi chạy FL. MambaCNN vẫn đóng.
 
 ## 14/11/2026 — chuẩn bị FL trộn5backbone
 
-Owner xác nhận **trộn model giữa client trong cùng thí nghiệm**, không phải5run đồng kiến trúc. Chọn DAGSNet25%, BERT-style77feature25%, TabM/SAE/CNN-BiGRU-Attention chia đều50% còn lại. Làm tròn5.343client:1.336/1.336/891/890/890. [Đánh giá tương thích và việc cần chuẩn bị](../../../research/heterogeneous-backbones.md). Static audit: FL backend hiện chỉ DAGSNet; không gộp tham số khác kiến trúc bằng các baseline FedAvg-like cũ. Proxy/prototype/statistics có hướng thích nghi nhưng cần adapter/loss/layout và thử nghiệm. Chưa chọn biến thể cho các phương pháp không hỗ trợ heterogeneity, chưa sinh manifest, chưa sửa runner/train hoặc launch. BERT centralized hiện chỉ kiểm tới epoch18. Không dùng checkpoint centralized làm init FL mặc định. MambaCNN vẫn đóng.
+Owner xác nhận **trộn model giữa client trong cùng thí nghiệm**, không phải5run đồng kiến trúc. Chọn DAGSNet25%, BERT-style77feature25%, TabM/SAE/CNN-BiGRU-Attention chia đều50% còn lại. Làm tròn5.343client:1.336/1.336/891/890/890. [Đánh giá tương thích và việc cần chuẩn bị](../../../research/backbones/heterogeneous-backbones.md). Static audit: FL backend hiện chỉ DAGSNet; không gộp tham số khác kiến trúc bằng các baseline FedAvg-like cũ. Proxy/prototype/statistics có hướng thích nghi nhưng cần adapter/loss/layout và thử nghiệm. Chưa chọn biến thể cho các phương pháp không hỗ trợ heterogeneity, chưa sinh manifest, chưa sửa runner/train hoặc launch. BERT centralized hiện chỉ kiểm tới epoch18. Không dùng checkpoint centralized làm init FL mặc định. MambaCNN vẫn đóng.
 
 ## 14/11/2026 — MambaCNN centralized đã push
 
@@ -194,15 +194,15 @@ Quota live qua SDK ngày 13/11, xác thực identity 8 account, reserved đều 
 
 ## GRU + Attention centralized — Kaggle version 1
 
-Phiên private [ttalgies/veremi-central-gru-attention-e50/1](https://www.kaggle.com/code/ttalgies/veremi-central-gru-attention-e50/versions/1) COMPLETE, Kaggle audit 50/50 epoch. Local kéo 108 file vào `runs/pulls/central-gru-attention-v1`, kiểm source snapshot/manifest với notebook đã push, 50 CM → 10 metric và dự đoán epoch 50 → CM. SHA256 notebook `69557cae9717caf079d60e2e789ef1880a61a94389f83b8ffe79e471d77942ad`. [Kết quả và protocol](../../../research/central-backbones.md).
+Phiên private [ttalgies/veremi-central-gru-attention-e50/1](https://www.kaggle.com/code/ttalgies/veremi-central-gru-attention-e50/versions/1) COMPLETE, Kaggle audit 50/50 epoch. Local kéo 108 file vào `runs/pulls/central-gru-attention-v1`, kiểm source snapshot/manifest với notebook đã push, 50 CM → 10 metric và dự đoán epoch 50 → CM. SHA256 notebook `69557cae9717caf079d60e2e789ef1880a61a94389f83b8ffe79e471d77942ad`. [Kết quả và protocol](../../../research/backbones/central-backbones.md).
 
 ## 10/11/2026 — CNN–LSTM centralized, session 2
 
-Phiên private `hoangdang1711/veremi-central-cnn-lstm-e50-s2/1` COMPLETE. Tiếp từ epoch 46 của `hoangdang1711/veremi-central-cnn-lstm-e50/1`. Khôi phục weights, AdamW và AMP scaler, giữ source, seed 42, causal windows và cosine horizon 50. Notebook SHA256 `20911f257f6f2d91fa7bc0217929d52eb69b89a31844b14b6fb567cfd3b0d33a`. Kaggle audit đủ 50 epoch. Đã kéo 72 file vào `runs/pulls/central-status-cnn-lstm-s2-v1`, xác minh predictions → CM → metrics cho cả 4 epoch mới. [Kết quả CNN–LSTM](../../../research/central-backbones.md#cnnlstm-trên-veremi-v4-10112026).
+Phiên private `hoangdang1711/veremi-central-cnn-lstm-e50-s2/1` COMPLETE. Tiếp từ epoch 46 của `hoangdang1711/veremi-central-cnn-lstm-e50/1`. Khôi phục weights, AdamW và AMP scaler, giữ source, seed 42, causal windows và cosine horizon 50. Notebook SHA256 `20911f257f6f2d91fa7bc0217929d52eb69b89a31844b14b6fb567cfd3b0d33a`. Kaggle audit đủ 50 epoch. Đã kéo 72 file vào `runs/pulls/central-status-cnn-lstm-s2-v1`, xác minh predictions → CM → metrics cho cả 4 epoch mới. [Kết quả CNN–LSTM](../../../research/backbones/central-backbones.md#cnnlstm-trên-veremi-v4-10112026).
 
 ## 10/11/2026 — SAE centralized thay GRANDE
 
-Private `phamquang0606/veremi-central-sae-e50/1` COMPLETE. Kaggle audit đủ 50 epoch. Local đã kéo metrics 1–50, dựng lại CM và 10 metric epoch 50 từ dự đoán hai rank, strict-load weights cuối. Artifact ở `runs/pulls/central-status-sae-v1`. [Kết quả SAE](../../../research/central-backbones.md). Notebook SHA256 `00ab19f17c26543d1a381b5373ca2ad3d5a4ec71b27ec1f1c4d0b3292bd76b78`.
+Private `phamquang0606/veremi-central-sae-e50/1` COMPLETE. Kaggle audit đủ 50 epoch. Local đã kéo metrics 1–50, dựng lại CM và 10 metric epoch 50 từ dự đoán hai rank, strict-load weights cuối. Artifact ở `runs/pulls/central-status-sae-v1`. [Kết quả SAE](../../../research/backbones/central-backbones.md). Notebook SHA256 `00ab19f17c26543d1a381b5373ca2ad3d5a4ec71b27ec1f1c4d0b3292bd76b78`.
 
 Log production xác nhận PyTorch 2.10.0+cu128, 2 Tesla T4, 6 test PASS. Hai rank bắt đầu epoch 1/50, tổng 9.122 step. Ở step 250 grad norm 0,299, skipped 0.
 
@@ -221,7 +221,7 @@ Worker RUNNING trên 2 Tesla T4. Log xác nhận import epoch 9 và production e
 
 Đã push private `phamquang0606/veremi-central-grande-e50/1`, status RUNNING. Notebook SHA256
 `f63e0c5e8086d40209101673fc9d59ec3e6a2c459f83a7df6bcb372d3dac218e`. Quota trước push 30h, reserved 0.
-Phiên đã COMPLETE, Kaggle audit đủ 50 epoch. Local tính lại từ dự đoán trên 9.347.679 dòng test, khớp 10 metric epoch 50. Accuracy 0,860158, macro-F1 0,726454. Đã kéo metrics 1–50, nhãn và dự đoán cuối, cùng CM/weights một số epoch vào `runs/pulls/central-status-grande-v1`. [Phân tích lớp và ngưỡng chia](../../../research/central-backbones.md#grande-trên-veremi-v4-10112026).
+Phiên đã COMPLETE, Kaggle audit đủ 50 epoch. Local tính lại từ dự đoán trên 9.347.679 dòng test, khớp 10 metric epoch 50. Accuracy 0,860158, macro-F1 0,726454. Đã kéo metrics 1–50, nhãn và dự đoán cuối, cùng CM/weights một số epoch vào `runs/pulls/central-status-grande-v1`. [Phân tích lớp và ngưỡng chia](../../../research/backbones/central-backbones.md#grande-trên-veremi-v4-10112026).
 TCNN lịch sử giữ checkpoint e1 (macro-F1 0,905491), ngừng kế hoạch nối tiếp.
 Lần nối bất cứ run cũ nào phải dùng đúng source snapshot đã push cho run đó.
 
@@ -229,7 +229,7 @@ Lần nối bất cứ run cũ nào phải dùng đúng source snapshot đã pus
 
 Owner chốt BERT-style supervised trên 77 feature, TCNN kích thước paper, TabM k=4,
 CNN–LSTM cửa sổ causal 10 cùng cặp nhận–gửi và đệm đầu; MLP 64/32.
-Đã triển khai [thiết kế, cấu hình và runner](../../../research/central-backbones.md).
+Đã triển khai [thiết kế, cấu hình và runner](../../../research/backbones/central-backbones.md).
 Test CPU PyTorch 2.10 trên fixture đạt cho đủ 5 model, gồm epoch cuối lẻ, resume, strict weights,
 prediction→CM→metrics và ghép thời gian trên parquet nhiều file. Owner yêu cầu push trực tiếp cả 5 run production.
 Xác minh 8 tài khoản, mỗi tài khoản còn 30 giờ GPU, reserved=0 trước push.
@@ -383,7 +383,7 @@ Lần kiểm tiếp: xem worker log và epoch đã commit; nếu dừng budget t
 Kiểm: `python .claude/skills/kaggle-training-notebook/scripts/kaggle_as.py <acct> -- kaggle kernels status <acct>/<slug>`
 (API Kaggle chập chờn: status rỗng ⇒ thử lại). W&B: `wandb.Api().runs("21522798-uit/fl-dagsnet-veremi-v2")`.
 
-## Đã xong (30/10) — kết quả: [results](../../../research/results.md), chi phí: [cost](../../../research/cost.md)
+## Đã xong (30/10) — kết quả: [results](../../../research/dagsnet/results.md), chi phí: [cost](../../../research/cost.md)
 
 - 14 run FL 50 round + centralized 50 epoch + CANPerFL đã pull về `runs/pulls/<slug>/` (git-ignored, bỏ `state*.pt`) và audit
   PASS (đủ round, CMs, không NaN, HP đúng protocol). Bảng 10 metric tính lại từ CMs (`scripts/report.py`).

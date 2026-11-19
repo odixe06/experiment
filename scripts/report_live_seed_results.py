@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "docs/research/four-backbone-seed-results-live.md"
+OUT = ROOT / "docs/research/backbones/four-backbone-seed-results-live.md"
 METHODS = ["fedavg", "fedprox", "afpha", "fd_ids", "apfed", "lwfednids",
            "canperfl", "tinyproto", "pfedes", "nilm", "fedtgp", "perfedskd",
            "fedproto", "v2x_htfl"]

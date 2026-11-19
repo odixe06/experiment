@@ -8,8 +8,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from core import metrics
 
-MOB = ROOT.parent / 'mobihet'
-DAG = ROOT.parent / 'fl_dagsnet_veremi_v2'
+MOB = ROOT.parents[1] / 'mobihet'
+DAG = ROOT.parent  # experiment repo root (bert/ = former fl_veremi_bert)
 OUT = ROOT / 'runs/maintenance-20261116'
 NAMES = dict(fedavg='FedAvg', fedprox='FedProx', afpha='AFPHA', fd_ids='FD-IDS', apfed='APFed',
              lwfednids='LwFedNIDS', v2x_htfl='V2X-HtFL', canperfl='CANPerFL', tinyproto='TinyProto',
@@ -93,7 +93,7 @@ def build():
     perf, comm, client, server = {}, {}, {}, {}
     for model in evidence:
         perf[model] = []; comm[model] = []; client[model] = []; server[model] = []
-        cost = read(ROOT / 'docs/research/cost.json' if model == 'BERT' else DAG / 'docs/research/cost.json')
+        cost = read(DAG / 'docs/bert/research/cost.json' if model == 'BERT' else DAG / 'docs/research/cost.json')
         cdata = cost['methods']; fwd = cost.get('forward_flops_per_row', cost.get('dagsnet_forward_flops_per_row'))
         profile = read(OUT / ('fl_veremi_bert-server.json' if model == 'BERT' else 'fl_dagsnet_veremi_v2-server.json'))
         for m, ss in evidence[model].items():

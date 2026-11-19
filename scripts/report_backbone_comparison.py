@@ -11,7 +11,7 @@ sys.path.insert(0,str(ROOT))
 from core import metrics
 
 BASE = ROOT/'runs/comparison-20261115'
-REPORT = ROOT/'docs/research/tabm-sae-dagsnet-comparison-20261115.md'
+REPORT = ROOT/'docs/research/backbones/tabm-sae-dagsnet-comparison-20261115.md'
 METHODS = ['fedavg','fedprox','afpha','fd_ids','apfed','lwfednids','canperfl',
            'tinyproto','pfedes','nilm','fedtgp','perfedskd','fedproto','v2x_htfl']
 NAMES = ['FedAvg','FedProx','AFPHA','FD-IDS','APFed','LwFedNIDS','CANPerFL',

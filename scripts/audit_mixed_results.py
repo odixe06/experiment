@@ -84,7 +84,7 @@ def main():
             results.append(row)
             (ROOT/'runs/mixed128-final-audit.json').write_text(json.dumps(results,indent=2))
             print(json.dumps({k:v for k,v in row.items() if k not in ('views','by_model')}),flush=True)
-    dest=ROOT/'docs/research/mixed128-case2-results.csv'
+    dest=ROOT/'docs/research/mixed/mixed128-case2-results.csv'
     with dest.open('w',newline='',encoding='utf-8-sig') as handle:
         writer=csv.DictWriter(handle,fieldnames=['method','seed','round','group','view']+metrics.TEN)
         writer.writeheader()
@@ -108,7 +108,7 @@ def main():
         lines.append('| '+' | '.join([method,view]+vals)+' |')
     lines+=['','Macro-F1 headline theo view của từng phương pháp; không đổi sang classifier head để chọn điểm cao hơn.',
         'CSV kèm đủ10metric cho mỗi seed, mỗi model và cả hai view nếu có. V2X dùng a2 (SAE trainFP32), các phương pháp khác dùng a1.']
-    (ROOT/'docs/research/mixed128-case2-results.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
+    (ROOT/'docs/research/mixed/mixed128-case2-results.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
     print('REPORT_WRITTEN', len(results), flush=True)
 
 if __name__=='__main__':main()

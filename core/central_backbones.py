@@ -108,6 +108,9 @@ def build_model(name):
     if name == "sae":
         from core.sae import SupervisedSAE
         return SupervisedSAE()
+    if name == "sae-ce":  # same network as the FL SAE (core.sae.fl_config), trained with plain CE like the FL runs (owner 20/11)
+        from core.sae import SupervisedSAE, fl_config
+        return SupervisedSAE(fl_config())
     if name == "grande":
         from core.grande import GRANDE
         return GRANDE()

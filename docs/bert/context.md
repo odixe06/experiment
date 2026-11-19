@@ -1,0 +1,36 @@
+# FeatureBERT FL — điểm vào dự án
+
+Đọc CONTEXT → [LESSONS](LESSONS.md) → [bài học vận hành](operations/lessons.md) → [bàn giao sống](operations/continue.md).
+Không đọc `archive/` mặc định.
+
+IDS V2X16lớp,77input,5.343xe/client; FeatureBERT77.904tham số.
+Repo14baseline FL + MobiHet/T3; DAGSNet đối chiếu tại `../fl_dagsnet_veremi_v2`, phương pháp tại `../mobihet`.
+
+## Trạng thái — 17/11/2026
+
+T3 BERT/DAGSNet đủr50 cả3seed41/42/43, audit CM/state có phạm vi PASS_BOUNDED.
+Kết quả hiện hành: [results](research/results.md), [comparison](research/comparison.md).
+pFedES đủr50/3seed, đã bổ sung bảng/Notion; GitHub và bước tiếp: [continue duy nhất](operations/continue.md).
+
+Owner đang lập [brief xây lại MobiHet](../../../mobihet/task_brief.md): seed42, đơnmodel DAGSNet/BERT,
+sim→pilot→full; performance/communication/compute xếp riêng top5; riêng compute bằng FedAvg là đạt, không cần thấp hơn, Macro-F1 cách bestbaseline≤.015; compute chấp nhận≤1,01×FedAvg (chốt sau cùng17/11).
+Task ưu tiên = [FB Fixed-row-budget](../../../mobihet/docs/research/screening-budget.md): 8 sim DAGSNet → pilot DAGSNet + BERT nếu PASS.
+Lite2 B+U1 FeatureBERT seed42 r20 PASS (Δ−.004746); **owner hoãn push lại Lite2 BERT r50**, không giữ quota riêng; job ở continue;
+mixed-model full-scale chưa chạy.
+
+## Quy tắc đang dùng
+
+- [Protocol](research/protocol.md):50round,1epoch thật/round,batch64,AdamWcosine; chỉ ngoại lệ method gốc được ghi rõ.
+- MobiHet=T3 giữ HP/code phương pháp DAGSNet, chỉ đổi model/engine. Không sửa source/config frozen của run.
+- COMPLETE không thay audit; CM PASS_BOUNDED không chứng minh prediction replay/full private bank/exact resume.
+- Giữ artifact/cache và credential process-scoped; không `Co-Authored-By:`. Job đang sở hữu file thì không sửa/dời.
+
+| Cần biết | Mở |
+|---|---|
+| Job/owner/quyền/bước tiếp/việc tay | [Continue](operations/continue.md) |
+| Protocol/baseline/parity | [Protocol](research/protocol.md), [methods](research/methods.md), [parity](research/v2-parity.md) |
+| Kết quả/byte/FLOPs | [Comparison](research/comparison.md), [cost](research/cost.md) |
+| Dataset/model/máy | [Knowledge](../../knowledge/bert/README.md) |
+| Kaggle/audit/backup | [Operations](operations/README.md), [scripts](../../bert/scripts/README.md) |
+
+Kết quả→docs/research; job→continue; dữ kiện bất biến→knowledge; bài học→hai lessons.
