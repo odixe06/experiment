@@ -7,7 +7,6 @@ Quota reads do not switch accounts. `ensure` and `use` can change the active log
 use them only under the account policy authorized for the current project/session.
 
     kaggle_account.py list                 which accounts are saved, which is active
-    kaggle_account.py quota                remaining GPU/TPU per account, without switching
     kaggle_account.py health               is each saved refresh token still usable?
     kaggle_account.py plan --gpu-hours N   split a budget into sessions across accounts
     kaggle_account.py ensure --gpu-hours N propose (or, with --confirm, perform) a switch
@@ -40,7 +39,6 @@ from __future__ import annotations
 
 import argparse
 import contextlib
-import fcntl
 import json
 import math
 import os
@@ -48,6 +46,12 @@ import shutil
 import subprocess
 import sys
 from pathlib import Path
+
+try:
+    import fcntl
+except ImportError:  # Windows host
+    fcntl = None
+    import msvcrt
 
 ACCOUNTS = Path.home() / ".kaggle" / "accounts"
 LIVE = Path.home() / ".kaggle" / "credentials.json"
@@ -76,7 +80,13 @@ def switch_lock():
     handle = os.open(ACCOUNTS / ".switch.lock", os.O_CREAT | os.O_RDWR, 0o600)
     try:
         try:
-            fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            if fcntl is not None:
+                fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            else:
+                if os.path.getsize(ACCOUNTS / ".switch.lock") == 0:
+                    os.write(handle, b"0")
+                os.lseek(handle, 0, os.SEEK_SET)
+                msvcrt.locking(handle, msvcrt.LK_NBLCK, 1)
         except OSError:
             raise SystemExit("another account operation is in progress; not switching")
         _lock_depth = 1
@@ -84,7 +94,11 @@ def switch_lock():
             yield
         finally:
             _lock_depth = 0
-            fcntl.flock(handle, fcntl.LOCK_UN)
+            if fcntl is not None:
+                fcntl.flock(handle, fcntl.LOCK_UN)
+            else:
+                os.lseek(handle, 0, os.SEEK_SET)
+                msvcrt.locking(handle, msvcrt.LK_UNLCK, 1)
     finally:
         os.close(handle)
 # scripts/ -> kaggle-training-notebook/ -> skills/ -> .agents/ -> project root
@@ -120,15 +134,14 @@ def cmd_list(args: argparse.Namespace) -> int:
     if not users:
         print(f"no accounts saved in {ACCOUNTS}")
         return 1
-    print(f"{'account':<16} {'CLI creds':<10} {'MCP token':<10} active")
+    print(f"{'account':<16} {'OAuth snapshot':<16} {'API token':<10} active")
     for u in users:
-        print(f"{u:<16} {'yes' if creds_path(u).is_file() else 'MISSING':<10} "
-              f"{'yes' if token_path(u).is_file() else 'MISSING':<10} "
+        print(f"{u:<16} {'yes' if creds_path(u).is_file() else 'no':<16} "
+              f"{'yes' if token_path(u).is_file() else 'no':<10} "
               f"{'<-- ACTIVE' if u == act else ''}")
     if act and act not in users:
         print(f"\nactive login is {act}, which has no snapshot — run: save {act}")
     if not args.mcp_config.is_file():
-        print(f"\n{args.mcp_config} does not exist; nothing carries an MCP bearer for this host.")
         return 0
     mcp_user = mcp_account(args.mcp_config)
     print(f"\n.mcp.json ({args.mcp_config}) carries the token of: {mcp_user or 'unknown'}")
@@ -318,15 +331,6 @@ def print_survey(quotas: dict[str, dict], failures: dict[str, str], active: str 
         print(f"{u:<16} {q['gpu_left']:>9.2f}h {q['tpu_left']:>9.2f}h  {q['refresh_at']}{mark}")
     for u, why in failures.items():
         print(f"{u:<16} {'?':>10} {'?':>10}  {why}")
-
-
-def cmd_quota(args: argparse.Namespace) -> int:
-    quotas, failures = survey()
-    if not quotas and not failures:
-        print(f"no accounts saved in {ACCOUNTS}")
-        return 1
-    print_survey(quotas, failures, active_user())
-    return 0 if quotas else 1
 
 
 def snapshot_identity(user: str) -> str:
@@ -666,7 +670,6 @@ def main() -> int:
                     help=f"project .mcp.json to rewrite (default: {DEFAULT_MCP})")
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("list", help="show saved accounts and which is active")
-    sub.add_parser("quota", help="remaining GPU/TPU per account, without switching")
     sub.add_parser("refresh", help="mint a fresh access token now and re-snapshot")
     p = sub.add_parser("health", help="check every saved refresh token still works")
     p.add_argument("--quiet", action="store_true", help="print only accounts with a problem")
@@ -708,7 +711,7 @@ def main() -> int:
     for name in names:
         if not name or any(c not in "abcdefghijklmnopqrstuvwxyz0123456789_-" for c in name):
             ap.error("invalid account name")
-    return {"list": cmd_list, "save": cmd_save, "use": cmd_use, "quota": cmd_quota,
+    return {"list": cmd_list, "save": cmd_save, "use": cmd_use,
             "ensure": cmd_ensure, "refresh": cmd_refresh, "health": cmd_health,
             "plan": cmd_plan, "add-account": cmd_add_account}[args.cmd](args)
 

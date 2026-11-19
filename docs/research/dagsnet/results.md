@@ -1,22 +1,37 @@
-# Kết quả — 5.343 xe, DAGSNet W = 1, 50 round (30/10/2026)
+# Kết quả — 5.343 xe, DAGSNet W = 1, 50 round (04/11/2026)
 
-Tính lại từ confusion matrix đã pull (`scripts/report.py runs/pulls/*/`), không chép từ log. Protocol: [protocol](protocol.md).
+**MobiHet Stats bỏ proxy đạt macro-F1 0,8879 trên 9.347.679 dòng test.** Mỗi xe dùng model riêng chấm trên test của xe đó. FedAvg dùng một model chung và đạt 0,9042. APFed đạt 0,9119 với model riêng. Centralized gộp dữ liệu để train và đạt 0,9593 ở epoch 50.
+
+So với model private của MobiHet có proxy, Stats giảm macro-F1 0,0074, trong khi F1 trung bình theo xe giảm 0,0007, p10 tăng 0,0094 và F1 lớp timeDelay tăng từ 0,1159 lên 0,3400. Trên 2 T4, riêng round 50 mất 290,8 giây train với Stats so với 1.127,4 giây với proxy (giảm 74,2%, chưa tính eval). Mỗi xe gửi và nhận 197.184 byte mỗi chiều lúc khởi tạo Stats, sau đó truyền 0 byte mỗi round. FedAvg truyền tổng 159.468.800 byte/xe qua 50 round. [Run Stats](https://www.kaggle.com/code/hoangdang1711/mobihet-v4-stats-final-r50) · [Run có proxy](https://www.kaggle.com/code/minhiw/mobihet-v4-weighted-nowb-s2)
+
+Tính lại từ confusion matrix đã pull (`scripts/report.py runs/pulls/*/`), không chép từ log. Protocol: [protocol](../protocol.md).
 Headline mỗi phương pháp = model được đánh giá theo luật của bài (global; model client trên test của chính nó; prototype cho
-FedProto/FedTGP). Byte = lên + xuống mỗi xe mỗi round. Một seed (42). Chi phí: [cost](cost.md).
+FedProto/FedTGP). Byte = lên + xuống mỗi xe mỗi round. Một seed (42). Chi phí: [cost](../cost.md).
 
 Audit các run trong bảng chính: đủ 50 round (CANPerFL: 10 epoch fine-tune sau FedAvg r50), CM/metric hữu hạn, HP chung đúng protocol. Train health và khả năng replay model có giới hạn riêng bên dưới.
 
 Chưa có / lưu ý:
-- **TinyProto**: r2 sai prototype suy luận; r3 bất ổn scale (prototype F1 0,2904, target L2 bùng nổ 2.943). R4 đã sửa μ=1,5e-4 hoàn tất đủ 50 round, target L2 ổn định (0,2657), prototype F1 đạt 0,8534 ([chẩn đoán](../methods/tinyproto.md)).
+- **TinyProto**: r2 sai prototype suy luận; r3 bất ổn scale (prototype F1 0,2904, target L2 bùng nổ 2.943). R4 đã sửa μ=1,5e-4 hoàn tất đủ 50 round, target L2 ổn định (0,2657), prototype F1 đạt 0,8534 ([chẩn đoán](../../methods/tinyproto.md)).
 - **NILM-FL**: nối phiên thành công (s1 r1–36 + s2 r37–50), preflight parent r1–36 byte-identical, hoàn tất 50 round.
 - **APFed**: metric r50 đầy đủ; bank model client r50 mất (rank 0 hết RAM host khi ghi state cuối; sửa `bda3c07`).
 - **SCAFFOLD**: không ổn định giai đoạn đầu (train_loss NaN r15–16, F1 r5 0,23, r15–16 0,25/0,23), hồi phục từ r18.
 - **MobiHet**: repo riêng `../mobihet`, đang sàng lọc H0–H4 10 round; owner chưa cho đưa lên Notion.
+- **MobiHet v4**: W&B tắt theo owner; hai session nối exact r1–25/r26–50. Audit 50 CM × 2 view PASS,
+  mỗi view/round đủ 9.347.679 dòng; source hash/metric/finite/skipped PASS. Lớp timeDelay vẫn là nút thắt:
+  F1 private/proxy r50 = 0,1159/0,1173. RelKD train→val là arm sàng lọc riêng, chưa phải kết quả final.
+- **RelKD train→val r10**: audit 20 CM PASS (5.343 client, 4.676.107 dòng/view/round). So control, private
+  class13 +0,2100 và macro-F1 +0,0150, nhưng client mean −0,0133, p10 −0,0548 ⇒ gate FAIL; không chạy test/final.
+- **Pairwise 0↔13 train→val r10**: audit 20 CM PASS. So control, class13 +0,2169, macro-F1 +0,0132,
+  client mean +0,00473, p10 +0,00009; vẫn FAIL gate khóa, nên không kéo dài/tune và không chạy official test.
+- **Proxy-free statistics train→val r10**: audit 20 CM PASS. So control, macro-F1 +0,01398, client mean +0,00710,
+  p10 +0,01133, class13 +0,27724; train nhanh hơn 73,02%, payload mỗi round bằng 0 ⇒ gate PASS. Final r50
+  train+val→official-test đã hoàn tất với Stats gốc. Các thử nghiệm histogram dừng ở validation R10.
 - FedAvg/FedProx/SCAFFOLD/FedProto chạy SHA `6617261` (không có snapshot model từng round; state r50 trên Kaggle).
 
 | method | view | round | accuracy | precision_macro | precision_micro | precision_weighted | recall_macro | recall_micro | recall_weighted | f1_macro | f1_micro | f1_weighted | client F1 mean | p10 | min | byte/client/round |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | centralized (train+val → test) | — | ep50 | 0,9580 | 0,9684 | 0,9580 | 0,9560 | 0,9531 | 0,9580 | 0,9580 | 0,9593 | 0,9580 | 0,9556 | — | — | — | — |
+| **MobiHet Stats (bỏ proxy)** | private (headline) | 50 | 0,9034 | 0,8825 | 0,9034 | 0,8980 | 0,8959 | 0,9034 | 0,9034 | **0,8879** | 0,9034 | 0,8999 | 0,8461 | 0,7257 | 0,1667 | 0 |
 | afpha | global (headline) | 50 | 0,9211 | 0,9300 | 0,9211 | 0,9106 | 0,8932 | 0,9211 | 0,9211 | 0,8990 | 0,9211 | 0,9045 | 0,8652 | 0,7523 | 0,1786 | 3.189.376 |
 | apfed | client (headline) | 50 | 0,9278 | 0,9377 | 0,9278 | 0,9217 | 0,9032 | 0,9278 | 0,9278 | 0,9119 | 0,9278 | 0,9169 | 0,8663 | 0,7533 | 0,1500 | 3.189.376 |
 |  | global | 50 | 0,9216 | 0,9333 | 0,9216 | 0,9132 | 0,8947 | 0,9216 | 0,9216 | 0,9031 | 0,9216 | 0,9075 | 0,8645 | 0,7487 | 0,1806 | 3.189.376 |
@@ -32,6 +47,8 @@ Chưa có / lưu ý:
 | lwfednids | global (headline) | 50 | 0,9162 | 0,9320 | 0,9162 | 0,9111 | 0,8830 | 0,9162 | 0,9162 | 0,8904 | 0,9162 | 0,8986 | 0,8476 | 0,7291 | 0,2139 | 324.000 |
 | nilm | client (headline) | 50 | 0,9156 | 0,9291 | 0,9156 | 0,9146 | 0,8717 | 0,9156 | 0,9156 | 0,8846 | 0,9156 | 0,9020 | 0,7854 | 0,5777 | 0,0000 | 3.189.376 |
 |  | proxy | 50 | 0,9227 | 0,9421 | 0,9227 | 0,9192 | 0,8925 | 0,9227 | 0,9227 | 0,8993 | 0,9227 | 0,9051 | 0,8638 | 0,7500 | 0,2963 | 3.189.376 |
+| mobihet | private (headline) | 50 | 0,9212 | 0,9447 | 0,9212 | 0,9221 | 0,8873 | 0,9212 | 0,9212 | 0,8953 | 0,9212 | 0,9036 | 0,8468 | 0,7163 | 0,1453 | 239.838 |
+|  | proxy | 50 | 0,9221 | 0,9431 | 0,9221 | 0,9192 | 0,8918 | 0,9221 | 0,9221 | 0,8995 | 0,9221 | 0,9048 | 0,8661 | 0,7525 | 0,2963 | 239.838 |
 | perfedskd | client (headline) | 50 | 0,8994 | 0,8903 | 0,8994 | 0,8931 | 0,8598 | 0,8994 | 0,8994 | 0,8710 | 0,8994 | 0,8928 | 0,8133 | 0,6573 | 0,1241 | 3.189.376 |
 | pfedes | client (headline) | 50 | 0,8864 | 0,8692 | 0,8864 | 0,8800 | 0,8405 | 0,8864 | 0,8864 | 0,8511 | 0,8864 | 0,8803 | 0,7449 | 0,5264 | 0,0000 | 2.808 |
 | scaffold | global (headline) | 50 | 0,9225 | 0,9011 | 0,9225 | 0,8842 | 0,8859 | 0,9225 | 0,9225 | 0,8911 | 0,9225 | 0,9003 | 0,8744 | 0,7738 | 0,2963 | 6.352.640 |
@@ -43,7 +60,7 @@ Chưa có / lưu ý:
 
 ## Lịch sử run / audit trước đó (bằng chứng provenance)
 
-NILM r36 là interim session 1 trước khi nối phiên r37–50 thành công. TinyProto r3 bất ổn scale do μ heuristic cũ, xem [chẩn đoán](../methods/tinyproto.md).
+NILM r36 là interim session 1 trước khi nối phiên r37–50 thành công. TinyProto r3 bất ổn scale do μ heuristic cũ, xem [chẩn đoán](../../methods/tinyproto.md).
 Audit lưu tại [NILM r50](audits/2026-10-30/fl2-nilm-r2.json), [TinyProto r4](audits/2026-10-30/fl2-tinyproto-r4.json) và [TinyProto r3 cũ](audits/2026-10-30/fl2-tinyproto-r3.json).
 
 | method | view | round | accuracy | precision_macro | precision_micro | precision_weighted | recall_macro | recall_micro | recall_weighted | f1_macro | f1_micro | f1_weighted | client F1 mean | p10 | min | byte/client/round | ghi chú |
@@ -54,4 +71,4 @@ Audit lưu tại [NILM r50](audits/2026-10-30/fl2-nilm-r2.json), [TinyProto r4](
 |  | client | 50 | 0,8234 | 0,8480 | 0,8234 | 0,8477 | 0,7498 | 0,8234 | 0,8234 | 0,7881 | 0,8234 | 0,8323 | 0,6790 | 0,4734 | 0,0667 | 3.328 | |
 
 
-Báo cáo owner: [Notion](https://app.notion.com/p/409730cee68d81f19259d14bea45ea61), 14 hàng hoàn tất ban đầu + chuẩn bị bổ sung 2 hàng NILM-FL & TinyProto r4; quy trình bổ sung tại [notion-results](../operations/notion-results.md).
+Báo cáo owner: [Notion](https://app.notion.com/p/409730cee68d81f19259d14bea45ea61), 14 hàng hoàn tất ban đầu + chuẩn bị bổ sung 2 hàng NILM-FL & TinyProto r4; quy trình bổ sung tại [notion-results](../../operations/notion-results.md).

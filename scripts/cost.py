@@ -25,7 +25,7 @@ from core.data import Split  # noqa: E402
 from core.flat import Layout  # noqa: E402
 from test_methods import ToyEnv  # noqa: E402
 
-METHODS = ["fedavg", "fedprox", "scaffold", "afpha", "fd_ids", "lwfednids", "pfedes", "fedproto", "fedtgp", "tinyproto",
+METHODS = ["fedavg", "fedprox", "afpha", "fd_ids", "lwfednids", "pfedes", "fedproto", "fedtgp", "tinyproto",
            "nilm", "perfedskd", "mobihet", "apfed", "v2x_htfl"]
 SERVER = {"fedtgp": "_server", "v2x_htfl": "_server"}
 

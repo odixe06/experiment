@@ -32,9 +32,18 @@ import torch.nn.functional as F
 from core import evaluate, grouped, local
 from core.dagsnet import DAGSNet
 from core.flat import Layout
+from core.sae import SupervisedSAE
+from core.mlp import MLP
+from core.cnn_bigru_attention import CNNBiGRUAttention
+from core.tabm import TabM
 from methods import fedtgp
 
 C = 16
+COS_EPS = 1e-12
+
+
+def cosine_normalize(x, dim=-1):
+    return F.normalize(x.float(), dim=dim, eps=COS_EPS)
 
 
 class V2XNet(DAGSNet):
@@ -49,11 +58,46 @@ class V2XNet(DAGSNet):
         self.proj_b = nn.Parameter(torch.zeros(d))
 
 
+class TabMV2X(TabM):
+    def __init__(self, cfg):
+        super().__init__(cfg)
+        d = cfg["head_hidden"]
+        lin = nn.Linear(d, d)
+        self.proj_v = nn.Parameter(lin.weight.detach().clone())
+        self.proj_g = nn.Parameter(lin.weight.detach().norm(dim=1))
+        self.proj_b = nn.Parameter(torch.zeros(d))
+
+
+class SAEV2X(SupervisedSAE):
+    def __init__(self, cfg):
+        super().__init__(cfg)
+        d = cfg["head_hidden"]
+        lin = nn.Linear(d, d)
+        self.proj_v = nn.Parameter(lin.weight.detach().clone())
+        self.proj_g = nn.Parameter(lin.weight.detach().norm(dim=1))
+        self.proj_b = nn.Parameter(torch.zeros(d))
+
+
+def projected_model(base):
+    class Projected(base):
+        def __init__(self, cfg):
+            super().__init__(cfg)
+            d = cfg["head_hidden"]
+            lin = nn.Linear(d, d)
+            self.proj_v = nn.Parameter(lin.weight.detach().clone())
+            self.proj_g = nn.Parameter(lin.weight.detach().norm(dim=1))
+            self.proj_b = nn.Parameter(torch.zeros(d))
+    return Projected
+
+
 def project(P, h):
     """Grouped p_k: h (G, b, d) -> (G, b, d)."""
-    v = P["proj_v"]
-    W = P["proj_g"][..., None] * v / v.norm(dim=2, keepdim=True).clamp_min(1e-12)
-    return torch.baddbmm(P["proj_b"][:, None].to(h.dtype), h, W.transpose(1, 2).to(h.dtype))
+    # A cast of proj_b to fp16 overflows its batch-reduced scaled gradient.
+    # .float() alone does not prevent autocast from recasting baddbmm.
+    with torch.autocast(h.device.type, enabled=False):
+        v = P["proj_v"].float()
+        W = P["proj_g"].float()[..., None] * v / v.norm(dim=2, keepdim=True).clamp_min(1e-12)
+        return torch.baddbmm(P["proj_b"].float()[:, None], h.float(), W.transpose(1, 2))
 
 
 def etf(d, seed, device):
@@ -65,6 +109,7 @@ def etf(d, seed, device):
 class GlobalProto(nn.Module):
     def __init__(self, d, heads=4):
         super().__init__()
+        heads = max(h for h in range(1, heads + 1) if d % h == 0)
         self.emb = nn.Parameter(torch.randn(C, d) * 0.1)
         self.attn = nn.MultiheadAttention(d, heads, batch_first=True)
         self.net = nn.Sequential(nn.Linear(d, d), nn.ReLU(), nn.Linear(d, d))
@@ -83,7 +128,9 @@ class Method:
         hp = env.hp
         self.s, self.m, self.gamma = hp.get("s", 64.0), hp.get("m", 0.5), hp.get("gamma", 0.99)
         self.tau, self.mu, self.S = hp.get("tau", self.m), hp.get("mu", 0.1), hp.get("server_epochs", 100)
-        env.lay = Layout(env.cfg, make=V2XNet)
+        make = {"tabm": TabMV2X, "sae": SAEV2X, "mlp": projected_model(MLP),
+                "cnn-bigru-attention": projected_model(CNNBiGRUAttention)}.get(env.cfg.get("model"), V2XNet)
+        env.lay = Layout(env.cfg, make=make)
         self.d = env.cfg["head_hidden"]
         p0, b0 = env.lay.init(hp["seed"], 1, env.dev)
         self.bank_p, self.bank_b = p0.repeat(env.K, 1), b0.repeat(env.K, 1)
@@ -101,11 +148,12 @@ class Method:
 
     def _cos(self, P, h):
         g = project(P, h).float()
-        return F.normalize(g, dim=-1) @ self.V
+        return cosine_normalize(g) @ self.V
 
     def round(self, r, lr):
         env, cfg = self.env, self.env.cfg
         loss = torch.zeros(env.K, device=env.dev)
+        steps = torch.zeros(2, device=env.dev)
         gt = self.gamma ** r
         cm, sm = math.cos(self.m), math.sin(self.m)
         th, mm = math.cos(math.pi - self.m), math.sin(math.pi - self.m) * self.m
@@ -115,7 +163,7 @@ class Method:
             def loss_fn(ctx):
                 z, h, nb = grouped.TRAIN(ctx.P, ctx.B, ctx.x, cfg, mask=ctx.mask, train=True, hidden=True)
                 g = project(ctx.P, h).float()
-                gn = F.normalize(g, dim=-1)
+                gn = cosine_normalize(g)
                 cos = gn @ self.V                                     # (G, b, C)
                 cy = cos.gather(-1, ctx.y[..., None]).squeeze(-1)
                 sy = (1 - cy * cy).clamp_min(0).sqrt()
@@ -128,19 +176,26 @@ class Method:
                     pn = F.normalize(self.proto, dim=-1)[ctx.y]
                     ls = torch.where(self.has[ctx.y], 1 - (gn * pn).sum(-1), 0.0)
                     per = per + self.mu * ctx.pad(lam)[:, None] * ls
-                return local.masked_mean(per, ctx.mask) + 0.0 * z.float().sum((1, 2)), nb   # head.5: zero gradient
+                loss = local.masked_mean(per, ctx.mask)
+                if cfg.get("model") == "sae":
+                    loss = loss + grouped.sae_regularizer(ctx.P, ctx.x, h, ctx.mask, cfg)
+                return loss + 0.0 * z.float().sum(tuple(range(1, z.ndim))), nb
 
             flat, bufs = self.bank_p[idx], self.bank_b[idx]
             st = local.local_epoch(env.lay, flat, bufs, env.train, idx, cfg, env.hp, lr, env.gen, loss_fn=loss_fn)
             self.bank_p[idx], self.bank_b[idx] = flat, bufs
             loss[idx] = st["loss"]
+            steps += torch.stack([st["applied"].sum(), st["skipped"].sum()])
         S, Cn = evaluate.class_sums(env.lay, self.bank_p, self.bank_b, env.train, cfg, torch.arange(env.K, device=env.dev),
                                     feat=project, d=self.d)
         protos, labels = fedtgp.Method._gather(self, S, Cn)
         self._server(protos, labels)
         tot = env.allreduce(env.n.sum().clone())
+        steps = env.allreduce(steps)
         return {"train_loss": float(env.allreduce((loss * env.n).sum()) / tot), "delta": self.delta,
-                "n_protos": int(len(labels))}
+                "n_protos": int(len(labels)), "applied_steps": float(steps[0]),
+                "skipped_steps": float(steps[1]),
+                "skipped_frac": float(steps[1] / steps.sum().clamp_min(1))}
 
     def _server(self, P, y):
         dev = P.device
@@ -154,19 +209,19 @@ class Method:
                 self.has[c] = True
         ok = torch.nonzero(self.has).flatten()
         if len(ok) > 1:
-            eta = F.normalize(Q[ok], dim=1) @ F.normalize(Q[ok], dim=1).T
+            eta = cosine_normalize(Q[ok], dim=1) @ cosine_normalize(Q[ok], dim=1).T
             ratio = eta / (nu[ok][:, None] + nu[ok][None]).sqrt().clamp_min(1e-12)
             ratio.fill_diagonal_(-float("inf"))
             self.delta = float(min(ratio.max().item(), self.tau))
         n = len(y)
         bs = math.ceil(n / 20)
-        Pn = F.normalize(P, dim=1)
+        Pn = cosine_normalize(P, dim=1)
         self.gp.train()
         for _ in range(self.S):
             perm = torch.randperm(n, device=dev, generator=self.gen_s)
             for s0 in range(0, n, bs):
                 i = perm[s0:s0 + bs]
-                eta = Pn[i] @ F.normalize(self.gp(), dim=1).T
+                eta = Pn[i] @ cosine_normalize(self.gp(), dim=1).T
                 l = F.cross_entropy(self.s * (eta - self.delta * F.one_hot(y[i], C)), y[i])
                 self.opt.zero_grad(); l.backward(); self.opt.step()
         self.proto = self.gp().detach()          # with grad: FlopCounterMode's module hooks reject a no_grad forward
@@ -178,8 +233,8 @@ class Method:
         out = {"client": env.gather_cms(evaluate.own_cm(env.lay, self.bank_p, self.bank_b, env.test, env.cfg, clients,
                                                         max_rows=rows, head=self._cos))}
         if self.proto is not None:
-            pn = F.normalize(self.proto, dim=1)
-            head = lambda P, h: (F.normalize(project(P, h).float(), dim=-1) @ pn.T).masked_fill(~self.has, -2.0)
+            pn = cosine_normalize(self.proto, dim=1)
+            head = lambda P, h: (cosine_normalize(project(P, h)) @ pn.T).masked_fill(~self.has, -2.0)
             out["client_proto"] = env.gather_cms(evaluate.own_cm(env.lay, self.bank_p, self.bank_b, env.test, env.cfg,
                                                                  clients, max_rows=rows, head=head))
         return out
@@ -188,7 +243,7 @@ class Method:
         return {"bank_p": self.bank_p.cpu(), "bank_b": self.bank_b.cpu(),
                 "gp": {k: v.cpu() for k, v in self.gp.state_dict().items()}, "opt": self.opt.state_dict(),
                 "proto": None if self.proto is None else self.proto.cpu(), "has": self.has.cpu() if hasattr(self, "has") else None,
-                "delta": self.delta}
+                "delta": self.delta, "gen_s": self.gen_s.get_state()}
 
     def load_state(self, s):
         dev = self.env.dev
@@ -198,3 +253,5 @@ class Method:
         if s["has"] is not None:
             self.has = s["has"].to(dev)
         self.delta = s["delta"]
+        if "gen_s" in s:
+            self.gen_s.set_state(s["gen_s"].cpu())

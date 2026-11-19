@@ -9,7 +9,7 @@ Bài gốc: [AAAI 2026](https://ojs.aaai.org/index.php/AAAI/article/download/394
 
 Kernel `anhtruong1909/fl2-tinyproto-r3`, source `55d13cc5d8b9e4d7fec0478e97c20dd1e717aab9`, đủ 50 round;
 pull 102 file chọn (không lấy `state*.pt`), 0 thiếu, 1.621 MiB mới. Artifact: `runs/pulls/fl2-tinyproto-r3/`.
-[Audit](../research/audits/2026-10-30/fl2-tinyproto-r3.json): 5.343 client, support nhãn khớp scan toàn test 9.347.679 dòng,
+[Audit](../research/dagsnet/audits/2026-10-30/fl2-tinyproto-r3.json): 5.343 client, support nhãn khớp scan toàn test 9.347.679 dòng,
 10 metric tính lại khớp; tensor snapshot có sẵn đều hữu hạn. **PASS_BOUNDED không chứng minh phương pháp ổn định hoặc đã replay model**.
 
 | r | F1 head | F1 prototype local | train_loss | norm target |
@@ -32,7 +32,7 @@ Eq.10 gộp `mean_holders(n_ij * c_ij)`; Eq.11 nhân μ. Với prototype cùng h
 
 μ cũ = `1 / mean_positive(n_ij)` = **0,0018734104697128494** (heuristic của bản dựng, không phải luật chọn μ của bài).
 Scan đầy đủ cột client_id/label của train cho a_benign=3,427; DoS=2,593; Sybil=2,099.
-[Bằng chứng đếm](../research/audits/2026-10-30/tinyproto-scaling.json). Hệ số >1 cho phép vòng lặp target→feature→target khuếch đại.
+[Bằng chứng đếm](../research/dagsnet/audits/2026-10-30/tinyproto-scaling.json). Hệ số >1 cho phép vòng lặp target→feature→target khuếch đại.
 Đây là cơ chế đã tái hiện qua đường gộp thật; chưa chứng minh đó là nguyên nhân duy nhất của suy giảm production.
 
 Bài gốc chọn μ riêng theo dataset, arXiv ghi grid search; README tác giả dùng `-csf 0.00015` cho CIFAR-10.
@@ -63,7 +63,7 @@ R3 giữ làm bằng chứng lịch sử trong repo, không xóa kết quả x�
 
 Kernel `anhtruong1909/fl2-tinyproto-r4`, version 1, hoàn tất đủ **50/50 round** mà không gặp lỗi.
 Pull 141 file (gồm đầy đủ `provenance/`, không lấy `state*.pt`), 0 thiếu.
-[Audit](../research/audits/2026-10-30/fl2-tinyproto-r4.json): **PASS_BOUNDED** (5.343 xe, 9.347.679 dòng test support chính xác, 50 round CMs & snapshot model finite).
+[Audit](../research/dagsnet/audits/2026-10-30/fl2-tinyproto-r4.json): **PASS_BOUNDED** (5.343 xe, 9.347.679 dòng test support chính xác, 50 round CMs & snapshot model finite).
 Overlay SHA256 khớp chuẩn `1bbf6b6e18f87a47f2ed52831c2709f8a3fbc001a7a2461c13a968ee62895ab4`.
 
 | Metric | R3 (μ heuristic cũ) | R4 (μ = 1,5e-4 sửa) |
@@ -75,4 +75,4 @@ Overlay SHA256 khớp chuẩn `1bbf6b6e18f87a47f2ed52831c2709f8a3fbc001a7a2461c1
 | Head macro-F1 | 0,7881 | **0,8693** |
 | Head accuracy | 0,8234 | **0,8994** |
 
-Target L2 không còn bị khuếch đại, mô hình hội tụ ổn định, prototype F1 local hồi phục hoàn toàn từ 0,2904 lên 0,8534. Headline r4 được cập nhật vào [results.md](../research/results.md).
+Target L2 không còn bị khuếch đại, mô hình hội tụ ổn định, prototype F1 local hồi phục hoàn toàn từ 0,2904 lên 0,8534. Headline r4 được cập nhật vào [results.md](../research/dagsnet/results.md).

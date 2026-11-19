@@ -15,6 +15,25 @@ from core import grouped
 from core.optim import GroupAdamW
 
 
+_round_steps = None
+
+
+def begin_round():
+    global _round_steps
+    _round_steps = []
+
+
+def finish_round(env):
+    global _round_steps
+    if not _round_steps:
+        raise RuntimeError("No local optimizer-step telemetry recorded")
+    counts = env.allreduce(torch.stack(_round_steps).sum(0))
+    _round_steps = None
+    applied, skipped = counts.tolist()
+    return {"applied_steps": applied, "skipped_steps": skipped,
+            "skipped_frac": skipped / max(1, applied + skipped)}
+
+
 def slot(n_max, batch):
     """Rows per client per grouped step: the batch, or the whole client (rounded up to 8) when it is smaller than one batch.
     Same math either way (a client smaller than the batch takes all its rows in one step); only padding shrinks."""
@@ -52,14 +71,28 @@ def masked_mean(v, mask):
 
 def ce_loss(logits, y, mask):
     """Per-client mean CE over real rows -> (G,)."""
+    if logits.ndim == 4:
+        G, b, K, C = logits.shape
+        yy = y[:, :, None].expand(G, b, K)
+        per = F.cross_entropy(logits.reshape(-1, C), yy.reshape(-1), reduction="none").view(G, b, K).mean(2)
+        return masked_mean(per, mask)
     G, b, C = logits.shape
     return masked_mean(F.cross_entropy(logits.reshape(-1, C), y.reshape(-1), reduction="none").view(G, b), mask)
+
+
+def supervised_loss(P, x, logits, hidden, y, mask, cfg):
+    """Backbone's supervised objective; SAE keeps its reconstruction and sparsity training."""
+    ce = ce_loss(logits, y, mask)
+    if cfg.get("model") != "sae":
+        return ce
+    assert hidden is not None
+    return grouped.sae_regularizer(P, x, hidden, mask, cfg) + cfg.get("classification_weight", 1.5) * ce
 
 
 class Ctx:
     """What a method's loss sees at one grouped step. Rows >= G are padding clients (never active): per-client tensors a
     method brings must be padded with ctx.pad(t) so every grouped step has one compiled shape."""
-    __slots__ = ("P", "B", "x", "y", "mask", "rows", "clients", "step", "flat", "G", "Gfix")
+    __slots__ = ("P", "B", "x", "y", "mask", "active", "rows", "clients", "step", "flat", "G", "Gfix")
 
     def pad(self, t):
         return pad_rows(t, self.Gfix)
@@ -88,7 +121,8 @@ def local_epoch(lay, flat, bufs, data, clients, cfg, hp, lr, gen, loss_fn=None, 
     G = len(clients)
     n = (off[clients + 1] - off[clients])
     b = slot(n.max().item(), hp["batch"])
-    steps = int(math.ceil(n.max().item() / b))
+    floor = hp.get("synthetic_step_floor", 0)
+    steps = max(int(math.ceil(n.max().item() / b)), floor)
     ctx = Ctx()
     ctx.G, ctx.Gfix = G, group_size(off, clients, hp)
     clients_p = ctx.pad(clients)
@@ -115,12 +149,19 @@ def local_epoch(lay, flat, bufs, data, clients, cfg, hp, lr, gen, loss_fn=None, 
         # recompile of the static-shape graph (8 recompiles -> silent eager fallback, Kaggle probe 29/10)
         rows, mask = pos[:, sl].contiguous(), valid[:, sl].contiguous()
         active = mask.any(1)
+        if s < floor:
+            active = n_p > 0
+        ctx.active = active
         ctx.P, ctx.B, ctx.flat = (leaves[0], bviews[0], flat_p) if one else (leaves, bviews, flat_p)
         ctx.x, ctx.y, ctx.mask, ctx.rows, ctx.step = X[rows], Y[rows].long(), mask, rows, s
         with torch.autocast("cuda", dtype=torch.float16, enabled=hp.get("amp", True) and X.is_cuda):
             if loss_fn is None:
-                logits, newB = grouped.TRAIN(ctx.P, ctx.B, ctx.x, cfg, mask=mask, train=True)
-                loss = ce_loss(logits, ctx.y, mask)
+                if cfg.get("model") == "sae":
+                    logits, hidden, newB = grouped.TRAIN(ctx.P, ctx.B, ctx.x, cfg, mask=mask, train=True, hidden=True)
+                    loss = supervised_loss(ctx.P, ctx.x, logits, hidden, ctx.y, mask, cfg)
+                else:
+                    logits, newB = grouped.TRAIN(ctx.P, ctx.B, ctx.x, cfg, mask=mask, train=True)
+                    loss = ce_loss(logits, ctx.y, mask)
             else:
                 loss, newB = loss_fn(ctx)
         loss = torch.where(active, loss, torch.zeros_like(loss))
@@ -135,11 +176,13 @@ def local_epoch(lay, flat, bufs, data, clients, cfg, hp, lr, gen, loss_fn=None, 
         if Bn:
             nb = lay.flat_bufs(newB) if one else torch.cat([lay.flat_bufs(d) for d in newB], dim=1)
             bufs_p.copy_(torch.where(ok[:, None], nb, bufs_p))
-        loss_sum += loss.detach() * ok
+        loss_sum += torch.where(ok, loss.detach(), torch.zeros_like(loss))
         skipped += (active & ~ok).float()
         applied += ok.float()
     flat.copy_(flat_p[:G]); bufs.copy_(bufs_p[:G])
-    return {"loss": loss_sum[:G] / torch.ceil(n.float() / b), "skipped": skipped[:G], "applied": applied[:G],
+    if _round_steps is not None:
+        _round_steps.append(torch.stack((applied[:G].double().sum(), skipped[:G].double().sum())))
+    return {"loss": loss_sum[:G] / applied[:G].clamp_min(1), "skipped": skipped[:G], "applied": applied[:G],
             "steps": steps}
 
 
@@ -160,14 +203,20 @@ def compile_gate(lay, data, cfg, hp, gen):
     out = []
     for f in (gr.forward, gr.TRAIN):
         w = flat.detach().clone().requires_grad_(True)
-        with torch.autocast("cuda", dtype=torch.float16, enabled=data.X.is_cuda):
-            logits, newB = f(lay.params(w), lay.bufs(bufs), data.X[pos], cfg0, mask=valid, train=True)
-            loss = ce_loss(logits, data.Y[pos].long(), valid)
+        with torch.autocast("cuda", dtype=torch.float16, enabled=data.X.is_cuda and hp.get("amp", True)):
+            P = lay.params(w)
+            if cfg0.get("model") == "sae":
+                logits, hidden, newB = f(P, lay.bufs(bufs), data.X[pos], cfg0, mask=valid, train=True, hidden=True)
+                loss = supervised_loss(P, data.X[pos], logits, hidden, data.Y[pos].long(), valid, cfg0)
+            else:
+                logits, newB = f(P, lay.bufs(bufs), data.X[pos], cfg0, mask=valid, train=True)
+                loss = ce_loss(logits, data.Y[pos].long(), valid)
         (loss.sum() * 1024).backward()
-        out.append((logits.detach(), lay.flat_bufs(newB), w.grad / 1024))
+        bn = lay.flat_bufs(newB) if lay.B else w.new_zeros((w.shape[0], 0))
+        out.append((logits.detach(), bn, w.grad / 1024))
     (le, be, ge), (lc, bc, gc) = out
     rep = {"logit_maxdiff": float((le - lc).abs().max()), "grad_finite": bool(torch.isfinite(gc).all()),
            "grad_rel": float(((ge - gc).norm(dim=1) / ge.norm(dim=1).clamp_min(1e-12)).max()),
-           "bn_maxdiff": float((be - bc).abs().max())}
+           "bn_maxdiff": float((be - bc).abs().max()) if be.numel() else 0.0}
     ok = rep["grad_finite"] and rep["grad_rel"] < 0.1 and rep["logit_maxdiff"] < 0.05 * float(le.abs().max())
     return ok, rep

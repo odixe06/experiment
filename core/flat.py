@@ -8,18 +8,31 @@ import math
 import torch
 
 from core.dagsnet import DAGSNet
+from core.sae import SupervisedSAE
+from core.tabm import TabM
+from core.mlp import MLP
+from core.cnn_bigru_attention import CNNBiGRUAttention
 
 
 class Layout:
-    def __init__(self, cfg, make=DAGSNet):
+    def __init__(self, cfg, make=None):
         """make(cfg) -> nn.Module whose parameters/BN buffers this layout flattens (DAGSNet unless a method brings its own)."""
+        if make is None and cfg.get("model") in ("bert", "mixed-adapter"):
+            from core.mixed_backbones import make_native, MixedAdapter
+            make = MixedAdapter if cfg["model"] == "mixed-adapter" else make_native
+        make = make or ({"tabm": TabM, "sae": SupervisedSAE, "mlp": MLP,
+                         "cnn-bigru-attention": CNNBiGRUAttention}.get(cfg.get("model"), DAGSNet))
         self.cfg, self.make = cfg, make
         m = make(cfg)
-        self.p = [(k, tuple(v.shape)) for k, v in m.named_parameters()]
+        named = list(m.named_parameters())
+        if cfg.get("model") == "tabm":
+            named = [(k, v) for k, v in named if k not in ("weight", "bias")] + \
+                    [(k, v) for k, v in named if k in ("weight", "bias")]
+        self.p = [(k, tuple(v.shape)) for k, v in named]
         self.b = [(k, tuple(v.shape)) for k, v in m.state_dict().items() if k.endswith(("running_mean", "running_var"))]
         self.P = sum(math.prod(s) for _, s in self.p)
         self.B = sum(math.prod(s) for _, s in self.b)
-        self.head_keys = [k for k, _ in self.p if k.startswith("head.")]
+        self.head_keys = [k for k, _ in self.p if k.startswith("head.") or k in ("weight", "bias")]
 
     @staticmethod
     def _views(flat, spec):

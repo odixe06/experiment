@@ -1,0 +1,16 @@
+method,seed,view,round,accuracy,precision_macro,precision_micro,precision_weighted,recall_macro,recall_micro,recall_weighted,f1_macro,f1_micro,f1_weighted,status,source
+v2x_htfl,41,client,50,0.886420,0.865990,0.886420,0.873060,0.832690,0.886420,0.886420,0.838620,0.886420,0.870600,audited,docs/research/mixed/mixed128-all-results.csv
+v2x_htfl,42,client,50,0.886520,0.867200,0.886520,0.873330,0.831980,0.886520,0.886520,0.838390,0.886520,0.870500,audited,docs/research/mixed/mixed128-all-results.csv
+v2x_htfl,43,client,50,0.886950,0.866770,0.886950,0.873640,0.832950,0.886950,0.886950,0.839170,0.886950,0.871150,audited,docs/research/mixed/mixed128-all-results.csv
+tinyproto,41,client_proto,50,0.802030,0.773940,0.802030,0.829010,0.807820,0.802030,0.802030,0.785500,0.802030,0.810950,audited,docs/research/mixed/mixed128-all-results.csv
+tinyproto,42,client_proto,50,0.813720,0.791240,0.813720,0.842240,0.819920,0.813720,0.813720,0.799920,0.813720,0.823170,audited,docs/research/mixed/mixed128-all-results.csv
+tinyproto,43,client_proto,50,0.808380,0.778980,0.808380,0.835460,0.814070,0.808380,0.808380,0.790410,0.808380,0.817110,audited,docs/research/mixed/mixed128-all-results.csv
+pfedes,41,client,50,0.864210,0.867680,0.864210,0.861610,0.765330,0.864210,0.864210,0.792530,0.864210,0.846120,audited,docs/research/mixed/mixed128-all-results.csv
+pfedes,42,client,50,0.864810,0.871840,0.864810,0.863030,0.765180,0.864810,0.864810,0.793900,0.864810,0.846780,audited,docs/research/mixed/mixed128-all-results.csv
+pfedes,43,client,50,0.865770,0.869980,0.865770,0.863620,0.769690,0.865770,0.865770,0.796300,0.865770,0.847940,audited,docs/research/mixed/mixed128-all-results.csv
+fedtgp,41,client_proto,50,0.758770,0.656860,0.758770,0.758470,0.672920,0.758770,0.758770,0.658990,0.758770,0.756300,audited,docs/research/mixed/mixed128-all-results.csv
+fedtgp,42,client_proto,50,0.726230,0.641070,0.726230,0.753570,0.670040,0.726230,0.726230,0.637800,0.726230,0.726600,audited,docs/research/mixed/mixed128-all-results.csv
+fedtgp,43,client_proto,50,0.746700,0.655420,0.746700,0.760810,0.687170,0.746700,0.746700,0.658150,0.746700,0.746590,audited,docs/research/mixed/mixed128-all-results.csv
+fedproto,41,client_proto,50,0.804800,0.760610,0.804800,0.826060,0.754530,0.804800,0.804800,0.751110,0.804800,0.813210,audited,docs/research/mixed/mixed128-all-results.csv
+fedproto,42,client_proto,50,0.808810,0.765220,0.808810,0.833470,0.770510,0.808810,0.808810,0.761960,0.808810,0.818140,audited,docs/research/mixed/mixed128-all-results.csv
+fedproto,43,client_proto,50,0.809230,0.763150,0.809230,0.830900,0.761570,0.809230,0.809230,0.756320,0.809230,0.817780,audited,docs/research/mixed/mixed128-all-results.csv

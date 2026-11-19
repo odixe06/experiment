@@ -17,7 +17,6 @@ SPEC = [
     ("centralized", "Centralized DAGSNet", "fl2-central-w1", "global", "afpha_edl_cmso.pdf"),
     ("fedavg", "FedAvg", "fl2-fedavg", "global", "fedavg.pdf"),
     ("fedprox", "FedProx", "fl2-fedprox", "global", "fedprox.pdf"),
-    ("scaffold", "SCAFFOLD", "fl2-scaffold", "global", "scaffold.pdf"),
     ("afpha", "AFPHA", "fl2-afpha-r2", "global", "afpha_edl_cmso.pdf"),
     ("fd_ids", "FD-IDS", "fl2-fd-ids-r2", "global", "fd_ids.pdf"),
     ("apfed", "APFed", "fl2-apfed-r2", "client", "apfed.pdf"),
@@ -33,7 +32,6 @@ SPEC = [
 ]
 NOTE = {
     "centralized": "50 epoch centralized; batch 4.096 là deviation đã khóa. Bài PDF mô tả kiến trúc DAGSNet; đây không phải một thuật toán FL.",
-    "scaffold": "Train_loss NaN tại r15–16; metric CM vẫn hữu hạn, phương pháp hồi phục từ r18. Không coi kết quả này là một run ổn định suốt 50 round.",
     "apfed": "Metric đủ r50; kernel ERROR khi lưu state cuối vì RAM host. Bank private r50 không được giữ; không thể replay model private từ artifact đã pull.",
     "canperfl": "Đúng cơ chế hai pha: FedAvg 50 round (dùng chung run FedAvg), sau đó 10 epoch fine-tune local. Không có 50 round fine-tune độc lập.",
     "nilm": "Nối phiên thành công: session 1 (r1–36) + session 2 (fl2-nilm-r2s2, r37–50); parent preflight r1–36 byte-identical.",

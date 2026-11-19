@@ -74,10 +74,15 @@ class Method:
                     xh = g_forward(Pg, ctx.x, cfg)
                 xx = torch.cat([xh, ctx.x], 1)
                 mm = torch.cat([ctx.mask, ctx.mask], 1)
-                z, nb = grouped.TRAIN(ctx.P, ctx.B, xx, cfg, mask=mm, train=True)
                 b = ctx.x.shape[1]
-                l1 = local.ce_loss(z[:, :b], ctx.y, ctx.mask)
-                l2 = local.ce_loss(z[:, b:], ctx.y, ctx.mask)
+                if cfg.get("model") == "sae":
+                    z, h, nb = grouped.TRAIN(ctx.P, ctx.B, xx, cfg, mask=mm, train=True, hidden=True)
+                    l1 = local.supervised_loss(ctx.P, xh, z[:, :b], h[:, :b], ctx.y, ctx.mask, cfg)
+                    l2 = local.supervised_loss(ctx.P, ctx.x, z[:, b:], h[:, b:], ctx.y, ctx.mask, cfg)
+                else:
+                    z, nb = grouped.TRAIN(ctx.P, ctx.B, xx, cfg, mask=mm, train=True)
+                    l1 = local.ce_loss(z[:, :b], ctx.y, ctx.mask)
+                    l2 = local.ce_loss(z[:, b:], ctx.y, ctx.mask)
                 return mu * l1 + (1 - mu) * l2, nb
 
             flat, bufs = self.bank_p[idx], self.bank_b[idx]

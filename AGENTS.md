@@ -78,6 +78,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 [docs/operations/lessons.md](docs/operations/lessons.md) (bài học vận hành) và [docs/operations/continue.md](docs/operations/continue.md) (bàn giao) trước khi làm bất cứ việc gì.**
 Cấu hình chung mọi phương pháp: [docs/research/protocol.md](docs/research/protocol.md) — không đổi riêng cho một phương pháp.
 Dữ kiện bất biến (máy, dataset, DAGSNet): [knowledge/](knowledge/README.md).
+Kết quả: mỗi kịch bản một thư mục `experiments/<kịch bản>/`; ghi số vào `results.csv`, README sinh bằng `python scripts/experiments_status.py` (`--check` liệt kê ô thiếu). Code FeatureBERT ở `bert/` (cwd `bert/`).
 Khi rút ra bài học mới hoặc một bài học bị bác bỏ, sửa ngay trong phiên đó: phương pháp/dữ liệu/train/đánh giá/code → LESSONS.md;
 Kaggle/notebook/pipeline, máy local, Git → docs/operations/lessons.md.
 

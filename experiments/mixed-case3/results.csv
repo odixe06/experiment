@@ -1,0 +1,16 @@
+method,seed,view,round,accuracy,precision_macro,precision_micro,precision_weighted,recall_macro,recall_micro,recall_weighted,f1_macro,f1_micro,f1_weighted,status,source
+v2x_htfl,41,client,50,0.886160,0.865840,0.886160,0.875770,0.832790,0.886160,0.886160,0.841480,0.886160,0.874420,audited,docs/research/mixed/mixed128-all-results.csv
+v2x_htfl,42,client,50,0.885840,0.864840,0.885840,0.875440,0.831620,0.885840,0.885840,0.840530,0.885840,0.874170,audited,docs/research/mixed/mixed128-all-results.csv
+v2x_htfl,43,client,50,0.886140,0.865970,0.886140,0.875940,0.831360,0.886140,0.886140,0.840730,0.886140,0.874390,audited,docs/research/mixed/mixed128-all-results.csv
+tinyproto,41,client_proto,50,0.829080,0.795740,0.829080,0.841380,0.817500,0.829080,0.829080,0.804970,0.829080,0.834050,audited,docs/research/mixed/mixed128-all-results.csv
+tinyproto,42,client_proto,50,0.835760,0.805100,0.835760,0.848730,0.824690,0.835760,0.835760,0.813100,0.835760,0.840910,audited,docs/research/mixed/mixed128-all-results.csv
+tinyproto,43,client_proto,50,0.832690,0.797860,0.832690,0.845700,0.820900,0.832690,0.832690,0.807250,0.832690,0.837840,audited,docs/research/mixed/mixed128-all-results.csv
+pfedes,41,client,18,,,,,,,,,,,running,"Kaggle nguynkhacao (teammate), saved round 18"
+pfedes,42,client,50,0.866700,0.859480,0.866700,0.862840,0.779560,0.866700,0.866700,0.806900,0.866700,0.855500,audited,docs/research/mixed/mixed128-all-results.csv
+pfedes,43,client,10,,,,,,,,,,,running,"Kaggle nghuay (teammate), saved round 10"
+fedtgp,41,client_proto,50,0.813140,0.751720,0.813140,0.805880,0.700140,0.813140,0.813140,0.714130,0.813140,0.802030,audited,docs/research/mixed/mixed128-all-results.csv
+fedtgp,42,client_proto,50,0.808860,0.754760,0.808860,0.802540,0.694530,0.808860,0.808860,0.709630,0.808860,0.797480,audited,docs/research/mixed/mixed128-all-results.csv
+fedtgp,43,client_proto,50,0.813570,0.756000,0.813570,0.806550,0.702070,0.813570,0.813570,0.717340,0.813570,0.803060,audited,docs/research/mixed/mixed128-all-results.csv
+fedproto,41,client_proto,50,0.842290,0.792620,0.842290,0.847150,0.778740,0.842290,0.842290,0.783120,0.842290,0.843710,audited,docs/research/mixed/mixed128-all-results.csv
+fedproto,42,client_proto,50,0.848500,0.799340,0.848500,0.851580,0.787970,0.848500,0.848500,0.789860,0.848500,0.848630,audited,docs/research/mixed/mixed128-all-results.csv
+fedproto,43,client_proto,50,0.850860,0.803170,0.850860,0.852140,0.789810,0.850860,0.850860,0.792010,0.850860,0.849930,audited,docs/research/mixed/mixed128-all-results.csv

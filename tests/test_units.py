@@ -70,6 +70,48 @@ def test_eval_matches_reference():
     assert (g.sum(0) == ref).all()
 
 
+def test_own_eval_applies_per_client_logit_bias():
+    cfg = width(0.25)
+    lay = Layout(cfg)
+    test = _toy(K=4, seed=3)
+    p, b = lay.init(1, 4)
+    bias = torch.full((4, 16), -100.0)
+    bias[torch.arange(4), torch.arange(4)] = 100.0
+    cms = evaluate.own_cm(lay, p, b, test, cfg, torch.arange(4), max_rows=64, logit_bias=bias)
+    for k in range(4):
+        assert cms[k, :, k].sum() == test.sizes[k]
+        assert cms[k].sum() == test.sizes[k]
+
+
+def test_mobihet_reliability_gate_is_per_class_and_client():
+    from methods.mobihet import class_reliability_gate
+    y = torch.tensor([[0, 0, 13, 13], [0, 13, 13, 13]])
+    mask = torch.ones_like(y, dtype=torch.bool)
+    teacher = torch.zeros(2, 4, 16)
+    student = torch.zeros_like(teacher)
+    teacher[0, :2, 0] = 5; student[0, :2, 1] = 5       # teacher better for client 0, class 0
+    teacher[0, 2:, 0] = 5; student[0, 2:, 13] = 5     # student better for client 0, class 13
+    teacher[1, 0, 1] = 5; student[1, 0, 0] = 5        # student better for client 1, class 0
+    teacher[1, 1:, 13] = 5; student[1, 1:, 0] = 5     # teacher better for client 1, class 13
+    gate, rows = class_reliability_gate(teacher, student, y, mask)
+    assert gate[0, 0] and not gate[0, 13]
+    assert not gate[1, 0] and gate[1, 13]
+    assert rows.tolist() == [[True, True, False, False], [False, True, True, True]]
+
+
+def test_mobihet_pairwise_loss_only_updates_classes_0_and_13_on_pair_rows():
+    from methods.mobihet import pairwise_0_13_loss
+    logits = torch.zeros(1, 4, 16, requires_grad=True)
+    y = torch.tensor([[0, 13, 5, 13]])
+    mask = torch.tensor([[True, True, True, False]])
+    pairwise_0_13_loss(logits, y, mask).sum().backward()
+    assert logits.grad[0, 0, [0, 13]].abs().sum() > 0
+    assert logits.grad[0, 1, [0, 13]].abs().sum() > 0
+    assert logits.grad[0, 2:].abs().sum() == 0
+    assert logits.grad[..., 1:13].abs().sum() == 0
+    assert logits.grad[..., 14:].abs().sum() == 0
+
+
 def test_local_epoch_visits_every_row_once():
     cfg = width(0.25)
     lay = Layout(cfg)

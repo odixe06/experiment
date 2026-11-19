@@ -1,41 +1,56 @@
-# Continue — bàn giao sống, 30/10/2026 ~23:50 (giờ VN)
+# Continue — bàn giao sống, 20/11/2026 (giờ VN)
 
 Đọc [CONTEXT](../../CONTEXT.md) → [LESSONS](../../LESSONS.md) → [bài học vận hành](lessons.md) → trang này.
-Repo này: **thử các phương pháp/baseline và báo cáo**. Cải tiến MobiHet ở `../mobihet`, bàn giao riêng; không chép trạng thái H vào đây.
-Snapshot trước phiên: [17:48](continue.md) (khi 2 kernel đang chạy).
+Bàn giao trước khi gộp repo: [continue-20261120-before-reorg](../archive/continue-20261120-before-reorg.md) (ledger mixed/backbone của teammate).
 
 ## Đang chạy
 
-Không có kernel nào đang chạy trên Kaggle. Toàn bộ 15 baseline FL + Centralized đã hoàn tất 50 round.
+### Centralized (phiên này, private 2×T4, builder `scripts/build_central_backbones.py --seed S --max-hours H`)
 
-## Đã hoàn tất trong phiên
+Ledger: `runs/central-20261120/ledger.json` (ref, notebook SHA256). Version 1 cả 11 ERROR ở cell test: snapshot nhúng thiếu
+`core/tabm.py` (lỗi builder có sẵn; đã sửa + builder tự chạy test trên snapshot trước khi ghi notebook). Version 2 RUNNING.
 
-- **NILM-FL session 2 (`accanniez/fl2-nilm-r2s2`)**:
-  - Pull 102 file chọn lọc (bỏ `state*.pt`), 0 thiếu, 449 MiB mới.
-  - Parent preflight r1–r36 kiểm tra đối chiếu khớp byte-identical với audit session 1.
-  - Nối tiếp trơn tru tới round 50: `client/f1_macro` = **0,8846**, `proxy/f1_macro` = **0,8993**.
-  - Audit `scripts/audit_run.py`: **PASS_BOUNDED** 50 round complete ([audit json](../research/audits/2026-10-30/fl2-nilm-r2.json)).
-- **TinyProto-FP R4 (`anhtruong1909/fl2-tinyproto-r4`)**:
-  - Pull 141 file (gồm đầy đủ `provenance/`, bỏ `state*.pt`), 0 thiếu, 1.677 MiB.
-  - Overlay `methods/tinyproto.py` khớp SHA256 `1bbf6b6e18f87a47f2ed52831c2709f8a3fbc001a7a2461c13a968ee62895ab4`.
-  - Fix scale μ = 1,5e-4 thành công: target L2 norm r50 đạt **0,2657** (không bùng nổ như r3 2.943), loss r50 = **0,0218**.
-  - `client_proto/f1_macro` (dense local Eq. 12) = **0,8534** (hồi phục hoàn toàn từ r3 0,2904), `client/f1_macro` (head) = **0,8693**.
-  - Audit `scripts/audit_run.py`: **PASS_BOUNDED** 50 round complete ([audit json](../research/audits/2026-10-30/fl2-tinyproto-r4.json)).
-- **Cập nhật kết quả**:
-  - Đã cập nhật bảng headline [results.md](../research/results.md) đủ **16/16 phương pháp** (Centralized + 15 baseline FL), tính lại trực tiếp từ CM.
-  - Chạy `scripts/build_notion_report.py` chuẩn bị toàn bộ JSON payloads cho 16 methods trong `runs/notion-report/`.
+| kịch bản | seed | kernel | budget h | ghi chú |
+|---|---:|---|---:|---|
+| bert | 41 | `abbafan/exp-central-bert-s41/2` | 11,25 | ≈ 9 epoch/phiên ⇒ cần ~5 phiên nối (`--parent`) |
+| bert | 43 | `bestyorn/exp-central-bert-s43/2` | 11,25 | như trên |
+| tabm | 41/42/43 | `anhtruong1909/…-tabm-s41/2`, `minhtran0601/…-tabm-s42/2`, `nguyenminhtran060113/…-tabm-s43/2` | 3,4 / 3,05 / 2,8 | budget = quota account − lề |
+| mlp | 41/42/43 | `odixeuit/…-mlp-s41/2`, `nguyetquedo/…-mlp-s42/2`, `annhtnt/…-mlp-s43/2` | 2,75 / 2,65 / 2,5 | |
+| sae (sae-ce) | 41/42/43 | `thuyanh316/…-saece-s41/2`, `takids1909/…-saece-s42/2`, `keocaosu/…-saece-s43/2` | 2,45 / 2,25 / 1,5 | |
 
-- Notion connector đã upload PDF `nilm.pdf` & `tinyproto.pdf`, tạo đủ 2 child page `NILM-FL` & `TinyProto`, cập nhật bảng headline trang root đủ 16/16 phương pháp.
-  - Đã cập nhật [notion-pages-2026-10-30.json](notion-pages-2026-10-30.json) và [notion-results.md](notion-results.md).
+Chưa push (chờ slot/quota reset **21/11 00:00 +07**): BERT s42, CNN-BiGRU s41 (notebook đã sinh, `notebooks/exp-central-*`),
+CNN-BiGRU s43, DAGSNet s41/s43 (DAGSNet dùng `scripts/gen_notebook.py --sha 6617261 --no-wandb --args "scripts/run_central.py --width 1
+--epochs 50 --compile --seed S --out /kaggle/working/fl2-central-w1-sS"` để trùng source run s42 `minhtran0601/fl2-central-w1`).
+Run chưa đủ 50 epoch: nối bằng `build_central_backbones.py --parent OWNER/SLUG --parent-artifacts <pull> --parent-epoch E` cùng seed.
+
+### MobiHet FB-L r50 (repo `../mobihet`, không phải bảng kịch bản)
+
+Orchestrator `../mobihet/runs/fbl-r50/orchestrate.py` (PID 38919) tự hop; đã dùng `hoangdang20t` (DAGS s41h2) và `goilaaiudi`
+(BERT s41h2). Nó chọn account quota lớn nhất, không biết slot của job khác ⇒ phiên này chỉ chiếm 1 slot ở `abbafan`/`bestyorn`.
+File đã vá (đọc thêm `runs/fbl-r50/exclude.json` mỗi lần hop) nhưng **chưa restart** (bị chặn quyền) — xem việc tay.
+
+### Mixed (account teammate, không có credential ở máy này)
+
+case1 V2X-HtFL s41/42/43 (`sonlebaodac`, `minhgia2026`, `nghuay`), case3 pFedES s41/43 (`nguynkhacao`, `nghuay`).
+
+### Compute FLOP local
+
+`scripts/compute/run_queue.py` (count, panel 200, 2 round, group_rows 4096 / mixed 8192) → `runs/compute-20261120/`; log `queue.log`.
+OOM ⇒ status `oom` ⇒ đếm trên Kaggle T4 cùng harness. CANPerFL các model: FedAvg r1 relabel r50 làm điểm bắt đầu fine-tune.
+DAGSNet/BERT đã đo ở `../mobihet/runs/total-compute-20261119/` (+ `canperfl.py` phiên này).
 
 ## Bước tiếp
 
-0. MobiHet gốc branch `codex/mobihet-v4-relkd`: đã pull hai session version1 bằng odixe0502 (quyền đọc hiện hoạt động), audit [PASS_BOUNDED đủ50round](../research/audits/2026-10-31/mobihet-v4-weighted-nowb-s2.json). Source37file khớp manifest; parent25CM khớp byte. Đã nhập hai bảng50round/10metric vào [Notion](https://app.notion.com/p/40a730cee68d81fba3fcfb532fb66a8d), cập nhật bảng tổng: private/proxy F1 0,895298/0,899538. Không cần credential minhiw cho hai output này. Chưa pull full resume banks/replay inference. Chi tiết [notion-results](notion-results.md). Không launch training.
-1. Chờ chỉ thị của owner về việc đưa các nhánh cải tiến MobiHet (tại repo `../mobihet`) lên Notion / báo cáo.
-2. Kiểm tra tiến độ sàng lọc MobiHet (H0–H4) tại repo `../mobihet` khi được yêu cầu.
+1. Khi centralized COMPLETE: pull (`pull_kernel_output.py` qua `kaggle_as.py`), `scripts/audit_central_backbones.py`, thêm hàng vào
+   `experiments/<kịch bản>/results.csv` (status `audited`), chạy `python scripts/experiments_status.py`. PARTIAL ⇒ nối phiên.
+2. Sau reset quota 21/11: push BERT s42, CNN-BiGRU s41/s43, DAGSNet s41/s43; nối BERT s41/s43.
+3. Queue FLOP xong: `python scripts/compute/report.py` → `experiments/*/compute.csv`, cập nhật [compute](../research/compute.md).
+4. Mixed 5 run teammate xong: thêm hàng audited vào `experiments/mixed-case{1,3}/results.csv`.
 
-## Trạng thái workspace / việc tay
+## Việc tay
 
-- Git HEAD: `36ac7ffafcb45974ed736b4d838279728d00e884`. Không tự ý commit hay push Git/DVC.
-- Toàn bộ artifact đã pull nằm tại `runs/pulls/`.
-- Chưa có việc tay bắt buộc.
+- **Teammate (dangvanhoang1711):** chuyển sang nhánh `main` của repo `odixe06/experiment` (đường dẫn tài liệu đã đổi, xem
+  [docs/README](../README.md)); gửi CM/10 metric cuối (hoặc audit JSON) của TabM/SAE/MLP/CNN-BiGRU 14 PP × 3 seed để điền đủ
+  `experiments/{tabm,sae,mlp,cnn-bigru}/results.csv` (repo hiện chỉ có macro-F1); báo khi 5 run mixed xong.
+- **Owner (tùy chọn):** cho phép restart orchestrator MobiHet để `exclude.json` có hiệu lực:
+  `kill -TERM -38919` rồi `cd ~/project/mobihet && setsid python runs/fbl-r50/orchestrate.py >> runs/fbl-r50/orchestrate.log 2>&1 &`.

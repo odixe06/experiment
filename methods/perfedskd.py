@@ -16,6 +16,7 @@ import torch
 import torch.nn.functional as F
 
 from core import evaluate, grouped, local
+from core.tabm import log_probs
 
 
 class Method:
@@ -51,14 +52,18 @@ class Method:
             bufs = torch.where(s, self.g_b[None], self.bank_b[idx])
 
             def loss_fn(ctx):
-                z, nb = grouped.TRAIN(ctx.P, ctx.B, ctx.x, cfg, mask=ctx.mask, train=True)
-                ce = local.ce_loss(z, ctx.y, ctx.mask)
+                if cfg.get("model") == "sae":
+                    z, h, nb = grouped.TRAIN(ctx.P, ctx.B, ctx.x, cfg, mask=ctx.mask, train=True, hidden=True)
+                    ce = local.supervised_loss(ctx.P, ctx.x, z, h, ctx.y, ctx.mask, cfg)
+                else:
+                    z, nb = grouped.TRAIN(ctx.P, ctx.B, ctx.x, cfg, mask=ctx.mask, train=True)
+                    ce = local.ce_loss(z, ctx.y, ctx.mask)
                 if teacher is None:
                     return ce, nb
                 with torch.no_grad():
                     zt, _ = grouped.TRAIN(teacher[0], teacher[1], ctx.x, cfg, train=False)
-                    lt = F.log_softmax(zt.float(), -1)
-                kl = local.masked_mean((lt.exp() * (lt - F.log_softmax(z, -1))).sum(-1), ctx.mask)
+                    lt = log_probs(zt, cfg.get("model") == "tabm")
+                kl = local.masked_mean((lt.exp() * (lt - log_probs(z, cfg.get("model") == "tabm"))).sum(-1), ctx.mask)
                 return ce + self.lam * kl, nb
 
             st = local.local_epoch(lay, flat, bufs, env.train, idx, cfg, env.hp, lr, env.gen, loss_fn=loss_fn)
