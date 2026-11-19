@@ -30,22 +30,22 @@ Sinh lại: `python scripts/compute/report.py`.
 
 Tổng FL 50 round, đơn vị: **× FedAvg cùng kịch bản** (đơn model); mixed: **Tops = 1e12 op** (không có FedAvg). Panel 200 xe.
 
-| Phương pháp | dagsnet | bert |
-|---|---:|---:|
-| FedAvg | 1.000 | 1.000 |
-| FedProx | 1.001 | 1.000 |
-| AFPHA_EDL_CMSO | 1.001 | 1.000 |
-| FD-IDS | 1.325 | 1.319 |
-| APFed_LDwCBN | 1.993 | 2.000 |
-| LwFedNIDS | 0.107 | 0.205 |
-| V2X-HtFL | 1.139 | 1.098 |
-| CANPerFL | 1.200 | 1.200 |
-| TinyProto | 1.102 | 1.097 |
-| pFedES | 2.638 | 2.751 |
-| NILM-FL | 2.000 | 2.000 |
-| FedTGP | 1.103 | 1.097 |
-| PerFed-SKD | 1.426 | 1.415 |
-| FedProto | 1.000 | 1.000 |
-| *FedAvg tổng (Tops)* | 3944.8 | 11785.5 |
+| Phương pháp | dagsnet | bert | tabm |
+|---|---:|---:|---:|
+| FedAvg | 1.000 | 1.000 | 1.000 |
+| FedProx | 1.001 | 1.000 | 1.003 |
+| AFPHA_EDL_CMSO | 1.001 | 1.000 | 1.003 |
+| FD-IDS | 1.325 | 1.319 | 1.335 |
+| APFed_LDwCBN | 1.993 | 2.000 | 1.981 |
+| LwFedNIDS | 0.107 | 0.205 | 0.278 |
+| V2X-HtFL | 1.139 | 1.098 | 1.206 |
+| CANPerFL | 1.200 | 1.200 | 1.200 |
+| TinyProto | 1.102 | 1.097 | 1.108 |
+| pFedES | 2.638 | 2.751 | 2.892 |
+| NILM-FL | 2.000 | 2.000 | 2.010 |
+| FedTGP | 1.103 | 1.097 | 1.110 |
+| PerFed-SKD | 1.426 | 1.415 | 1.433 |
+| FedProto | 1.000 | 1.000 | 1.006 |
+| *FedAvg tổng (Tops)* | 3944.8 | 11785.5 | 29.4 |
 
 <!-- compute:end -->

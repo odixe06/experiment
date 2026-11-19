@@ -42,9 +42,20 @@ python .agents/skills/kaggle-training-notebook/scripts/kaggle_account.py quota
 
 ## Account
 
-16 account đã lưu credential (ngoài repo, `~/.kaggle/accounts/`, thư mục 0700, token 0600; không ghi token/email vào docs):
-accanniez, anhtruong1909, annhannh331, annhtnt, catbaochau, dinhan25, khanhmay0304, minhtran0601, minhtriethihi, minhtrit06,
-nguyenminhtran060113, odixe0502, odixeuit, takids1909, thuyanh316, trietbackup.
+**Máy này (20/11/2026): 30 account** có OAuth snapshot `~/.kaggle/accounts/<user>.credentials.json` (ngoài repo, 0600; không ghi
+token/email vào docs). Dùng qua `kaggle_as.py <user> -- kaggle ...`; quota live: `kaggle_quota.py --users ...` hoặc `kaggle_account.py quota`.
+
+abbafan, accanniez, anhtruong1909, annhannh331, annhtnt, bestyorn, catbaochau, chiencosieuhang, chuchimnon, dinhan25, emtrangtri,
+gaming3, goilaaiudi, heykewtiie, hoangdang20t, keocaosu, khanhmay0304, lelovo, minhtran0601, minhtriethihi, minhtrit06,
+nguyenminhtran060113, nguyetquedo, novahihi, odixe0502, odixeuit, outlookcheck, takids1909, thuyanh316, trietbackup.
+
+- Mới 19–20/11 (30 h GPU khi thêm): bestyorn, abbafan, goilaaiudi, hoangdang20t (19/11 tối), chiencosieuhang, lelovo, gaming3 (20/11 ~01:45).
+  Đã dùng ngay cho centralized ([continue](continue.md)); đều xác minh identity + quota bằng `kaggle_quota.py` (OK 30,00 h).
+- `dinhan25`: dự án khác (RCD) dùng; orchestrator MobiHet loại account này.
+- Account teammate (sonlebaodac, minhgia2026, nghuay, nguynkhacao, qwerasdf3004, …; bảng [quota live](kaggle-quota-live.md)) **không có
+  credential trên máy này** — chỉ teammate xem/pull được.
+- Quota reset hằng tuần (lần tới **21/11/2026 00:00 +07**). Mỗi account 2 slot GPU đồng thời; khi orchestrator `../mobihet` còn hop,
+  để mỗi account quota cao ≥ 1 slot trống (nó chọn theo quota, không theo slot).
 
 | lưu ý | account |
 |---|---|

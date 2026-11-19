@@ -22,8 +22,12 @@ Ledger: `runs/central-20261120/ledger.json` (ref, notebook SHA256). Version 1 c�
 | mlp | 41/42/43 | `odixeuit/…-mlp-s41/2`, `nguyetquedo/…-mlp-s42/2`, `annhtnt/…-mlp-s43/2` | 2,75 / 2,65 / 2,5 | |
 | sae (sae-ce) | 41/42/43 | `thuyanh316/…-saece-s41/3`, `takids1909/…-saece-s42/3`, `keocaosu/…-saece-s43/3` | 2,4 / 2,2 / 1,45 | |
 
-Chưa push (chờ slot/quota reset **21/11 00:00 +07**): BERT s42, CNN-BiGRU s41/s43 (`build_central_backbones.py --model bert|cnn-bigru-attention --seed S`), DAGSNet s41/s43 (DAGSNet dùng `scripts/gen_notebook.py --sha 6617261 --no-wandb --args "scripts/run_central.py --width 1
---epochs 50 --compile --seed S --out /kaggle/working/fl2-central-w1-sS"` để trùng source run s42 `minhtran0601/fl2-central-w1`).
+Thêm 20/11 ~02:00 (3 account mới + slot thứ 2 của account đang chạy chain orchestrator — nó không chọn lại account đó):
+`chiencosieuhang/exp-central-bert-s42/1`, `gaming3/exp-central-cnnbigru-s41/1`, `goilaaiudi/exp-central-cnnbigru-s43/1`,
+`lelovo/exp-central-dagsnet-s41/1`, `hoangdang20t/exp-central-dagsnet-s43/1` ⇒ **16/16 centralized đã push**. DAGSNet dùng
+`scripts/gen_notebook.py --sha 6617261 --no-wandb --args "scripts/run_central.py --width 1 --epochs 50 --compile --seed S
+--out /kaggle/working/fl2-central-w1-sS"` để trùng source run s42 `minhtran0601/fl2-central-w1`).
+Account còn trống sau đợt này: slot thứ 2 của chiencosieuhang, gaming3, lelovo, abbafan, bestyorn (để dành cho hop orchestrator / phiên nối BERT).
 Run chưa đủ 50 epoch: nối bằng `build_central_backbones.py --parent OWNER/SLUG --parent-artifacts <pull> --parent-epoch E` cùng seed.
 
 ### MobiHet FB-L r50 (repo `../mobihet`, không phải bảng kịch bản)
