@@ -1,5 +1,19 @@
 # Git / DVC backup record
 
+## GitHub code + docs — 20/11/2026
+
+- Remote: `origin` → `https://github.com/odixe06/fl_dagsnet_veremi_v2.git`.
+- Branch: `codex/mobihet-v4-relkd`.
+- Source commit: `c398d5693cbad7df9762748d122740a6d6e59d4f`; `git push` thành công và
+  `git -c http.sslBackend=schannel ls-remote` trả đúng SHA.
+- Scope: 177 file code, tests, experiment assignment và tài liệu; 41.619 dòng thêm.
+- Loại khỏi Git: `docs/paper/`, `tmp/`, `output/`, credentials, signed URLs, checkpoints và run artifacts.
+- Checks: secret scan PASS (chỉ token giả trong unit test), `compileall` PASS,
+  `git diff --cached --check` PASS, 3 test assignment PASS.
+- Giới hạn test local: full suite chưa chạy vì Python host thiếu `torch`/`pytest` và không tìm thấy env `nckh`;
+  không cài dependency mới trong phiên backup.
+- DVC: không cấu hình, không được yêu cầu; không upload artifact và không cleanup.
+
 ## Deployment riêng — 15/11/2026
 
 Owner yêu cầu hourly cloud dispatcher; đã tạo private repo
