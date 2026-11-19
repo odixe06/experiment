@@ -101,17 +101,22 @@ def main():
     if a.resume != bool(epochs):
         raise RuntimeError("resume requires committed epochs; fresh run requires empty history")
     config = out/"config.json"
-    if config.exists() and json.loads(config.read_text()) != cfg:
+    # rank 0 checks then writes; the others check only after the barrier (20/11: rank 1 read a half-written file)
+    if rank == 0 and config.exists() and json.loads(config.read_text()) != cfg:
         raise RuntimeError("config/source/data mismatch")
     if rank == 0:
         config.write_text(json.dumps(cfg, indent=2))
     barrier()
+    if rank > 0 and json.loads(config.read_text()) != cfg:
+        raise RuntimeError("config/source/data mismatch")
     opt = torch.optim.AdamW(model.parameters(), lr=1e-3, weight_decay=1e-4, fused=not a.cpu)
     scaler = torch.amp.GradScaler("cuda", enabled=not a.cpu)
     if a.model == "gru-attention" and not a.resume and rank == 0:
         model.fit_pca(np.load(a.cache/"train_X.npy", mmap_mode="r"))
         print("Fitted five PCA components on train_X", flush=True)
-    ddp = torch.nn.parallel.DistributedDataParallel(model, device_ids=None if a.cpu else [dev.index]) if world > 1 else model
+    # sae-ce trains the FL SAE with CE only: the decoder is stored but never in the loss (like the FL layout), so DDP must skip it
+    ddp = torch.nn.parallel.DistributedDataParallel(model, device_ids=None if a.cpu else [dev.index],
+                                                    find_unused_parameters=a.model == "sae-ce") if world > 1 else model
     if a.resume:
         model.load_state_dict(torch.load(epochs[-1]/"weights.pt", weights_only=True, map_location=dev))
         state = torch.load(epochs[-1]/"resume.pt", weights_only=True, map_location="cpu")

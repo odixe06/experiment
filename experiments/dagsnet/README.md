@@ -33,3 +33,7 @@ Không dấu = CM → 10 metric đã audit (đủ 10 cột trong [results.csv](r
 
 - Centralized seed 41: missing
 - Centralized seed 43: missing
+
+## Compute
+
+FLOP toàn bộ run (đếm op): [compute.csv](compute.csv); cách đo: [compute](../../docs/research/compute.md).

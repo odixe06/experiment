@@ -99,6 +99,25 @@ class CentralModelsTest(unittest.TestCase):
                 weights[seed] = torch.load(out/"epoch_001/weights.pt",weights_only=True)
             self.assertFalse(all(torch.equal(weights["42"][k], weights["41"][k]) for k in weights["42"]))
 
+    def test_two_rank_ddp(self):
+        """world = 2 (gloo, CPU): DDP unused-parameter check (sae-ce decoder) and the config.json write/read order."""
+        import os, shutil, subprocess
+        if shutil.which("torchrun") is None:
+            self.skipTest("torchrun not on PATH")
+        with tempfile.TemporaryDirectory(dir=".") as work:
+            root = Path(work)
+            rng = np.random.default_rng(1)
+            (root/"identity.json").write_text('{"fixture":1}')
+            for split,n in (("train",29),("test",9)):
+                np.save(root/f"{split}_X.npy", rng.normal(size=(n,77)).astype(np.float16))
+                np.save(root/f"{split}_Y.npy", rng.integers(0,16,size=n,dtype=np.int8))
+            for name in ("sae-ce", "tabm"):
+                r = subprocess.run(["torchrun","--standalone","--nproc_per_node=2","scripts/run_central_backbones.py","--model",name,
+                                    "--out",str(root/name),"--cache",str(root),"--cpu","--batch","8","--micro","2","--epochs","1",
+                                    "--seed","41"], capture_output=True, text=True, env=dict(os.environ, OMP_NUM_THREADS="1"))
+                self.assertEqual(r.returncode, 0, r.stderr[-2000:])
+                self.assertTrue((root/name/"epoch_001/weights.pt").exists())
+
     def test_gru_attention_pca(self):
         model = build_model("gru-attention")
         x = np.random.default_rng(5).normal(size=(160, 77))

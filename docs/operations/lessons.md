@@ -151,3 +151,6 @@ Bài học ở đây là quy tắc rút ra khi chạy thí nghiệm và hạ t�
 - Script Python đặt trong thư mục có `queue.py` (vd `runs/total-compute-20261119/`): thư mục script là `sys.path[0]` ⇒ `from queue import
   Queue` của stdlib (torch.fx) lấy nhầm file ⇒ ImportError. Bỏ thư mục đó khỏi `sys.path` trước khi import torch, nạp queue.py bằng importlib.
 - Account Kaggle quota thấp: đặt `--max-hours` < quota live để runner dừng sạch ở biên epoch (nối tiếp được) thay vì bị Kaggle cắt.
+- Test CPU một tiến trình không lộ lỗi chỉ có ở DDP 2 rank: `sae-ce` (decoder không vào loss CE) ⇒ DDP "parameters that were not used";
+  `config.json` rank 0 đang ghi thì rank 1 đọc rỗng (JSONDecodeError, race có sẵn). Runner nhiều rank cần test `torchrun --nproc_per_node=2
+  --cpu` (gloo) trên fixture trước khi push (`test_two_rank_ddp`).
