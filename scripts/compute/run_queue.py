@@ -4,7 +4,8 @@ time is hardware-specific, FLOPs are not). Panel 200, 2 rounds (round 2 = steady
 model, 8192 mixed), seed 42. Sequential, resumable (a JSON with status=done is skipped). A CUDA OOM is recorded as
 status=oom: run that job on a Kaggle T4 instead (same counter, same rows).
 
-    V4_ROOT=... V4_CACHE=... python scripts/compute/run_queue.py [--only PREFIX] [--out runs/compute-20261120]
+    V4_ROOT=... V4_CACHE=... python scripts/compute/run_queue.py [--only PREFIX[,PREFIX...]] [--out runs/compute-20261120]
+    (Kaggle: scripts/compute/build_kaggle_count.py runs a job list on 2 T4, one worker per GPU)
 """
 import json
 import os
@@ -17,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[2]
 PY = sys.executable
 ARGS = sys.argv[1:]
 OUT = Path(ARGS[ARGS.index("--out") + 1]) if "--out" in ARGS else ROOT / "runs/compute-20261120"
-ONLY = ARGS[ARGS.index("--only") + 1] if "--only" in ARGS else ""
+ONLY = tuple(ARGS[ARGS.index("--only") + 1].split(",")) if "--only" in ARGS else ("",)   # comma-separated name prefixes
 BASE = ["fedavg", "fedprox", "afpha", "fd_ids", "lwfednids", "pfedes", "fedproto", "fedtgp", "tinyproto", "nilm",
         "perfedskd", "apfed", "v2x_htfl", "canperfl"]
 BACKBONES = {"tabm": "tabm", "sae": "sae", "mlp": "mlp", "cnn-bigru": "cnn-bigru-attention"}
