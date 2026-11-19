@@ -14,6 +14,7 @@ state once loaded, so the disk never holds two copies.
 import argparse
 import importlib
 import json
+import math
 import os
 import sys
 import time
@@ -24,6 +25,10 @@ import torch
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 from core import fl, grouped, local, metrics  # noqa: E402
 from core.dagsnet import width  # noqa: E402
+from core.sae import fl_config as sae_config  # noqa: E402
+from core.tabm import config as tabm_config  # noqa: E402
+from core.mlp import config as mlp_config
+from core.cnn_bigru_attention import config as bigru_config
 
 PROTOCOL = {"rounds": 50, "batch": 64, "lr_max": 1e-3, "lr_min": 1e-5, "weight_decay": 1e-4, "clip": 1.0, "seed": 42,
             "group_rows": 8192, "amp": True}
@@ -32,6 +37,7 @@ PROTOCOL = {"rounds": 50, "batch": 64, "lr_max": 1e-3, "lr_min": 1e-5, "weight_d
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--method", required=True)
+    ap.add_argument("--backbone", choices=["dagsnet", "tabm", "sae", "mlp", "cnn-bigru-attention"], default="dagsnet")
     ap.add_argument("--out", required=True)
     ap.add_argument("--width", type=float, default=float(os.environ.get("DAGS_WIDTH", 1.0)))
     ap.add_argument("--rounds", type=int, default=PROTOCOL["rounds"])
@@ -42,13 +48,29 @@ def main():
     ap.add_argument("--max-hours", type=float, default=0, help="stop before a round would cross this budget")
     ap.add_argument("--set", nargs="*", default=[], help="method hyperparameters k=v (paper values are the defaults)")
     ap.add_argument("--save-every", type=int, default=0, help="also save resume state every N rounds (0: only at a budget stop)")
+    ap.add_argument("--stop-after", type=int, default=0, help="stop at this round, preserving the full cosine horizon")
+    ap.add_argument("--eval-only", action="store_true", help="load a checkpoint, write every evaluation view, then exit")
+    ap.add_argument("--train-fold", choices=["train", "val"], default="",
+                    help="diagnostic only: train on one fold inside train/")
+    ap.add_argument("--eval-fold", choices=["train", "val"], default="",
+                    help="diagnostic only: evaluate on one fold inside train/ instead of official test")
     a = ap.parse_args()
     T0 = time.monotonic()
 
     hp = dict(PROTOCOL, rounds=a.rounds)
     mhp = {k: json.loads(v) for k, v in (s.split("=", 1) for s in a.set)}
     hp.update(mhp)
-    cfg = width(a.width)
+    if bool(a.train_fold) != bool(a.eval_fold) or (a.train_fold and a.train_fold == a.eval_fold):
+        raise ValueError("--train-fold and --eval-fold must be distinct and supplied together")
+    if a.train_fold:
+        hp.update(train_fold=a.train_fold, eval_fold=a.eval_fold)
+    rank = int(os.environ.get("RANK", 0))
+    widths = hp.get("rank_widths")
+    if widths and a.backbone != "dagsnet":
+        raise ValueError("rank_widths is DAGSNet-only")
+    cfg = {"tabm": tabm_config, "sae": sae_config, "mlp": mlp_config,
+           "cnn-bigru-attention": bigru_config}[a.backbone]() if a.backbone != "dagsnet" else \
+        width(widths[rank] if widths else a.width)
     clients = None
     if a.subset:
         clients = np.sort(np.random.default_rng(7).choice(5343, a.subset, replace=False)).tolist()
@@ -73,13 +95,22 @@ def main():
     start = 1
     if os.path.exists(state_p):
         s = torch.load(state_p, map_location="cpu", weights_only=True)
-        assert s["cfg"] == cfg and s["method"] == a.method and s["hp"] == hp, "resume with a different config"
+        expected_cfg = width(widths[0]) if widths else cfg
+        assert s["cfg"] == expected_cfg and s["method"] == a.method and s["hp"] == hp, "resume with a different config"
         if env.rank:
             mine = torch.load(my_state, map_location="cpu", weights_only=True)
             assert mine["round"] == s["round"], f"rank {env.rank} state is round {mine['round']}, rank 0 {s['round']}"
             s["method_state"] = mine["method_state"]
+            s["torch_rng"] = mine.get("torch_rng")
+            s["cuda_rng"] = mine.get("cuda_rng")
         M.load_state(s["method_state"])
         env.gen.set_state(s["gen"][env.rank])
+        if s.get("torch_rng") is not None:
+            torch.set_rng_state(s["torch_rng"])
+            if env.dev.type == "cuda":
+                torch.cuda.set_rng_state(s["cuda_rng"], env.dev)
+        else:
+            print("legacy checkpoint: global RNG absent; resume is not exact", flush=True)
         start = s["round"] + 1
         del s
         if env.world > 1:
@@ -96,6 +127,23 @@ def main():
                    "clients": len(env.all_ids), "payload_bytes": M.payload_bytes(), "backend": backend},
                   open(os.path.join(a.out, "config.json"), "w"), indent=1)
 
+    if a.eval_only:
+        if start == 1:
+            raise RuntimeError("--eval-only requires state.pt")
+        views = M.evaluate()
+        row = {"round": start - 1}
+        for v, cms in views.items():
+            s = metrics.summary(cms)
+            row.update({f"{v}/{k}": s[k] for k in metrics.TEN + ["client_f1_macro_mean", "client_f1_macro_p10",
+                                                                  "client_f1_macro_median", "client_f1_macro_min"]})
+            row[f"{v}/f1_per_class"] = s["f1_per_class"]
+        if main_rank:
+            np.savez_compressed(os.path.join(a.out, f"cms_eval_r{start - 1:03d}.npz"), ids=env.all_ids, **views)
+            with open(os.path.join(a.out, f"eval_r{start - 1:03d}.json"), "w") as f:
+                json.dump(row, f, indent=1)
+            print(json.dumps(row), flush=True)
+        return
+
     def save(r):
         gens = [None] * env.world
         g = env.gen.get_state()
@@ -103,7 +151,8 @@ def main():
             torch.distributed.all_gather_object(gens, g)
         else:
             gens = [g]
-        body = {"round": r, "method_state": M.state()}
+        body = {"round": r, "method_state": M.state(), "torch_rng": torch.get_rng_state(),
+                "cuda_rng": torch.cuda.get_rng_state(env.dev) if env.dev.type == "cuda" else None}
         if main_rank:
             body.update(cfg=cfg, hp=hp, method=a.method, gen=gens)
         tmp = my_state + ".tmp"
@@ -114,6 +163,9 @@ def main():
 
     worst, saved, r_done, stopped = 0.0, start - 1, start - 1, False
     for r in range(start, hp["rounds"] + 1):
+        if a.stop_after and r > a.stop_after:
+            stopped = True
+            break
         stop = torch.tensor(float(bool(a.max_hours) and time.monotonic() - T0 + 1.15 * worst > a.max_hours * 3600),
                             device=env.dev)
         if env.world > 1:
@@ -124,7 +176,11 @@ def main():
             break
         t = time.monotonic()
         lr = fl.cosine_lr(r, hp["rounds"], hp["lr_max"], hp["lr_min"])
+        local.begin_round()
         info = M.round(r, lr)
+        info.update(local.finish_round(env))
+        if not math.isfinite(info.get("train_loss", 0)):
+            raise RuntimeError(f"non-finite training loss at round {r}")
         if info.get("skipped_frac", 0) > 0.01:
             print(f"WARNING r{r}: {info['skipped_frac']:.1%} of client steps skipped (non-finite gradients)", flush=True)
         t_train = time.monotonic() - t

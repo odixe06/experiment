@@ -1,0 +1,3759 @@
+{
+  "checked_queue_at": "2026-11-15T04:01:52.465085+00:00",
+  "run_id": 43674786299,
+  "new_job_status": {
+    "nguynt298/mlp-fl-pfedes-s41": "RUNNING",
+    "dangthiet/mlp-fl-pfedes-s42": "RUNNING",
+    "minhiw/mlp-fl-pfedes-s43": "RUNNING",
+    "hoangdv1711/mlp-fl-nilm-s41": "RUNNING",
+    "hoangdangnhi/mlp-fl-nilm-s42": "RUNNING",
+    "phamquang0606/mlp-fl-nilm-s43": "RUNNING",
+    "ttalgies/mlp-fl-fedtgp-s41": "RUNNING",
+    "hoangdang1711/mlp-fl-fedtgp-s42": "RUNNING",
+    "nguynt298/mlp-fl-fedtgp-s43": "RUNNING",
+    "dangthiet/mlp-fl-perfedskd-s41": "RUNNING",
+    "minhiw/mlp-fl-perfedskd-s42": "RUNNING",
+    "hoangdv1711/mlp-fl-perfedskd-s43": "RUNNING",
+    "hoangdangnhi/mlp-fl-fedproto-s41": "RUNNING",
+    "phamquang0606/mlp-fl-fedproto-s42": "RUNNING",
+    "ttalgies/mlp-fl-fedproto-s43": "RUNNING",
+    "hoangdang1711/mlp-fl-v2x-htfl-s41": "RUNNING",
+    "qwerasdf3004/mlp-fl-v2x-htfl-s42": "RUNNING"
+  },
+  "submitted_by_model": {
+    "sae": 42,
+    "mlp": 38,
+    "cnn-bigru-attention": 0
+  },
+  "queue": {
+    "jobs": [
+      {
+        "slug": "sae-fl-fedavg-s41",
+        "backbone": "sae",
+        "method": "fedavg",
+        "seed": 41,
+        "state": "submitted",
+        "ref": "hoangdangnhi/sae-fl-fedavg-s41",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-fedavg-s42",
+        "backbone": "sae",
+        "method": "fedavg",
+        "seed": 42,
+        "state": "submitted",
+        "ref": "hoangdangnhi/sae-fl-fedavg-s42",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-fedavg-s43",
+        "backbone": "sae",
+        "method": "fedavg",
+        "seed": 43,
+        "state": "submitted",
+        "ref": "hoangdang1711/sae-fl-fedavg-s43",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-fedprox-s41",
+        "backbone": "sae",
+        "method": "fedprox",
+        "seed": 41,
+        "state": "submitted",
+        "ref": "hoangdv1711/sae-fl-fedprox-s41",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-fedprox-s42",
+        "backbone": "sae",
+        "method": "fedprox",
+        "seed": 42,
+        "state": "submitted",
+        "ref": "hoangdv1711/sae-fl-fedprox-s42",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-fedprox-s43",
+        "backbone": "sae",
+        "method": "fedprox",
+        "seed": 43,
+        "state": "submitted",
+        "ref": "minhiw/sae-fl-fedprox-s43",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-afpha-s41",
+        "backbone": "sae",
+        "method": "afpha",
+        "seed": 41,
+        "state": "submitted",
+        "ref": "minhiw/sae-fl-afpha-s41",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-afpha-s42",
+        "backbone": "sae",
+        "method": "afpha",
+        "seed": 42,
+        "state": "submitted",
+        "ref": "phamquang0606/sae-fl-afpha-s42",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-afpha-s43",
+        "backbone": "sae",
+        "method": "afpha",
+        "seed": 43,
+        "state": "submitted",
+        "ref": "phamquang0606/sae-fl-afpha-s43",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-fd-ids-s41",
+        "backbone": "sae",
+        "method": "fd_ids",
+        "seed": 41,
+        "state": "submitted",
+        "ref": "ttalgies/sae-fl-fd-ids-s41",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-fd-ids-s42",
+        "backbone": "sae",
+        "method": "fd_ids",
+        "seed": 42,
+        "state": "submitted",
+        "ref": "qwerasdf3004/sae-fl-fd-ids-s42",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-fd-ids-s43",
+        "backbone": "sae",
+        "method": "fd_ids",
+        "seed": 43,
+        "state": "submitted",
+        "ref": "dangthiet/sae-fl-fd-ids-s43",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-apfed-s41",
+        "backbone": "sae",
+        "method": "apfed",
+        "seed": 41,
+        "state": "submitted",
+        "ref": "hoangdang1711/sae-fl-apfed-s41",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-apfed-s42",
+        "backbone": "sae",
+        "method": "apfed",
+        "seed": 42,
+        "state": "submitted",
+        "ref": "hoangdang1711/sae-fl-apfed-s42",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-apfed-s43",
+        "backbone": "sae",
+        "method": "apfed",
+        "seed": 43,
+        "state": "submitted",
+        "ref": "hoangdangnhi/sae-fl-apfed-s43",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-lwfednids-s41",
+        "backbone": "sae",
+        "method": "lwfednids",
+        "seed": 41,
+        "state": "submitted",
+        "ref": "minhiw/sae-fl-lwfednids-s41",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-lwfednids-s42",
+        "backbone": "sae",
+        "method": "lwfednids",
+        "seed": 42,
+        "state": "submitted",
+        "ref": "phamquang0606/sae-fl-lwfednids-s42",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-lwfednids-s43",
+        "backbone": "sae",
+        "method": "lwfednids",
+        "seed": 43,
+        "state": "submitted",
+        "ref": "ttalgies/sae-fl-lwfednids-s43",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-tinyproto-s41",
+        "backbone": "sae",
+        "method": "tinyproto",
+        "seed": 41,
+        "state": "submitted",
+        "ref": "qwerasdf3004/sae-fl-tinyproto-s41",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-tinyproto-s42",
+        "backbone": "sae",
+        "method": "tinyproto",
+        "seed": 42,
+        "state": "submitted",
+        "ref": "qwerasdf3004/sae-fl-tinyproto-s42",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-tinyproto-s43",
+        "backbone": "sae",
+        "method": "tinyproto",
+        "seed": 43,
+        "state": "submitted",
+        "ref": "dangthiet/sae-fl-tinyproto-s43",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-pfedes-s41",
+        "backbone": "sae",
+        "method": "pfedes",
+        "seed": 41,
+        "state": "submitted",
+        "ref": "hoangdang1711/sae-fl-pfedes-s41",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-pfedes-s42",
+        "backbone": "sae",
+        "method": "pfedes",
+        "seed": 42,
+        "state": "submitted",
+        "ref": "hoangdangnhi/sae-fl-pfedes-s42",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-pfedes-s43",
+        "backbone": "sae",
+        "method": "pfedes",
+        "seed": 43,
+        "state": "submitted",
+        "ref": "qwerasdf3004/sae-fl-pfedes-s43",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-nilm-s41",
+        "backbone": "sae",
+        "method": "nilm",
+        "seed": 41,
+        "state": "submitted",
+        "ref": "qwerasdf3004/sae-fl-nilm-s41",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-nilm-s42",
+        "backbone": "sae",
+        "method": "nilm",
+        "seed": 42,
+        "state": "submitted",
+        "ref": "nguynt298/sae-fl-nilm-s42",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-nilm-s43",
+        "backbone": "sae",
+        "method": "nilm",
+        "seed": 43,
+        "state": "submitted",
+        "ref": "nguynt298/sae-fl-nilm-s43",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-fedtgp-s41",
+        "backbone": "sae",
+        "method": "fedtgp",
+        "seed": 41,
+        "state": "submitted",
+        "notebook_sha256": "8d4610f8d709d4c84d9aaa1d7041e161c3f0142cd06809140e03e5fc3710c1a8",
+        "ref": "nguynt298/sae-fl-fedtgp-s41",
+        "reason": "push rejected; inspect source/input/account permissions",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-fedtgp-s42",
+        "backbone": "sae",
+        "method": "fedtgp",
+        "seed": 42,
+        "state": "submitted",
+        "notebook_sha256": "6673c0b562ddb7b85e048d91e595ef739bd8a48059d3a0c0d0d141d6f7b0008e",
+        "ref": "hoangdang1711/sae-fl-fedtgp-s42",
+        "reason": "push rejected; inspect source/input/account permissions",
+        "version": null,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-fedtgp-s43",
+        "backbone": "sae",
+        "method": "fedtgp",
+        "seed": 43,
+        "state": "submitted",
+        "notebook_sha256": "bba4f94b870aeefed74228e14aa3012be5b66cd7158892b1703804e911189180",
+        "ref": "nguynt298/sae-fl-fedtgp-s43",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-perfedskd-s41",
+        "backbone": "sae",
+        "method": "perfedskd",
+        "seed": 41,
+        "state": "submitted",
+        "notebook_sha256": "7dd484034f35d6c848632876d8b1e5ffab468cb6edb6900bd8040bbe914f37f8",
+        "ref": "dangthiet/sae-fl-perfedskd-s41",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-perfedskd-s42",
+        "backbone": "sae",
+        "method": "perfedskd",
+        "seed": 42,
+        "state": "submitted",
+        "notebook_sha256": "b6323108626a04078622ba5cd171302776fb0862bbde317fcea248d6eb27066f",
+        "ref": "hoangdv1711/sae-fl-perfedskd-s42",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-perfedskd-s43",
+        "backbone": "sae",
+        "method": "perfedskd",
+        "seed": 43,
+        "state": "submitted",
+        "notebook_sha256": "984a360637e7e7d313d9c2952924563db47044e0b83fef1dc86da8270dd126db",
+        "ref": "minhiw/sae-fl-perfedskd-s43",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-fedproto-s41",
+        "backbone": "sae",
+        "method": "fedproto",
+        "seed": 41,
+        "state": "submitted",
+        "notebook_sha256": "82ca292d1f95c011e3464501cefd68d0b5436f3b129056077e289ec3881a176a",
+        "ref": "phamquang0606/sae-fl-fedproto-s41",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-fedproto-s42",
+        "backbone": "sae",
+        "method": "fedproto",
+        "seed": 42,
+        "state": "submitted",
+        "notebook_sha256": "5ce6e052cf6fd0f05712dd966ed39f301bcb6d6fd37828da3d4aace46ce7c49d",
+        "ref": "ttalgies/sae-fl-fedproto-s42",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-fedproto-s43",
+        "backbone": "sae",
+        "method": "fedproto",
+        "seed": 43,
+        "state": "submitted",
+        "notebook_sha256": "36e99770db80cf63298d32eef72cce6f9babba10c1156fe8955960e7d7fbec3b",
+        "ref": "hoangdangnhi/sae-fl-fedproto-s43",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-v2x-htfl-s41",
+        "backbone": "sae",
+        "method": "v2x_htfl",
+        "seed": 41,
+        "state": "submitted",
+        "notebook_sha256": "ce02e35c426ce11027f8903f50e28aff95b70663ac4d4c7b54c5e6cb50b4c5e3",
+        "ref": "hoangdang1711/sae-fl-v2x-htfl-s41",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-v2x-htfl-s42",
+        "backbone": "sae",
+        "method": "v2x_htfl",
+        "seed": 42,
+        "state": "submitted",
+        "notebook_sha256": "dda6bac453b4aa3899c57d21c6a5b8709ad2dc0edf065b028cb4eba06321efd5",
+        "ref": "nguynt298/sae-fl-v2x-htfl-s42",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-v2x-htfl-s43",
+        "backbone": "sae",
+        "method": "v2x_htfl",
+        "seed": 43,
+        "state": "submitted",
+        "notebook_sha256": "1c922934dbaebb5a450a481fd7c6c1281513a551bed20644367c22de74252133",
+        "ref": "dangthiet/sae-fl-v2x-htfl-s43",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-canperfl-s41",
+        "backbone": "sae",
+        "method": "canperfl",
+        "seed": 41,
+        "state": "submitted",
+        "parent_version": 1,
+        "notebook_sha256": "4724833ee595a71b45339fdc4c8a1eb43a5415e0b635df4018b9e06c712d4793",
+        "ref": "hoangdangnhi/sae-fl-canperfl-s41",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-canperfl-s42",
+        "backbone": "sae",
+        "method": "canperfl",
+        "seed": 42,
+        "state": "submitted",
+        "parent_version": 1,
+        "notebook_sha256": "4ff85ed0f3e75aa4045070084562cb4803246ee9b4dc8da23f84c1a4bf23a183",
+        "ref": "hoangdangnhi/sae-fl-canperfl-s42",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "sae-fl-canperfl-s43",
+        "backbone": "sae",
+        "method": "canperfl",
+        "seed": 43,
+        "state": "submitted",
+        "parent_version": 1,
+        "notebook_sha256": "a013440ae0acaec417cf2a2e0af4736812390dc9785af62b64d3af85a1cee3d0",
+        "ref": "hoangdang1711/sae-fl-canperfl-s43",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "mlp-fl-fedavg-s41",
+        "backbone": "mlp",
+        "method": "fedavg",
+        "seed": 41,
+        "state": "submitted",
+        "notebook_sha256": "d7f2ad64cb820cd2b73d94a525610e72e55d4f527f3250e94aabc5339d411820",
+        "ref": "hoangdv1711/mlp-fl-fedavg-s41",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "mlp-fl-fedavg-s42",
+        "backbone": "mlp",
+        "method": "fedavg",
+        "seed": 42,
+        "state": "submitted",
+        "notebook_sha256": "9a9f91eeb145bfcce167299e4a17744741d7a1400cded3163cf3031cb2a41ced",
+        "ref": "minhiw/mlp-fl-fedavg-s42",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "mlp-fl-fedavg-s43",
+        "backbone": "mlp",
+        "method": "fedavg",
+        "seed": 43,
+        "state": "submitted",
+        "notebook_sha256": "6886b406ab2cad3d19de55a31fb76a93ff06452c35cf1deefcd8772930831379",
+        "ref": "phamquang0606/mlp-fl-fedavg-s43",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "mlp-fl-fedprox-s41",
+        "backbone": "mlp",
+        "method": "fedprox",
+        "seed": 41,
+        "state": "submitted",
+        "notebook_sha256": "ee162bdbb465731b9bfb0c806cbc811c2eaa5c6c70fd626869bda3b938757c50",
+        "ref": "ttalgies/mlp-fl-fedprox-s41",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "mlp-fl-fedprox-s42",
+        "backbone": "mlp",
+        "method": "fedprox",
+        "seed": 42,
+        "state": "submitted",
+        "notebook_sha256": "5452f066964cf2fdc61605cd41a6327f0037be649e233b3c5abe19e772eae073",
+        "ref": "qwerasdf3004/mlp-fl-fedprox-s42",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "mlp-fl-fedprox-s43",
+        "backbone": "mlp",
+        "method": "fedprox",
+        "seed": 43,
+        "state": "submitted",
+        "notebook_sha256": "cb021f2697c30988124dd239795f0e7f6b47a0e47c1b78688232c123b4a9590c",
+        "ref": "nguynt298/mlp-fl-fedprox-s43",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "mlp-fl-afpha-s41",
+        "backbone": "mlp",
+        "method": "afpha",
+        "seed": 41,
+        "state": "submitted",
+        "notebook_sha256": "c4b3df287b0a3bbcf3d74b2c49c65754377fd7fcf7d2faa709b16c26307a667b",
+        "ref": "dangthiet/mlp-fl-afpha-s41",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "mlp-fl-afpha-s42",
+        "backbone": "mlp",
+        "method": "afpha",
+        "seed": 42,
+        "state": "submitted",
+        "notebook_sha256": "641c32bb7f534491f9d6b29e9279add24f0182a8e33d22296681cca2853c064b",
+        "ref": "hoangdv1711/mlp-fl-afpha-s42",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "mlp-fl-afpha-s43",
+        "backbone": "mlp",
+        "method": "afpha",
+        "seed": 43,
+        "state": "submitted",
+        "notebook_sha256": "2ba52b47b96180330cb6d6aa7478319c63be40ccf73351a24eeb4fa7fe5cdcfd",
+        "ref": "minhiw/mlp-fl-afpha-s43",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "mlp-fl-fd-ids-s41",
+        "backbone": "mlp",
+        "method": "fd_ids",
+        "seed": 41,
+        "state": "submitted",
+        "notebook_sha256": "1406af1d121409fdc2d6f3bde51505006ee7b805f73ded7009fa275792231309",
+        "ref": "phamquang0606/mlp-fl-fd-ids-s41",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "mlp-fl-fd-ids-s42",
+        "backbone": "mlp",
+        "method": "fd_ids",
+        "seed": 42,
+        "state": "submitted",
+        "notebook_sha256": "3ced25a1d620d5832f76f4efa67afd5d1bac08bf68e99568c2277497e550ef5f",
+        "ref": "ttalgies/mlp-fl-fd-ids-s42",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "mlp-fl-fd-ids-s43",
+        "backbone": "mlp",
+        "method": "fd_ids",
+        "seed": 43,
+        "state": "submitted",
+        "notebook_sha256": "9529db10267553c3a8b3cd74d1d142f5f54c9abd77076f600221b3fe46209182",
+        "ref": "hoangdang1711/mlp-fl-fd-ids-s43",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "mlp-fl-apfed-s41",
+        "backbone": "mlp",
+        "method": "apfed",
+        "seed": 41,
+        "state": "submitted",
+        "notebook_sha256": "dedabdf9c2a4ce22f817542fbde7e0964b5d11d1c077d70d0203418ebb8fe9d2",
+        "ref": "nguynt298/mlp-fl-apfed-s41",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "mlp-fl-apfed-s42",
+        "backbone": "mlp",
+        "method": "apfed",
+        "seed": 42,
+        "state": "submitted",
+        "notebook_sha256": "b336a56c875d9213ce9f02824b1a5f6edd8773fcdbb3e46992183d90a4ea7ba6",
+        "ref": "dangthiet/mlp-fl-apfed-s42",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "mlp-fl-apfed-s43",
+        "backbone": "mlp",
+        "method": "apfed",
+        "seed": 43,
+        "state": "submitted",
+        "notebook_sha256": "054de6920cf389c449a2544e83b0ace94eeddffa4539cfd778897468abb6154b",
+        "ref": "hoangdv1711/mlp-fl-apfed-s43",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "mlp-fl-lwfednids-s41",
+        "backbone": "mlp",
+        "method": "lwfednids",
+        "seed": 41,
+        "state": "submitted",
+        "notebook_sha256": "d2eb1a250f6f274c3ce3b2dc09b8e5efcb288554fd268bbd7cb1a4f8968571eb",
+        "ref": "minhiw/mlp-fl-lwfednids-s41",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "mlp-fl-lwfednids-s42",
+        "backbone": "mlp",
+        "method": "lwfednids",
+        "seed": 42,
+        "state": "submitted",
+        "notebook_sha256": "1a18d2a0244a6e5b9d5330a2d7d2aa25059f5158f16370510551d4939cb5d5e9",
+        "ref": "phamquang0606/mlp-fl-lwfednids-s42",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "mlp-fl-lwfednids-s43",
+        "backbone": "mlp",
+        "method": "lwfednids",
+        "seed": 43,
+        "state": "submitted",
+        "notebook_sha256": "6e28339991d0d66aab499156751ab5d9ab71f4acbded48c2c1b374816f8f98ff",
+        "ref": "hoangdangnhi/mlp-fl-lwfednids-s43",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "mlp-fl-tinyproto-s41",
+        "backbone": "mlp",
+        "method": "tinyproto",
+        "seed": 41,
+        "state": "submitted",
+        "notebook_sha256": "e7f567a9dba243bdc4b1ecb277a3d557d6905ac6b50aa63ee83ceb43f51a9871",
+        "ref": "ttalgies/mlp-fl-tinyproto-s41",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "mlp-fl-tinyproto-s42",
+        "backbone": "mlp",
+        "method": "tinyproto",
+        "seed": 42,
+        "state": "submitted",
+        "notebook_sha256": "31b2252195ce33f22835341ab0c0a7ce65cde54d7096bee72f06ccdcc9c59791",
+        "ref": "hoangdang1711/mlp-fl-tinyproto-s42",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "mlp-fl-tinyproto-s43",
+        "backbone": "mlp",
+        "method": "tinyproto",
+        "seed": 43,
+        "state": "submitted",
+        "notebook_sha256": "dc83419b3b1e29ef772133ce516dea6a6e90f8f1737b5fccd500531331a545dd",
+        "ref": "qwerasdf3004/mlp-fl-tinyproto-s43",
+        "version": 1,
+        "remote_status": "COMPLETE"
+      },
+      {
+        "slug": "mlp-fl-pfedes-s41",
+        "backbone": "mlp",
+        "method": "pfedes",
+        "seed": 41,
+        "state": "submitted",
+        "notebook_sha256": "f7403147d664613eb42e3651b0e4fbf8dd687dec42ab72742c7c98f4a6c60b44",
+        "ref": "nguynt298/mlp-fl-pfedes-s41",
+        "version": 1
+      },
+      {
+        "slug": "mlp-fl-pfedes-s42",
+        "backbone": "mlp",
+        "method": "pfedes",
+        "seed": 42,
+        "state": "submitted",
+        "notebook_sha256": "6220c306ea71b3e9d0d3ea7c2489e10932df333fbb763ebd487caf3df9a7c0fe",
+        "ref": "dangthiet/mlp-fl-pfedes-s42",
+        "version": 1
+      },
+      {
+        "slug": "mlp-fl-pfedes-s43",
+        "backbone": "mlp",
+        "method": "pfedes",
+        "seed": 43,
+        "state": "submitted",
+        "notebook_sha256": "73b85cf431eb74722c7990e84c2720f8e192af561669f0045c2f81d3de766d40",
+        "ref": "minhiw/mlp-fl-pfedes-s43",
+        "version": 1
+      },
+      {
+        "slug": "mlp-fl-nilm-s41",
+        "backbone": "mlp",
+        "method": "nilm",
+        "seed": 41,
+        "state": "submitted",
+        "notebook_sha256": "0821e2fc675bbb93c1d051441c4384c478698ddc98fb773bd1d3398abd7fc11b",
+        "ref": "hoangdv1711/mlp-fl-nilm-s41",
+        "version": 1
+      },
+      {
+        "slug": "mlp-fl-nilm-s42",
+        "backbone": "mlp",
+        "method": "nilm",
+        "seed": 42,
+        "state": "submitted",
+        "notebook_sha256": "9514e501e639fd0109492b01c0feec96d2f3267d8241c8819fbc8c02481a5987",
+        "ref": "hoangdangnhi/mlp-fl-nilm-s42",
+        "version": 1
+      },
+      {
+        "slug": "mlp-fl-nilm-s43",
+        "backbone": "mlp",
+        "method": "nilm",
+        "seed": 43,
+        "state": "submitted",
+        "notebook_sha256": "e651c86de9fd1ee91731c420d2f604f426e7915fee6cdb0e2c8728d01f7728be",
+        "ref": "phamquang0606/mlp-fl-nilm-s43",
+        "version": 1
+      },
+      {
+        "slug": "mlp-fl-fedtgp-s41",
+        "backbone": "mlp",
+        "method": "fedtgp",
+        "seed": 41,
+        "state": "submitted",
+        "notebook_sha256": "ec72d8639229f322c628b3ec59b2c7d184f89b758aa95c2cd7ceeb0e4ea88d6b",
+        "ref": "ttalgies/mlp-fl-fedtgp-s41",
+        "version": 1
+      },
+      {
+        "slug": "mlp-fl-fedtgp-s42",
+        "backbone": "mlp",
+        "method": "fedtgp",
+        "seed": 42,
+        "state": "submitted",
+        "notebook_sha256": "9a1b0215df613c61231145bc863b1398b98f248e182736a5759c7df64adc8c26",
+        "ref": "hoangdang1711/mlp-fl-fedtgp-s42",
+        "version": 1
+      },
+      {
+        "slug": "mlp-fl-fedtgp-s43",
+        "backbone": "mlp",
+        "method": "fedtgp",
+        "seed": 43,
+        "state": "submitted",
+        "notebook_sha256": "9d3efe34370c1e670cfb1e83d00c6b4aa33f20629f6894fae8278bec6914de80",
+        "ref": "nguynt298/mlp-fl-fedtgp-s43",
+        "version": 1
+      },
+      {
+        "slug": "mlp-fl-perfedskd-s41",
+        "backbone": "mlp",
+        "method": "perfedskd",
+        "seed": 41,
+        "state": "submitted",
+        "notebook_sha256": "2466f0ec7ebf822ca5d135739f331ac42c489e74bf59bb607148c53d43be48a3",
+        "ref": "dangthiet/mlp-fl-perfedskd-s41",
+        "version": 1
+      },
+      {
+        "slug": "mlp-fl-perfedskd-s42",
+        "backbone": "mlp",
+        "method": "perfedskd",
+        "seed": 42,
+        "state": "submitted",
+        "notebook_sha256": "b32cf614e598169e875013c55b914f1efa2c8d6e62605701c88b079c6f345b77",
+        "ref": "minhiw/mlp-fl-perfedskd-s42",
+        "version": 1
+      },
+      {
+        "slug": "mlp-fl-perfedskd-s43",
+        "backbone": "mlp",
+        "method": "perfedskd",
+        "seed": 43,
+        "state": "submitted",
+        "notebook_sha256": "76dc0998f36f8127036b8b2f4cbba0e54912a1ef43dc22beebd14be9849400c0",
+        "ref": "hoangdv1711/mlp-fl-perfedskd-s43",
+        "version": 1
+      },
+      {
+        "slug": "mlp-fl-fedproto-s41",
+        "backbone": "mlp",
+        "method": "fedproto",
+        "seed": 41,
+        "state": "submitted",
+        "notebook_sha256": "61c16715ec89dca41fe5e39e81645fdcee3778eb774e4e66435360ca8bf06661",
+        "ref": "hoangdangnhi/mlp-fl-fedproto-s41",
+        "version": 1
+      },
+      {
+        "slug": "mlp-fl-fedproto-s42",
+        "backbone": "mlp",
+        "method": "fedproto",
+        "seed": 42,
+        "state": "submitted",
+        "notebook_sha256": "03a15b4212cf95b7a1fc61e542ff109774422217e27ce5df7fbe7adb0cfdcdbd",
+        "ref": "phamquang0606/mlp-fl-fedproto-s42",
+        "version": 1
+      },
+      {
+        "slug": "mlp-fl-fedproto-s43",
+        "backbone": "mlp",
+        "method": "fedproto",
+        "seed": 43,
+        "state": "submitted",
+        "notebook_sha256": "15146a85a0f774ee5c17f2899310045a6e8e4748ea32d248a668daa1ac115524",
+        "ref": "ttalgies/mlp-fl-fedproto-s43",
+        "version": 1
+      },
+      {
+        "slug": "mlp-fl-v2x-htfl-s41",
+        "backbone": "mlp",
+        "method": "v2x_htfl",
+        "seed": 41,
+        "state": "submitted",
+        "notebook_sha256": "889088050b5c341812eda876f340cf96f7c2ee2f14d87069c82e8473d7c30cc2",
+        "ref": "hoangdang1711/mlp-fl-v2x-htfl-s41",
+        "version": 1
+      },
+      {
+        "slug": "mlp-fl-v2x-htfl-s42",
+        "backbone": "mlp",
+        "method": "v2x_htfl",
+        "seed": 42,
+        "state": "submitted",
+        "notebook_sha256": "a337946868d6c4b091b9531d08244931e69d493c949bb142b0be6ce81011b38f",
+        "ref": "qwerasdf3004/mlp-fl-v2x-htfl-s42",
+        "version": 1
+      },
+      {
+        "slug": "mlp-fl-v2x-htfl-s43",
+        "backbone": "mlp",
+        "method": "v2x_htfl",
+        "seed": 43,
+        "state": "pending"
+      },
+      {
+        "slug": "mlp-fl-canperfl-s41",
+        "backbone": "mlp",
+        "method": "canperfl",
+        "seed": 41,
+        "state": "pending",
+        "parent_version": 1
+      },
+      {
+        "slug": "mlp-fl-canperfl-s42",
+        "backbone": "mlp",
+        "method": "canperfl",
+        "seed": 42,
+        "state": "pending",
+        "parent_version": 1
+      },
+      {
+        "slug": "mlp-fl-canperfl-s43",
+        "backbone": "mlp",
+        "method": "canperfl",
+        "seed": 43,
+        "state": "pending",
+        "parent_version": 1
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-fedavg-s41",
+        "backbone": "cnn-bigru-attention",
+        "method": "fedavg",
+        "seed": 41,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-fedavg-s42",
+        "backbone": "cnn-bigru-attention",
+        "method": "fedavg",
+        "seed": 42,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-fedavg-s43",
+        "backbone": "cnn-bigru-attention",
+        "method": "fedavg",
+        "seed": 43,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-fedprox-s41",
+        "backbone": "cnn-bigru-attention",
+        "method": "fedprox",
+        "seed": 41,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-fedprox-s42",
+        "backbone": "cnn-bigru-attention",
+        "method": "fedprox",
+        "seed": 42,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-fedprox-s43",
+        "backbone": "cnn-bigru-attention",
+        "method": "fedprox",
+        "seed": 43,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-afpha-s41",
+        "backbone": "cnn-bigru-attention",
+        "method": "afpha",
+        "seed": 41,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-afpha-s42",
+        "backbone": "cnn-bigru-attention",
+        "method": "afpha",
+        "seed": 42,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-afpha-s43",
+        "backbone": "cnn-bigru-attention",
+        "method": "afpha",
+        "seed": 43,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-fd-ids-s41",
+        "backbone": "cnn-bigru-attention",
+        "method": "fd_ids",
+        "seed": 41,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-fd-ids-s42",
+        "backbone": "cnn-bigru-attention",
+        "method": "fd_ids",
+        "seed": 42,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-fd-ids-s43",
+        "backbone": "cnn-bigru-attention",
+        "method": "fd_ids",
+        "seed": 43,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-apfed-s41",
+        "backbone": "cnn-bigru-attention",
+        "method": "apfed",
+        "seed": 41,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-apfed-s42",
+        "backbone": "cnn-bigru-attention",
+        "method": "apfed",
+        "seed": 42,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-apfed-s43",
+        "backbone": "cnn-bigru-attention",
+        "method": "apfed",
+        "seed": 43,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-lwfednids-s41",
+        "backbone": "cnn-bigru-attention",
+        "method": "lwfednids",
+        "seed": 41,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-lwfednids-s42",
+        "backbone": "cnn-bigru-attention",
+        "method": "lwfednids",
+        "seed": 42,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-lwfednids-s43",
+        "backbone": "cnn-bigru-attention",
+        "method": "lwfednids",
+        "seed": 43,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-tinyproto-s41",
+        "backbone": "cnn-bigru-attention",
+        "method": "tinyproto",
+        "seed": 41,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-tinyproto-s42",
+        "backbone": "cnn-bigru-attention",
+        "method": "tinyproto",
+        "seed": 42,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-tinyproto-s43",
+        "backbone": "cnn-bigru-attention",
+        "method": "tinyproto",
+        "seed": 43,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-pfedes-s41",
+        "backbone": "cnn-bigru-attention",
+        "method": "pfedes",
+        "seed": 41,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-pfedes-s42",
+        "backbone": "cnn-bigru-attention",
+        "method": "pfedes",
+        "seed": 42,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-pfedes-s43",
+        "backbone": "cnn-bigru-attention",
+        "method": "pfedes",
+        "seed": 43,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-nilm-s41",
+        "backbone": "cnn-bigru-attention",
+        "method": "nilm",
+        "seed": 41,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-nilm-s42",
+        "backbone": "cnn-bigru-attention",
+        "method": "nilm",
+        "seed": 42,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-nilm-s43",
+        "backbone": "cnn-bigru-attention",
+        "method": "nilm",
+        "seed": 43,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-fedtgp-s41",
+        "backbone": "cnn-bigru-attention",
+        "method": "fedtgp",
+        "seed": 41,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-fedtgp-s42",
+        "backbone": "cnn-bigru-attention",
+        "method": "fedtgp",
+        "seed": 42,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-fedtgp-s43",
+        "backbone": "cnn-bigru-attention",
+        "method": "fedtgp",
+        "seed": 43,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-perfedskd-s41",
+        "backbone": "cnn-bigru-attention",
+        "method": "perfedskd",
+        "seed": 41,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-perfedskd-s42",
+        "backbone": "cnn-bigru-attention",
+        "method": "perfedskd",
+        "seed": 42,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-perfedskd-s43",
+        "backbone": "cnn-bigru-attention",
+        "method": "perfedskd",
+        "seed": 43,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-fedproto-s41",
+        "backbone": "cnn-bigru-attention",
+        "method": "fedproto",
+        "seed": 41,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-fedproto-s42",
+        "backbone": "cnn-bigru-attention",
+        "method": "fedproto",
+        "seed": 42,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-fedproto-s43",
+        "backbone": "cnn-bigru-attention",
+        "method": "fedproto",
+        "seed": 43,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-v2x-htfl-s41",
+        "backbone": "cnn-bigru-attention",
+        "method": "v2x_htfl",
+        "seed": 41,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-v2x-htfl-s42",
+        "backbone": "cnn-bigru-attention",
+        "method": "v2x_htfl",
+        "seed": 42,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-v2x-htfl-s43",
+        "backbone": "cnn-bigru-attention",
+        "method": "v2x_htfl",
+        "seed": 43,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-canperfl-s41",
+        "backbone": "cnn-bigru-attention",
+        "method": "canperfl",
+        "seed": 41,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-canperfl-s42",
+        "backbone": "cnn-bigru-attention",
+        "method": "canperfl",
+        "seed": 42,
+        "state": "pending"
+      },
+      {
+        "slug": "cnn-bigru-attention-fl-canperfl-s43",
+        "backbone": "cnn-bigru-attention",
+        "method": "canperfl",
+        "seed": 43,
+        "state": "pending"
+      }
+    ],
+    "inventory_cache": {
+      "dangthiet/mlp-fl-apfed-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-15 01:54:59.313000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mlp-fl-afpha-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-15 01:54:31.073000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/sae-fl-v2x-htfl-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 21:30:01.730000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/sae-fl-perfedskd-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 21:29:28.343000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/sae-fl-tinyproto-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 19:30:37.553000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/sae-fl-fd-ids-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 15:18:36.803000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/tabm-fl-lwfednids-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 12:55:14.373000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/tabm-fl-lwfednids-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 12:55:14.293000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-core-mixed-q-blend-r10": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-05 10:03:46.360000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-v4-stats-hist-s43-r10": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-03 10:02:18.707000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-raw-probe-20261027-v4": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 06:54:10.770000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-raw-probe-20261027-v3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 06:51:21.877000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-v4-stats-adaptive-val-r10": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-01 15:15:56.863000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-v4-stats-hist-val-r10": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-02 14:51:25.277000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-v4-stats-histmask-val-r10": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-03 05:36:53.907000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-v4-stats-massnorm-val-r10": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-01 17:34:39.537000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-20c-d": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-01 13:59:13.117000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-20c-c": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-01 13:57:54.893000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-core-mixed-q-every2-r10": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-04 17:14:47.170000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/hetero-dagsnet-20clients": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-18 04:17:32.483000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-v4-stats-client-diagnostic": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-02 07:56:31.193000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-v4-stats-prior-val-r10": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-02 07:51:29.080000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-v4-stats-nogauss-val-r10": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-02 04:46:15.127000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/veremi-central-bert-e50": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-09 16:50:06.637000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-canonical-highway-7-20261027-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 07:28:10.047000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-canonical-urban-2-20261027-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 07:27:54.717000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-canonical-urban-7-20261027-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 07:25:29.483000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-canonical-highway-2-20261027-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 07:12:56.563000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-v4-gaussian-fidelity": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-02 13:13:59.717000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/fedprox-dagsnet-100c": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-20 16:23:58.097000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/scaffold-dagsnet-50c": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-19 02:37:37.917000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/scaffold-dagsnet-20c": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-19 02:29:36.997000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/apfed-dagsnet-20client": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-18 16:40:50.053000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/fedavg-dagsnet-50": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-18 13:46:53.997000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/tabm-fl-canperfl-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 13:48:29.733000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/tabm-fl-canperfl-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 17:45:58.707000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/tabm-fl-fedavg-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 09:13:21.603000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/tabm-fl-fedavg-s41-probe": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 09:13:23.620000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/vuln2action-paper-stage1-cve-only-target-fp32": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-13 11:59:06.803000",
+        "status": "CANCEL_ACKNOWLEDGED"
+      },
+      "dangthiet/veremi-central-bert-e50-s2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-10 04:11:37.807000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-core-copula-q-r10": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-04 07:19:35.860000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-audit-final5132-20261028-v3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 10:10:42.823000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-audit-final5132-20261028-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 09:42:40.270000",
+        "status": "ERROR"
+      },
+      "dangthiet/mobihet-veremi-final5132-20261028-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 09:01:54.400000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-final5132-20261028-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 08:17:45.633000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-final5000-20261028-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 08:00:14.067000",
+        "status": "CANCEL_ACKNOWLEDGED"
+      },
+      "dangthiet/mobihet-veremi-audit-urban-7-20261028-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 07:42:35.500000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-baseonce-urban-7-20261028-v3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 07:23:17.617000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-features-urban-7-20261028-v4-sd": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 06:55:44.927000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-audit-highway-7-20261028-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 06:46:54.707000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-baseonce-audit-urban-2-20261028-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 06:38:14.233000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-features-urban-7-20261028-v3-sd": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 06:31:20.330000",
+        "status": "ERROR"
+      },
+      "dangthiet/mobihet-veremi-baseonce-highway-7-20261028-v3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 06:13:56.013000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-features-urban-7-20261028-v3-se": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 04:53:37.767000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-baseonce-urban-2-20261028-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 04:53:13.947000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-features-urban-7-20261028-v3-sa": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 04:26:18.650000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-features-highway-7-20261028-v3-se": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 04:26:12.737000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-features-highway-7-20261028-v3-sd": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 04:26:06.407000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-features-highway-7-20261028-v3-sb": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 04:26:02.070000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-features-highway-7-20261028-v3-sa": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 04:25:55.327000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-baseonce-highway-2-20261028-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 04:19:34.760000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-features-urban-7-20261028-v2-sd": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 04:53:30.373000",
+        "status": "ERROR"
+      },
+      "dangthiet/mobihet-veremi-features-urban-7-20261028-v2-sc": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 04:53:24.137000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-features-urban-7-20261028-v2-sb": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 04:53:19.210000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-features-urban-7-20261028-v2-sa": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 03:58:43.337000",
+        "status": "CANCEL_ACKNOWLEDGED"
+      },
+      "dangthiet/mobihet-veremi-features-highway-7-20261028-v2-sd": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 03:58:35.667000",
+        "status": "CANCEL_ACKNOWLEDGED"
+      },
+      "dangthiet/mobihet-veremi-features-highway-7-20261028-v2-sc": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 03:58:28.357000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-features-highway-7-20261028-v2-sb": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 03:58:17.930000",
+        "status": "CANCEL_ACKNOWLEDGED"
+      },
+      "dangthiet/mobihet-veremi-features-highway-7-20261028-v2-sa": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 03:58:10.277000",
+        "status": "CANCEL_ACKNOWLEDGED"
+      },
+      "dangthiet/mobihet-veremi-features-highway-7-20261028-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 03:11:40.727000",
+        "status": "ERROR"
+      },
+      "dangthiet/mobihet-veremi-features-urban-2-20261028-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 03:11:27.913000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-feat-compat-h2-20261027-v13": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 19:23:33.723000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-feat-compat-h2-20261027-v12": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 18:12:39.223000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-feat-compat-h2-20261027-v11": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 18:03:46.400000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-feat-compat-h2-20261027-v10": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 17:52:50.760000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-feat-compat-h2-20261027-v9": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 17:33:07.233000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-feat-compat-h2-20261027-v8": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 17:12:57.407000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-feat-compat-h2-20261027-v7": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 16:50:40.233000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-feat-compat-h2-20261027-v6": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 16:47:42.970000",
+        "status": "ERROR"
+      },
+      "dangthiet/mobihet-veremi-feat-compat-h2-20261027-v5": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 16:36:42.573000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-feature-audit-highway-2-20261027-v6": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 15:57:42.270000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-features-highway-2-20261027-v6": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 15:44:02.897000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-split-audit-urban-7-20261027-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 15:18:07.210000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-split-urban-7-20261027-v3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 14:25:33.047000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-feat-compat-h2-20261027-v4": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 14:25:23.973000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-feature-audit-highway-2-20261027-v5": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 14:25:15.157000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-audit-urban-7-20261027-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 13:30:06.443000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-split-audit-highway-7-20261027-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 13:29:57.383000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-features-highway-2-20261027-v5": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 13:29:49.887000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-split-highway-7-20261027-v3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 12:34:56.830000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-feat-compat-h2-20261027-v3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 12:34:47.843000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-feature-audit-highway-2-20261027-v4": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 12:34:39.367000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-audit-highway-7-20261027-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 11:50:16.730000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-features-highway-2-20261027-v4": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 11:50:09.457000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-feat-compat-h2-20261027-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 09:15:02.880000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-feat-compat-h2-20261027-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 08:59:57.310000",
+        "status": "ERROR"
+      },
+      "dangthiet/mobihet-veremi-feature-audit-highway-2-20261027-v3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 08:59:28.333000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-features-highway-2-20261027-v3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 08:57:12.987000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-feature-audit-highway-2-20261027-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 08:55:08.940000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-feature-audit-highway-2-20261027-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 08:51:43",
+        "status": "ERROR"
+      },
+      "dangthiet/mobihet-veremi-features-highway-2-20261027-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 08:47:15.693000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-split-audit-urban-2-20261027-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 08:46:46.890000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-features-highway-2-20261027-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 08:38:26.007000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-split-urban-2-20261027-v3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 08:34:30.323000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-audit-urban-2-20261027-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 08:30:02.360000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-split-audit-highway-2-20261027-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 08:29:08.387000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-split-highway-2-20261027-v3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 07:43:24.450000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-split-highway-2-20261027-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 07:38:18.167000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-split-highway-2-20261027-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 07:35:25.627000",
+        "status": "ERROR"
+      },
+      "dangthiet/mobihet-veremi-audit-highway-2-20261027-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 07:31:40.750000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-audit-highway-2-20261027-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 07:22:04.147000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-veremi-raw-probe-20261027-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 06:47:37.120000",
+        "status": "ERROR"
+      },
+      "dangthiet/mobihet-veremi-raw-probe-20261027-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-27 06:44:06.647000",
+        "status": "ERROR"
+      },
+      "dangthiet/mobihet-vehicle-audit-20261026-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-26 14:23:06.793000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-fd-r50-residual-20261026-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-26 12:43:26.390000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-fd-headgate-20261026-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-26 09:27:43.707000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-fd-headalign-20261026-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-26 07:24:29.717000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-fd-headalign-20261025-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-25 15:42:00.723000",
+        "status": "ERROR"
+      },
+      "dangthiet/mobihet-fd-headcompat-20261025-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-25 13:48:08.307000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-fd-s42sp-20261015-r39-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 18:14:10.810000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-fd-s42sn-20261015-r39-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 18:13:59.633000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-fd-s42fh-20261015-r37-v3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 12:43:42.997000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-fd-s42fg-20261015-r37-v3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 12:43:41.707000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/mobihet-fd-s42fh-20261015-r37-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 12:42:18.170000",
+        "status": "ERROR"
+      },
+      "dangthiet/mobihet-fd-s42fg-20261015-r37-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 12:41:51.247000",
+        "status": "ERROR"
+      },
+      "dangthiet/mobihet-fd-s42fg-20261015-r37-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 12:40:45.590000",
+        "status": "ERROR"
+      },
+      "dangthiet/mobihet-fd-s42fh-20261015-r37-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 12:40:45.847000",
+        "status": "ERROR"
+      },
+      "dangthiet/fedprox-dagsnet-100c-r41-50": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-21 03:45:14.023000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/iov-bert-final-epoch22-28": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-05 17:19:43.433000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/iov-bert-final-epoch21": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-05 14:02:32.157000",
+        "status": "COMPLETE"
+      },
+      "dangthiet/iov-bert-final-epoch14-20": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-05 03:05:49.113000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/mlp-fl-tinyproto-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-15 01:55:24.457000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/mlp-fl-fd-ids-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-15 01:54:51.637000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/sae-fl-v2x-htfl-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 21:29:56.230000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/sae-fl-fedtgp-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 17:31:57.343000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/sae-fl-pfedes-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 16:21:21.583000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/sae-fl-apfed-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 18:59:59.970000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/sae-fl-apfed-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 15:18:52.687000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/sae-fl-fedavg-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 13:49:17.530000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/tabm-fl-tinyproto-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 12:55:14.477000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/tabm-fl-lwfednids-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 12:55:14.337000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/mobidistill-dagsnet-20c": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-17 15:24:59.350000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/dagsnet-fl-20-clients-prototype-feedback": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-10 06:09:09.777000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/kiem-tra-dataset": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-06 12:05:38.720000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/train-gru-unimodel-prunning": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-05-05 12:53:54.950000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/mobihet-v4-stats-realbn-val-r10": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-01 12:23:57.667000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/fedavg-dagsnet-100": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-18 14:23:27.123000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/mobihet-v4-stats-final-r50": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-01 06:08:15.207000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/mobihet-v4-stats-adaptive-val-r10": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-01 15:08:27.410000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/gru-lightweight-zeroshot-prun-ptd-quantization": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-07-10 08:12:48.807000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/gru-lightweight-customaggregation-unstructmagnitud": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-07-10 08:11:10.850000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/gru-centralized": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-06 04:25:26.233000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/inspect-veremi-fl-20-client-dataset": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-09 10:16:16.977000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/veremi-central-cnn-lstm-e50": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-09 16:50:48.143000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/mobihet-v4-stats-val-r10": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-01 01:35:06.843000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/notebook469eba0fa4": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-02 07:50:55.040000",
+        "status": "CANCEL_ACKNOWLEDGED"
+      },
+      "hoangdang1711/exercise-missing-values": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-01-29 09:28:39.053000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/exercise-your-first-machine-learning-model": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-01-27 11:36:32.380000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/exercise-cross-validation": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-02-02 09:53:11.537000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/exercise-pipelines": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-02-02 09:09:47.517000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/apfed-dagsnet-100c": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-19 02:43:37.963000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/apfed-dagsnet-50c": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-19 02:42:22.693000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/fedproto-dagsnet-50c": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-21 16:51:06.097000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/gru-fedavg-noprunning": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-05-26 04:23:39.417000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/gru-unimodel-zero-shot-prunning": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-07-10 08:15:23.387000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/gru-unimodel-lightweight": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-05-17 16:51:53.667000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/sae-fl-canperfl-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 21:29:17.753000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/tabm-fl-canperfl-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 13:48:48.217000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/tabm-fl-fedprox-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 09:13:21.333000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/tabm-fl-fedavg-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 09:13:23.083000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/vuln2action-p0-diagnostic-no-fp16": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-13 03:15:56.397000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/vuln2action-paper-stage2-cve-only-target-exploit": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-12 16:48:59.400000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/vuln2action-paper-stage1-cve-only-target": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-12 16:45:56.383000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/vuln2action-hybrid-eval": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-12 13:32:27.137000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/vuln2action-t5-expanded-5ep-sched": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-12 09:13:01.820000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/vuln2action-t5-expanded-1ep": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-12 08:00:51.937000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/veremi-central-cnn-lstm-e50-s2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-10 06:42:44.453000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/mobihet-fd-s42hs-20261015-r40-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-25 08:21:53.967000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/mobihet-fd-s42fe-20261015-r37-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 16:18:34.457000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/mobihet-fd-s42fc-20261015-r37-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 16:18:30.973000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/mobihet-fd-s42cb-20261015-r37-v4": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 13:40:06.980000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/mobihet-fd-s42cc-20261015-r37-v4": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 13:39:45.587000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/mobihet-fd-s42fg-20261015-r35-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 11:45:15.963000",
+        "status": "ERROR"
+      },
+      "hoangdang1711/mobihet-fd-s42fb-20261015-r32-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 07:02:00.210000",
+        "status": "ERROR"
+      },
+      "hoangdang1711/mobihet-fd-s42fa-20261015-r32-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 07:01:46.437000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/notebook01feb341f4": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 06:58:55.827000",
+        "status": "CANCEL_ACKNOWLEDGED"
+      },
+      "hoangdang1711/fedproto-dagsnet-50c-r28next": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-22 03:37:13.447000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/notebook3168cba682": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-18 03:05:30.040000",
+        "status": "NO_BATCH"
+      },
+      "hoangdang1711/fedavg-dagsnet-20clients": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-17 14:13:19.113000",
+        "status": "CANCEL_ACKNOWLEDGED"
+      },
+      "hoangdang1711/notebook2fa1d4c228": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-09 13:54:20.850000",
+        "status": "NO_BATCH"
+      },
+      "hoangdang1711/notebookf7691bdca3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-09 13:26:41.373000",
+        "status": "NO_BATCH"
+      },
+      "hoangdang1711/notebook9bfc8e3b3f": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-08-31 07:05:33.643000",
+        "status": "CANCEL_ACKNOWLEDGED"
+      },
+      "hoangdang1711/notebook61cdb7bed1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-08-28 15:44:26.267000",
+        "status": "NO_BATCH"
+      },
+      "hoangdang1711/notebook8f98b54710": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-08-28 15:42:23.697000",
+        "status": "NO_BATCH"
+      },
+      "hoangdang1711/notebookf5de82c4c3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-08-28 15:30:42.350000",
+        "status": "NO_BATCH"
+      },
+      "hoangdang1711/heterogeneous-federated-distillation-2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-08-13 07:45:03.640000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/draft": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-08-11 07:51:25.807000",
+        "status": "NO_BATCH"
+      },
+      "hoangdang1711/heterogeneous-federated-distillation": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-08-09 09:13:49.997000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/train-gru-transformer-multimodel-prunning": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-05-05 16:55:02.010000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/checkdata": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-05-05 10:35:40.657000",
+        "status": "NO_BATCH"
+      },
+      "hoangdang1711/gru-transformer": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-04-18 07:21:57.963000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/gru-and-gru-transformer": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-04-18 06:36:27.637000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/notebookaa4e6b7aa8": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-04-04 05:42:25.037000",
+        "status": "NO_BATCH"
+      },
+      "hoangdang1711/data-preprocessing-and-gru": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-04-04 11:35:54.040000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/notebook52d9b8d73c": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-04-02 07:49:48.230000",
+        "status": "NO_BATCH"
+      },
+      "hoangdang1711/exercise-categorical-variables": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-01-29 10:15:40.343000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/exercise-introduction": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-01-28 05:03:58.197000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/exercise-machine-learning-competitions": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-01-28 04:48:32.617000",
+        "status": "COMPLETE"
+      },
+      "hoangdang1711/exercise-random-forests": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-01-27 12:26:21.067000",
+        "status": "NO_BATCH"
+      },
+      "hoangdang1711/exercise-underfitting-and-overfitting": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-01-27 12:05:48.433000",
+        "status": "NO_BATCH"
+      },
+      "hoangdang1711/exercise-model-validation": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-01-27 11:45:58.503000",
+        "status": "NO_BATCH"
+      },
+      "hoangdang1711/notebookacfd9d3703": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-01-27 11:14:35.850000",
+        "status": "NO_BATCH"
+      },
+      "hoangdangnhi/mlp-fl-lwfednids-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-15 01:55:17.090000",
+        "status": "COMPLETE"
+      },
+      "hoangdangnhi/sae-fl-fedproto-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 21:29:54.203000",
+        "status": "COMPLETE"
+      },
+      "hoangdangnhi/sae-fl-pfedes-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 19:30:46.943000",
+        "status": "COMPLETE"
+      },
+      "hoangdangnhi/sae-fl-apfed-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 15:19:19.903000",
+        "status": "COMPLETE"
+      },
+      "hoangdangnhi/sae-fl-fedavg-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 13:49:44.617000",
+        "status": "COMPLETE"
+      },
+      "hoangdangnhi/sae-fl-fedavg-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 17:48:24.153000",
+        "status": "COMPLETE"
+      },
+      "hoangdangnhi/tabm-fl-fedproto-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 12:58:34.770000",
+        "status": "COMPLETE"
+      },
+      "hoangdangnhi/tabm-fl-tinyproto-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 12:55:14.970000",
+        "status": "COMPLETE"
+      },
+      "hoangdangnhi/tabm-fl-tinyproto-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 11:43:26.870000",
+        "status": "COMPLETE"
+      },
+      "hoangdangnhi/veremi-central-tabm-e50": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-09 16:52:15.920000",
+        "status": "COMPLETE"
+      },
+      "hoangdangnhi/sae-fl-canperfl-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-15 01:54:23.657000",
+        "status": "COMPLETE"
+      },
+      "hoangdangnhi/sae-fl-canperfl-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 21:30:00.923000",
+        "status": "COMPLETE"
+      },
+      "hoangdangnhi/tabm-fl-fedprox-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 09:03:51.907000",
+        "status": "COMPLETE"
+      },
+      "hoangdangnhi/tabm-fl-fedprox-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 07:52:32.797000",
+        "status": "COMPLETE"
+      },
+      "hoangdangnhi/mobihet-fd-s42na-20261015-r38-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 16:40:02.760000",
+        "status": "COMPLETE"
+      },
+      "hoangdangnhi/mobihet-fd-s42pc-20261015-r37-v4": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 13:19:39.330000",
+        "status": "COMPLETE"
+      },
+      "hoangdangnhi/mobihet-fd-s42na-20261015-r37-v4": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 13:19:33.317000",
+        "status": "ERROR"
+      },
+      "hoangdangnhi/mobihet-dagsnet-20c-relaxed-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-27 09:41:49.430000",
+        "status": "CANCEL_ACKNOWLEDGED"
+      },
+      "hoangdangnhi/mobihet-dagsnet-20c-relaxed": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-27 09:31:00.650000",
+        "status": "CANCEL_ACKNOWLEDGED"
+      },
+      "hoangdangnhi/convert-to-csv": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-26 02:09:24.250000",
+        "status": "COMPLETE"
+      },
+      "hoangdangnhi/mobihet-dagsnet-100c-nextr14": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-25 11:11:41.117000",
+        "status": "ERROR"
+      },
+      "hoangdangnhi/mobihet-dagsnet-100c-nextr11": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-25 00:59:56.277000",
+        "status": "ERROR"
+      },
+      "hoangdv1711/mlp-fl-apfed-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-15 01:55:03.653000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/mlp-fl-afpha-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-15 01:54:35.393000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/mlp-fl-fedavg-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 21:29:21.727000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/sae-fl-perfedskd-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 21:28:37.673000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/sae-fl-fedprox-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 17:48:45.553000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/sae-fl-fedprox-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 17:48:43.123000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/tabm-fl-perfedskd-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 12:58:01.473000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/tabm-fl-perfedskd-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 12:57:45.087000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/tabm-fl-pfedes-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 11:43:31.540000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/tabm-fl-pfedes-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 11:43:23.837000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/iov-bert-inspired-tabular": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-03 09:00:40.107000",
+        "status": "CANCEL_ACKNOWLEDGED"
+      },
+      "hoangdv1711/fedproto-dagsnet-20c": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-21 04:33:34.380000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/veremi-central-mlp-e50": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-09 16:52:31.370000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/iov-bert-final-epoch1-7": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-03 15:29:00.537000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/fedtgp-dagsnet-100c": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-19 02:49:12.450000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/fedtgp-dagsnet-50c": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-19 02:48:06.737000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/fedproto-dagsnet-20client": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-21 06:15:07.543000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/v2x-htfl-dagsnet-50clients": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-10 16:45:23.300000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/v2x-htfl-dagsnet-20clients": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-11 01:13:42.210000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/tabm-fl-afpha-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 08:14:13.427000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/tabm-fl-afpha-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 08:10:11.503000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/mobihet-fd-s42sb-20261015-r39-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 18:14:36.113000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/mobihet-fd-s42sq-20261015-r39-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 18:14:22.520000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/mobihet-fd-s42pb-20261015-r37-v3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 12:47:58.090000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/mobihet-fd-s42pa-20261015-r37-v3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 12:47:57.697000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/mobihet-fd-s42pa-20261015-r37-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 12:41:52.567000",
+        "status": "CANCEL_ACKNOWLEDGED"
+      },
+      "hoangdv1711/mobihet-fd-s42pa-20261015-r37-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 12:40:46.597000",
+        "status": "CANCEL_ACKNOWLEDGED"
+      },
+      "hoangdv1711/mobihet-fd-s42pb-20261015-r37-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 12:40:43.857000",
+        "status": "ERROR"
+      },
+      "hoangdv1711/fedavg-dagsnet-100c": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-21 08:24:43.020000",
+        "status": "ERROR"
+      },
+      "hoangdv1711/scaffold-dagsnet-100c": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-21 08:23:35.420000",
+        "status": "ERROR"
+      },
+      "hoangdv1711/fedproto-dagsnet-v3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-21 05:36:21.597000",
+        "status": "ERROR"
+      },
+      "hoangdv1711/fedproto-dagsnet-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-21 04:44:17.977000",
+        "status": "ERROR"
+      },
+      "hoangdv1711/fedproto-dagsnet": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-21 04:40:53.947000",
+        "status": "ERROR"
+      },
+      "hoangdv1711/canperfl-dagsnet-20clients": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-15 14:02:14.107000",
+        "status": "ERROR"
+      },
+      "hoangdv1711/fedtgp-dagsnet-20clients": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-12 10:02:57.410000",
+        "status": "CANCEL_ACKNOWLEDGED"
+      },
+      "hoangdv1711/iov-bert-final-epoch13": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-04 11:48:01.690000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/iov-bert-final-epoch8-12": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-04 03:45:17.607000",
+        "status": "COMPLETE"
+      },
+      "hoangdv1711/notebook158c2af00c": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-03 11:06:57.357000",
+        "status": "CANCEL_ACKNOWLEDGED"
+      },
+      "hoangdv1711/notebook697e14d09f": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-03 04:48:27.853000",
+        "status": "NO_BATCH"
+      },
+      "minhiw/mlp-fl-lwfednids-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-15 01:55:07.527000",
+        "status": "COMPLETE"
+      },
+      "minhiw/mlp-fl-afpha-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-15 01:54:39.553000",
+        "status": "COMPLETE"
+      },
+      "minhiw/mlp-fl-fedavg-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 21:29:25.530000",
+        "status": "COMPLETE"
+      },
+      "minhiw/sae-fl-perfedskd-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 21:29:31.047000",
+        "status": "COMPLETE"
+      },
+      "minhiw/sae-fl-lwfednids-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 19:00:00.590000",
+        "status": "COMPLETE"
+      },
+      "minhiw/sae-fl-afpha-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 13:50:37.247000",
+        "status": "COMPLETE"
+      },
+      "minhiw/sae-fl-fedprox-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 17:51:48.083000",
+        "status": "COMPLETE"
+      },
+      "minhiw/tabm-fl-fedproto-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 12:59:07.150000",
+        "status": "COMPLETE"
+      },
+      "minhiw/tabm-fl-nilm-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 12:55:25.550000",
+        "status": "COMPLETE"
+      },
+      "minhiw/tabm-fl-pfedes-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 11:43:23.457000",
+        "status": "COMPLETE"
+      },
+      "minhiw/mobihet-v4-pair-val-r10": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-31 16:06:27.100000",
+        "status": "COMPLETE"
+      },
+      "minhiw/mobihet-v3-feat-h2-20261029-v3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 06:56:02.997000",
+        "status": "COMPLETE"
+      },
+      "minhiw/fedavg-dagsnet": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-18 02:58:58.190000",
+        "status": "CANCEL_ACKNOWLEDGED"
+      },
+      "minhiw/mobihet-v4-weighted-nowb": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-30 12:35:39.540000",
+        "status": "COMPLETE"
+      },
+      "minhiw/mobihet-veremi-v3-full-audit-20261029-v3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 06:16:50.730000",
+        "status": "COMPLETE"
+      },
+      "minhiw/v2x-htfl-dagsnet-100clients": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-11 02:27:09.027000",
+        "status": "COMPLETE"
+      },
+      "minhiw/mobihet-v4-weighted-nowb-s2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-31 02:54:29.040000",
+        "status": "COMPLETE"
+      },
+      "minhiw/mobihet-20c-b": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-01 13:56:18.880000",
+        "status": "COMPLETE"
+      },
+      "minhiw/veremi-central-tcnn-e50": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-09 16:49:40.167000",
+        "status": "COMPLETE"
+      },
+      "minhiw/mobihet-v3-feat-u2-20261029-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 07:34:34.277000",
+        "status": "COMPLETE"
+      },
+      "minhiw/mobihet-v3-feat-h7-20261029-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 07:34:31.430000",
+        "status": "COMPLETE"
+      },
+      "minhiw/mobihet-v3-feat-u7-20261029-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 07:34:32.113000",
+        "status": "COMPLETE"
+      },
+      "minhiw/mobihet-v3-feat-h2-20261029-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 07:31:54.877000",
+        "status": "COMPLETE"
+      },
+      "minhiw/mobihet-v4-p1-identifiability": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-31 04:23:29.400000",
+        "status": "COMPLETE"
+      },
+      "minhiw/canperfl-dagsnet-100c": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-19 03:06:12.927000",
+        "status": "COMPLETE"
+      },
+      "minhiw/canperfl-dagsnet-50c": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-19 03:04:53.427000",
+        "status": "COMPLETE"
+      },
+      "minhiw/fedtgp-dagsnet-20": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-18 16:32:45.683000",
+        "status": "COMPLETE"
+      },
+      "minhiw/tabm-fl-afpha-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 08:10:11.387000",
+        "status": "COMPLETE"
+      },
+      "minhiw/tabm-fl-fd-ids-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 09:13:22.727000",
+        "status": "COMPLETE"
+      },
+      "minhiw/vuln2action-hybrid-debug": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-12 12:55:37.710000",
+        "status": "COMPLETE"
+      },
+      "minhiw/vuln2action-hybrid-eval": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-12 12:57:43.140000",
+        "status": "COMPLETE"
+      },
+      "minhiw/vuln2action-t5-stage1-lr2e5-3ep-eval": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-12 06:01:36.670000",
+        "status": "COMPLETE"
+      },
+      "minhiw/vuln2action-t5-stage1-lr2e5-3ep": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-12 04:41:39.483000",
+        "status": "COMPLETE"
+      },
+      "minhiw/vuln2action-t5-stage1-capec-conditioned": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-12 03:26:47.040000",
+        "status": "COMPLETE"
+      },
+      "minhiw/vuln2action-t5-stage1-target-steps-eval-epoch1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-12 03:02:58.317000",
+        "status": "COMPLETE"
+      },
+      "minhiw/vuln2action-t5-stage1-target-steps-pilot": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-11 16:12:25.783000",
+        "status": "COMPLETE"
+      },
+      "minhiw/vuln2action-t5-stage1-target-pilot": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-11 13:58:25.713000",
+        "status": "COMPLETE"
+      },
+      "minhiw/vuln2action-t5-stage1-paper-eval10": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-11 10:35:25.933000",
+        "status": "COMPLETE"
+      },
+      "minhiw/vuln2action-t5-stage1-paper": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-11 02:46:25.213000",
+        "status": "COMPLETE"
+      },
+      "minhiw/vuln2action-t5-stage1-eval": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-10 16:16:09.290000",
+        "status": "COMPLETE"
+      },
+      "minhiw/vuln2action-t5-stage1-benchmark": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-10 14:23:39.663000",
+        "status": "COMPLETE"
+      },
+      "minhiw/vuln2action-t5-smoke-test": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-10 09:14:47.720000",
+        "status": "COMPLETE"
+      },
+      "minhiw/mobihet-v4-relkd-val-r10": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-31 06:19:06.363000",
+        "status": "COMPLETE"
+      },
+      "minhiw/mobihet-v4-p0-local-prior-r25": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-31 03:08:56.007000",
+        "status": "ERROR"
+      },
+      "minhiw/mobihet-v3-central48-full-20261030-v3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-30 01:04:17.427000",
+        "status": "COMPLETE"
+      },
+      "minhiw/mobihet-v3-central48-full-20261029-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 16:53:13.910000",
+        "status": "ERROR"
+      },
+      "minhiw/mobihet-v3-fixedfa100-r3-m4b-20261029-v4": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 16:15:13.347000",
+        "status": "COMPLETE"
+      },
+      "minhiw/mobihet-v3-fixedfa100-r3-m4b-20261029-v3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 16:07:46.007000",
+        "status": "ERROR"
+      },
+      "minhiw/mobihet-v3-main-selectedval-20261029-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 16:00:36.757000",
+        "status": "COMPLETE"
+      },
+      "minhiw/mobihet-v3-central48-full-20261029-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 16:04:45.880000",
+        "status": "ERROR"
+      },
+      "minhiw/mobihet-v3-fixedfa100-r3-m4b-20261029-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 15:51:34.547000",
+        "status": "ERROR"
+      },
+      "minhiw/mobihet-v3-fixedfa100-r3-m4b-20261029-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 15:50:30.710000",
+        "status": "ERROR"
+      },
+      "minhiw/mobihet-v3-main100-r3-deploy48-20261029-v5": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 14:55:52.487000",
+        "status": "COMPLETE"
+      },
+      "minhiw/mobihet-v3-main100-r3-deploy48-20261029-v4": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 13:03:33.850000",
+        "status": "ERROR"
+      },
+      "minhiw/mobihet-v3-main100-r3-compat66-20261029-v4": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 13:03:26.957000",
+        "status": "COMPLETE"
+      },
+      "minhiw/mobihet-v3-main100-r3-deploy48-20261029-v3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 11:05:09.010000",
+        "status": "ERROR"
+      },
+      "minhiw/mobihet-v3-main100-r3-compat66-20261029-v3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 11:04:59.700000",
+        "status": "ERROR"
+      },
+      "minhiw/mobihet-v3-main100-r3-deploy48-20261029-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 10:44:47.400000",
+        "status": "ERROR"
+      },
+      "minhiw/mobihet-v3-main100-r3-compat66-20261029-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 10:44:40.663000",
+        "status": "ERROR"
+      },
+      "minhiw/mobihet-v3-main100-r3-deploy48-20261029-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 10:42:41.857000",
+        "status": "ERROR"
+      },
+      "minhiw/mobihet-v3-main100-r3-compat66-20261029-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 10:42:34.480000",
+        "status": "ERROR"
+      },
+      "minhiw/mobihet-v3-fl100-r3-66v48-20261029-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 08:30:26.517000",
+        "status": "COMPLETE"
+      },
+      "minhiw/mobihet-v3-fl100-r3-66v48-20261029-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 08:28:56.407000",
+        "status": "ERROR"
+      },
+      "minhiw/mobihet-v3-feat-audit-20261029-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 08:08:41.373000",
+        "status": "COMPLETE"
+      },
+      "minhiw/mobihet-v3-h2-66v48-20261029-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 07:09:45.217000",
+        "status": "COMPLETE"
+      },
+      "minhiw/mobihet-v3-feat-h2-20261029-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 06:54:02.243000",
+        "status": "ERROR"
+      },
+      "minhiw/mobihet-veremi-v3-full-audit-20261029-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 06:09:48.510000",
+        "status": "ERROR"
+      },
+      "minhiw/mobihet-veremi-v3-full-audit-20261029-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-29 06:07:10.707000",
+        "status": "ERROR"
+      },
+      "minhiw/mobihet-veremi-final5000-20261028-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-28 07:59:18.703000",
+        "status": "ERROR"
+      },
+      "minhiw/mobihet-20c-fix-upproto": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-01 12:35:55.870000",
+        "status": "CANCEL_ACKNOWLEDGED"
+      },
+      "minhiw/mobihet-dagsnet-20c-analysis-v2": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-27 09:06:30.680000",
+        "status": "COMPLETE"
+      },
+      "minhiw/notebooked16044ac0": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-27 08:55:34.213000",
+        "status": "NO_BATCH"
+      },
+      "minhiw/mobihet-dagsnet-20c-analysis": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-27 08:39:10.123000",
+        "status": "CANCEL_ACKNOWLEDGED"
+      },
+      "minhiw/notebooke2cfd63a9d": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-24 12:59:47.913000",
+        "status": "NO_BATCH"
+      },
+      "minhiw/mobihet-dagsnet-50c-nextr25": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-24 07:04:39.803000",
+        "status": "CANCEL_ACKNOWLEDGED"
+      },
+      "minhiw/mobihet-dagsnet-20c": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-23 13:35:24.963000",
+        "status": "COMPLETE"
+      },
+      "minhiw/fedtgp-dagsnet-20c-continue": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-19 03:51:50.110000",
+        "status": "NO_BATCH"
+      },
+      "minhiw/canperfl-dagsnet-20": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-18 16:11:40.690000",
+        "status": "COMPLETE"
+      },
+      "minhiw/notebookfd536b53a3": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-18 12:35:04.477000",
+        "status": "COMPLETE"
+      },
+      "minhiw/v2x-htfl-100client": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-11 16:15:42.180000",
+        "status": "COMPLETE"
+      },
+      "phamquang0606/mlp-fl-lwfednids-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-15 01:55:12.987000",
+        "status": "COMPLETE"
+      },
+      "phamquang0606/mlp-fl-fd-ids-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-15 01:54:43.777000",
+        "status": "COMPLETE"
+      },
+      "phamquang0606/mlp-fl-fedavg-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 21:29:30.703000",
+        "status": "COMPLETE"
+      },
+      "phamquang0606/sae-fl-fedproto-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 21:28:45.850000",
+        "status": "COMPLETE"
+      },
+      "phamquang0606/sae-fl-lwfednids-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 19:00:00.937000",
+        "status": "COMPLETE"
+      },
+      "phamquang0606/sae-fl-afpha-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 13:51:04.503000",
+        "status": "COMPLETE"
+      },
+      "phamquang0606/sae-fl-afpha-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 17:54:03.620000",
+        "status": "COMPLETE"
+      },
+      "phamquang0606/tabm-fl-fedproto-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 12:58:51.043000",
+        "status": "COMPLETE"
+      },
+      "phamquang0606/tabm-fl-perfedskd-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 12:58:17.203000",
+        "status": "COMPLETE"
+      },
+      "phamquang0606/tabm-fl-nilm-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 11:43:31.083000",
+        "status": "COMPLETE"
+      },
+      "phamquang0606/tabm-fl-nilm-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 11:43:24.083000",
+        "status": "COMPLETE"
+      },
+      "phamquang0606/veremi-central-grande-e50": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-10 03:34:23.523000",
+        "status": "COMPLETE"
+      },
+      "phamquang0606/veremi-central-sae-e50": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-10 05:20:08.313000",
+        "status": "COMPLETE"
+      },
+      "phamquang0606/fedprox-dagsnet-20c-r45-50": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-21 03:35:15.560000",
+        "status": "COMPLETE"
+      },
+      "phamquang0606/fedprox-dagsnet-50c": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-20 15:35:38.723000",
+        "status": "COMPLETE"
+      },
+      "phamquang0606/fedprox-dagsnet-20c": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-20 15:11:20.297000",
+        "status": "COMPLETE"
+      },
+      "phamquang0606/fedavg-dagsnet-20c": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-19 03:13:31.020000",
+        "status": "COMPLETE"
+      },
+      "phamquang0606/tabm-fl-fd-ids-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 08:01:02.797000",
+        "status": "COMPLETE"
+      },
+      "phamquang0606/tabm-fl-fd-ids-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 06:48:42.077000",
+        "status": "COMPLETE"
+      },
+      "phamquang0606/mobihet-fd-s42nb-20261015-r38-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 16:39:59.970000",
+        "status": "COMPLETE"
+      },
+      "phamquang0606/mobihet-fd-s42nb-20261015-r37-v4": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 13:27:39.587000",
+        "status": "ERROR"
+      },
+      "phamquang0606/mobihet-fd-s42ta-20261015-r37-v4": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 13:27:09.817000",
+        "status": "COMPLETE"
+      },
+      "phamquang0606/fedprox-dagsnet-50c-r43-50": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-21 03:39:02.990000",
+        "status": "COMPLETE"
+      },
+      "ttalgies/mlp-fl-tinyproto-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-15 01:55:19.633000",
+        "status": "COMPLETE"
+      },
+      "ttalgies/mlp-fl-fd-ids-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-15 01:54:47.737000",
+        "status": "COMPLETE"
+      },
+      "ttalgies/mlp-fl-fedprox-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 21:30:13.960000",
+        "status": "COMPLETE"
+      },
+      "ttalgies/sae-fl-fedproto-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 21:29:41.907000",
+        "status": "COMPLETE"
+      },
+      "ttalgies/sae-fl-lwfednids-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 19:00:01.257000",
+        "status": "COMPLETE"
+      },
+      "ttalgies/sae-fl-fd-ids-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 17:54:04.960000",
+        "status": "COMPLETE"
+      },
+      "ttalgies/tabm-fl-v2x-htfl-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 13:49:00.557000",
+        "status": "COMPLETE"
+      },
+      "ttalgies/tabm-fl-v2x-htfl-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 12:59:23.737000",
+        "status": "COMPLETE"
+      },
+      "ttalgies/tabm-fl-fedtgp-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 12:55:14.467000",
+        "status": "COMPLETE"
+      },
+      "ttalgies/tabm-fl-fedtgp-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 11:43:31.247000",
+        "status": "COMPLETE"
+      },
+      "ttalgies/veremi-central-gru-attention-e50": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-10 14:33:03.367000",
+        "status": "COMPLETE"
+      },
+      "ttalgies/tabm-fl-apfed-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 08:10:11.653000",
+        "status": "COMPLETE"
+      },
+      "ttalgies/tabm-fl-apfed-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 09:13:23.657000",
+        "status": "COMPLETE"
+      },
+      "ttalgies/mobihet-fd-s42ca-20261015-r37-v4": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 13:19:46.793000",
+        "status": "COMPLETE"
+      },
+      "ttalgies/mobihet-fd-s42tc-20261015-r37-v4": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 13:19:44.733000",
+        "status": "COMPLETE"
+      },
+      "ttalgies/mobihet-dagsnet-100c": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-23 13:36:39.793000",
+        "status": "CANCEL_ACKNOWLEDGED"
+      },
+      "ttalgies/mobihet-dagsnet-50c": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-23 13:36:19.680000",
+        "status": "CANCEL_ACKNOWLEDGED"
+      },
+      "qwerasdf3004/mlp-fl-tinyproto-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-15 01:55:27.620000",
+        "status": "COMPLETE"
+      },
+      "qwerasdf3004/mlp-fl-fedprox-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 21:29:37.357000",
+        "status": "COMPLETE"
+      },
+      "qwerasdf3004/sae-fl-nilm-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 19:30:55.237000",
+        "status": "COMPLETE"
+      },
+      "qwerasdf3004/sae-fl-pfedes-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 19:30:47.253000",
+        "status": "COMPLETE"
+      },
+      "qwerasdf3004/sae-fl-tinyproto-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 15:20:30.327000",
+        "status": "COMPLETE"
+      },
+      "qwerasdf3004/sae-fl-tinyproto-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 15:20:15.610000",
+        "status": "COMPLETE"
+      },
+      "qwerasdf3004/sae-fl-fd-ids-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 13:51:30.797000",
+        "status": "COMPLETE"
+      },
+      "qwerasdf3004/tabm-fl-v2x-htfl-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 12:55:25.593000",
+        "status": "COMPLETE"
+      },
+      "qwerasdf3004/tabm-fl-fedtgp-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 09:14:22.973000",
+        "status": "COMPLETE"
+      },
+      "qwerasdf3004/veremi-central-cnn-lstm-feature-e50": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 04:14:33.513000",
+        "status": "COMPLETE"
+      },
+      "qwerasdf3004/veremi-central-cnn-bigru-attention-e50": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-13 16:23:44.297000",
+        "status": "COMPLETE"
+      },
+      "qwerasdf3004/fedproto-dagsnet-100c-nextr16": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-22 03:28:41.133000",
+        "status": "COMPLETE"
+      },
+      "qwerasdf3004/fedproto-dagsnet-100c": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-21 17:09:52.030000",
+        "status": "COMPLETE"
+      },
+      "qwerasdf3004/tabm-fl-apfed-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 06:48:43.887000",
+        "status": "COMPLETE"
+      },
+      "qwerasdf3004/veremi-central-mambacnn-e50": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 02:57:44.477000",
+        "status": "ERROR"
+      },
+      "qwerasdf3004/mobihet-fd-s42nc-20261015-r38-v1": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 16:40:01.813000",
+        "status": "COMPLETE"
+      },
+      "qwerasdf3004/mobihet-fd-s42nc-20261015-r37-v5": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 14:05:17.273000",
+        "status": "ERROR"
+      },
+      "qwerasdf3004/mobihet-fd-s42tb-20261015-r37-v5": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-10-24 14:07:03.463000",
+        "status": "COMPLETE"
+      },
+      "qwerasdf3004/fedproto-dagsnet-100c-nextr33": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-22 15:01:47.773000",
+        "status": "COMPLETE"
+      },
+      "nguynt298/mlp-fl-apfed-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-15 01:54:55.580000",
+        "status": "COMPLETE"
+      },
+      "nguynt298/mlp-fl-fedprox-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-15 01:54:26.503000",
+        "status": "COMPLETE"
+      },
+      "nguynt298/sae-fl-v2x-htfl-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 21:29:58.317000",
+        "status": "COMPLETE"
+      },
+      "nguynt298/sae-fl-fedtgp-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 21:29:26.277000",
+        "status": "COMPLETE"
+      },
+      "nguynt298/sae-fl-fedtgp-s41": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 19:58:50.350000",
+        "status": "COMPLETE"
+      },
+      "nguynt298/sae-fl-nilm-s43": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 19:35:44.990000",
+        "status": "COMPLETE"
+      },
+      "nguynt298/sae-fl-nilm-s42": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-11-14 16:31:29.997000",
+        "status": "COMPLETE"
+      },
+      "nguynt298/mobihet-dagsnet-20c-relaxed": {
+        "version": 0,
+        "gpu": true,
+        "last_run_time": "2026-09-27 12:12:38.117000",
+        "status": "CANCEL_ACKNOWLEDGED"
+      }
+    },
+    "accounts": {
+      "dangthiet": {
+        "active": 0,
+        "free_hours": 26.33136111111111
+      },
+      "hoangdang1711": {
+        "active": 0,
+        "free_hours": 24.70768111111111
+      },
+      "hoangdangnhi": {
+        "active": 0,
+        "free_hours": 25.48447638888889
+      },
+      "hoangdv1711": {
+        "active": 0,
+        "free_hours": 25.88094527777778
+      },
+      "minhiw": {
+        "active": 0,
+        "free_hours": 25.965070555555556
+      },
+      "phamquang0606": {
+        "active": 0,
+        "free_hours": 25.450395555555556
+      },
+      "ttalgies": {
+        "active": 0,
+        "free_hours": 25.219240833333334
+      },
+      "qwerasdf3004": {
+        "active": 0,
+        "free_hours": 14.31114111111111
+      },
+      "nguynt298": {
+        "active": 0,
+        "free_hours": 26.749669444444443
+      }
+    },
+    "checked_at": "2026-11-15T04:01:52.465085+00:00"
+  }
+}

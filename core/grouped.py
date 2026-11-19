@@ -5,6 +5,8 @@ channels-last (G, b, L, C); a Conv1d is k shifted windows concatenated on C and 
 fp16 matmuls instead of G small launches. BatchNorm statistics are masked: padded rows (clients shorter than the step's
 batch) never enter mean/var, loss or running stats. Equivalence to the reference module: tests/test_grouped.py.
 """
+import math
+
 import torch
 import torch.nn.functional as F
 
@@ -131,11 +133,73 @@ def _linear(c, name, x):
     return torch.baddbmm(b[:, None, :].to(x.dtype), x, w.transpose(1, 2).to(x.dtype))
 
 
+def sae_input(x):
+    return torch.cat(((x[..., :71].float() + 3.72) / 7.44, x[..., 71:].float()), dim=-1)
+
+
+def sae_decode(P, code):
+    c = _Ctx(P, {}, None, False)
+    h = torch.relu(_linear(c, "decoder.0", code))
+    return torch.sigmoid(_linear(c, "decoder.2", h))
+
+
+def sae_regularizer(P, x, code, mask, cfg):
+    """Per-client reconstruction + KL sparsity terms; classification is supplied by each FL method."""
+    if cfg.get("objective") == "ce":
+        # Decoder remains in the legacy parameter layout; explicitly zero its gradient.
+        zero = sum(v.float().sum(tuple(range(1, v.ndim))) * 0
+                   for k, v in P.items() if k.startswith("decoder."))
+        return zero
+    target = sae_input(x)
+    reconstruction = sae_decode(P, code)
+    rec = ((reconstruction.float() - target) ** 2).sum(-1)
+    rec = torch.where(mask, rec, 0.0).sum(1) / mask.sum(1).clamp_min(1)
+    mean = torch.where(mask[..., None], code.float(), 0.0).sum(1) / mask.sum(1).clamp_min(1)[:, None]
+    mean = mean.clamp(1e-6, 1 - 1e-6)
+    rho = cfg.get("sparse_rho", 0.05)
+    kl = rho * (math.log(rho) - mean.log()) + (1 - rho) * (math.log1p(-rho) - torch.log1p(-mean))
+    return cfg.get("reconstruction_weight", 1.0) * rec + cfg.get("sparsity_weight", 1.2) * kl.sum(1)
+
+
 def forward(P, B, x, cfg, mask=None, train=False, hidden=False):
     """x (G, b, 77) -> logits (G, b, 16) [, hidden (G, b, head_hidden)], new BN buffers (train only, else {}).
 
     mask (G, b) bool marks real rows; required when train=True. Dropout is active only when train=True.
     """
+    if cfg.get("model") in ("bert", "mixed-adapter"):
+        from core.mixed_backbones import bert_forward, forward as mixed_forward
+        fn = bert_forward if cfg["model"] == "bert" else mixed_forward
+        return fn(P, B, x, cfg, mask, train, hidden)
+    if cfg.get("model") == "cnn-bigru-attention":
+        from core.grouped_bigru import forward as bigru_forward
+        return bigru_forward(P, B, x, cfg, mask, train, hidden)
+    if cfg.get("model") == "mlp":
+        c = _Ctx(P, B, mask, train)
+        h = torch.relu(_linear(c, "features.0", x))
+        h = F.dropout(h, cfg["dropout"], train)
+        h = torch.relu(_linear(c, "features.3", h))
+        logits = _f32(_linear(c, "head", F.dropout(h, cfg["dropout"], train)))
+        return (logits, _f32(h), {}) if hidden else (logits, {})
+    if cfg.get("model") == "tabm":
+        h = x[:, :, None, :] * P["blocks.0.r"][:, None]
+        h = torch.einsum("gbki,ghi->gbkh", h, P["blocks.0.shared.weight"].to(h.dtype))
+        h = torch.relu(h * P["blocks.0.s"][:, None].to(h.dtype) + P["blocks.0.bias"][:, None].to(h.dtype))
+        h = F.dropout(h, cfg["dropout"], train)
+        h = h * P["blocks.1.r"][:, None].to(h.dtype)
+        h = torch.einsum("gbki,ghi->gbkh", h, P["blocks.1.shared.weight"].to(h.dtype))
+        h = torch.relu(h * P["blocks.1.s"][:, None].to(h.dtype) + P["blocks.1.bias"][:, None].to(h.dtype))
+        h = F.dropout(h, cfg["dropout"], train)
+        logits = torch.einsum("gbki,gkio->gbko", h, P["weight"].to(h.dtype)) + P["bias"][:, None].to(h.dtype)
+        representation = _f32(h) if cfg.get("member_hidden") else _f32(h).mean(2)
+        return (_f32(logits), representation, {}) if hidden else (_f32(logits), {})
+    if cfg.get("model") == "sae":
+        c = _Ctx(P, B, mask, train)
+        u = sae_input(x)
+        h = torch.relu(_linear(c, "encoder.0", u))
+        code = torch.sigmoid(_linear(c, "encoder.2", h))
+        logits = _f32(_linear(c, "head", torch.cat((u, code.float()), dim=-1)))
+        representation = torch.cat((u, code.float()), dim=-1) if cfg.get("objective") == "ce" else _f32(code)
+        return (logits, representation, {}) if hidden else (logits, {})
     c = _Ctx(P, B, mask, train)
     z = _combined(c, cfg, x)
     z = F.layer_norm(z, (z.shape[-1],)) * P["head.0.weight"][:, None] + P["head.0.bias"][:, None]

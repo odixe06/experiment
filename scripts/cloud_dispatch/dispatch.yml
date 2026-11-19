@@ -1,0 +1,43 @@
+name: Hourly Kaggle dispatcher
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+    inputs:
+      execute:
+        description: Submit pending jobs (false = read-only dry run)
+        type: boolean
+        default: false
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: kaggle-submission-queue
+  cancel-in-progress: false
+jobs:
+  dispatch:
+    if: github.event_name == 'workflow_dispatch' || vars.DISPATCH_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -q -r requirements.txt
+      - run: python -m unittest test_dispatcher -v
+      - name: Configure queue commit identity
+        run: |
+          git config user.name 'Kaggle queue dispatcher'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+      - name: Check and submit
+        env:
+          KAGGLE_TOKENS_JSON: ${{ secrets.KAGGLE_TOKENS_JSON }}
+          GITHUB_TOKEN: ${{ github.token }}
+          EXECUTE: ${{ github.event_name == 'schedule' || inputs.execute }}
+        run: |
+          if [ "$EXECUTE" = "true" ]; then
+            python -u dispatcher.py --execute
+          else
+            python -u dispatcher.py
+          fi

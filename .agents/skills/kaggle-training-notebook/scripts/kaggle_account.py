@@ -40,7 +40,6 @@ from __future__ import annotations
 
 import argparse
 import contextlib
-import fcntl
 import json
 import math
 import os
@@ -48,6 +47,12 @@ import shutil
 import subprocess
 import sys
 from pathlib import Path
+
+try:
+    import fcntl
+except ImportError:  # Windows host
+    fcntl = None
+    import msvcrt
 
 ACCOUNTS = Path.home() / ".kaggle" / "accounts"
 LIVE = Path.home() / ".kaggle" / "credentials.json"
@@ -76,7 +81,13 @@ def switch_lock():
     handle = os.open(ACCOUNTS / ".switch.lock", os.O_CREAT | os.O_RDWR, 0o600)
     try:
         try:
-            fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            if fcntl is not None:
+                fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            else:
+                if os.path.getsize(ACCOUNTS / ".switch.lock") == 0:
+                    os.write(handle, b"0")
+                os.lseek(handle, 0, os.SEEK_SET)
+                msvcrt.locking(handle, msvcrt.LK_NBLCK, 1)
         except OSError:
             raise SystemExit("another account operation is in progress; not switching")
         _lock_depth = 1
@@ -84,7 +95,11 @@ def switch_lock():
             yield
         finally:
             _lock_depth = 0
-            fcntl.flock(handle, fcntl.LOCK_UN)
+            if fcntl is not None:
+                fcntl.flock(handle, fcntl.LOCK_UN)
+            else:
+                os.lseek(handle, 0, os.SEEK_SET)
+                msvcrt.locking(handle, msvcrt.LK_UNLCK, 1)
     finally:
         os.close(handle)
 # scripts/ -> kaggle-training-notebook/ -> skills/ -> .agents/ -> project root

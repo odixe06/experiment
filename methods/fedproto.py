@@ -43,7 +43,7 @@ class Method:
 
             def loss_fn(ctx):
                 z, h, nb = grouped.TRAIN(ctx.P, ctx.B, ctx.x, cfg, mask=ctx.mask, train=True, hidden=True)
-                ce = local.ce_loss(z, ctx.y, ctx.mask)
+                ce = local.supervised_loss(ctx.P, ctx.x, z, h, ctx.y, ctx.mask, cfg)
                 m = ctx.mask & self.has[ctx.y]
                 diff = ((h - self.proto[ctx.y]) ** 2).mean(-1)              # MSE per row over the d dims
                 reg = torch.where(m, diff, 0.0).sum(1) / ctx.mask.sum(1).clamp_min(1)   # nn.MSELoss over the batch (absent class: 0)

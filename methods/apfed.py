@@ -46,8 +46,11 @@ class Method(fedavg.Method):
     def __init__(self, env):
         super().__init__(env)
         self.alpha = env.hp.get("alpha", ALPHA)
-        self.Pb = env.lay.P - int(env.lay.mask(["head.5"]).sum())
-        assert bool(env.lay.mask(["head.5"])[self.Pb:].all()), "head.5 must be the last parameters"
+        classifier = {"tabm": ["weight", "bias"], "sae": ["head"], "mlp": ["head"],
+                      "cnn-bigru-attention": ["head"]}.get(env.cfg.get("model"), ["head.5"])
+        head = env.lay.mask(classifier)
+        self.Pb = env.lay.P - int(head.sum())
+        assert bool(head[self.Pb:].all()), "classifier must be the last parameters"
         self.bank_p, self.bank_b = self.p.repeat(env.K, 1), self.b.repeat(env.K, 1)
         pin = env.dev.type == "cuda"
         self.theta = torch.ones(env.K, self.Pb, pin_memory=pin)

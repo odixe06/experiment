@@ -13,6 +13,7 @@ import torch
 import torch.nn.functional as F
 
 from core import grouped, local
+from core.tabm import log_probs
 
 
 class Method:
@@ -32,10 +33,17 @@ class Method:
     def _loss(self, ctx):
         cfg = self.env.cfg
         (Ps, Pr), (Bs, Br) = ctx.P, ctx.B
-        zs, nbs = grouped.TRAIN(Ps, Bs, ctx.x, cfg, mask=ctx.mask, train=True)
-        zr, nbr = grouped.TRAIN(Pr, Br, ctx.x, cfg, mask=ctx.mask, train=True)
-        ls_, lr_ = local.ce_loss(zs, ctx.y, ctx.mask), local.ce_loss(zr, ctx.y, ctx.mask)
-        ps, pr = F.log_softmax(zs, -1), F.log_softmax(zr, -1)
+        if cfg.get("model") == "sae":
+            zs, hs, nbs = grouped.TRAIN(Ps, Bs, ctx.x, cfg, mask=ctx.mask, train=True, hidden=True)
+            zr, hr, nbr = grouped.TRAIN(Pr, Br, ctx.x, cfg, mask=ctx.mask, train=True, hidden=True)
+            ls_ = local.supervised_loss(Ps, ctx.x, zs, hs, ctx.y, ctx.mask, cfg)
+            lr_ = local.supervised_loss(Pr, ctx.x, zr, hr, ctx.y, ctx.mask, cfg)
+        else:
+            zs, nbs = grouped.TRAIN(Ps, Bs, ctx.x, cfg, mask=ctx.mask, train=True)
+            zr, nbr = grouped.TRAIN(Pr, Br, ctx.x, cfg, mask=ctx.mask, train=True)
+            ls_, lr_ = local.ce_loss(zs, ctx.y, ctx.mask), local.ce_loss(zr, ctx.y, ctx.mask)
+        ensemble = cfg.get("model") == "tabm"
+        ps, pr = log_probs(zs, ensemble), log_probs(zr, ensemble)
         kl_s = local.masked_mean((pr.detach().exp() * (pr.detach() - ps)).sum(-1), ctx.mask)      # personalised <- proxy
         kl_r = local.masked_mean((ps.detach().exp() * (ps.detach() - pr)).sum(-1), ctx.mask)      # proxy <- personalised
         w = 1 / (ls_ + lr_).detach().clamp_min(1e-6)

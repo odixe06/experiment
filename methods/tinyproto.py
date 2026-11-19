@@ -56,7 +56,7 @@ class Method:
         for idx in env.groups_idx():
             def loss_fn(ctx):
                 z, h, nb = grouped.TRAIN(ctx.P, ctx.B, ctx.x, cfg, mask=ctx.mask, train=True, hidden=True)
-                ce = local.ce_loss(z, ctx.y, ctx.mask)
+                ce = local.supervised_loss(ctx.P, ctx.x, z, h, ctx.y, ctx.mask, cfg)
                 if self.target is None:
                     return ce, nb
                 diff = ((h - self.target[ctx.y]) ** 2).mean(-1)

@@ -14,6 +14,7 @@ import base64
 import hashlib
 import json
 import os
+import shlex
 import subprocess
 from pathlib import Path
 
@@ -29,7 +30,9 @@ WANDB_PROJECT = "fl-dagsnet-veremi-v2"
 def cells(a, sha):
     run = a.run or a.slug
     args = a.args or (f"scripts/run_fl.py --method {a.method} --out /kaggle/working/{run} --width {a.width} "
-                      f"--rounds {a.rounds} --compile --wandb {WANDB_PROJECT} --max-hours BUDGET --cache ''" + (" --set " + " ".join(a.set) if a.set else ""))
+                      f"--rounds {a.rounds} --compile --max-hours BUDGET --cache ''"
+                      + ("" if a.no_wandb else f" --wandb {WANDB_PROJECT}")
+                      + (" --set " + shlex.join(a.set) if a.set else ""))
     yield "markdown", f"# {a.slug}\n\nRepo `{REPO}` @ `{sha}` · dataset `{DATASET}` · `torchrun --nproc_per_node=2 {args}`"
     yield "code", """import time, os, subprocess, sys, glob, shutil
 T0 = time.monotonic()
@@ -68,7 +71,10 @@ for p in files:
     dest.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(p, dest)
 print("source manifest", hashlib.sha256((provenance / "source_manifest.json").read_bytes()).hexdigest())"""
-    yield "code", """import wandb
+    if a.no_wandb:
+        yield "code", 'os.environ["WANDB_MODE"] = "disabled"'
+    else:
+        yield "code", """import wandb
 # BEGIN INLINE WANDB CREDENTIAL — owner-authorized private notebook
 raise SystemExit("W&B credential not embedded: run embed_wandb_key.py")
 # END INLINE WANDB CREDENTIAL
@@ -92,7 +98,7 @@ print(f"npy cache built in {time.monotonic() - t:.0f}s")"""
                   PYTORCH_CUDA_ALLOC_CONF="expandable_segments:True",   # GPU near-full: avoid allocator thrash (MobiHet 30/10)
                   V4_NPY="/kaggle/temp/v4npy")
 budget = {a.max_hours} - (time.monotonic() - T0) / 3600
-cmd = "cd /kaggle/temp/src && torchrun --standalone --nproc_per_node=2 {args}".replace("BUDGET", f"{{budget - 0.4:.2f}}")
+cmd = {('cd /kaggle/temp/src && torchrun --standalone --nproc_per_node=2 ' + args)!r}.replace("BUDGET", f"{{budget - 0.4:.2f}}")
 print(cmd)
 rc = subprocess.run(cmd, shell=True).returncode
 assert rc == 0, f"training exited {{rc}}"
@@ -106,6 +112,7 @@ def main():
     ap.add_argument("--owner", required=True)
     ap.add_argument("--slug", required=True)
     ap.add_argument("--method", default="fedavg")
+    ap.add_argument("--no-wandb", action="store_true", help="omit W&B login and logging")
     ap.add_argument("--run", default="", help="run dir name (default slug); keep it across resume sessions")
     ap.add_argument("--width", type=float, default=1.0)
     ap.add_argument("--rounds", type=int, default=50)

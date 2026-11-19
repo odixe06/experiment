@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "dataset": "odixe0502/veremi-nextgen-v4-scaled-per-vehicle",
+  "partition": "unchanged natural receiver-vehicle clients; train+val -> test",
+  "client_count": 5343,
+  "client_id_range": [
+    0,
+    5342
+  ],
+  "assignment_seed": 2026,
+  "assignment_algorithm": "Python Random(str(seed)+':'+case).shuffle(sorted client IDs)",
+  "rounding": "largest remainder; ties by declared model order",
+  "training_seeds": [
+    41,
+    42,
+    43
+  ],
+  "fixed_across": [
+    "methods",
+    "training_seeds",
+    "rounds",
+    "GPU_shards",
+    "resume"
+  ],
+  "cases": {
+    "case1": {
+      "ratios_percent": {
+        "dagsnet": 30,
+        "bert": 30,
+        "cnn-bigru-attention": 40
+      },
+      "counts": {
+        "dagsnet": 1603,
+        "bert": 1603,
+        "cnn-bigru-attention": 2137
+      },
+      "file": "case1.csv",
+      "sha256": "4a9147eaa7bb9972ce929e2b7907c6a86abd1c28b9bfc5cc8da7da690421fa26"
+    },
+    "case2": {
+      "ratios_percent": {
+        "tabm": 30,
+        "sae": 30,
+        "mlp": 40
+      },
+      "counts": {
+        "tabm": 1603,
+        "sae": 1603,
+        "mlp": 2137
+      },
+      "file": "case2.csv",
+      "sha256": "81b9e79bcf20f342b14e53f6c19973c4fd3e789cef29e4eb2ed22ab388944dad"
+    },
+    "case3": {
+      "ratios_percent": {
+        "dagsnet": 20,
+        "bert": 20,
+        "cnn-bigru-attention": 20,
+        "tabm": 20,
+        "sae": 20
+      },
+      "counts": {
+        "dagsnet": 1069,
+        "bert": 1069,
+        "cnn-bigru-attention": 1069,
+        "tabm": 1068,
+        "sae": 1068
+      },
+      "file": "case3.csv",
+      "sha256": "eebb1dcfb8aaf1430f5393225af56b912925d613cea08182e6e2d80053bcc2fe"
+    }
+  }
+}
