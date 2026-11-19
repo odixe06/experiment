@@ -1,0 +1,220 @@
+{
+  "date": "2026-11-16",
+  "repo": "fl_veremi_bert",
+  "git_head": "d41b05610f9d0af7828804cf493c010bb5e6f228",
+  "staged_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "moved": [
+    {
+      "old": "scripts/audit_t3_s41_state.py",
+      "new": "archive/operations-20261116/scripts/audit_t3_s41_state.py",
+      "sha256": "30c33d794384f5139d30a7214dfd18c22e97ed4b99e709a0e10e1cdf08f056db",
+      "kind": "retired-script"
+    },
+    {
+      "old": "scripts/collect_t3_completed.sh",
+      "new": "archive/operations-20261116/scripts/collect_t3_completed.sh",
+      "sha256": "ae31fcb2b53af9befb7d301256a01e9afcd3f86d0bbd6590d7b1ed9b8f9fa403",
+      "kind": "retired-script"
+    },
+    {
+      "old": "scripts/push_after_reboot.py",
+      "new": "archive/operations-20261116/scripts/push_after_reboot.py",
+      "sha256": "1b33823c9abfe67c90bc96fefdbf3ca2212eb993eae1f11b47ba046ddf53dc27",
+      "kind": "retired-script"
+    },
+    {
+      "old": "scripts/recover_pfedes41_final.py",
+      "new": "archive/operations-20261116/scripts/recover_pfedes41_final.py",
+      "sha256": "3fe8b5c612850a76cb4cc75db1baad333572a97e51438eb7630b5b723f901318",
+      "kind": "retired-script"
+    },
+    {
+      "old": "scripts/resume_t3_remaining.py",
+      "new": "archive/operations-20261116/scripts/resume_t3_remaining.py",
+      "sha256": "3a335a05aa0069b0a6a351941e9de4688917480ea7ec5b4fb46c8a39bc687e50",
+      "kind": "retired-script"
+    },
+    {
+      "old": "scripts/resume_t3_s41.py",
+      "new": "archive/operations-20261116/scripts/resume_t3_s41.py",
+      "sha256": "ca684547d8bc1dda0852805655e838ad4086cf0a1e6bb77b90e8ac6d9c13b714",
+      "kind": "retired-script"
+    },
+    {
+      "old": "scripts/retry_cancelled_t3.py",
+      "new": "archive/operations-20261116/scripts/retry_cancelled_t3.py",
+      "sha256": "3f7d15a024ac00d6da6de8f1448fac94895bb9e84190c22732f16d0823410a13",
+      "kind": "retired-script"
+    },
+    {
+      "old": "scripts/run_t3_batch.py",
+      "new": "archive/operations-20261116/scripts/run_t3_batch.py",
+      "sha256": "ded1f712bdd23844cf2266647361835d7eab6b02ec6ee5b67413d15e1ed492f8",
+      "kind": "retired-script"
+    },
+    {
+      "old": "scripts/t3_launch_after_resume.sh",
+      "new": "archive/operations-20261116/scripts/t3_launch_after_resume.sh",
+      "sha256": "f3c508c29c64bae0479efde0246a0b70e98b12e3d48dd631a3bb3281ffece70f",
+      "kind": "retired-script"
+    },
+    {
+      "old": "scripts/t3_launch_verified.sh",
+      "new": "archive/operations-20261116/scripts/t3_launch_verified.sh",
+      "sha256": "3d9ef0fef4c7b4eba9701ec2a28d7895a1bc94d0043e1ea3abf4874aff599ccd",
+      "kind": "retired-script"
+    },
+    {
+      "old": "scripts/watch_batch.py",
+      "new": "archive/operations-20261116/scripts/watch_batch.py",
+      "sha256": "0c432dd35b75d409b5da47240e724aeab806ef116b93e3d2c4d6d1e838522765",
+      "kind": "retired-script"
+    },
+    {
+      "old": "scripts/watch_three_seeds.py",
+      "new": "archive/operations-20261116/scripts/watch_three_seeds.py",
+      "sha256": "3796f8d9dee02029477576a822f305d233cf0b284aef4a18626b06e9ac175556",
+      "kind": "retired-script"
+    },
+    {
+      "old": "docs/operations/backup-reboot-20261116.json",
+      "new": "archive/operations-20261116/receipts/backup-reboot-20261116.json",
+      "sha256": "47a97a24ffcf082ebcb0d348448bba94bd9461e61fafad974531ed411f60d916",
+      "kind": "historical-receipt"
+    },
+    {
+      "old": "docs/operations/pfedes41-launch-20261116.json",
+      "new": "archive/operations-20261116/receipts/pfedes41-launch-20261116.json",
+      "sha256": "de1abd5390f1434bbe8f166af63a00a738ebda623a007068302831e25aabb2b7",
+      "kind": "historical-receipt"
+    },
+    {
+      "old": "scripts/check_v2_parity.py",
+      "new": "archive/operations-20261116/scripts/check_v2_parity.py",
+      "sha256": "786248cccf9ed92f557e4b0a5db00405f5de8b3f3be2322a340f54b95e4da085",
+      "kind": "retired-script",
+      "reason": "13/11 baseline-only checker globs all methods; current T3 additions are outside its original scope"
+    }
+  ],
+  "retained": [
+    "scripts/audit_run.py",
+    "scripts/audit_t3_smoke.py",
+    "scripts/audit_t3_state.py",
+    "scripts/bench_grouped.py",
+    "scripts/build_project_comparison.py",
+    "scripts/cache_subset.py",
+    "scripts/check_docs.py",
+    "scripts/check_t3_port.py",
+    "scripts/cost.py",
+    "scripts/gen_notebook.py",
+    "scripts/kaggle_cli_bounded.py",
+    "scripts/kaggle_inventory.py",
+    "scripts/list_dataset.py",
+    "scripts/report.py",
+    "scripts/run_batch.py",
+    "scripts/run_fl.py",
+    "scripts/run_local_guarded.py",
+    "scripts/run_p21_recovery.py",
+    "scripts/run_t3.py",
+    "scripts/transfer_global.py",
+    "scripts/verify_batch_provenance.py",
+    "scripts/verify_checkpoint_dataset.py",
+    "scripts/watch_kaggle_batch.py"
+  ],
+  "protected_sha256": {
+    "core/optim.py": "059988e800248771f83ae76cdb22bd0dee30e460c2e0b5893bed7a6557dfecdb",
+    "core/local_t3.py": "f86a0209ba05b860c7e462016b5f393e98c66e50d4587e0226d6a414046c6865",
+    "core/local.py": "bb04c1cba4af2cd64b30880d9bf4751ac5b1ba17c587f7b0000853a0fff49a12",
+    "core/flat.py": "ec4d1be0bea45b5e238f0562a8c1494d5be783db718b0d99209928e960c3d082",
+    "core/fl.py": "ba58af2c6ea137f95b89bb6ccc8c9745fdc8f59eb708f1229eae0d40de5fa10a",
+    "core/bert.py": "dca588d4b76917dd26fce2a391d2fae74904daab4054463384c81f0785282693",
+    "core/evaluate.py": "da4dfeb0b424639f84af0c7dfb7d212ca3f5e31f9be4a6fd12207b7e1d309a5e",
+    "core/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "core/data.py": "f4a9dc14f3002d0a1dcff774d9df8c9b41c3084396611276cd357e2e94540215",
+    "core/grouped.py": "f2df2dcfe11cb8dc3a55156bc04c4f47050dd2d974ddb92f2b93b54c4607ca92",
+    "core/metrics.py": "2e13613738cdb89570f5cdda25813b506e632cfd50fd1f2d50f2aa040da47917",
+    "methods/fedproto.py": "366616b1716188505a155c462f70e55c82cafc922e3e1a21d0bdceca6e0acd07",
+    "methods/fedavg.py": "bfe0f10ec2c3ec5b7cc90f3c1d44fe2eacb41142d287ba64133c01deb0f7d52b",
+    "methods/mobihet_rstudy.py": "a2baa29aeda108b5435cfa2b701b931586f2cc3d85f15c484820e6881714379c",
+    "methods/pfedes.py": "581e77fae7f584cb23893503b7819d46c5b4c06bd72c66ee80b420df8312e25c",
+    "methods/perfedskd.py": "071cd0f6de0db5e6378a7c4dc71abf96bf3bd7a5f1e6c1786ae5205af532ba72",
+    "methods/mobihet_study_wire.py": "4ae51a06bf0b0d39691dd2d46b8df8f8ee8f935121f09ad8cd61dd4aa13ce448",
+    "methods/mobihet_study_diagnostics.py": "9db42b123bb99b66fc7cd8c20a23310d3ee555cee682bc3398166ca9a1d7adf8",
+    "methods/mobihet_wstudy.py": "28c28aef2999f36899653332b81bd4a93ef11ccaedee2b98739a55ac81b67e9b",
+    "methods/tinyproto.py": "1bbf6b6e18f87a47f2ed52831c2709f8a3fbc001a7a2461c13a968ee62895ab4",
+    "methods/mobihet_compute.py": "8ff630415f7f7588f6084f558b7aeb73c098cd171964086afc0b9e793fdd396a",
+    "methods/mobihet_sim.py": "e5f3f45bf29e7203c2b9e2b2a9966b049013f58d145f5c775f77f1a3fba2fb27",
+    "methods/fedprox.py": "999ecf558a1dc7c2cca874d8068f68ced4bcd5d3cff060380580bcbeea94134c",
+    "methods/afpha.py": "a3ef0cd7c69f14cd59d0332aee045b72ee7b7685a6f71ea262529daafb6f0bcc",
+    "methods/v2x_htfl.py": "535da4cd9cfa38297cc22174275681f25cc4b8927ad6f1b80c29853dd3d5b87e",
+    "methods/mobihet_study.py": "cdb7527c25a6d8b959691e1272fa454980bc795507891d4b9d0a89f7a69bf975",
+    "methods/canperfl.py": "d78de25003359650ae43289f962faf316e1df1c527768615e2117029168a269c",
+    "methods/apfed.py": "1d7d29661f49d6ed484c3e2a913a34311387e1d1df148a78a15aa86c6c306df8",
+    "methods/mobihet_refine.py": "1e97b83c4722e9b7e78dc53bc6cf1ca2c161bcefda24de4f651d6c5e325c4860",
+    "methods/mobihet.py": "545c2d18577dcf98ba390728b5ea9192b160ed9226e2e35c08bf3bff03588514",
+    "methods/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "methods/mobihet_next.py": "5a14c4fb0815b87f20dca36ca02ca898ea08ad7d5c5a207bd45eb4910afb7610",
+    "methods/fd_ids.py": "9220cf819a5654d9069bbec96df91de3e7b8283edc475ca91602563f45e189b4",
+    "methods/mobihet_teacher.py": "f8c4df77c20b1d6fac9120fd0438448c4f993eb9e6ad582d987cac46cb9aa465",
+    "methods/fedtgp.py": "10d2dfd972f458772821d5eb3ba64cdcf3a5f677ef4baad92b35eebf6619fbba",
+    "methods/mobihet_lossless.py": "7c859a3f53e239241f6f20aabd3c86c876f356b013136e25c237de8c18b05e69",
+    "methods/nilm.py": "6916a5181983bee3f37b659748e051b91245347eb3279964d925d61dea3e0ac7",
+    "methods/lwfednids.py": "bf6f04b67316cdb0ecd2127213a2c2199dd8efaab0ad0b56d6ad22ca96ef7a7c",
+    "tests/test_units.py": "86ddebb455dafc682bb9e9c4c4e5a4b77b9e167e1f21995c4374c44f6010609a",
+    "tests/test_batch.py": "ea7b1a832b58500e91f701c3df7ebd6e7637db89765f50c32337d74b1e517049",
+    "tests/test_grouped.py": "4628da7ae1224fa7e877f9c12aa287e784bc03221b271b4e28efa370e8105f5f",
+    "tests/test_kaggle_inventory.py": "65803af5513c4805c8e7bcb0c43b69bc25bc5f09a17443811fda7f01d211cef7",
+    "tests/test_notebooks.py": "ec6572d3d02c70573e92bf36f477e16e6856d50f54cd938f1848179ff33319e2",
+    "tests/test_data_npy.py": "63f063e94c1a6861558eed9481343d014636a52328bc2ba9a6cb5fa080a1765a",
+    "tests/test_methods.py": "2478672dd6aea28d355a9a218e6aacaa7a18ec4157014ab778935bb3664deedc",
+    "artifacts/baseline-pulls.dvc": "78b0395dff71fe6f3d54739a1ed89f45abe1588d98884fb342709bcfd0af4e01",
+    "artifacts/research-evidence-20261116.dvc": "80524cecbd74d78eaf227362bbebddcbc3100595e8fb04f771e6452a1f4fbdf0",
+    "artifacts/t3-pulls.dvc": "965d00bfebbf5cb312e31aeb76d201d808fa29afca0e060e2f806d28531c0fae"
+  },
+  "snapshots": [
+    {
+      "source": "CONTEXT.md",
+      "path": "archive/operations-20261116/before/CONTEXT.md",
+      "sha256": "b0c9929cc5ee367f278c74220415caca2dfd9379f97beb7ea2045b8231e0ad1f"
+    },
+    {
+      "source": "docs/operations/continue.md",
+      "path": "archive/operations-20261116/before/docs/operations/continue.md",
+      "sha256": "67f3f0b456f31c42b5f40ccbc1e02182b0892a0ee780ca2498c943fff968741a"
+    },
+    {
+      "source": "docs/operations/backup.md",
+      "path": "archive/operations-20261116/before/docs/operations/backup.md",
+      "sha256": "ff9195e4d085118b293bf61775396d48af5f07a7a750c54a5b73f3da94a25c21"
+    },
+    {
+      "source": "docs/operations/kaggle.md",
+      "path": "archive/operations-20261116/before/docs/operations/kaggle.md",
+      "sha256": "b3e3dd94b17bdfc92ecf5318fcf5c3da128c7fa049143bfee60921d769608c0b"
+    },
+    {
+      "source": "docs/operations/lessons.md",
+      "path": "archive/operations-20261116/before/docs/operations/lessons.md",
+      "sha256": "8b80e4f21fced694c615803ee017a620242e2f4cadeffe36d66dc388fc968d4c"
+    },
+    {
+      "source": "docs/operations/notebook-errors.md",
+      "path": "archive/operations-20261116/before/docs/operations/notebook-errors.md",
+      "sha256": "f325b4c221edbd4efa7b2dda13b50a526cf4e82c0f79e1380e7901918b774162"
+    }
+  ],
+  "validation": {
+    "script_byte_identity": true,
+    "protected_source_dvc_identity": true,
+    "active_python_ast": true,
+    "no_active_static_import_of_retired_script": true,
+    "active_links": true,
+    "diff_check": true,
+    "git_head_unchanged": true,
+    "staged_diff_unchanged": true,
+    "notebook_batch_tests_passed": 12,
+    "t3_port_real_loss_gradient": "PASS",
+    "retired_parity_checker": "Historical 13/11 all-method glob fails on pre-existing T3 extension; archived without changing methods",
+    "phase": "before authorized Git commit"
+  }
+}

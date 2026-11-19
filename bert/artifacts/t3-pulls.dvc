@@ -1,0 +1,6 @@
+outs:
+- md5: 33ddae696e279eb52c39e2c8f3a45b91.dir
+  size: 10989948636
+  nfiles: 896
+  hash: md5
+  path: t3-pulls
