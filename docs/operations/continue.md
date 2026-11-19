@@ -34,15 +34,29 @@ Run chưa đủ 50 epoch: nối bằng `build_central_backbones.py --parent OWNE
 
 Orchestrator `../mobihet/runs/fbl-r50/orchestrate.py` (PID 38919) tự hop; đã dùng `hoangdang20t` (DAGS s41h2) và `goilaaiudi`
 (BERT s41h2). Nó chọn account quota lớn nhất, không biết slot của job khác ⇒ phiên này chỉ chiếm 1 slot ở `abbafan`/`bestyorn`.
-File đã vá (đọc thêm `runs/fbl-r50/exclude.json` mỗi lần hop) nhưng **chưa restart** (bị chặn quyền) — xem việc tay.
+File đã vá (đọc thêm `runs/fbl-r50/exclude.json` mỗi lần hop). 02:17 hop BERT s43 → `gaming3` **BLOCKED** vì ổ đầy
+(Errno 28 khi copy state vào `artifacts/fbl-hop/…-s43-r50/upload`; chưa có `create-intent.json` ⇒ chạy lại sẽ làm lại sạch).
+Owner 20/11 cho restart khi ổ có chỗ: `kill -TERM -38919`; `cd ~/project/mobihet && setsid python runs/fbl-r50/orchestrate.py >> runs/fbl-r50/orchestrate.log 2>&1 &`
+(ghi PID mới vào `runs/fbl-r50/orchestrate.pid`); trước đó ghi `exclude.json` = account phiên này đang chiếm 2 slot.
 
 ### Mixed (account teammate, không có credential ở máy này)
 
 case1 V2X-HtFL s41/42/43 (`sonlebaodac`, `minhgia2026`, `nghuay`), case3 pFedES s41/43 (`nguynkhacao`, `nghuay`).
 
-### Compute FLOP local
+### Ổ đĩa (20/11 ~02:15 đầy 100 %)
 
-`scripts/compute/run_queue.py` (count, panel 200, 2 round, group_rows 4096 / mixed 8192) → `runs/compute-20261120/`; log `queue.log`.
+Ổ ORICO (exFAT) mount `/run/media/odixe/ORICO`; `scripts`: dời `../fl_veremi_bert/runs/{maintenance-20261116,pulls,transfer,t3}` (~80 GB,
+artifact baseline/T3 đã audit) sang `/run/media/odixe/ORICO/experiment-data/fl_veremi_bert/runs/`, symlink về chỗ cũ (kiểm số file + byte
+trước khi xoá nguồn). Không đụng `artifacts/fbl-*`, `runs/fbl-r50` (orchestrator). exFAT: không symlink/quyền/hardlink bên trong.
+
+### Compute FLOP
+
+Owner 20/11: **mọi job đếm ở group_rows 4096** (một packing cho mọi phương pháp/kịch bản). `scripts/compute/run_queue.py` → `runs/compute-20261120/`.
+Local: TabM/SAE/MLP xong 14/14; CNN-BiGRU nửa đầu đang chạy (task nền). Kaggle `scripts/compute/build_kaggle_count.py` (2 T4, 1 worker/GPU):
+`accanniez/exp-count-cnnbigru-b` (CNN nửa sau, 4096 — dùng được); `minhtrit06/exp-count-mixed-c12`, `minhtriethihi/exp-count-mixed-c3`
+chạy mixed ở 8192 (trước khi có `--group-rows`) ⇒ **không dùng**. Còn phải đếm lại ở 4096 trên Kaggle: BERT 14 PP (`bert-*`, trước đếm 2048),
+DAGSNet NILM (`dags-base-nilm`, trước fallback 2048), mixed 15 (`run_mixed_fl.py --group-rows 4096`); commit `fix/central-ddp-compute`
+chưa push được lúc ổ đầy — push trước khi build notebook (notebook clone SHA).
 OOM ⇒ status `oom` ⇒ đếm trên Kaggle T4 cùng harness. CANPerFL các model: FedAvg r1 relabel r50 làm điểm bắt đầu fine-tune.
 DAGSNet/BERT đã đo ở `../mobihet/runs/total-compute-20261119/` (+ `canperfl.py` phiên này).
 
@@ -50,7 +64,7 @@ DAGSNet/BERT đã đo ở `../mobihet/runs/total-compute-20261119/` (+ `canperfl
 
 1. Khi centralized COMPLETE: pull (`pull_kernel_output.py` qua `kaggle_as.py`), `scripts/audit_central_backbones.py`, thêm hàng vào
    `experiments/<kịch bản>/results.csv` (status `audited`), chạy `python scripts/experiments_status.py`. PARTIAL ⇒ nối phiên.
-2. Sau reset quota 21/11: push BERT s42, CNN-BiGRU s41/s43, DAGSNet s41/s43; nối BERT s41/s43.
+2. MLP centralized s41/42/43 COMPLETE (02:0x) — pull + audit. Nối BERT s41/s42/s43 (≈ 9 epoch/phiên).
 3. Queue FLOP xong: `python scripts/compute/report.py` → `experiments/*/compute.csv`, cập nhật [compute](../research/compute.md).
 4. Khi `../mobihet/runs/fbl-r50/orchestrate.log` có `ORCH_DONE` (orchestrator còn gọi `../fl_veremi_bert/scripts/run_fbl_r50.py`):
    dời artifact baseline BERT (`../fl_veremi_bert/runs/batch*`, `artifacts/*`, ~80 GB, gitignored) vào `bert/runs`, `bert/artifacts`
@@ -63,5 +77,4 @@ DAGSNet/BERT đã đo ở `../mobihet/runs/total-compute-20261119/` (+ `canperfl
 - **Teammate (dangvanhoang1711):** chuyển sang nhánh `main` của repo `odixe06/experiment` (đường dẫn tài liệu đã đổi, xem
   [docs/README](../README.md)); gửi CM/10 metric cuối (hoặc audit JSON) của TabM/SAE/MLP/CNN-BiGRU 14 PP × 3 seed để điền đủ
   `experiments/{tabm,sae,mlp,cnn-bigru}/results.csv` (repo hiện chỉ có macro-F1); báo khi 5 run mixed xong.
-- **Owner (tùy chọn):** cho phép restart orchestrator MobiHet để `exclude.json` có hiệu lực:
-  `kill -TERM -38919` rồi `cd ~/project/mobihet && setsid python runs/fbl-r50/orchestrate.py >> runs/fbl-r50/orchestrate.log 2>&1 &`.
+- Hồi quy DAGSNet code cũ `36ac7ff` vs hiện tại (14 PP, 20 xe, 2 round, eager) đang chạy: `scratchpad/regress.sh`, kết quả `scratchpad/reg/`.

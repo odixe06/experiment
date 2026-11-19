@@ -26,21 +26,25 @@ HETERO = ["fedproto", "fedtgp", "tinyproto", "v2x_htfl", "pfedes"]
 
 
 def jobs():
+    """(name, repo, script args, --set values). Every job counts at group_rows 4096 (owner 20/11: one packing for all)."""
+    G = ["group_rows=4096", "seed=42"]
     for scen, bb in BACKBONES.items():
         for m in BASE:
-            yield f"{scen}-{m}", ["scripts/run_fl.py", "--backbone", bb, "--method", m, "--rounds", "2"], \
-                ["group_rows=4096", "seed=42"]
+            yield f"{scen}-{m}", ROOT, ["scripts/run_fl.py", "--backbone", bb, "--method", m, "--rounds", "2"], G
+    for m in BASE:                                                    # re-count at 4096 (19/11: BERT at 2048, NILM fallback 2048)
+        yield f"bert-{m}", ROOT / "bert", ["scripts/run_fl.py", "--method", m, "--rounds", "2"], G
+        yield f"dags-base-{m}", ROOT, ["scripts/run_fl.py", "--method", m, "--rounds", "2"], G
     for case in ("case1", "case2", "case3"):
         for m in HETERO:
-            yield f"mixed-{case}-{m}", ["scripts/run_mixed_fl.py", "--case", case, "--method", m, "--seed", "42",
-                                        "--smoke-clients", "200", "--stop-after", "2"], []
+            yield f"mixed-{case}-{m}", ROOT, ["scripts/run_mixed_fl.py", "--case", case, "--method", m, "--seed", "42",
+                                              "--smoke-clients", "200", "--stop-after", "2", "--group-rows", "4096"], []
 
 
 def cmd(base, out, sets):
     return [*base, "--out", str(out), *(["--set", *sets] if sets else [])]
 
 
-def run(name, base, sets):
+def run(name, repo, base, sets):
     res, log, out = OUT / f"{name}.count.json", OUT / f"{name}.count.log", OUT / name
     if res.exists() and json.loads(res.read_text()).get("status") in ("done", "oom"):
         return "skip"
@@ -50,7 +54,7 @@ def run(name, base, sets):
         if not proxy.exists():
             fed = [("fedavg" if a == "canperfl" else "1" if i and base[i - 1] == "--rounds" else a) for i, a in enumerate(base)]
             r = subprocess.run([PY, str(ROOT / "scripts/compute/total_compute.py"), "count", str(OUT / f"{name}-init.count.json"),
-                                "--repo", str(ROOT), "--panel", "200", "--", *cmd(fed, init, sets)], cwd=ROOT,
+                                "--repo", str(repo), "--panel", "200", "--", *cmd(fed, init, sets)], cwd=ROOT,
                                stdout=open(OUT / f"{name}-init.log", "w"), stderr=subprocess.STDOUT)
             if r.returncode:
                 return f"init rc {r.returncode}"
@@ -63,7 +67,7 @@ def run(name, base, sets):
     t = time.time()
     with open(log, "w") as f:
         p = subprocess.run(["timeout", "5400", PY, str(ROOT / "scripts/run_local_guarded.py"), PY,
-                            str(ROOT / "scripts/compute/total_compute.py"), "count", str(res), "--repo", str(ROOT),
+                            str(ROOT / "scripts/compute/total_compute.py"), "count", str(res), "--repo", str(repo),
                             "--panel", "200", "--", *argv], cwd=ROOT, stdout=f, stderr=subprocess.STDOUT)
     if p.returncode and "OutOfMemoryError" in log.read_text():
         d = json.loads(res.read_text()) if res.exists() else {}
@@ -76,9 +80,9 @@ def run(name, base, sets):
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    for name, base, sets in jobs():
+    for name, repo, base, sets in jobs():
         if name.startswith(ONLY):
-            print(time.strftime("%H:%M:%S"), name, run(name, base, sets), flush=True)
+            print(time.strftime("%H:%M:%S"), name, run(name, repo, base, sets), flush=True)
     print("QUEUE_DONE", flush=True)
 
 
