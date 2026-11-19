@@ -5,7 +5,7 @@
         --metadata notebooks/fl2-fedavg/kernel-metadata.json
     python .claude/skills/kaggle-training-notebook/scripts/kaggle_as.py odixe0502 -- kaggle kernels push -p notebooks/fl2-fedavg
 
-The notebook clones github.com/odixe06/fl_dagsnet_veremi_v2 at --sha (default: local HEAD, must be pushed), reads the v4
+The notebook clones github.com/odixe06/experiment (formerly fl_dagsnet_veremi_v2) at --sha (default: local HEAD, must be pushed), reads the v4
 dataset mount, resumes from a previous session's output when --resume-kernel is given, and writes everything under
 /kaggle/working/<run>. notebooks/ is gitignored: embedded notebooks hold a credential.
 """
@@ -23,7 +23,7 @@ import nbformat
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 RUNTIME = json.load(open(os.path.join(ROOT, "knowledge", "runtime.json")))
 DATASET = "odixe0502/veremi-nextgen-v4-scaled-per-vehicle"
-REPO = "https://github.com/odixe06/fl_dagsnet_veremi_v2.git"
+REPO = "https://github.com/odixe06/experiment.git"  # renamed from fl_dagsnet_veremi_v2 (20/11/2026; old URL redirects)
 WANDB_PROJECT = "fl-dagsnet-veremi-v2"
 
 

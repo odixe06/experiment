@@ -35,7 +35,7 @@ case1 V2X-HtFL s41/42/43 (`sonlebaodac`, `minhgia2026`, `nghuay`), case3 pFedES 
 
 ### Compute FLOP local
 
-`scripts/compute/queue.py` (count, panel 200, 2 round, group_rows 4096 / mixed 8192) → `runs/compute-20261120/`; log `queue.log`.
+`scripts/compute/run_queue.py` (count, panel 200, 2 round, group_rows 4096 / mixed 8192) → `runs/compute-20261120/`; log `queue.log`.
 OOM ⇒ status `oom` ⇒ đếm trên Kaggle T4 cùng harness. CANPerFL các model: FedAvg r1 relabel r50 làm điểm bắt đầu fine-tune.
 DAGSNet/BERT đã đo ở `../mobihet/runs/total-compute-20261119/` (+ `canperfl.py` phiên này).
 

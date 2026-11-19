@@ -4,7 +4,7 @@ time is hardware-specific, FLOPs are not). Panel 200, 2 rounds (round 2 = steady
 model, 8192 mixed), seed 42. Sequential, resumable (a JSON with status=done is skipped). A CUDA OOM is recorded as
 status=oom: run that job on a Kaggle T4 instead (same counter, same rows).
 
-    V4_ROOT=... V4_CACHE=... python scripts/compute/queue.py [--only PREFIX] [--out runs/compute-20261120]
+    V4_ROOT=... V4_CACHE=... python scripts/compute/run_queue.py [--only PREFIX] [--out runs/compute-20261120]
 """
 import json
 import os
