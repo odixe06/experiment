@@ -1,4 +1,4 @@
-# Continue — bàn giao sống, 20/11/2026 ≈ 03:00 +07 (máy tắt sau phiên này)
+# Continue — bàn giao sống, 20/11/2026 ≈ 03:15 +07 (máy tắt sau phiên này)
 
 **Phiên sau chỉ cần đọc file này để tiếp tục.** Khi cần chi tiết: [CONTEXT](../../CONTEXT.md) (quyết định owner),
 [LESSONS](../../LESSONS.md), [bài học vận hành](lessons.md), [kaggle](kaggle.md), [compute](../research/compute.md).
@@ -65,6 +65,9 @@ khỏi `exclude.json` của MobiHet khi `exp-count-cnnbigru-a` xong.
 ### Mixed (account teammate, máy này không có credential)
 
 case1 V2X-HtFL s41/42/43 (`sonlebaodac`, `minhgia2026`, `nghuay`), case3 pFedES s41/43 (`nguynkhacao`, `nghuay`). Không đụng.
+
+Slot lúc tắt máy (cả hai repo): `chiencosieuhang`, `gaming3`, `bestyorn`, `lelovo`, `goilaaiudi`, `hoangdang20t` 2/2 slot;
+`abbafan` còn 1 slot (dành nối phiên BERT centralized / hop MobiHet). Quota reset 21/11 00:00 ⇒ account cũ có lại 30 h.
 
 ## 2. Việc dở khác
 
