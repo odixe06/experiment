@@ -13,6 +13,11 @@ def main():
         if path.exists():
             for r in json.loads(path.read_text()):
                 if r.get('audit')=='PASS':rows[(r['case'],r['method'],r['seed'])]=r
+    provisional={}
+    provisional_path=ROOT/'runs/mixed128-provisional-final.json'
+    if provisional_path.exists():
+        for r in json.loads(provisional_path.read_text()):
+            provisional[(r['case'],r['method'],r['seed'])]=r
     progress={(r['case'],r['method'],r['seed']):r for r in json.loads((ROOT/'runs/mixed128-progress.json').read_text())}
     latest=ROOT/'runs/mixed128-next-progress.json'
     if latest.exists():
@@ -66,10 +71,17 @@ def main():
     if final_v2x.exists():
         for r in json.loads(final_v2x.read_text()):
             repaired[(r['case'],r['method'],r['seed'])]=r
-    lines=['# Mixed-model — kết quả 3 case','',
-           f'Đã audit round 50: **{len(rows)}/45** cấu hình. Còn **{45-len(rows)}** cấu hình chưa có kết quả round 50 đã audit.','',
-           'Macro-F1 round 50; chỉ điền số đã kiểm tra confusion matrix: 5.343 xe, 9.347.679 dòng test. '+
-           'Giữ dữ liệu từng xe và mapping model cố định; seed 41/42/43. Ô trống = chưa có kết quả round 50 đã audit.',
+    final3=ROOT/'runs/mixed128-final3-launch.json'
+    if final3.exists():
+        for r in json.loads(final3.read_text()):
+            (repaired if r['method']=='v2x_htfl' else resumed)[(r['case'],r['method'],r['seed'])]=r
+    status_line=f'Đã audit round 50: **{len(rows)}/45** cấu hình.'
+    if provisional:
+        status_line+=f' Có **{len(provisional)}** kết quả complete50 tạm điền từ marker/history, chờ audit confusion matrix.'
+    metric_line=('Macro-F1 round 50; '+('số không có dấu `*` ' if provisional else 'mọi số ')+
+           'đã kiểm tra confusion matrix: 5.343 xe, 9.347.679 dòng test. '+
+           'Giữ dữ liệu từng xe và mapping model cố định; seed 41/42/43. Ô trống = chưa có kết quả round 50.')
+    lines=['# Mixed-model — kết quả 3 case','',status_line,'',metric_line,
            '', 'Case 1: 30% DAGSNet / 30% BERT / 40% CNN-BiGRU-Attention. '+
            'Case 2: 30% TabM / 30% SAE / 40% MLP. '+
            'Case 3: mỗi model DAGSNet/BERT/CNN-BiGRU-Attention/TabM/SAE 20%.',
@@ -81,12 +93,17 @@ def main():
             values=[]
             for seed in (41,42,43):
                 r=rows.get((case,method,seed))
-                values.append(f"{r['views'][view]['f1_macro']:.5f}" if r else '')
+                if r:
+                    values.append(f"{r['views'][view]['f1_macro']:.5f}")
+                elif (case,method,seed) in provisional:
+                    values.append(f"{provisional[(case,method,seed)]['metrics']['f1_macro']:.5f}*")
+                else:
+                    values.append('')
             lines.append('| '+' | '.join([method]+values)+' |')
         lines.append('')
     lines+=['## Chưa đủ 50 round','','| Case | Phương pháp | Seed | Round đã lưu | Trạng thái |','|---|---|---:|---:|---|']
     for key,r in sorted(progress.items()):
-        if key in rows:continue
+        if key in rows or key in provisional:continue
         state='Lỗi, cần xử lý' if r['status']=='ERROR' else 'Dừng ngân sách giờ; nối checkpoint'
         if key in resumed:
             run=resumed[key]
@@ -98,6 +115,8 @@ def main():
         if active and active['ref']==r['ref']:
             state=f"{r['status']} — {active['owner']}" if r['status']!='COMPLETE' else 'Dừng ngân sách giờ; chờ quota nối tiếp'
         lines.append('| '+' | '.join(map(str,[*key,r.get('last_round',''),state]))+' |')
+    if provisional:
+        lines+=['','`*` = complete round 50 và đủ 10 metric trong history, nhưng tải confusion matrix đang bị Kaggle timeout; chưa tính vào kết quả audit. CSV chỉ chứa kết quả đã audit.']
     lines+=['','CSV kèm đủ 10 metric, từng seed/model/view. Kết quả dở dang không dùng thay round 50.']
     (ROOT/'docs/research/mixed128-all-results.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
     with (ROOT/'docs/research/mixed128-all-results.csv').open('w',newline='',encoding='utf-8-sig') as f:
