@@ -11,7 +11,7 @@
 
 | Phương pháp | view | Seed 41 | Seed 42 | Seed 43 | mean ± SD |
 |---|---|---:|---:|---:|---:|
-| Centralized | global | thiếu | 0.94903 | thiếu | 0.94903 |
+| Centralized | global | thiếu | 0.94903 | 0.94937 | 0.94920 ± 0.00024 |
 | FedAvg | global | 0.88175ᵐ | 0.88271ᵐ | 0.86853ᵐ | 0.87766 ± 0.00792 |
 | FedProx | global | 0.85047ᵐ | 0.83744ᵐ | 0.83903ᵐ | 0.84231 ± 0.00711 |
 | AFPHA_EDL_CMSO | global | 0.83747ᵐ | 0.82222ᵐ | 0.82928ᵐ | 0.82966 ± 0.00763 |
@@ -26,10 +26,17 @@
 | FedTGP | client_proto | 0.73200ᵐ | 0.73011ᵐ | 0.73545ᵐ | 0.73252 ± 0.00271 |
 | PerFed-SKD | client | 0.80377ᵐ | 0.80460ᵐ | 0.80327ᵐ | 0.80388 ± 0.00067 |
 | FedProto | client_proto | 0.75186ᵐ | 0.74912ᵐ | 0.75506ᵐ | 0.75201 ± 0.00297 |
+| MobiHet L4 |  | thiếu | thiếu | thiếu |  |
 
 Không dấu = CM → 10 metric đã audit (đủ 10 cột trong [results.csv](results.csv)); ᶠ = CM cuối đã audit nhưng repo chỉ giữ macro-F1; ᵐ = marker cuối Kaggle, chưa audit CM độc lập. SD = sample SD (ddof = 1).
 
 ## Còn thiếu
 
 - Centralized seed 41: missing
-- Centralized seed 43: missing
+- MobiHet L4 seed 41: missing
+- MobiHet L4 seed 42: missing
+- MobiHet L4 seed 43: missing
+
+## Compute
+
+FLOP toàn bộ run (đếm op): [compute.csv](compute.csv); cách đo: [compute](../../docs/research/compute.md).

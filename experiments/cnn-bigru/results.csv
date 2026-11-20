@@ -42,3 +42,4 @@ perfedskd,43,client,50,,,,,,,,0.803270,,,marker_f1,docs/research/backbones/four-
 fedproto,41,client_proto,50,,,,,,,,0.751860,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
 fedproto,42,client_proto,50,,,,,,,,0.749120,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
 fedproto,43,client_proto,50,,,,,,,,0.755060,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
+centralized,43,global,50,0.950002,0.961453,0.950002,0.947076,0.942264,0.950002,0.950002,0.949368,0.950002,0.946124,audited,"kaggle goilaaiudi/exp-central-cnnbigru-s43/1 (in-kernel audit_central_backbones, 50 epoch)"

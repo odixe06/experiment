@@ -11,7 +11,7 @@
 
 | Phương pháp | view | Seed 41 | Seed 42 | Seed 43 | mean ± SD |
 |---|---|---:|---:|---:|---:|
-| Centralized | global | thiếu | 0.95930 | thiếu | 0.95930 |
+| Centralized | global | 0.95873 | 0.95930 | 0.95939 | 0.95914 ± 0.00036 |
 | FedAvg | global | 0.90579 | 0.90424 | 0.90431 | 0.90478 ± 0.00088 |
 | FedProx | global | 0.90241 | 0.89979 | 0.89921 | 0.90047 ± 0.00170 |
 | AFPHA_EDL_CMSO | global | 0.90064 | 0.89902 | 0.89838 | 0.89935 ± 0.00116 |
@@ -26,13 +26,9 @@
 | FedTGP | client_proto | 0.87194 | 0.87186 | 0.87189 | 0.87190 ± 0.00004 |
 | PerFed-SKD | client | 0.87175 | 0.87098 | 0.87125 | 0.87133 ± 0.00039 |
 | FedProto | client_proto | 0.86821 | 0.86980 | 0.86986 | 0.86929 ± 0.00093 |
+| MobiHet L4 | client | 0.90551 | 0.90546 | 0.90554 | 0.90550 ± 0.00004 |
 
 Không dấu = CM → 10 metric đã audit (đủ 10 cột trong [results.csv](results.csv)); ᶠ = CM cuối đã audit nhưng repo chỉ giữ macro-F1; ᵐ = marker cuối Kaggle, chưa audit CM độc lập. SD = sample SD (ddof = 1).
-
-## Còn thiếu
-
-- Centralized seed 41: missing
-- Centralized seed 43: missing
 
 ## Compute
 

@@ -1,0 +1,15 @@
+method,status,bootstrap_tops,train_tops_per_round,other_tops_per_round,eval_tops_per_round,rounds,total_tops,x_fedavg,real_rows,executed_rows_r2,useful_rows_r2,source
+fedavg,done,3.0452e-08,0.150842,4.6151e-06,0.00205225,50,7.54233,1.0000,1476064,5562368,1476064,experiment-wt/runs/compute-20261120/sae-fedavg.count.json
+fedprox,done,3.0452e-08,0.152827,4.6151e-06,0.00205225,50,7.64158,1.0132,1476064,5562368,1476064,experiment-wt/runs/compute-20261120/sae-fedprox.count.json
+afpha,done,3.0852e-08,0.152827,1.09742e-05,0.00205225,50,7.6419,1.0132,1476064,5562368,1476064,experiment-wt/runs/compute-20261120/sae-afpha.count.json
+fd_ids,done,3.0452e-08,0.208223,4.6151e-06,0.00205225,50,10.4114,1.3804,1476064,5562368,1476064,experiment-wt/runs/compute-20261120/sae-fd_ids.count.json
+apfed,done,2.79919e-06,0.289386,1.86573e-05,0.00462911,50,14.4702,1.9185,1476064,11124736,2952128,experiment-wt/runs/compute-20261120/sae-apfed.count.json
+lwfednids,done,4.4344e-08,0.0772477,1.86204e-06,0.00104899,50,3.86248,0.5121,1476064,5562368,1476064,experiment-wt/runs/compute-20261120/sae-lwfednids.count.json
+v2x_htfl,done,3.57135e-06,0.520814,0.0604092,0.0159255,50,29.0611,3.8531,1476064,5562368,1476064,experiment-wt/runs/compute-20261120/sae-v2x_htfl.count.json
+canperfl,done,1.53021e-06,0.150842,3.04662e-06,0.00462911,10,9.05078,1.2000,1476064,5562368,1476064,experiment-wt/runs/compute-20261120/sae-canperfl.count.json
+tinyproto,done,7.47751e-06,0.155181,0.0173732,0.00516693,50,8.62773,1.1439,1476064,5562368,1476064,experiment-wt/runs/compute-20261120/sae-tinyproto.count.json
+pfedes,done,1.55481e-06,0.549403,3.8372e-06,0.00257686,50,27.4703,3.6422,1476064,11124736,2952128,experiment-wt/runs/compute-20261120/sae-pfedes.count.json
+nilm,done,1.56067e-06,0.302835,1.22357e-05,0.00462911,50,15.1423,2.0076,1476064,11124736,2952128,experiment-wt/runs/compute-20261120/sae-nilm.count.json
+fedtgp,done,1.591e-06,0.155181,0.0225086,0.00516663,50,8.88449,1.1780,1476064,5562368,1476064,experiment-wt/runs/compute-20261120/sae-fedtgp.count.json
+perfedskd,done,1.56087e-06,0.20597,0.0172794,0.00257686,50,11.1625,1.4800,1476064,5562368,1476064,experiment-wt/runs/compute-20261120/sae-perfedskd.count.json
+fedproto,done,1.55456e-06,0.155846,4.34797e-06,0.00516663,50,7.79252,1.0332,1476064,5562368,1476064,experiment-wt/runs/compute-20261120/sae-fedproto.count.json

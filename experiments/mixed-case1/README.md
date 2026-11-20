@@ -27,6 +27,7 @@
 | FedTGP | client_proto | 0.83459 | 0.83296 | 0.83413 | 0.83389 ± 0.00084 |
 | PerFed-SKD |  | N/A | N/A | N/A |  |
 | FedProto | client_proto | 0.84434 | 0.84180 | 0.84298 | 0.84304 ± 0.00127 |
+| MobiHet L4 |  | thiếu | thiếu | thiếu |  |
 
 Không dấu = CM → 10 metric đã audit (đủ 10 cột trong [results.csv](results.csv)); ᶠ = CM cuối đã audit nhưng repo chỉ giữ macro-F1; ᵐ = marker cuối Kaggle, chưa audit CM độc lập. SD = sample SD (ddof = 1).
 
@@ -35,3 +36,10 @@ Không dấu = CM → 10 metric đã audit (đủ 10 cột trong [results.csv](r
 - V2X-HtFL seed 41: running
 - V2X-HtFL seed 42: running
 - V2X-HtFL seed 43: running
+- MobiHet L4 seed 41: missing
+- MobiHet L4 seed 42: missing
+- MobiHet L4 seed 43: missing
+
+## Compute
+
+FLOP toàn bộ run (đếm op): [compute.csv](compute.csv); cách đo: [compute](../../docs/research/compute.md).

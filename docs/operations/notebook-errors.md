@@ -73,6 +73,7 @@ Helper dataset verifier cũng đã sửa root-level manifest filename bị `spli
 
 | sự cố | bằng chứng | quy tắc cho build sau |
 |---|---|---|
+| L4 v1 `lelovo/tabm-l4-s42`, `hoangdang20t/{mlp,cnnbigru}-l4-s42` (20/11) | ERROR sau ~5 phút: `tests/test_aligned_fl.py` nạp `tests/test_sae_fl.py` nhưng builder mới chỉ nhúng test của backbone; local PASS vì chạy trong repo đầy đủ | Builder nhúng source: dựng lại cây **chỉ từ source nhúng trong notebook** rồi chạy mọi test + import method trước push |
 | CCR seed43 v1 cùng lỗi emptybytes như seed42, nằm ERROR ~1,5h không ai biết | lỗi sau167s; owner Console "vẫn chạy" là hàng đợi/UI cũ | Lỗi tất định từ code/serializer của một seed ⇒ kiểm ngay status mọi seed cùng build; chuẩn bị recovery song song. Platform RUNNING/Console không thay status API + log |
 | Hybrid-full chạy lại arm đã có ở full-validation | h_dml/h_dml_own bit-exact 8/8 round; local/Gaussian/G-own lệch ≤0,008; hybf3 100% trùng, owner dừng | Trước khi lập build/batch: so config (bỏ fingerprint source) với arm đã audit ở build khác; trùng thì tái dùng reference, chỉ chạy arm mới (Hybrid: h_hybrid, h_hybrid_own) |
 | Budget CCR 2,25h không đủ cho reference | rank arm ~1 phút/round, cr_dml ~4,75 phút/round ⇒ dml dừng r16 | Ước budget theo **loại arm chậm nhất** (DML/Hybrid = 2 model + eval), không trung bình; xếp arm chậm sớm hoặc session riêng |
