@@ -26,13 +26,13 @@ phát triển ban đầu ở `../mobihet`. Biến thể L4 đã tích hợp vào
   - Compute: **chỉ FLOP** (đếm op), bỏ GPU-time vì khác phần cứng; job không vừa GPU local thì đếm trên Kaggle.
 - Task < 1 h chạy local (RTX 3050 4 GB, env conda `nckh`); task dài chạy Kaggle (account ở `~/.kaggle/accounts`, quota live).
 
-## Trạng thái — 21/11/2026, 02:05 +07
+## Trạng thái — 21/11/2026, 02:30 +07
 
 - Repo phát triển tại `/home/odixe/project/experiment`, nhánh local `main`. FeatureBERT chạy từ `bert/`.
   Lịch sử nguồn và bổ sung artifact Codex đã nhập vào main. [Vị trí dữ liệu ORICO](docs/operations/backup.md)
-- MobiHet L4 đủ 3 seed R50 cho sáu backbone đơn và mixed case2/3. Case1 seed 42 đã audit R50. Seed 41 và 43 đang chạy. [Kết quả L4](docs/research/mobihet-l4.md)
+- MobiHet L4 đủ 3 seed R50 cho sáu backbone đơn và mixed case2/3. Case1 seed 42 đã audit R50. Seed 41/43 đang nối từ checkpoint R49/R47. [Kết quả L4](docs/research/mobihet-l4.md)
 - Mixed128 baseline đủ 45/45 cấu hình r50. Đã đối chiếu 10 metric mỗi dòng với confusion matrix từ bản sao Kaggle. [Kết quả](docs/research/mixed/mixed128-all-results.md)
-- Centralized BERT đã audit P2 tới E17/E16/E17 theo seed 41/42/43. Cả ba phiên P3 đang chạy. Các backbone centralized trong ma trận còn lại đủ ba seed.
+- Centralized BERT đã audit tới E17/E16/E19 theo seed 41/42/43. Hai seed đầu đang chạy P3. Seed 43 đang chạy P4 từ E19 với cache v4 NPY đã kiểm. Các backbone centralized trong ma trận còn lại đủ ba seed.
 - Chi phí đủ 9 kịch bản và 114/114 hàng chi tiết. Đã audit thêm 27 trace CNN-BiGRU và mixed case1/3. [Compute](docs/research/compute.md)
 - TabM/SAE/MLP/CNN-BiGRU FL baseline đủ 10 metric cuối từ confusion matrix cho cả 168 run. Lịch sử từng round và manifest thống nhất nằm tại `runs/round-metrics/` trên ORICO. [Bàn giao](docs/operations/continue.md#lịch-sử-từng-round-và-epoch) · [Bảng baseline](docs/research/backbones/four-backbone-seed-results-live.md)
 - Kernel, kiểm chứng, bản sao artifact và việc tiếp theo nằm ở [bàn giao sống](docs/operations/continue.md).

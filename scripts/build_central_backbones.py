@@ -8,6 +8,8 @@ from pathlib import Path
 
 import nbformat
 
+from kaggle_npy_cache import cache_input
+
 ROOT = Path(__file__).resolve().parents[1]
 MODELS = ("mlp","tabm","bert","sae")
 FILES = ["core/data.py","core/metrics.py","core/central_backbones.py",
@@ -21,13 +23,19 @@ def main():
     ap.add_argument("--model", choices=(*MODELS,"sae-ce","cnn-bigru-attention","probe"), required=True)
     ap.add_argument("--slug", required=True)
     ap.add_argument("--parent", help="attach owner/slug for same-model cross-session resume")
+    ap.add_argument("--parent-dataset", help="private dataset carrying the audited parent run tree")
     ap.add_argument("--parent-artifacts", type=Path, help="version-scoped pull with frozen source/config and last epoch checkpoint")
     ap.add_argument("--parent-epoch", type=int)
+    ap.add_argument("--npy-cache", type=Path, help="preflight receipt for a verified full v4 NPY cache")
     ap.add_argument("--seed", type=int, default=42, help="training seed passed to run_central_backbones.py")
     ap.add_argument("--max-hours", type=float, default=11.25, help="session budget; set below the account's live GPU quota")
     a = ap.parse_args()
     if a.parent and a.model == "probe":
         ap.error("probe has no parent")
+    if a.npy_cache and not a.parent:
+        ap.error("--npy-cache requires an audited parent")
+    if a.parent_dataset and not a.parent:
+        ap.error("--parent-dataset requires an audited parent")
     source = {f:(ROOT/f).read_text(encoding="utf-8") for f in [*FILES,"core/dagsnet.py","core/sae.py","core/tabm.py","core/cnn_bigru_attention.py"]}
     hashes = {f:hashlib.sha256(s.encode()).hexdigest() for f,s in source.items()}
     if a.parent:
@@ -38,7 +46,8 @@ def main():
         if not set(FILES) <= source.keys() or {f:hashlib.sha256(s.encode()).hexdigest() for f,s in source.items()} != hashes:
             raise ValueError("parent source snapshot/manifest mismatch")
         parent_dir = a.parent_artifacts/f"central-{a.model}"
-        parent_micro = json.loads((parent_dir/"config.json").read_text())["micro"]
+        parent_config = json.loads((parent_dir/"config.json").read_text())
+        parent_micro = parent_config["micro"]
         last_dir = f"epoch_{a.parent_epoch:03}"
         parent_hashes = {f:hashlib.sha256((parent_dir/f).read_bytes()).hexdigest()
                          for f in ("config.json",f"{last_dir}/weights.pt",f"{last_dir}/resume.pt",f"{last_dir}/metrics.json")}
@@ -76,7 +85,13 @@ for name,digest in {parent_hashes!r}.items():
 shutil.copytree(parent, out/parent.name, copy_function=shutil.copyfile, ignore=shutil.ignore_patterns(".epoch_*"))
 print("IMPORTED epoch {a.parent_epoch}; next epoch {a.parent_epoch+1}",flush=True)
 ''')
-    cells.append('''run(sys.executable,"scripts/prepare_central_cache.py","--cache",cache)
+    kernel_sources = [a.parent] if a.parent and not a.parent_dataset else []
+    if a.npy_cache:
+        cache_ref, cache = cache_input(a.npy_cache, parent_config["data"])
+        kernel_sources.append(cache_ref)
+        cells.append(cache)
+    else:
+        cells.append('''run(sys.executable,"scripts/prepare_central_cache.py","--cache",cache)
 ''')
     if a.model == "cnn-bigru-attention" and not a.parent:
         cells.append(f'''run("torchrun","--standalone","--nproc_per_node=2","scripts/run_central_backbones.py",
@@ -120,10 +135,13 @@ print("50 EPOCHS AUDITED" if complete else "PARTIAL; resume from latest committe
     nbformat.validate(nb)
     nbformat.write(nb,path)
     runtime = json.loads((ROOT/"knowledge/runtime.json").read_text())
+    dataset_sources = ["odixe0502/veremi-nextgen-v4-scaled-per-vehicle"]
+    if a.parent_dataset:
+        dataset_sources.append(a.parent_dataset)
     meta = dict(id=f"{a.owner}/{a.slug}",title=a.slug,code_file=path.name,language="python",kernel_type="notebook",
                 is_private=True,enable_gpu=True,enable_internet=False,machine_shape=runtime["machine_shape"],
-                docker_image=runtime["docker_image"],dataset_sources=["odixe0502/veremi-nextgen-v4-scaled-per-vehicle"],
-                kernel_sources=[a.parent] if a.parent else [], competition_sources=[],model_sources=[])
+                docker_image=runtime["docker_image"],dataset_sources=dataset_sources,
+                kernel_sources=kernel_sources, competition_sources=[],model_sources=[])
     (d/"kernel-metadata.json").write_text(json.dumps(meta,indent=2))
     print(path, hashlib.sha256(path.read_bytes()).hexdigest())
 

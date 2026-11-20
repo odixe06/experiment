@@ -16,6 +16,7 @@
 - 19/11 checkpoint transfer: multi-GB GET can fail midstream with ChunkedEncodingError. Resume notebook now uses existing fetch helper, .part + validated Content-Range and bounded retries; a server ignoring Range restarts the partial instead of appending. Tested both interrupted206 continuation and ignored-Range200 cases. Never print signed URLs on retry.
 
 - 19/11 quota admission: a fixed1.1h minimum left usable short quotas idle. Match each continuation to persisted t_train+t_eval with startup/save margins; check remaining time after restore/cache. Running does not prove progress, especially cold compile on sub-hour sessions. Do not change model/round horizon to fit quota.
+- 21/11. Dùng lại cache v4 NPY khi exact ref, manifest và mọi file qua SHA-256. Centralized resume so toàn bộ `config.data`, gồm hai metadata gốc ngoài 10 NPY. Listing API xác nhận quyền đọc output. Notebook kiểm mount thực và fingerprint trước train. Đo riêng thời gian mount, kiểm SHA và round đầu khi tính budget.
 
 - 17/11 mixed diagnostic: Kaggle nhận notebook nhưng bỏ `kernel_sources` trỏ tới
   production ERROR (cả ref thường và ref/version); SDK trả invalid_kernel_sources

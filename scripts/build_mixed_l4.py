@@ -1,6 +1,6 @@
 """Build one private 2xT4 notebook: MobiHet L4 on one mixed-model case (scripts/run_mixed_l4.py), one seed.
 
-Embedded source as scripts/build_l4_fl.py; data = the v4 npy cache built in the notebook; frozen assignment
+Embedded source as scripts/build_l4_fl.py; data from a verified or freshly built v4 NPY cache; frozen assignment
 experiments/mixed-model-v1. --stop-after 2 is the pilot: same run directory and cosine horizon (50), so a later session
 continues it from checkpoint r2 with --parent. A session > 1 copies the parent's run directory from /kaggle/input
 (checkpoint.json + checkpoint-rNNN + history) before run_mixed_l4.py resumes it; the config hash refuses any source change.
@@ -12,6 +12,8 @@ import json
 from pathlib import Path
 
 import nbformat
+
+from kaggle_npy_cache import cache_input
 
 ROOT = Path(__file__).resolve().parents[1]
 DATASET = "odixe0502/veremi-nextgen-v4-scaled-per-vehicle"
@@ -33,11 +35,14 @@ def main():
     sources = ap.add_mutually_exclusive_group()
     sources.add_argument("--parent-artifacts", type=Path, help="audited parent pull with frozen source and checkpoint receipt")
     sources.add_argument("--source-artifacts", type=Path, help="reuse a pilot source snapshot for a new seed")
+    ap.add_argument("--npy-cache", type=Path, help="preflight receipt for a verified full v4 NPY cache")
     ap.add_argument("--stop-after", type=int, default=50)
     ap.add_argument("--max-hours", type=float, default=11.5)
     args = ap.parse_args()
     if (args.session > 1) != bool(args.parent):
         ap.error("--parent is required exactly when --session > 1")
+    if args.npy_cache and not args.parent_artifacts:
+        ap.error("--npy-cache requires audited parent artifacts")
     run = f"mixl4-{args.case}-s{args.seed}"                         # run directory: the same in every session
     slug = run if args.session == 1 else f"{run}-h{args.session}"
     paths = sorted([*ROOT.glob("core/*.py"), *ROOT.glob("methods/*.py"), *ROOT.glob("knowledge/*.json"),
@@ -99,9 +104,15 @@ subprocess.run([sys.executable, "tests/test_mixed_l4.py", "--toy"], cwd="/kaggle
     cache = '''sys.path.insert(0, "/kaggle/temp/src")
 from core import data as D
 t = time.monotonic()
-D.build_npy(D.find_root(), "/kaggle/temp/v4npy", splits=("train", "test"))
+mounted_npy = Path("/kaggle/temp/v4npy")
+D.build_npy(D.find_root(), str(mounted_npy), splits=("train", "test"))
 print(f"NPY cache {time.monotonic()-t:.1f}s", flush=True)
-os.environ.update(V4_NPY="/kaggle/temp/v4npy", PYTHONUNBUFFERED="1", OMP_NUM_THREADS="2",
+'''
+    kernel_sources = [args.parent] if args.parent else []
+    if args.npy_cache:
+        cache_ref, cache = cache_input(args.npy_cache)
+        kernel_sources.append(cache_ref)
+    cache += '''os.environ.update(V4_NPY=str(mounted_npy), PYTHONUNBUFFERED="1", OMP_NUM_THREADS="2",
                   TORCHINDUCTOR_COMPILE_THREADS="2", PYTORCH_CUDA_ALLOC_CONF="expandable_segments:True",
                   WANDB_MODE="disabled", MOBIHET_RECOVERY_DIR="/kaggle/working/recovery")
 '''
@@ -159,7 +170,7 @@ print(json.dumps(status), flush=True)
     meta = {"id": f"{args.owner}/{slug}", "title": slug, "code_file": notebook.name, "language": "python",
             "kernel_type": "notebook", "is_private": True, "enable_gpu": True, "enable_internet": False,
             "machine_shape": "NvidiaTeslaT4", "docker_image": IMAGE, "dataset_sources": [DATASET],
-            "kernel_sources": [args.parent] if args.parent else [], "competition_sources": []}
+            "kernel_sources": kernel_sources, "competition_sources": []}
     (out / "kernel-metadata.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
     print(notebook)
     print("source", len(source), "sha256", hashlib.sha256(notebook.read_bytes()).hexdigest())
