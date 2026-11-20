@@ -65,7 +65,7 @@ def fetch(sess, url, out, timeout):
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('kernel'); ap.add_argument('-p', '--path', required=True)
-    ap.add_argument('-j', '--jobs', type=int, default=8); ap.add_argument('--pattern'); ap.add_argument('--passes', type=int, default=4)
+    ap.add_argument('-j', '--jobs', type=int, default=64); ap.add_argument('--pattern'); ap.add_argument('--passes', type=int, default=4)
     ap.add_argument('--retries', type=int, default=3); ap.add_argument('--timeout', type=float, default=120, help='read timeout per chunk, s')
     a = ap.parse_args(); dest = Path(a.path); dest.mkdir(parents=True, exist_ok=True); pat = re.compile(a.pattern) if a.pattern else None
     sess = requests.Session(); sess.mount('https://', requests.adapters.HTTPAdapter(pool_connections=a.jobs, pool_maxsize=a.jobs))
