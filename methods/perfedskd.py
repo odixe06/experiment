@@ -15,6 +15,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
+from core import cost_scope
 from core import evaluate, grouped, local
 from core.tabm import log_probs
 
@@ -60,23 +61,27 @@ class Method:
                     ce = local.ce_loss(z, ctx.y, ctx.mask)
                 if teacher is None:
                     return ce, nb
-                with torch.no_grad():
-                    zt, _ = grouped.TRAIN(teacher[0], teacher[1], ctx.x, cfg, train=False)
-                    lt = log_probs(zt, cfg.get("model") == "tabm")
-                kl = local.masked_mean((lt.exp() * (lt - log_probs(z, cfg.get("model") == "tabm"))).sum(-1), ctx.mask)
+                with cost_scope.scope("client.teacher_forward"):
+                    with torch.no_grad():
+                        zt, _ = grouped.TRAIN(teacher[0], teacher[1], ctx.x, cfg, train=False)
+                        lt = log_probs(zt, cfg.get("model") == "tabm")
+                with cost_scope.scope("client.distillation"):
+                    kl = local.masked_mean((lt.exp() * (lt - log_probs(z, cfg.get("model") == "tabm"))).sum(-1), ctx.mask)
                 return ce + self.lam * kl, nb
 
             st = local.local_epoch(lay, flat, bufs, env.train, idx, cfg, env.hp, lr, env.gen, loss_fn=loss_fn)
             self.bank_p[idx], self.bank_b[idx] = flat, bufs                  # ω_m, and V_m for the next round
             w = s.double() * env.n[idx][:, None].double()
-            acc_p += (w * flat.double()).sum(0)
-            acc_b += (w * bufs.double()).sum(0)
+            with cost_scope.scope("server.model_aggregation"):
+                acc_p += (w * flat.double()).sum(0)
+                acc_b += (w * bufs.double()).sum(0)
             loss[idx] = st["loss"]
         nsel = env.allreduce(sel.sum().double())
         wsel = env.allreduce((sel.double() * env.n.double()).sum())
         if nsel > 0:
-            self.g_p = (env.allreduce(acc_p) / wsel).float()
-            self.g_b = (env.allreduce(acc_b) / wsel).float()
+            with cost_scope.scope("server.model_aggregation"):
+                self.g_p = (env.allreduce(acc_p) / wsel).float()
+                self.g_b = (env.allreduce(acc_b) / wsel).float()
         cms = evaluate.own_cm(lay, self.bank_p, self.bank_b, env.train, cfg, torch.arange(env.K, device=env.dev),
                               max_rows=env.hp.get("eval_rows", 1 << 15))
         self.acc = torch.as_tensor(np.trace(cms, axis1=1, axis2=2) / cms.sum((1, 2)).clip(min=1), device=env.dev,

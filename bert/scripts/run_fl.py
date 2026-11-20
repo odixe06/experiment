@@ -34,6 +34,7 @@ def main():
     ap.add_argument("--method", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--rounds", type=int, default=PROTOCOL["rounds"])
+    ap.add_argument("--stop-after", type=int, default=0, help="stop at this round, preserving the cosine horizon")
     ap.add_argument("--subset", type=int, default=0, help="local probes: N random clients (seed 7)")
     ap.add_argument("--cache", default=os.environ.get("V4_CACHE", "cache"))
     ap.add_argument("--compile", action="store_true")
@@ -112,7 +113,7 @@ def main():
             torch.distributed.barrier()
 
     worst, saved, r_done, stopped = 0.0, start - 1, start - 1, False
-    for r in range(start, hp["rounds"] + 1):
+    for r in range(start, min(hp["rounds"], a.stop_after or hp["rounds"]) + 1):
         stop = torch.tensor(float(bool(a.max_hours) and time.monotonic() - T0 + 1.15 * worst > a.max_hours * 3600),
                             device=env.dev)
         if env.world > 1:
@@ -149,7 +150,7 @@ def main():
             snap = {k: v for k, v in M.state().items() if torch.is_tensor(v) and v.numel() < 10_000_000}
             os.makedirs(os.path.join(a.out, "models"), exist_ok=True)
             torch.save(snap, os.path.join(a.out, "models", f"r{r:03d}.pt"))
-        if (a.save_every and r % a.save_every == 0) or r == hp["rounds"]:
+        if (a.save_every and r % a.save_every == 0) or r == min(hp["rounds"], a.stop_after or hp["rounds"]):
             save(r); saved = r
         worst = max(worst, time.monotonic() - t)
     if stopped and r_done > saved:

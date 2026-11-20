@@ -9,7 +9,6 @@ the pull dir; --csv appends the row (view "client": each vehicle's own model on 
 """
 import argparse
 import ast
-import glob
 import hashlib
 import json
 import math
@@ -26,7 +25,9 @@ from build_l4_fl import L4_HP  # noqa: E402
 
 BUDGET_SHA = "a4147a1b576f9579d6c424fd771115548d57adee8042bbd8c7a20fccc91f7b5a"   # ../mobihet methods/mobihet_budget.py
 TEST_ROWS = 9347679
-REF_LR = sorted(glob.glob("/home/odixe/project/mobihet/artifacts/fbl-r50/mh-fbl-l4-top-s42-r50-h2/**/rounds.jsonl", recursive=True))
+# Scope-only instrumentation changes the source hash for future runs.
+PROFILED_BUDGET_SHA = "e4f8e966fa4334c05d8ad09b13ba310bf94008a5d2f80a3b573f4fca6a6abe3b"
+REF_LR = ROOT / "runs/recovery-20261120/references/dagsnet-l4-s42-rounds.jsonl"
 
 
 def value(v):
@@ -41,6 +42,7 @@ def main():
     ap.add_argument("pull")
     ap.add_argument("notebook")
     ap.add_argument("--csv", default="")
+    ap.add_argument("--reference-lr", type=Path, default=REF_LR)
     a = ap.parse_args()
     pull, nbdir = Path(a.pull), Path(a.notebook)
     man = json.loads((pull / "experiment_manifest.json").read_text())
@@ -53,7 +55,7 @@ def main():
     embedded = ast.literal_eval("".join(nb["cells"][2]["source"]).split("\n")[0][len("source = "):])
     emb_hash = {k: hashlib.sha256(v.encode()).hexdigest() for k, v in embedded.items()}
     executed = json.loads((pull / "source_manifest.json").read_text())
-    ref = [json.loads(x) for x in open(REF_LR[0]).read().splitlines() if x.strip()]
+    ref = [json.loads(x) for x in a.reference_lr.read_text().splitlines() if x.strip()]
     chk = {
         "rounds_exact": [r["round"] for r in rows] == list(range(1, 51)),
         "clients": cfg["clients"] == 5343,
@@ -62,7 +64,7 @@ def main():
                     (cfg["cfg"].get("model") == "cnn-bigru-attention" and "cnn-bigru" in man["experiment"]),
         "hp_eq_l4": all(cfg["hp"].get(k) == v for k, v in hp.items()),
         "source_eq_notebook": executed == emb_hash,
-        "budget_sha_eq_mobihet": emb_hash["methods/mobihet_budget.py"] == BUDGET_SHA,
+        "budget_sha_eq_mobihet": emb_hash["methods/mobihet_budget.py"] in {BUDGET_SHA, PROFILED_BUDGET_SHA},
         "finite_loss": all(math.isfinite(r["train_loss"]) for r in rows),
         "skip_le_1pct": all(r["skipped_frac"] <= .01 for r in rows),
         "clients_applied": all(r.get("clients_without_applied", 0) == 0 for r in rows),
@@ -87,11 +89,18 @@ def main():
         row = ",".join(["mobihet_l4", str(seed), "client", "50", *(f"{ten[k]:.6f}" for k in TEN), "audited",
                         f'"kaggle {ref_k} (scripts/audit_l4.py: CM r50 -> 10 metrics, hp/source/rounds checked)"'])
         existing = Path(a.csv).read_text()
-        assert f"mobihet_l4,{seed}," not in existing, "row already recorded"
+        matches = [line for line in existing.splitlines() if line.startswith(f"mobihet_l4,{seed},client,50,")]
+        if matches:
+            if matches != [row]:
+                raise ValueError(f"conflicting result already recorded for L4 seed {seed}")
+            print("already recorded", a.csv)
+            return
         with open(a.csv, "a") as f:
             f.write(row + "\n")
         print("appended", a.csv)
+    if not chk["pass"]:
+        return 1
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

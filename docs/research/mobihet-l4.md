@@ -63,8 +63,23 @@ GPU smoke local (RTX 3050, compiled, 2 round, seed 42; `runs/mixed-l4/dbg-case*`
 20 xe + `--test-set km2_frac=1.0` (20 xe không đủ dòng lớp 11 cho KM frac .25) PASS, skip 0 cả 5 backbone, không còn cảnh báo
 recompile sau sửa config thread-local. Sửa trong lúc smoke: gate compile `G = min(4, K_nhóm)` (đệm client rỗng ⇒ BN NaN).
 
-Compute FLOP (panel 200, `experiment-wt/docs/research/compute.md`): L4 DAGSNet .920×, BERT .917×, TabM 1,310×, SAE 2,445×,
+Compute lịch sử (panel 200, [compute](compute.md)): L4 DAGSNet .920×, BERT .917×, TabM 1,310×, SAE 2,445×,
 MLP 1,952× FedAvg; mixed case2 212,2 Tops (FedProto 96,4) — xem LESSONS 20/11 (chi phí synthetic cố định; panel 200 đệm mixed).
-CNN-BiGRU L4 + mixed case1/3: Kaggle `goilaaiudi/exp-count-l4-g4096`.
+CNN-BiGRU và mixed case1/3 đã pull trace từ `goilaaiudi/exp-count-l4-g4096/1`.
 
 Kernel, kết quả: [continue](../operations/continue.md); số ghi `experiments/<kịch bản>/results.csv` (method `mobihet_l4`).
+
+## Audit 20/11 sau phiên Claude
+
+| Run | Seed | Endpoint | Macro-F1 |
+|---|---:|---:|---:|
+| CNN-BiGRU | 41 | r50 | .863450 |
+| CNN-BiGRU | 42 | r50 | .863215 |
+| CNN-BiGRU | 43 | r50 | .861055 |
+| Mixed case1 | 42 | pilot r2 | .758572 |
+| Mixed case2 | 42 | pilot r2 | .676016 |
+| Mixed case3 | 42 | pilot r2 | .717384 |
+
+CNN-BiGRU đạt .86257 ± .00132 ở r50 (SD mẫu), từ CM đủ 9.347.679 dòng. Đủ 10 metric trong [results.csv](../../experiments/cnn-bigru/results.csv). Audit riêng kiểm source đóng băng, HP, seed, lịch LR và 50 round.
+
+Pilot dùng 5.343 xe với gán backbone cố định. Ba case có hai vòng liền mạch, compile gate qua từng backbone, skip dưới 1%, loss hữu hạn và checkpoint r2 đủ hai rank. F1 pilot là endpoint sớm. Bảng baseline mixed công bố ở r50. Phiên nối dùng source notebook đã chạy pilot và giữ cosine 50 round. [Bàn giao](../operations/continue.md)

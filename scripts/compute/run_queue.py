@@ -1,7 +1,6 @@
 """FLOP-count queue for the scenarios not measured in ../mobihet/runs/total-compute-20261119 (owner 20/11/2026): TabM, SAE, MLP,
 CNN-BiGRU-Attention x 14 methods, and the three mixed-model cases x 5 heterogeneous methods. Count mode only (owner 20/11: GPU
-time is hardware-specific, FLOPs are not). Panel 200, 2 rounds (round 2 = steady state), production group_rows (4096 single
-model, 8192 mixed), seed 42. Sequential, resumable (a JSON with status=done is skipped). A CUDA OOM is recorded as
+time is hardware-specific, FLOPs are not). Panel 200, 2 rounds (round 2 = steady state), group_rows 4096 (mixed BERT capped at 256), seed 42. Sequential, resumable (a JSON with status=done is skipped). A CUDA OOM is recorded as
 status=oom: run that job on a Kaggle T4 instead (same counter, same rows).
 
     V4_ROOT=... V4_CACHE=... python scripts/compute/run_queue.py [--only PREFIX[,PREFIX...]] [--out runs/compute-20261120]
@@ -23,6 +22,7 @@ BASE = ["fedavg", "fedprox", "afpha", "fd_ids", "lwfednids", "pfedes", "fedproto
         "perfedskd", "apfed", "v2x_htfl", "canperfl"]
 BACKBONES = {"tabm": "tabm", "sae": "sae", "mlp": "mlp", "cnn-bigru": "cnn-bigru-attention"}
 HETERO = ["fedproto", "fedtgp", "tinyproto", "v2x_htfl", "pfedes"]
+BERT_L4_SOURCE = ROOT / "runs/recovery-20261120/references/featurebert-l4/provenance/source"
 
 
 def jobs():
@@ -30,23 +30,26 @@ def jobs():
     G = ["group_rows=4096", "seed=42"]
     for scen, bb in BACKBONES.items():
         for m in BASE:
-            yield f"{scen}-{m}", ROOT, ["scripts/run_fl.py", "--backbone", bb, "--method", m, "--rounds", "2"], G
+            yield f"{scen}-{m}", ROOT, ["scripts/run_fl.py", "--backbone", bb, "--method", m, "--rounds", "50", "--stop-after", "2"], G
     for m in BASE:                                                    # re-count at 4096 (19/11: BERT at 2048, NILM fallback 2048)
-        yield f"bert-{m}", ROOT / "bert", ["scripts/run_fl.py", "--method", m, "--rounds", "2"], G
-        yield f"dags-base-{m}", ROOT, ["scripts/run_fl.py", "--method", m, "--rounds", "2"], G
+        yield f"bert-{m}", ROOT / "bert", ["scripts/run_fl.py", "--method", m, "--rounds", "50", "--stop-after", "2"], G
+        yield f"dags-base-{m}", ROOT, ["scripts/run_fl.py", "--method", m, "--rounds", "50", "--stop-after", "2"], G
     for case in ("case1", "case2", "case3"):
         for m in HETERO:
             yield f"mixed-{case}-{m}", ROOT, ["scripts/run_mixed_fl.py", "--case", case, "--method", m, "--seed", "42",
                                               "--smoke-clients", "200", "--stop-after", "2", "--group-rows", "4096"], []
-    # MobiHet L4 (20/11, code in worktree ../experiment-l4, run there: python scripts/compute/run_queue.py --only l4)
+    # MobiHet L4 uses the frozen settings from its notebook builder.
     # same panel, 2 rounds, seed 42; L4 hp from scripts/build_l4_fl.py (group_rows 4096 is part of it)
     l4 = []
     if (ROOT / "scripts/build_l4_fl.py").exists():
         sys.path.insert(0, str(ROOT))
         from scripts.build_l4_fl import L4_HP
         l4 = [*L4_HP, "seed=42"]
-    for scen, bb in BACKBONES.items():
-        yield f"{scen}-mobihet_l4", ROOT, ["scripts/run_fl.py", "--backbone", bb, "--method", "mobihet_l4", "--rounds", "2",
+    if (BERT_L4_SOURCE / "scripts/run_t3.py").is_file():
+        yield "bert-mobihet_l4", BERT_L4_SOURCE, ["scripts/run_t3.py", "--method", "mobihet_budget", "--rounds", "50",
+                                                "--until", "2", "--compile"], [*l4, "eval_rows=8192"]
+    for scen, bb in {"dags-base": "dagsnet", **BACKBONES}.items():
+        yield f"{scen}-mobihet_l4", ROOT, ["scripts/run_fl.py", "--backbone", bb, "--method", "mobihet_l4", "--rounds", "50", "--stop-after", "2",
                                            "--compile"], l4
     for case in ("case1", "case2", "case3"):
         yield f"mixed-{case}-mobihet_l4", ROOT, ["scripts/run_mixed_l4.py", "--case", case, "--seed", "42", "--smoke-clients",
@@ -66,7 +69,7 @@ def run(name, repo, base, sets):
         init = OUT / f"{name}-init"                                   # 10 fine-tune epochs start from a relabelled r1 state
         proxy = init / "fedavg-r50-proxy.pt"
         if not proxy.exists():
-            fed = [("fedavg" if a == "canperfl" else "1" if i and base[i - 1] == "--rounds" else a) for i, a in enumerate(base)]
+            fed = [("fedavg" if a == "canperfl" else "1" if i and base[i - 1] == "--stop-after" else a) for i, a in enumerate(base)]
             r = subprocess.run([PY, str(ROOT / "scripts/compute/total_compute.py"), "count", str(OUT / f"{name}-init.count.json"),
                                 "--repo", str(repo), "--panel", "200", "--", *cmd(fed, init, sets)], cwd=ROOT,
                                stdout=open(OUT / f"{name}-init.log", "w"), stderr=subprocess.STDOUT)
@@ -77,6 +80,7 @@ def run(name, repo, base, sets):
             s["round"] = 50
             torch.save(s, proxy)
         sets = [*sets, f'init="{proxy}"']
+        base = [("10" if i and base[i-1] == "--rounds" else a) for i, a in enumerate(base)]
     argv = cmd(base, out, sets)
     t = time.time()
     with open(log, "w") as f:

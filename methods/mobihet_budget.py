@@ -33,6 +33,7 @@ import math
 import torch
 import torch.nn.functional as F
 
+from core import cost_scope
 from core import grouped, local
 from methods.mobihet_lite import Method as Lite
 from methods.mobihet_wstudy import active
@@ -170,8 +171,9 @@ class Method(Lite):
         if self.Q is None:
             return ce + local.masked_mean(F.cross_entropy(z[:, b:].reshape(-1, 16), lab.reshape(-1),
                                                           reduction="none").view(G, a), keep), new_b
-        lq = self.Q.clamp_min(1e-6).log()
-        loss = ce + local.masked_mean((lq[lab].exp() * (lq[lab] - logp[:, b:])).sum(-1), keep)
-        if self.q_real:
-            loss = loss + local.masked_mean((lq[y].exp() * (lq[y] - logp[:, :b])).sum(-1), real)
+        with cost_scope.scope("client.distillation"):
+            lq = self.Q.clamp_min(1e-6).log()
+            loss = ce + local.masked_mean((lq[lab].exp() * (lq[lab] - logp[:, b:])).sum(-1), keep)
+            if self.q_real:
+                loss = loss + local.masked_mean((lq[y].exp() * (lq[y] - logp[:, :b])).sum(-1), real)
         return loss, new_b

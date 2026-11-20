@@ -43,17 +43,33 @@ def main():
     if a.embed:                                                       # core, methods, scripts, knowledge, assignment, scenarios
         files = sorted(p for p in [*ROOT.glob("core/*.py"), *ROOT.glob("methods/*.py"), *ROOT.glob("scripts/*.py"),
                                    *ROOT.glob("scripts/compute/*.py"), *ROOT.glob("knowledge/*.json"),
+                                   *ROOT.glob("bert/core/*.py"), *ROOT.glob("bert/methods/*.py"),
+                                   *ROOT.glob("bert/scripts/*.py"), *ROOT.glob("bert/knowledge/*.json"),
                                    *ROOT.glob("experiments/mixed-model-v1/*"), ROOT / "experiments/scenarios.json"])
+        if all(prefix.startswith("bert-") for prefix in jobs):
+            common = {"core/__init__.py", "core/data.py", "scripts/build_l4_fl.py", "scripts/run_local_guarded.py"}
+            files = [file for file in files if file.relative_to(ROOT).parts[0] in ("bert", "knowledge") or
+                     file.relative_to(ROOT).as_posix() in common or file.parent == ROOT / "scripts/compute"]
+        if any("bert-mobihet_l4".startswith(prefix) for prefix in jobs):
+            frozen = ROOT / "runs/recovery-20261120/references/featurebert-l4/provenance"
+            manifest = json.loads((frozen / "source_manifest.json").read_text())
+            for name, digest in manifest["files"].items():
+                path = frozen / "source" / name
+                if hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+                    raise ValueError(f"frozen native BERT L4 source mismatch: {name}")
+                files.append(path)
         blob = {f.relative_to(ROOT).as_posix(): f.read_bytes() for f in files}
-        packed = base64.b64encode(zlib.compress(json.dumps({k: base64.b64encode(v).decode() for k, v in blob.items()}).encode(), 9)).decode()
+        packed = base64.b64encode(zlib.compress(json.dumps({k: v.decode("utf-8") for k, v in blob.items()}, ensure_ascii=False).encode(), 9)).decode()
         src_sha = hashlib.sha256(json.dumps({k: hashlib.sha256(v).hexdigest() for k, v in blob.items()}, sort_keys=True).encode()).hexdigest()
         fetch = f'''import json as _j
 blob = _j.loads(zlib.decompress(base64.b64decode("{packed}")))
 for name, body in blob.items():
     (src / name).parent.mkdir(parents=True, exist_ok=True)
-    (src / name).write_bytes(base64.b64decode(body))
+    (src / name).write_bytes(body.encode("utf-8"))
 digest = {{k: hashlib.sha256((src / k).read_bytes()).hexdigest() for k in blob}}
 assert hashlib.sha256(_j.dumps(digest, sort_keys=True).encode()).hexdigest() == "{src_sha}", "embedded source mismatch"
+out.mkdir(parents=True, exist_ok=True)
+(out / "source-manifest.json").write_text(_j.dumps({{"sha256": "{src_sha}", "files": digest}}))
 print("embedded source", len(blob), "files, sha256", "{src_sha}"[:16])'''
         sha = "embedded:" + src_sha[:16]
     else:

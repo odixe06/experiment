@@ -15,7 +15,9 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-DIRS = [Path(p) for p in sys.argv[1:]] or [ROOT.parent / "mobihet/runs/total-compute-20261119", ROOT / "runs/compute-20261120"]
+LEGACY = ROOT / "runs/compute-legacy/20261119"
+LOCAL = ROOT / "runs/compute-20261120"
+DIRS = [Path(p).resolve() for p in sys.argv[1:]] or [LEGACY, LOCAL, *sorted(LOCAL.glob("kaggle/*/compute"))]
 SPEC = json.loads((ROOT / "experiments/scenarios.json").read_text())
 T = 1e12
 
@@ -52,7 +54,7 @@ for d in DIRS:
         if scen is None:
             continue
         c = json.loads(p.read_text())
-        r = dict(method=m, status=c.get("status"), source=str(p.relative_to(ROOT.parent)))
+        r = dict(method=m, status=c.get("status"), source=str(p.relative_to(ROOT) if p.is_relative_to(ROOT) else p))
         if c.get("status") == "done":
             ph = phases(c)
             r2 = c["rows"].get("r2.train", {})
@@ -62,7 +64,9 @@ for d in DIRS:
             r.update(bootstrap=ph.get("bootstrap", 0.0), train=ph.get("train", 0.0) * scale, other=ph.get("round_other", 0.0),
                      eval=ph.get("eval", 0.0), real_rows=c["rows"]["real_rows"], executed_rows=round((r2.get("executed") or 0) * scale),
                      useful_rows=int(r2.get("useful") or 0), train_scale=scale)
-        rows.setdefault(scen, {})[m] = r
+        previous = rows.setdefault(scen, {}).get(m)
+        if not previous or r["status"] == "done" or previous["status"] != "done":
+            rows[scen][m] = r
 
 summary = {}
 for scen, rs in rows.items():
@@ -82,7 +86,7 @@ for scen, rs in rows.items():
             "total_tops", "x_fedavg", "real_rows", "executed_rows_r2", "useful_rows_r2", "source"]
     out = ROOT / "experiments" / scen / "compute.csv"
     with open(out, "w", newline="", encoding="utf-8") as f:
-        w = csv.writer(f)
+        w = csv.writer(f, lineterminator="\n")
         w.writerow(cols)
         for m in SPEC["methods"]:
             r = rs.get(m)

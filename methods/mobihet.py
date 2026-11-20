@@ -56,6 +56,7 @@ import math
 import torch
 import torch.nn.functional as F
 
+from core import cost_scope
 from core import grouped, local
 from core.dagsnet import DAGSNet
 from core.optim import GroupAdamW
@@ -622,13 +623,15 @@ class Method:
                 info["bucket_nonempty_frac"] = float((self.bucket_tot > 0).float().mean())
                 info["bucket_target_variation"] = float(((self.bucket_Q - self.Q[:, None]) ** 2).sum(-1).mean())
             elif not self.no_kd:
-                csum = env.allreduce(csum)
-                local_tot = self.cnt.sum(0).double() if self.q_agg == "count" else self.cnt.double().sqrt().sum(0)
-                tot = env.allreduce(local_tot)
-                self.Q = (csum / tot[:, None].clamp_min(1)).float()
+                with cost_scope.scope("server.global_statistics"):
+                    csum = env.allreduce(csum)
+                    local_tot = self.cnt.sum(0).double() if self.q_agg == "count" else self.cnt.double().sqrt().sum(0)
+                    tot = env.allreduce(local_tot)
+                    self.Q = (csum / tot[:, None].clamp_min(1)).float()
                 if self.q_codec == "mean_fp16":
-                    self.Q = self.Q.half().float()
-                    self.Q = self.Q / self.Q.sum(-1, keepdim=True).clamp_min(1e-12)
+                    with cost_scope.scope("other.serialization"):
+                        self.Q = self.Q.half().float()
+                        self.Q = self.Q / self.Q.sum(-1, keepdim=True).clamp_min(1e-12)
                 if env.hp.get("teacher_diagnostics", False):
                     info["q_true_probability_mean"] = float(self.Q.diag().mean())
                     info["q_rejected_classes"] = (self.Q.argmax(-1) != torch.arange(16, device=dev)).nonzero().flatten().tolist()

@@ -17,6 +17,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+from core import cost_scope
 from core import grouped, local
 
 PATCH = 7                                                            # 77 = 11 positions x 7 channels
@@ -107,10 +108,12 @@ class Method:
             gb = torch.zeros(len(idx), 0, device=env.dev)
             for _ in range(self.e_fe):
                 local.local_epoch(self.glay, gflat, gb, env.train, idx, cfg, env.hp, lr, env.gen, loss_fn=step2)
-            gacc += (env.n[idx][:, None] * gflat).sum(0)
+            with cost_scope.scope("server.model_aggregation"):
+                gacc += (env.n[idx][:, None] * gflat).sum(0)
             loss[idx] = st["loss"]
         tot = env.allreduce(env.n.sum().clone())
-        self.g = env.allreduce(gacc) / tot
+        with cost_scope.scope("server.model_aggregation"):
+            self.g = env.allreduce(gacc) / tot
         return {"train_loss": float(env.allreduce((loss * env.n).sum()) / tot)}
 
     def evaluate(self):

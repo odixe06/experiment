@@ -12,6 +12,7 @@ comparison fixes FeatureBERT for every client); shared protocol optimizer (AdamW
 import torch
 import torch.nn.functional as F
 
+from core import cost_scope
 from core import grouped, local
 
 
@@ -33,11 +34,13 @@ class Method:
         cfg = self.env.cfg
         (Ps, Pr), (Bs, Br) = ctx.P, ctx.B
         zs, nbs = grouped.TRAIN(Ps, Bs, ctx.x, cfg, mask=ctx.mask, train=True)
-        zr, nbr = grouped.TRAIN(Pr, Br, ctx.x, cfg, mask=ctx.mask, train=True)
+        with cost_scope.scope("client.proxy"):
+            zr, nbr = grouped.TRAIN(Pr, Br, ctx.x, cfg, mask=ctx.mask, train=True)
         ls_, lr_ = local.ce_loss(zs, ctx.y, ctx.mask), local.ce_loss(zr, ctx.y, ctx.mask)
-        ps, pr = F.log_softmax(zs, -1), F.log_softmax(zr, -1)
-        kl_s = local.masked_mean((pr.detach().exp() * (pr.detach() - ps)).sum(-1), ctx.mask)      # personalised <- proxy
-        kl_r = local.masked_mean((ps.detach().exp() * (ps.detach() - pr)).sum(-1), ctx.mask)      # proxy <- personalised
+        with cost_scope.scope("client.distillation"):
+            ps, pr = F.log_softmax(zs, -1), F.log_softmax(zr, -1)
+            kl_s = local.masked_mean((pr.detach().exp() * (pr.detach() - ps)).sum(-1), ctx.mask)      # personalised <- proxy
+            kl_r = local.masked_mean((ps.detach().exp() * (ps.detach() - pr)).sum(-1), ctx.mask)      # proxy <- personalised
         w = 1 / (ls_ + lr_).detach().clamp_min(1e-6)
         return ls_ + lr_ + w * (kl_s + kl_r), [nbs, nbr]
 
@@ -54,12 +57,14 @@ class Method:
             st = local.local_epoch(lay, flat, bufs, env.train, idx, env.cfg, env.hp, lr, env.gen, loss_fn=self._loss, models=2)
             self.priv_p[idx], self.priv_b[idx] = flat[:, :P], bufs[:, :Bn]
             w = env.n[idx][:, None].double()
-            acc_p += (w * flat[:, P:].double()).sum(0)
-            acc_b += (w * bufs[:, Bn:].double()).sum(0)
+            with cost_scope.scope("server.model_aggregation"):
+                acc_p += (w * flat[:, P:].double()).sum(0)
+                acc_b += (w * bufs[:, Bn:].double()).sum(0)
             loss[idx] = st["loss"]
         K = env.allreduce(env.n.sum().double())
-        self.g_p = (env.allreduce(acc_p) / K).float()
-        self.g_b = (env.allreduce(acc_b) / K).float()
+        with cost_scope.scope("server.model_aggregation"):
+            self.g_p = (env.allreduce(acc_p) / K).float()
+            self.g_b = (env.allreduce(acc_b) / K).float()
         return {"train_loss": float(env.allreduce((loss * env.n).sum()) / env.allreduce(env.n.sum().clone()))}
 
     def evaluate(self):

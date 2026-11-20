@@ -17,6 +17,7 @@ import math
 
 import torch
 
+from core import cost_scope
 from core import evaluate, grouped, local
 
 
@@ -41,7 +42,8 @@ class Method:
         cnt.index_put_((client, env.train.Y.long()), torch.ones(len(env.train.Y), device=env.dev), accumulate=True)
         self.mu = hp.get("mu", 1.5e-4)
         totals = env.allreduce(cnt.sum(0))
-        holders = env.allreduce((cnt > 0).sum(0).float())
+        with cost_scope.scope("server.prototype_aggregation"):
+            holders = env.allreduce((cnt > 0).sum(0).float())
         self.aps_gain_max = float((self.mu * totals / holders.clamp_min(1)).max())
         p0, b0 = env.lay.init(hp["seed"], 1, env.dev)
         self.bank_p, self.bank_b = p0.repeat(env.K, 1), b0.repeat(env.K, 1)
@@ -70,10 +72,11 @@ class Method:
         self.local = (S / Cn.clamp_min(1)[..., None]).half()              # dense c̄^L_ij, inference only (Eq. 12)
         self.has = Cn > 0
         # client upload: n_ij·ĉ^L_ij = masked coordinates of the class sum (n_ij · mean); server: mean over holders
-        scaled = (S * self.mask[None]).sum(0)                          # Σ_i n_ij c̄_ij on the mask (zeros off it)
-        holders = (Cn > 0).sum(0).float()
-        scaled, holders = env.allreduce(scaled), env.allreduce(holders)
-        self.target = self.mu * scaled / holders.clamp_min(1)[:, None]
+        with cost_scope.scope("server.prototype_aggregation"):
+            scaled = (S * self.mask[None]).sum(0)                          # Σ_i n_ij c̄_ij on the mask (zeros off it)
+            holders = (Cn > 0).sum(0).float()
+            scaled, holders = env.allreduce(scaled), env.allreduce(holders)
+            self.target = self.mu * scaled / holders.clamp_min(1)[:, None]
         tot = env.allreduce(env.n.sum().clone())
         return {"train_loss": float(env.allreduce((loss * env.n).sum()) / tot), "aps_mu": self.mu,
                 "aps_gain_max": self.aps_gain_max, "proto_target_l2": float(self.target.norm()),

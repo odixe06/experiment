@@ -7,7 +7,7 @@ Bản đồ tài liệu: [docs/README.md](docs/README.md). Trạng thái từng 
 
 IDS V2X 16 lớp, 77 feature/bản tin, học cộng tác: **mỗi xe nhận là một client** (5.343 client, dataset v4
 `odixe0502/veremi-nextgen-v4-scaled-per-vehicle`). Repo gom **mọi lần chạy baseline** theo kịch bản; phương pháp đề xuất MobiHet
-phát triển ở repo `../mobihet` (không thuộc bảng kịch bản ở đây).
+phát triển ban đầu ở `../mobihet`. Biến thể L4 đã tích hợp vào bảng kịch bản và runner của repo này.
 
 ## Quyết định owner
 
@@ -26,15 +26,14 @@ phát triển ở repo `../mobihet` (không thuộc bảng kịch bản ở đâ
   - Compute: **chỉ FLOP** (đếm op), bỏ GPU-time vì khác phần cứng; job không vừa GPU local thì đếm trên Kaggle.
 - Task < 1 h chạy local (RTX 3050 4 GB, env conda `nckh`); task dài chạy Kaggle (account ở `~/.kaggle/accounts`, quota live).
 
-## Trạng thái — 20/11/2026 ≈ 09:35
+## Trạng thái — 20/11/2026
 
-- 20/11 trưa: mixed L4 đã code + test + smoke (worktree `experiment-l4`, chưa commit), pilot 2 round × 3 case seed 42 đang chạy Kaggle; compute L4 trong [compute](docs/research/compute.md); centralized CNN-BiGRU 3/3.
-- Thêm cột **MobiHet L4** (owner 20/11; code ở worktree `~/project/experiment-l4`, nhánh `feat/mobihet-l4`): DAGSNet/BERT 3/3 (dùng lại chain
-  MobiHet, PASS), TabM/SAE/MLP 3/3 (dưới FedAvg cùng backbone), CNN-BiGRU 3 kernel đang chạy; mixed chưa làm.
-- Centralized: DAGSNet/MLP/SAE-CE/TabM 3/3, CNN-BiGRU 2/3 (s41 chạy), BERT 0/3 (phiên 1 chạy, cần nối phiên).
-- Compute FLOP xong mọi kịch bản ([compute](docs/research/compute.md)). Orchestrator MobiHet bỏ (owner 20/11).
-- 10 metric đầy đủ: DAGSNet, BERT, mixed, centralized, L4. TabM/SAE/MLP/CNN-BiGRU FL baseline mới có macro-F1 — việc tay.
-- Job, lệnh, bước tiếp: [continue](docs/operations/continue.md).
+- Repo phát triển tại `/home/odixe/project/experiment`, nhánh local `main`. Lịch sử ba nguồn đã nhập vào main.
+- MobiHet L4 đủ 3 seed r50 cho sáu backbone đơn. Mixed L4 đủ ba pilot r2 seed 42, đã nối từ checkpoint r2.
+- Centralized BERT đủ ba checkpoint epoch 9, đã khởi động phiên nối. Các backbone centralized khác đủ ba seed.
+- Chi phí lịch sử đủ 9 kịch bản. Trace chi tiết công thức FLOP và ước tính phép toán đang bổ sung theo [compute](docs/research/compute.md).
+- TabM/SAE/MLP/CNN-BiGRU FL baseline vẫn cần 10 metrics hoặc confusion matrices từ teammate.
+- Kernel, kiểm chứng, bản sao artifact và việc tiếp theo nằm ở [bàn giao sống](docs/operations/continue.md).
 
 ## Cần biết → mở
 

@@ -10,6 +10,7 @@ prototype inference ŷ = argmin_j ‖f(x) − C̄^(j)‖ ("client_proto", Eq. 4)
 """
 import torch
 
+from core import cost_scope
 from core import evaluate, grouped, local
 
 
@@ -59,12 +60,14 @@ class Method:
             self.bank_p[idx], self.bank_b[idx] = flat, bufs
             G = len(idx)
             local_proto = acc[:G] / cnt[:G, :, None].clamp_min(1)          # C_k^(j), what client k uploads
-            psum += (local_proto * cnt[:G, :, None]).sum(0).double()
-            pcnt += cnt[:G].sum(0).double()
+            with cost_scope.scope("server.prototype_aggregation"):
+                psum += (local_proto * cnt[:G, :, None]).sum(0).double()
+                pcnt += cnt[:G].sum(0).double()
             loss[idx] = st["loss"]
-        psum, pcnt = env.allreduce(psum), env.allreduce(pcnt)
-        self.has = pcnt > 0
-        self.proto = (psum / pcnt.clamp_min(1)[:, None]).float()
+        with cost_scope.scope("server.prototype_aggregation"):
+            psum, pcnt = env.allreduce(psum), env.allreduce(pcnt)
+            self.has = pcnt > 0
+            self.proto = (psum / pcnt.clamp_min(1)[:, None]).float()
         tot = env.allreduce(env.n.sum().clone())
         return {"train_loss": float(env.allreduce((loss * env.n).sum()) / tot)}
 

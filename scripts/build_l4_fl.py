@@ -47,6 +47,7 @@ def main():
     ap.add_argument("--seed", required=True, type=int, choices=(41, 42, 43))
     ap.add_argument("--session", type=int, default=1)
     ap.add_argument("--parent", default="", help="<owner>/<slug> of the previous session (session > 1)")
+    ap.add_argument("--parent-artifacts", type=Path, help="optional frozen parent source pull")
     ap.add_argument("--max-hours", type=float, default=11.5)
     args = ap.parse_args()
     if (args.session > 1) != bool(args.parent):
@@ -58,7 +59,13 @@ def main():
     paths = sorted([*ROOT.glob("core/*.py"), *ROOT.glob("methods/*.py"), ROOT / model["test"], ROOT / "tests/test_sae_fl.py", ROOT / "tests/test_aligned_fl.py",
                     ROOT / "scripts/run_fl.py", ROOT / "scripts/run_p21_recovery.py", *ROOT.glob("knowledge/*.json")])
     source = {p.relative_to(ROOT).as_posix(): p.read_text(encoding="utf-8") for p in paths}
+    if args.parent_artifacts and not args.parent:
+        ap.error("--parent-artifacts requires --parent")
+    if args.parent_artifacts:
+        source = json.loads((args.parent_artifacts / "source_snapshot.json").read_text())
     hashes = {name: hashlib.sha256(value.encode()).hexdigest() for name, value in source.items()}
+    if args.parent_artifacts and hashes != json.loads((args.parent_artifacts / "source_manifest.json").read_text()):
+        ap.error("frozen parent source and manifest disagree")
     hp = L4_HP + [f"seed={args.seed}"]
     manifest = {"experiment": f"single-backbone-{args.backbone}-mobihet-l4", "method": "mobihet_l4", "seed": args.seed,
                 "backbone": model["display"], "parameters": model["parameters"], "rounds": 50, "session": args.session,
@@ -103,7 +110,8 @@ parent = {args.parent!r}
 if parent:
     found = [Path(p).parent for p in glob.glob("/kaggle/input/**/{run}/state.pt", recursive=True)]
     assert len(found) == 1, ("parent run directory", found)
-    shutil.copytree(found[0], run)
+    assert json.loads((found[0].parent / "source_manifest.json").read_text()) == hashes, "parent source changed"
+    shutil.copytree(found[0], run, copy_function=shutil.copyfile)
     st = torch.load(run / "state.pt", map_location="cpu", weights_only=True)
     rows = [json.loads(x) for x in (run / "rounds.jsonl").read_text().splitlines()]
     assert rows[-1]["round"] == st["round"] and [x["round"] for x in rows] == list(range(1, st["round"] + 1)), "parent rows"
@@ -128,7 +136,7 @@ print(json.dumps(status), flush=True)
     nb = nbformat.v4.new_notebook()
     nb.cells = [nbformat.v4.new_markdown_cell(
         f"# {slug}\n\n{model['display']} single-backbone FL · MobiHet L4 · seed {args.seed} · session {args.session} · "
-        "all 5,343 clients."), code(setup), code(embed), code(cache), code(resume), code(train)]
+        "all 5,343 clients."), code(setup), code(embed), code(resume), code(cache), code(train)]
     nb.metadata.update({"kernelspec": {"name": "python3", "display_name": "Python 3", "language": "python"},
                         "language_info": {"name": "python", "version": "3.12"},
                         "kaggle": {"accelerator": "nvidiaTeslaT4", "isGpuEnabled": True,

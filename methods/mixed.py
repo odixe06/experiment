@@ -13,6 +13,7 @@ import numpy as np
 import torch
 from torch.nn import functional as F
 
+from core import cost_scope
 from core import evaluate, grouped, local
 from core.flat import Layout
 from core.mixed_backbones import MixedAdapter, config
@@ -180,7 +181,8 @@ class Method:
                     proxy_st = local.local_epoch(self.glay, gflat, gb, env.train, data_ids, group.cfg,
                                                  group.hp, lr, env.gen, loss_fn=step2)
                     step_counts += torch.stack((proxy_st["applied"].double().sum(), proxy_st["skipped"].double().sum()))
-                    gacc += (group.n[idx][:, None]*gflat).sum(0)
+                    with cost_scope.scope("server.model_aggregation"):
+                        gacc += (group.n[idx][:, None]*gflat).sum(0)
             if self.name not in ("pfedes", "fedproto") and len(group.indices):
                 sums, counts = evaluate.class_sums(group.lay, group.p, group.b, env.train, group.cfg,
                     group.indices, max_rows=256 if group.name == "bert" else env.hp.get("eval_rows", 32768),
@@ -197,20 +199,23 @@ class Method:
             group_health[f"timing/{group.name}/rank_seconds"] = time.monotonic()-t_group
         info = {"train_loss": float(env.allreduce(loss_sum)/self.n_total), **group_health}
         if self.name == "pfedes":
-            self.proxy = env.allreduce(gacc)/self.n_total
+            with cost_scope.scope("server.model_aggregation"):
+                self.proxy = env.allreduce(gacc)/self.n_total
         elif self.name == "fedproto":
             # Preserve existing accumulation precision/order within each rank.
-            totals, counts = env.allreduce(S.double().sum(0)), env.allreduce(Cn.double().sum(0))
-            self.has = counts > 0
-            self.proto = (totals/counts.clamp_min(1)[:, None]).float()
+            with cost_scope.scope("server.prototype_aggregation"):
+                totals, counts = env.allreduce(S.double().sum(0)), env.allreduce(Cn.double().sum(0))
+                self.has = counts > 0
+                self.proto = (totals/counts.clamp_min(1)[:, None]).float()
         elif self.name == "tinyproto":
             self.local_proto = (S/Cn.clamp_min(1)[..., None]).half()
             self.local_has = Cn > 0
-            scaled = env.allreduce((S*self.mask[None]).sum(0))
-            holders = env.allreduce((Cn > 0).sum(0).float())
-            totals = env.allreduce(Cn.sum(0))
-            self.proto = self.mu*scaled/holders.clamp_min(1)[:, None]
-            info.update(aps_mu=self.mu, aps_gain_max=float((self.mu*totals/holders.clamp_min(1)).max()))
+            with cost_scope.scope("server.prototype_aggregation"):
+                scaled = env.allreduce((S*self.mask[None]).sum(0))
+                holders = env.allreduce((Cn > 0).sum(0).float())
+                totals = env.allreduce(Cn.sum(0))
+                self.proto = self.mu*scaled/holders.clamp_min(1)[:, None]
+                info.update(aps_mu=self.mu, aps_gain_max=float((self.mu*totals/holders.clamp_min(1)).max()))
         else:
             P, y = fedtgp.Method._gather(self, S, Cn)
             if self.name == "fedtgp":

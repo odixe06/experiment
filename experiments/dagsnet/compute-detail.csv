@@ -1,0 +1,17 @@
+method,status,baseline,rank,ratio,total_tflop_estimate,total_formula_tflops,total_arithmetic_estimate_tops,total_element_work_tops,client_formula_tflops,client_arithmetic_estimate_tops,server_formula_tflops,server_arithmetic_estimate_tops,other_formula_tflops,other_arithmetic_estimate_tops,unattributed_formula_tflops,unattributed_arithmetic_estimate_tops,bootstrap_formula_tflops,bootstrap_arithmetic_estimate_tops,preprocessing_formula_tflops,preprocessing_arithmetic_estimate_tops,evaluation_formula_tflops,evaluation_arithmetic_estimate_tops,legacy_total_tops,legacy_rank,legacy_ratio,legacy_minus_detailed_tops,detailed_with_element_work_tops,big_o,source,trace_sha256,legacy_source
+centralized,centralized-probe-projected,fedavg,1,,990.01777,983.09568,6.9220917,1.8245915,0,0,983.09568,6.9220917,0,0,0,0,0,0,0,0,46.99588,0.40501933,,,,,991.84236,O(50*(N*F+U*P)),runs/compute-detailed-v3/centralized-dagsnet-cpu-math/central.count.json,9ec8d61c0e1965244b84ee43bf089de98e168dafe30f642a591e929ff6c77ccc,
+fedavg,legacy-only,fedavg,,,,,,,,,,,,,,,,,,,,,3944.84,3,1,,,O(E*F+U*P+K*P),,,runs/compute-legacy/20261119/dags-base-fedavg.count.json
+fedprox,legacy-only,fedavg,,,,,,,,,,,,,,,,,,,,,3950,5,1.00131,,,O(E*F+U*P+K*P),,,runs/compute-legacy/20261119/dags-base-fedprox.count.json
+afpha,legacy-only,fedavg,,,,,,,,,,,,,,,,,,,,,3950.02,6,1.00131,,,O(E*(F+C)+U*P+K*P),,,runs/compute-legacy/20261119/dags-base-afpha.count.json
+fd_ids,legacy-only,fedavg,,,,,,,,,,,,,,,,,,,,,5225.88,11,1.32474,,,O(E*(F_train+F_teacher+C)+U*P+K*P),,,runs/compute-legacy/20261119/dags-base-fd_ids.count.json
+apfed,legacy-only,fedavg,,,,,,,,,,,,,,,,,,,,,7860.36,13,1.99257,,,O((E_private+E_shared)*F+(U_private+U_shared)*P+K*P),,,runs/compute-legacy/20261119/dags-base-apfed.count.json
+lwfednids,legacy-only,fedavg,,,,,,,,,,,,,,,,,,,,,421.36,1,0.106813,,,O(E*F_pruned+U*P_pruned+K*P_pruned),,,runs/compute-legacy/20261119/dags-base-lwfednids.count.json
+v2x_htfl,legacy-only,fedavg,,,,,,,,,,,,,,,,,,,,,4493.97,9,1.1392,,,O(E*(F+D*H+H*C)+U*P+S*K*C*(H^2+H*C)),,,runs/compute-legacy/20261119/dags-base-v2x_htfl.count.json
+canperfl,legacy-only,fedavg,,,,,,,,,,,,,,,,,,,,,4733.81,10,1.2,,,O(50*(E*F+U*P+K*P)+10*(E*F+U*P)),,,runs/compute-legacy/20261119/dags-base-canperfl.count.json
+tinyproto,legacy-only,fedavg,,,,,,,,,,,,,,,,,,,,,4348.78,7,1.1024,,,O((E+N)*F+U*P+E*H+K*C*H),,,runs/compute-legacy/20261119/dags-base-tinyproto.count.json
+pfedes,legacy-only,fedavg,,,,,,,,,,,,,,,,,,,,,10408.4,15,2.63848,,,O((E_private+E_proxy)*(F+F_proxy)+U_private*P+U_proxy*P_proxy+K*P_proxy),,,runs/compute-legacy/20261119/dags-base-pfedes.count.json
+nilm,legacy-only,fedavg,,,,,,,,,,,,,,,,,,,,,7889.78,14,2.00003,,,O(E*(F_private+F_proxy+C)+U*(P_private+P_proxy)+K*P_proxy),,,runs/compute-20261120/kaggle/exp-count-mixed-g4096/compute/dags-base-nilm.count.json
+fedtgp,legacy-only,fedavg,,,,,,,,,,,,,,,,,,,,,4350.28,8,1.10278,,,O((E+N)*F+U*P+E*H+S*K*C^2*H),,,runs/compute-legacy/20261119/dags-base-fedtgp.count.json
+perfedskd,legacy-only,fedavg,,,,,,,,,,,,,,,,,,,,,5623.86,12,1.42562,,,O(E*(F_train+F_teacher+C)+U*P+K_sel*P),,,runs/compute-legacy/20261119/dags-base-perfedskd.count.json
+fedproto,legacy-only,fedavg,,,,,,,,,,,,,,,,,,,,,3945.71,4,1.00022,,,O(E*(F+H)+U*P+K*C*H),,,runs/compute-legacy/20261119/dags-base-fedproto.count.json
+mobihet_l4,legacy-only,fedavg,,,,,,,,,,,,,,,,,,,,,3628.69,2,0.919857,,,O(E_mix*F+U*P+E_synth*(D^2+D*log B+C)+K*C^2),,,runs/compute-legacy/20261119/dags-mh-l4.count.json

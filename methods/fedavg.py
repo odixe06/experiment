@@ -5,6 +5,7 @@ Server broadcasts θ^t; every client runs E local epochs from θ^t (here E = 1, 
 """
 import torch
 
+from core import cost_scope
 from core import local
 
 
@@ -43,12 +44,14 @@ class Method:
                 after(idx, flat, bufs, st)
             steps += torch.stack([st["applied"].sum(), st["skipped"].sum()])
             w = env.n[idx][:, None]
-            acc_p += (w * flat).sum(0)
-            acc_b += (w * bufs).sum(0)
+            with cost_scope.scope("server.model_aggregation"):
+                acc_p += (w * flat).sum(0)
+                acc_b += (w * bufs).sum(0)
             loss[idx] = st["loss"]
         tot = env.allreduce(env.n.sum().clone())
-        self.p = env.allreduce(acc_p) / tot
-        self.b = env.allreduce(acc_b) / tot
+        with cost_scope.scope("server.model_aggregation"):
+            self.p = env.allreduce(acc_p) / tot
+            self.b = env.allreduce(acc_b) / tot
         steps = env.allreduce(steps)
         return {"train_loss": float((env.allreduce((loss * env.n).sum()) / tot).item()),
                 "skipped_frac": float(steps[1] / steps.sum().clamp_min(1))}

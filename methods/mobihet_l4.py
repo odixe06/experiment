@@ -14,6 +14,7 @@ dagsnet / mlp / cnn-bigru-attention: unchanged mobihet_budget (DAGSNet path bit-
 import torch
 import torch.nn.functional as F
 
+from core import cost_scope
 from core import grouped, local
 from methods.mobihet_budget import Method as Budget
 from methods.mobihet_wstudy import active
@@ -71,10 +72,11 @@ class Method(Budget):
             synth = F.cross_entropy(z[:, b:].reshape(-1, 16), lab[:, :, None].expand(G, a, K).reshape(-1),
                                     reduction="none").view(G, a, K).mean(2)
             return ce + local.masked_mean(synth, keep), new_b
-        lq = self.Q.clamp_min(1e-6).log()[lab][:, :, None]               # (G, a, 1, 16)
-        synth = (lq.exp() * (lq - logp[:, b:])).sum(-1).mean(2)
-        loss = ce + local.masked_mean(synth, keep)
-        if self.q_real:
-            lr_ = self.Q.clamp_min(1e-6).log()[y][:, :, None]
-            loss = loss + local.masked_mean((lr_.exp() * (lr_ - logp[:, :b])).sum(-1).mean(2), real)
+        with cost_scope.scope("client.distillation"):
+            lq = self.Q.clamp_min(1e-6).log()[lab][:, :, None]               # (G, a, 1, 16)
+            synth = (lq.exp() * (lq - logp[:, b:])).sum(-1).mean(2)
+            loss = ce + local.masked_mean(synth, keep)
+            if self.q_real:
+                lr_ = self.Q.clamp_min(1e-6).log()[y][:, :, None]
+                loss = loss + local.masked_mean((lr_.exp() * (lr_ - logp[:, :b])).sum(-1).mean(2), real)
         return loss, new_b

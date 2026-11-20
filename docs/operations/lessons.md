@@ -1,5 +1,7 @@
 # Bài học vận hành MobiHet
 
+- 20/11 Kaggle API có ConnectTimeout xen kẽ. Đường `www.kaggle.com/api/v1` theo từng tiến trình xác minh được roster, pull và push. Khi SaveKernel trả 400 với notebook nhúng 1,19 MB, kiểm slug chưa tồn tại rồi đóng gói source BERT gọn hơn. Phản hồi lần hai lên v1.
+
 - 20/11 `pkill -f "<chuỗi>"` trong cùng lệnh bash có chuỗi đó ⇒ khớp chính shell, giết lệnh (exit 144), phần sau không chạy.
   Dùng `pgrep -f` + kill PID cụ thể, hoặc lệnh riêng. `kaggle kernels list -m` có thể trả rỗng dù account có kernel RUNNING:
   kiểm slot bằng status từng ref đã biết; push trả "Maximum batch GPU session count of 2" là bằng chứng chắc nhất.

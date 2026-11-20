@@ -19,6 +19,7 @@ recompile_limit) is copied in. The one rank-only collective of L4 is its round-1
 over GPU ranks); GroupL4 marks it.
 """
 import contextlib
+from contextvars import copy_context
 import sys
 import threading
 import warnings
@@ -95,7 +96,7 @@ class Lockstep:
                         self.error = exc
                     self.cv.notify_all()
 
-        threads = [threading.Thread(target=body, args=(i,), daemon=True) for i in range(n)]
+        threads = [threading.Thread(target=copy_context().run, args=(body, i), daemon=True) for i in range(n)]
         self.active = True
         try:
             for t in threads:

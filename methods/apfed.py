@@ -16,6 +16,7 @@ Evaluation: W̃_i after local training on client i's test ("client", headline); 
 """
 import torch
 
+from core import cost_scope
 from core import local
 from methods import fedavg
 
@@ -82,12 +83,14 @@ class Method(fedavg.Method):
             self.bank_p[idx], self.bank_b[idx] = flat, bufs
             steps += torch.stack([st["applied"].sum(), st["skipped"].sum()])
             w = env.n[idx][:, None]
-            acc_p += (w * flat).sum(0)
-            acc_b += (w * bufs).sum(0)
+            with cost_scope.scope("server.model_aggregation"):
+                acc_p += (w * flat).sum(0)
+                acc_b += (w * bufs).sum(0)
             loss[idx] = st["loss"]
         tot = env.allreduce(env.n.sum().clone())
-        self.p = env.allreduce(acc_p) / tot
-        self.b = env.allreduce(acc_b) / tot
+        with cost_scope.scope("server.model_aggregation"):
+            self.p = env.allreduce(acc_p) / tot
+            self.b = env.allreduce(acc_b) / tot
         self.fused = True
         steps = env.allreduce(steps)
         return {"train_loss": float(env.allreduce((loss * env.n).sum()) / tot),

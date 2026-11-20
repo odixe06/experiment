@@ -8,6 +8,7 @@ Evaluated model: the global model. The paper's DNN backbone is replaced by DAGSN
 import torch
 import torch.nn.functional as F
 
+from core import cost_scope
 from core import grouped, local
 from core.tabm import log_probs
 from methods import fedavg
@@ -24,22 +25,25 @@ class Method(fedavg.Method):
 
     def _loss(self, ctx):
         cfg = self.env.cfg
-        if self._teacher is None or self._teacher[0] != ctx.Gfix:
-            lay = self.env.lay
-            self._teacher = (ctx.Gfix, lay.params(self.p[None].repeat(ctx.Gfix, 1)), lay.bufs(self.b[None].repeat(ctx.Gfix, 1)))
-        _, Pt, Bt = self._teacher
+        with cost_scope.scope("client.teacher_preparation"):
+            if self._teacher is None or self._teacher[0] != ctx.Gfix:
+                lay = self.env.lay
+                self._teacher = (ctx.Gfix, lay.params(self.p[None].repeat(ctx.Gfix, 1)), lay.bufs(self.b[None].repeat(ctx.Gfix, 1)))
+            _, Pt, Bt = self._teacher
         if cfg.get("model") == "sae":
             z, h, nb = grouped.TRAIN(ctx.P, ctx.B, ctx.x, cfg, mask=ctx.mask, train=True, hidden=True)
             supervised = local.supervised_loss(ctx.P, ctx.x, z, h, ctx.y, ctx.mask, cfg)
         else:
             z, nb = grouped.TRAIN(ctx.P, ctx.B, ctx.x, cfg, mask=ctx.mask, train=True)
             supervised = local.ce_loss(z, ctx.y, ctx.mask)
-        with torch.no_grad():
-            zt, _ = grouped.TRAIN(Pt, Bt, ctx.x, cfg, train=False)
-        T = self.T
-        ensemble = cfg.get("model") == "tabm"
-        lt, ls = log_probs(zt / T, ensemble), log_probs(z / T, ensemble)
-        soft = local.masked_mean((lt.exp() * (lt - ls)).sum(-1), ctx.mask) * T * T
+        with cost_scope.scope("client.teacher_forward"):
+            with torch.no_grad():
+                zt, _ = grouped.TRAIN(Pt, Bt, ctx.x, cfg, train=False)
+        with cost_scope.scope("client.distillation"):
+            T = self.T
+            ensemble = cfg.get("model") == "tabm"
+            lt, ls = log_probs(zt / T, ensemble), log_probs(z / T, ensemble)
+            soft = local.masked_mean((lt.exp() * (lt - ls)).sum(-1), ctx.mask) * T * T
         return self.lam * supervised + (1 - self.lam) * soft, nb
 
     def _grad(self, ctx, grad):

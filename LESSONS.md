@@ -1,5 +1,9 @@
 # LESSONS — bài học kỹ thuật (dữ liệu, model, train, đánh giá, code)
 
+- 20/11 profiling CUDA. Luồng autograd native nhận `TorchDispatchMode` nhưng không nhận nhãn pha Python `ContextVar`. Bridge nhãn qua lệnh backward đã sửa thiếu 111,78 GFLOPs backward của MLP FedAvg r2. Lockstep sao chép context riêng khi sinh luồng. Regression GEMM CPU/CUDA kiểm cả dòng padding và phép cộng trace chi tiết.
+- 20/11 mixed L4 regression. `row_score[-1]` là ô sink khi ghi nhiều padding index trùng. Bỏ đúng ô sink khi so trạng thái, kiểm tất cả điểm dòng thật, tensor còn lại và CM.
+- 20/11 centralized profiling. `inference_mode` có thể đưa linear, Conv1d và GRU lên dispatcher ở dạng op tổng hợp. Dùng `no_grad` và SDPA math trong probe FLOP để quan sát phép nhân ma trận ở eval.
+
 - 20/11 mixed L4 (Lockstep thread mỗi nhóm backbone): torch 2.13 giữ **config dynamo/inductor theo thread** — main đặt
   `recompile_limit=64`, thread mới đọc 8 ⇒ case3 (5 backbone) chạm giới hạn và dynamo **lặng lẽ chạy eager** frame đó.
   `TorchDispatchMode` (op counter compute) cũng thread-local ⇒ op trong thread **đếm 0**. Sửa: chép config khác mặc định +

@@ -11,6 +11,7 @@ import math
 import torch
 import torch.nn.functional as F
 
+from core import cost_scope
 from core import grouped
 from core.optim import GroupAdamW
 
@@ -117,21 +118,24 @@ def local_epoch(lay, flat, bufs, data, clients, cfg, hp, lr, gen, loss_fn=None, 
         active = mask.any(1)
         ctx.P, ctx.B, ctx.flat = (leaves[0], bviews[0], flat_p) if one else (leaves, bviews, flat_p)
         ctx.x, ctx.y, ctx.mask, ctx.rows, ctx.step = X[rows], Y[rows].long(), mask, rows, s
-        with torch.autocast("cuda", dtype=torch.float16, enabled=hp.get("amp", True) and X.is_cuda):
-            if loss_fn is None:
-                logits, newB = grouped.TRAIN(ctx.P, ctx.B, ctx.x, cfg, mask=mask, train=True)
-                loss = ce_loss(logits, ctx.y, mask)
-            else:
-                loss, newB = loss_fn(ctx)
-        loss = torch.where(active, loss, torch.zeros_like(loss))
-        (loss.sum() * scale).backward()
-        grad = torch.cat([lv[k].grad.reshape(ctx.Gfix, -1) for lv in leaves for k, _ in lay.p], dim=1) / scale
-        for lv in leaves:
-            for v in lv.values():
-                v.grad = None
-        if grad_fn is not None:
-            grad_fn(ctx, grad)
-        _, ok = opt.step(flat_p, grad, lr, active)
+        with cost_scope.scope("forward"):
+            with torch.autocast("cuda", dtype=torch.float16, enabled=hp.get("amp", True) and X.is_cuda):
+                if loss_fn is None:
+                    logits, newB = grouped.TRAIN(ctx.P, ctx.B, ctx.x, cfg, mask=mask, train=True)
+                    loss = ce_loss(logits, ctx.y, mask)
+                else:
+                    loss, newB = loss_fn(ctx)
+            loss = torch.where(active, loss, torch.zeros_like(loss))
+        with cost_scope.scope("backward"):
+            (loss.sum() * scale).backward()
+            grad = torch.cat([lv[k].grad.reshape(ctx.Gfix, -1) for lv in leaves for k, _ in lay.p], dim=1) / scale
+            for lv in leaves:
+                for v in lv.values():
+                    v.grad = None
+            if grad_fn is not None:
+                grad_fn(ctx, grad)
+        with cost_scope.scope("optimizer"):
+            _, ok = opt.step(flat_p, grad, lr, active)
         if Bn:
             nb = lay.flat_bufs(newB) if one else torch.cat([lay.flat_bufs(d) for d in newB], dim=1)
             bufs_p.copy_(torch.where(ok[:, None], nb, bufs_p))

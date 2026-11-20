@@ -31,7 +31,7 @@ from methods import mobihet_mixed_l4 as mx
 from methods.mobihet_l4 import Method as L4
 from scripts.run_mixed_l4 import l4_hp
 
-CACHE = "/home/odixe/project/mobihet/cache"
+CACHE = os.environ.get("V4_CACHE", "/home/odixe/project/mobihet/cache")
 PANEL = np.sort(np.random.default_rng(7).choice(5343, 20, replace=False)).tolist()
 CASE2 = ["tabm", "sae", "mlp"]
 
@@ -39,6 +39,9 @@ CASE2 = ["tabm", "sae", "mlp"]
 def exact(a, b, path=""):
     if torch.is_tensor(a):
         assert torch.is_tensor(b) and a.dtype == b.dtype and a.shape == b.shape, path
+        if path.endswith("/row_score"):
+            # Masked/padded writes share the final sink slot. Real gathers use only train-row indices.
+            a, b = a[:-1], b[:-1]
         assert torch.equal(a, b) or (a.is_floating_point() and torch.equal(a.isnan(), b.isnan())
                                      and torch.equal(a.nan_to_num(), b.nan_to_num())), path
     elif isinstance(a, dict):

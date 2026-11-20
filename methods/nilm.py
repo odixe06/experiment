@@ -12,6 +12,7 @@ comparison fixes DAGSNet for every client); shared protocol optimizer (AdamW, bo
 import torch
 import torch.nn.functional as F
 
+from core import cost_scope
 from core import grouped, local
 from core.tabm import log_probs
 
@@ -35,17 +36,20 @@ class Method:
         (Ps, Pr), (Bs, Br) = ctx.P, ctx.B
         if cfg.get("model") == "sae":
             zs, hs, nbs = grouped.TRAIN(Ps, Bs, ctx.x, cfg, mask=ctx.mask, train=True, hidden=True)
-            zr, hr, nbr = grouped.TRAIN(Pr, Br, ctx.x, cfg, mask=ctx.mask, train=True, hidden=True)
+            with cost_scope.scope("client.proxy"):
+                zr, hr, nbr = grouped.TRAIN(Pr, Br, ctx.x, cfg, mask=ctx.mask, train=True, hidden=True)
             ls_ = local.supervised_loss(Ps, ctx.x, zs, hs, ctx.y, ctx.mask, cfg)
             lr_ = local.supervised_loss(Pr, ctx.x, zr, hr, ctx.y, ctx.mask, cfg)
         else:
             zs, nbs = grouped.TRAIN(Ps, Bs, ctx.x, cfg, mask=ctx.mask, train=True)
-            zr, nbr = grouped.TRAIN(Pr, Br, ctx.x, cfg, mask=ctx.mask, train=True)
+            with cost_scope.scope("client.proxy"):
+                zr, nbr = grouped.TRAIN(Pr, Br, ctx.x, cfg, mask=ctx.mask, train=True)
             ls_, lr_ = local.ce_loss(zs, ctx.y, ctx.mask), local.ce_loss(zr, ctx.y, ctx.mask)
         ensemble = cfg.get("model") == "tabm"
-        ps, pr = log_probs(zs, ensemble), log_probs(zr, ensemble)
-        kl_s = local.masked_mean((pr.detach().exp() * (pr.detach() - ps)).sum(-1), ctx.mask)      # personalised <- proxy
-        kl_r = local.masked_mean((ps.detach().exp() * (ps.detach() - pr)).sum(-1), ctx.mask)      # proxy <- personalised
+        with cost_scope.scope("client.distillation"):
+            ps, pr = log_probs(zs, ensemble), log_probs(zr, ensemble)
+            kl_s = local.masked_mean((pr.detach().exp() * (pr.detach() - ps)).sum(-1), ctx.mask)      # personalised <- proxy
+            kl_r = local.masked_mean((ps.detach().exp() * (ps.detach() - pr)).sum(-1), ctx.mask)      # proxy <- personalised
         w = 1 / (ls_ + lr_).detach().clamp_min(1e-6)
         return ls_ + lr_ + w * (kl_s + kl_r), [nbs, nbr]
 
@@ -62,12 +66,14 @@ class Method:
             st = local.local_epoch(lay, flat, bufs, env.train, idx, env.cfg, env.hp, lr, env.gen, loss_fn=self._loss, models=2)
             self.priv_p[idx], self.priv_b[idx] = flat[:, :P], bufs[:, :Bn]
             w = env.n[idx][:, None].double()
-            acc_p += (w * flat[:, P:].double()).sum(0)
-            acc_b += (w * bufs[:, Bn:].double()).sum(0)
+            with cost_scope.scope("server.model_aggregation"):
+                acc_p += (w * flat[:, P:].double()).sum(0)
+                acc_b += (w * bufs[:, Bn:].double()).sum(0)
             loss[idx] = st["loss"]
         K = env.allreduce(env.n.sum().double())
-        self.g_p = (env.allreduce(acc_p) / K).float()
-        self.g_b = (env.allreduce(acc_b) / K).float()
+        with cost_scope.scope("server.model_aggregation"):
+            self.g_p = (env.allreduce(acc_p) / K).float()
+            self.g_b = (env.allreduce(acc_b) / K).float()
         return {"train_loss": float(env.allreduce((loss * env.n).sum()) / env.allreduce(env.n.sum().clone()))}
 
     def evaluate(self):

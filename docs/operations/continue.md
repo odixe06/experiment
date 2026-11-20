@@ -1,143 +1,65 @@
-# Continue — bàn giao sống, 20/11/2026 ≈ 09:35 +07 (máy tắt sau phiên này)
+# Bàn giao — experiment, 20/11/2026 chiều (+07)
 
-**Phiên sau chỉ cần đọc file này.** Chi tiết khi cần: [CONTEXT](../../CONTEXT.md), [LESSONS](../../LESSONS.md), [bài học vận hành](lessons.md),
-[kaggle](kaggle.md), [sổ lỗi kernel](notebook-errors.md), [compute](../research/compute.md),
-L4: `~/project/experiment-l4/docs/research/mobihet-l4.md`. MobiHet có bàn giao riêng (`~/project/mobihet/docs/operations/continue.md`),
-**nhưng không còn kernel MobiHet nào chạy** — mọi việc sống nằm ở file này. Bản bàn giao 06:40 trước khi viết lại: `git diff` file này.
+Dùng `/home/odixe/project/experiment` trên nhánh `main`. Trạng thái phiên Claude e360305d đã nhập vào lịch sử Git và artifacts bên dưới. Protocol, seed 41/42/43, HP L4 và cosine 50 giữ nguyên. [Context](../../CONTEXT.md) · [Protocol](../research/protocol.md) · [Compute](../research/compute.md)
 
-## 0. Bối cảnh tối thiểu
+## Kaggle recovery
 
-- Repo `odixe06/experiment`: `experiments/<kịch bản>/` (`dagsnet`, `bert`, `tabm`, `sae`, `mlp`, `cnn-bigru`, `mixed-case1..3`), mỗi kịch bản
-  14 PP + centralized + **MobiHet L4 (cột mới, method `mobihet_l4`, view `client`)** × seed 41/42/43. Số ghi `results.csv`, README sinh bằng
-  `python scripts/experiments_status.py` (`--check` liệt kê ô thiếu). Env: `/home/odixe/Tools/miniconda3/envs/nckh/bin` (luôn `export PATH=…:$PATH`;
-  conda.sh hỏng nên `kaggle` không có trong PATH mặc định).
-- **Hai worktree, cả hai chưa merge `main`:**
-  - `~/project/experiment-wt`, nhánh `fix/central-ddp-compute` — **số liệu sống** (results/compute/README/docs).
-    `runs/{central,compute,count-kaggle,regress}-20261120/`, `notebooks/` gitignored.
-  - `~/project/experiment-l4`, nhánh `feat/mobihet-l4` — **code L4** (`methods/mobihet*.py`, `scripts/build_l4_fl.py`, `scripts/audit_l4.py`,
-    `core/local.py`, `scripts/run_fl.py`); `runs/l4-20261120/` (ledger, pull, `collect.sh`), `runs/l4-port/` (smoke), `notebooks/*-l4-s*`
-    gitignored. `experiments/scenarios.json` hai nhánh giống hệt. Số L4 ghi vào `results.csv` của **experiment-wt**.
-- Kaggle: luôn `.agents/skills/kaggle-training-notebook/scripts/kaggle_as.py <owner> -- …`; quota `kaggle_quota.py --out <json>`;
-  pull `kaggle_as.py <owner> -- python pull_kernel_output.py <owner>/<slug> -p <dir> -j 64 [--pattern REGEX]` (thiếu `kaggle_as` ⇒ 403).
-  Log kernel đang chạy: `timeout 40 kaggle_as.py <o> -- kaggle kernels logs -f <o>/<slug> > file` (ghi ra file, không pipe).
-  **Quota reset 21/11 00:00 +07.** Mỗi account 2 slot GPU. `dinhan25`: owner cho dùng (20/11); kiểm slot trước (dự án RCD dùng chung).
-- Owner 20/11: **bỏ orchestrator MobiHet** (`~/project/mobihet/runs/fbl-r50/orchestrate.py` — không chạy lại); Claude tự điều phối,
-  tận dụng mọi slot/quota còn trống.
-- Commit: **không** `Co-Authored-By`. Không push GitHub `main` khi owner chưa bảo.
+Kiểm quota và danh sách 30/30 account. Cửa sổ kernel gần handoff có 62 ref, gồm 49 COMPLETE, 10 RUNNING và 3 ERROR thuộc project vrepair. Kiểm slot theo kernel gần nhất của từng account. Owner-scoped receipts nằm trong `runs/recovery-20261120/{quota,current-status,priority,ledger}.json`. Không đổi global login.
 
-## 1-new. Phiên 20/11 trưa (Claude, tắt máy ≈ 11:50) — ĐỌC TRƯỚC
+| Exact ref | Trạng thái và audit |
+|---|---|
+| `gaming3/cnnbigru-l4-s41/1` | COMPLETE, PASS r50, macro-F1 .863450 |
+| `hoangdang20t/cnnbigru-l4-s42/2` | COMPLETE, PASS r50, .863215 |
+| `bestyorn/cnnbigru-l4-s43/1` | COMPLETE, PASS r50, .861055 |
+| `abbafan/exp-central-bert-s41/2` | COMPLETE phiên 1, checkpoint epoch 9 PASS, .945419 |
+| `chiencosieuhang/exp-central-bert-s42/1` | COMPLETE phiên 1, checkpoint epoch 9 PASS, .947931 |
+| `bestyorn/exp-central-bert-s43/2` | COMPLETE phiên 1, checkpoint epoch 9 PASS, .946489 |
+| `lelovo/mixl4-case1-s42/1` | COMPLETE pilot r2 PASS, .758572 |
+| `gaming3/mixl4-case2-s42/1` | COMPLETE pilot r2 PASS, .676016 |
+| `lelovo/mixl4-case3-s42/1` | COMPLETE pilot r2 PASS, .717384 |
+| `goilaaiudi/exp-count-l4-g4096/1` | COMPLETE, 3 JSON done và 3 log khớp các job CNN-BiGRU L4, mixed L4 case1/case3 |
+| `gaming3/exp-central-cnnbigru-s41/1` | COMPLETE, epoch 50 đã audit và ghi ở phiên Claude |
 
-### Kernel Kaggle sống (11:45)
+CNN-BiGRU L4 đủ 10 metric r50 trong [results.csv](../../experiments/cnn-bigru/results.csv). Kiểm seed, L4 HP, source, LR, đủ 5.343 xe, CM 9.347.679 dòng, hội tụ hữu hạn và checkpoint cả hai rank. Audit chạy lại idempotent. Pilot mixed dùng CM và health riêng từng backbone, scope theo đúng assignment. Chỉ endpoint 50 vào bảng kết quả. [Chi tiết L4](../research/mobihet-l4.md)
 
-| kernel | việc | khi COMPLETE |
-|---|---|---|
-| `gaming3/cnnbigru-l4-s41`, `hoangdang20t/cnnbigru-l4-s42` (v2), `bestyorn/cnnbigru-l4-s43` | L4 CNN-BiGRU r50 (RUNNING 11:15), dự kiến xong ≈ 13:00–13:30 | mục 1 cũ (`collect.sh`, giờ `-j 64`) |
-| `abbafan/exp-central-bert-s41`, `bestyorn/exp-central-bert-s43`, `chiencosieuhang/exp-central-bert-s42` | centralized BERT phiên 1 (s41 status timeout, s42/s43 RUNNING; log 10:15 ở epoch 8) | mục 1a: nối phiên |
-| `goilaaiudi/exp-count-l4-g4096` v1 | đếm FLOP L4 CNN-BiGRU + mixed L4 case1/case3 (source nhúng) | pull `compute/` (pattern `^compute/.*\.count\.(json|log)$`, `-j 64`) vào `runs/compute-20261120/kaggle/exp-count-l4-g4096/`, rồi lệnh report ở [compute](../research/compute.md) |
-| `lelovo/mixl4-case1-s42`, `lelovo/mixl4-case3-s42`, `gaming3/mixl4-case2-s42` (v1) | **pilot mixed L4** 2 round full 5.343 xe, `--stop-after 2`, max-hours 6 | audit pilot (dưới) |
+Ba BERT epoch 9 dùng source đóng băng riêng theo seed. Seed 41 và 43 có cùng hash, seed 42 có sửa thứ tự barrier/config DDP và bật find_unused cho SAE-CE. Cấu hình BERT dùng cùng HP. Đã kiểm full state của model, optimizer và AMP scaler, fingerprint data, history liên tục, prediction → CM và 10 metric. Byte nguồn, log, prediction và checkpoint ở `runs/central-20261120/pulls/` và ledger recovery.
 
-Slot: goilaaiudi, hoangdang20t, abbafan, chiencosieuhang đầy (push báo max 2 session lúc 11:40); lelovo 2/2, gaming3 2/2.
-Quota 11:20: lelovo 23,1 h, abbafan 20,7, gaming3 19,5, hoangdang20t 19,1, chiencosieuhang 17,6, goilaaiudi 6,1, bestyorn 8,5, dinhan25 7,4 (RCD dùng, tránh).
+| Exact ref nối phiên | Trạng thái quan sát gần 14:20 |
+|---|---|
+| `abbafan/exp-central-bert-s41-p2/1` | RUNNING, import epoch 9, train epoch 10 đã qua step 3.000 / 9.122 |
+| `chiencosieuhang/exp-central-bert-s42-p2/1` | RUNNING, import epoch 9, train epoch 10 đã qua step 2.750 / 9.122 |
+| `bestyorn/exp-central-bert-s43-p2/1` | RUNNING, import epoch 9, train epoch 10 đã qua step 3.250 / 9.122 |
+| `lelovo/mixl4-case1-s42-h2/1` | RUNNING, mount đúng parent và import r2 |
+| `gaming3/mixl4-case2-s42-h2/1` | RUNNING, restore r2, log qua r17, skip 0% |
+| `lelovo/mixl4-case3-s42-h2/1` | RUNNING, mount đúng parent, rank log restore r2 |
+| `goilaaiudi/exp-flops-v3-bert/1` | RUNNING, trace mới FeatureBERT và native BERT L4 |
+| `goilaaiudi/exp-flops-v3-dagsnet/1` | RUNNING, trace mới DAGSNet |
+| `hoangdang20t/exp-flops-v3-cnnbigru/1` | RUNNING, trace mới CNN-BiGRU |
+| `hoangdang20t/exp-flops-v3-mixed13/1` | RUNNING, trace mới mixed case1/3 |
 
-### Audit pilot mixed L4 (khi COMPLETE)
+H2 mixed kiểm receipt và kích thước hai rank từ mount trước khi decode dataset. Tiếp theo, đọc `RUN_STATUS.json` và checkpoint đã commit trước khi dựng H3. BERT tiếp tục bằng `scripts/build_central_backbones.py --parent-artifacts ... --parent-epoch E`. Mixed dùng `scripts/build_mixed_l4.py --parent-artifacts ...`, giữ source, assignment và checkpoint hash của parent. Không chạy orchestrator MobiHet cũ.
 
-Pull nhẹ: `kaggle_as.py <o> -- python pull_kernel_output.py <o>/mixl4-caseN-s42 -p ~/project/experiment-l4/runs/mixed-l4/pilot/mixl4-caseN-s42 -j 64 --pattern '^(?!.*state_rank).*'`.
-Gate PASS (mọi điều): log có `lockstep PASS` (cell test), compile gate True mọi backbone, **không có** `recompile_limit` trong log,
-`rounds.jsonl` r1–r2, `health/<backbone>/skipped_frac` < .01 + applied > 0 + finite mọi backbone, loss hữu hạn, CM `cms_r002.npz`
-tổng = 9.347.679 dòng, 5.343 id; `RUN_STATUS.json` last_round 2; checkpoint-r002 có state_rank0/1. So F1 r2 từng backbone với hợp lý
-(r50 baseline mixed: case1 FedProto .842/TinyProto .848; case2 V2X .838; case3 V2X .841 — [mixed128](../research/mixed/mixed128-all-results.md)).
-PASS ⇒ (owner cho phép full sau gate) phiên 2 nối từ r2: `cd ~/project/experiment-l4 && python scripts/build_mixed_l4.py --owner NEW --case caseN
---seed 42 --session 2 --parent <o>/mixl4-caseN-s42 --max-hours H` (không sửa code giữa hai phiên: config hash gồm source core/methods/runner),
-rồi seed 41/43 cùng cách (`--stop-after 50`). Ghi `t_train` r2 để ước số phiên (BERT case1/3 chậm nhất).
+## Git và dữ liệu
 
-### Đã làm phiên này
+- Local main chứa merge `ee262da` (central + kết quả), `dd1dba1` (L4), `2bf7680` (remote Codex, gồm backup Git LFS). Source, docs, tests và thay đổi chưa commit đều nằm trong lịch sử main. GitHub main chưa push.
+- Kiểm checksum 71 mapping artifact. `runs/worktree-consolidation/copy-map.json` cho biết vị trí gốc và đích. Collisions, biến thể cache và Git admin được giữ trong cùng thư mục. Notebooks, run cũ, checkpoints, metadata và DVC pointers đã có bản canonical.
+- Checkout `experiment-l4` và checkout detached dùng hồi quy đã gỡ. `experiment-wt` còn được phiên Codex và shell mở làm cwd. Dùng main cho mọi công việc mới. Gỡ sau khi các tiến trình đó chuyển sang main hoặc đóng. Commit `a8cb691` đã nằm trong main.
+- Backup LFS remote 903.962.154 byte có bản local `runs/worktree-consolidation/runs-no-checkpoints-2026-11-20.zip`, SHA-256 `9e5d8eb4573785f418ff710c38de0af0b238cdac0bcfd31714a871ee42f2c012`.
+- Kết quả khoa học chạy trước đây lưu trong `experiments/`. Evidence DAGSNet/BERT L4, source native và lịch LR nằm trong `runs/recovery-20261120/references/`. Đã pull đủ cả hai rank cho sáu run CNN-BiGRU và mixed pilot. Kiểm kích thước object, đọc metadata state weights-only, đối chiếu round/config và ghi SHA-256 trong `runs/recovered-checkpoints-20261120/`.
 
-- Centralized CNN-BiGRU s41 COMPLETE + audit PASS ⇒ `experiments/cnn-bigru/results.csv` (centralized 3/3, f1 .94951).
-- **Mixed L4** (worktree `experiment-l4`, **chưa commit**): `methods/mobihet_mixed_l4.py` (Lockstep rank ảo, GroupEnv, GroupL4),
-  `methods/mobihet_l4.py` (nhánh TabM nhận `backbone`), `scripts/run_mixed_l4.py`, `scripts/build_mixed_l4.py`, `tests/test_mixed_l4.py`,
-  thiết kế + bảng kiểm: `experiment-l4/docs/research/mobihet-l4.md` mục Mixed. Model = MixedAdapter (owner 20/11).
-  CPU test ALL PASS (lần 1); lần 2 sau sửa thread-config đang chạy khi tắt máy (`runs/mixed-l4/test-cpu2.log`) ⇒ chạy lại:
-  `cd ~/project/experiment-l4 && CUDA_VISIBLE_DEVICES= V4_ROOT=/home/odixe/project/mobihet/knowledge python tests/test_mixed_l4.py`.
-  GPU smoke case1/2/3 PASS (local, panel nhỏ).
-- **Compute** (owner hỏi): bảng [compute](../research/compute.md) có hàng MobiHet L4: DAGSNet .920, BERT .917, TabM 1,310, SAE 2,445,
-  MLP 1,952 × FedAvg; mixed case2 212,2 Tops (FedProto 96,4). Lý do: LESSONS 20/11. Harness/queue sửa ở cả hai worktree
-  (`scripts/compute/{total_compute,run_queue,report,build_kaggle_count}.py`). Chưa báo owner phân tích đầy đủ.
-- Skill pull: `-j 64` mặc định, policy luồng tối đa (7 bản sao skill, `collect.sh`).
+Kiểm local trên main. 47 pytest PASS trong suite portable và 38 PASS trong FeatureBERT. Dense recurrent PASS 28 method smokes và 26 kiểm tra resume CM. Mixed L4 PASS lockstep, pooling, assignment, identity và resume r1→r2. Compute regression CPU/CUDA PASS 3 kiểm tra. Test NPY đối chiếu parquet cần dataset v4 local đầy đủ; máy hiện có cache panel và DVC pointers.
 
-### Bước tiếp (thứ tự)
+## Compute
 
-1. Status: 3 L4 CNN-BiGRU → collect; 3 central BERT → nối phiên (mục 1a); count job → report; 3 pilot → audit như trên.
-2. Chạy lại CPU test mixed L4. Báo owner: kết quả pilot + compute (model nhỏ L4 đắt hơn FedAvg; mixed panel-200 đệm gấp đôi —
-   hỏi có cần đo mixed ở panel lớn hơn cho cả FedProto và L4 không).
-3. Pilot PASS ⇒ full 50 round 3 case × 3 seed (9 run; nối pilot s42 từ r2).
-4. Việc cũ còn lại: mục 3 cũ (bước 3, 5, 6), mục 4 việc tay.
+Đã cập nhật đủ 9 bảng lịch sử và xuất 9 bảng `compute-detail.csv`, kèm trace source, loại đo, FLOP client/server/other/bootstrap, eval riêng, Big-O và ranking. Bảng chi tiết đang bổ sung theo tiến độ. BERT lịch sử có ước tính scaling 2.048 → 4.096, trace mới đo trực tiếp. Mixed dùng FedProto cùng case. [Quy ước, số liệu và cách tái lập](../research/compute.md)
 
-## 1. Kernel Kaggle đang chạy (09:30)
+- `experiment-flops-small-20261120` đo TabM, SAE, MLP, mixed case2 trong canonical. Log `runs/compute-detailed-v3/local-matrix.log`.
+- `experiment-flops-kaggle-20261120` chờ bốn kernel count ở trên, pull/audit output exact version và sinh lại bảng. Log `runs/compute-detailed-v3/remote-collect.log`.
+- CSV detailed chỉ xếp hạng hàng có trace đã kiểm. Trace baseline cũ, phép đo seed 42, hai round mới và extrapolation 50 đều có nhãn riêng.
 
-| kernel | việc | khi COMPLETE |
-|---|---|---|
-| `gaming3/cnnbigru-l4-s41`, `hoangdang20t/cnnbigru-l4-s42` (v2), `bestyorn/cnnbigru-l4-s43` | L4 CNN-BiGRU, push 08:07–08:25, ~350 s/round ⇒ xong ≈ 13:00–13:30 | `~/project/experiment-l4/runs/l4-20261120/collect.sh <owner/slug> cnn-bigru` |
-| `abbafan/exp-central-bert-s41/2`, `bestyorn/exp-central-bert-s43/2`, `chiencosieuhang/exp-central-bert-s42/1` | centralized BERT phiên 1, ~9 epoch/phiên ⇒ xong ≈ 13:40, cần ~5 phiên | mục 1a |
-| `gaming3/exp-central-cnnbigru-s41/1` | centralized CNN-BiGRU s41 | mục 1a (như s43 đã ghi) |
+## Việc còn lại
 
-Nếu L4 CNN-BiGRU dừng trước r50 (`RUN_STATUS.json` `complete: false`): nối phiên
-`cd ~/project/experiment-l4 && python scripts/build_l4_fl.py --owner NEW --backbone cnn-bigru-attention --seed S --session 2 --parent <owner>/<slug> --max-hours H`
-rồi `kaggle_as.py NEW -- kaggle kernels push -p notebooks/cnnbigru-l4-sS-h2`; collect dùng notebook dir `notebooks/cnnbigru-l4-sS-h2`
-(`collect.sh` lấy slug từ ref). Kiểm actual mount của parent (sổ lỗi: kernel source có thể bị từ chối mà push exit 0).
-
-### 1a. Centralized khi COMPLETE
-
-Pull nhẹ vào `runs/central-20261120/pulls/<slug>`:
-`--pattern '^(source_snapshot\.json|source_manifest\.json|central-[^/]+/(config\.json|epoch_[0-9]+/metrics\.json))$'`.
-Có `epoch_050` + log kernel có `50 EPOCHS AUDITED` + `config.json` đúng seed ⇒ thêm hàng
-`centralized,<seed>,global,50,<10 metric>,audited,"kaggle <ref> (in-kernel audit_central_backbones, 50 epoch)"` vào `experiments/<kịch bản>/results.csv`
-(như CNN-BiGRU s43). Thiếu ⇒ pull thêm `central-<model>/epoch_<E>/(weights.pt|resume.pt)` rồi nối phiên (cùng seed):
-
-```bash
-python scripts/build_central_backbones.py --owner NEW --model bert --slug exp-central-bert-s41-p2 --seed 41 \
-  --parent abbafan/exp-central-bert-s41 --parent-artifacts runs/central-20261120/pulls/exp-central-bert-s41 --parent-epoch E --max-hours H
-python .agents/skills/kaggle-training-notebook/scripts/kaggle_as.py NEW -- kaggle kernels push -p notebooks/exp-central-bert-s41-p2
-```
-
-`--max-hours` = quota account − lề (≤ 11,25). Slot trống lúc tắt máy: `dinhan25` 2 (9,2 h), `goilaaiudi` 2 (18,4 h), `lelovo` 2,
-`chiencosieuhang` 1, `abbafan` 1, `hoangdang20t` 1; 6 account nhỏ (anhtruong1909, annhtnt, minhtran0601, nguyenminhtran060113,
-thuyanh316, takids1909) quota < 1,5 h tới 00:00. Đọc quota lại trước khi push.
-
-## 2. Đã xong phiên 20/11 sáng (đã ghi results.csv / docs)
-
-- **MobiHet L4 r50: 6/6 chain audit PASS.** DAGSNet .90550 ± .00004 (`~/project/mobihet/runs/fbl-r50/audit.json`), BERT .91260 ± .00043
-  (`~/project/fl_veremi_bert/runs/fbl-r50/S4*h2/audit.json`; vượt mọi baseline BERT, CANPerFL .91174); byte ~0,355–0,359 MB/xe/50r, compute
-  0,997× FedAvg. Hàng `mobihet_l4` (10 metric từ CM r50) ghi vào `experiments/{dagsnet,bert}/results.csv`. DAGSNet s43: hop orchestrator
-  timeout khi upload 9,9 GB ⇒ hop thủ công (`~/project/mobihet/runs/fbl-r50/manual-hop-s43h2.sh`).
-- **L4 TabM/SAE/MLP 9/9 audit PASS** (`scripts/audit_l4.py`: round 1–50, hp L4 + seed, source = notebook, method sha = MobiHet, LR = chain
-  DAGSNet L4, CM r50 → 10 metric = log, 9.347.679 dòng test): TabM .83272 ± .00367, SAE .71947 ± .00671, MLP .87281 ± .00129 — **dưới
-  FedAvg** cùng backbone (.84461 / .75778 / .87759). F1 lớp TB 3 seed: lớp 13 timeDelay SAE .000 / TabM .002 / MLP .099 / DAGSNet .338;
-  lớp 11 .238 / .420 / .682 / .842 ⇒ model càng nhỏ, lớp học chậm càng sụp. Chưa so per-class với baseline (thiếu CM baseline, mục 4).
-  Ledger 12 kernel: `~/project/experiment-l4/runs/l4-20261120/ledger.json`.
-- Centralized: DAGSNet s41/s43 (CM tính lại = log), CNN-BiGRU s43 ⇒ DAGSNet 3/3, CNN-BiGRU 2/3, MLP/SAE/TabM 3/3, BERT 0/3.
-- Compute FLOP: 4 notebook đếm 4.096 xong ⇒ `experiments/*/compute.csv` mọi kịch bản + bảng [compute](../research/compute.md).
-- Hồi quy code DAGSNet `36ac7ff` vs hiện tại: 12/14 bit-exact, V2X-HtFL lệch có chủ đích, CANPerFL không deterministic trên GPU —
-  [audit](../research/dagsnet/audits/2026-11-20-code-regression.md). Checkout cũ `runs/regress-20261120/old` (git worktree detach; xoá bằng
-  `git -C ~/project/experiment worktree remove ~/project/experiment-wt/runs/regress-20261120/old` khi không cần).
-- Port L4 kiểm: DAGSNet bit-exact với `../mobihet`, FedAvg không đổi, resume TabM exact (`runs/l4-port/`). Lỗi kernel v1
-  (`test_sae_fl.py` không nhúng) đã ghi [sổ lỗi](notebook-errors.md).
-
-## 3. Bước tiếp (thứ tự)
-
-1. Bật máy: kiểm status 7 kernel mục 1 (không có orchestrator, không có job local). Collect L4 CNN-BiGRU ×3 → `results.csv`,
-   `python scripts/experiments_status.py`.
-2. Centralized BERT ×3 COMPLETE ⇒ nối phiên ngay (mục 1a); CNN-BiGRU s41 centralized ⇒ ghi hàng.
-3. Báo owner bảng L4 đủ 6 kịch bản đơn model + phân tích lớp 13/11 theo cỡ model; hỏi owner có thử cải tiến cho model nhỏ không
-   (không tự tune hp L4 đã khóa).
-4. Mixed L4 (owner: làm sau đơn model): cần Q/bootstrap gộp xuyên nhóm model (`methods/mixed.py` mỗi nhóm một Layout) — thiết kế rồi hỏi owner.
-5. MobiHet docs: cập nhật `~/project/mobihet/docs/research/{screening-fbl,comparison,tried-methods-index}.md` với kết quả r50 (mục 2).
-6. Cuối: merge `feat/mobihet-l4` và `fix/central-ddp-compute` (PR `gh pr create --base main`, body không attribution AI), dời `runs/*`,
-   `notebooks/` sang `~/project/experiment/`, `git worktree remove` hai worktree — chỉ khi owner đồng ý và không còn job.
-
-## 4. Việc tay
-
-- **Teammate (dangvanhoang1711):** chuyển sang `main` của `odixe06/experiment`; gửi CM / 10 metric TabM/SAE/MLP/CNN-BiGRU 14 PP × 3 seed
-  (repo chỉ có macro-F1 — cần để so per-class với L4); báo khi 5 run mixed xong (case1 V2X-HtFL ×3, case3 pFedES s41/s43, account teammate).
-- (tuỳ) `rm -rf ~/project/mobihet/artifacts/fbl-hop/mh-fbl-l4-top-s4{1,2,3}-r50/upload` (bản trùng dataset đã lên Kaggle, ~30 GB).
-- (quyết định) push GitHub: nhánh `fix/central-ddp-compute`, `feat/mobihet-l4`; `~/project/mobihet` main; `../fl_veremi_bert` (còn thay đổi
-  FB-L chưa commit — hết chain BERT nên đã an toàn để commit).
+1. Audit các phiên BERT và mixed khi terminal. Nối từ checkpoint được kiểm cho tới epoch/round 50. Mixed seed 41/43 còn chưa chạy. Chọn slot/quota mới ở lúc push.
+2. Thu đủ trace chi tiết từ hai hàng đợi. Xử lý từng trường hợp OOM và xác minh số backward, padding và provenance trước khi đưa vào bảng. So các trace mới với lịch sử theo nguồn và quy ước.
+3. Teammate bổ sung CM hoặc đủ 10 metric của TabM/SAE/MLP/CNN-BiGRU FL và kết quả mixed128 còn thiếu. Account teammate không có credential ở đây.
+4. Đóng các phiên dùng cwd `experiment-wt`, mở workspace `experiment` và gỡ worktree cũ sau khi kiểm trạng thái lần cuối. Chỉ phát triển trên main.
