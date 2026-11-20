@@ -1,0 +1,1623 @@
+{
+  "source": "qwerasdf3004/veremi-central-cnn-lstm-feature-e50 v1",
+  "scope": "all safe non-checkpoint output files",
+  "audit": {
+    "model": "cnn-lstm-feature",
+    "seed": 42,
+    "epochs": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50
+    ],
+    "test_rows_per_epoch": 9347679,
+    "checks": [
+      "config",
+      "metrics_finite",
+      "cm_shape_count",
+      "cm_to_10_metrics",
+      "predictions_to_cm"
+    ],
+    "status": "PASS"
+  },
+  "file_count": 258,
+  "uncompressed_bytes": 478011181,
+  "archive_bytes": 77224724,
+  "archive_sha256": "1bca385fd7ed168fc630781d2e6674deb19bf54c07ce40370fdae0e1b29562b5",
+  "files": [
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/config.json",
+      "source_path": "central-cnn-lstm-feature/config.json",
+      "bytes": 1422,
+      "sha256": "01f4c6bcf1165345d5fe0b7f20c91b0e7b319222a1a587df4676c680a53db68f"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_001/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_001/cm.npy",
+      "bytes": 2176,
+      "sha256": "8f173ce328cd78d8c382ab5de824742070249381746c36a6987f1625abfa32b5"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_001/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_001/metrics.csv",
+      "bytes": 322,
+      "sha256": "b3cfed14565d2581ee8e08c4bc0b891a521f6515e80f264096bdc9e5399365fe"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_001/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_001/metrics.json",
+      "bytes": 899,
+      "sha256": "6178d9a9a2ff0c34390074d36fbb1e0c2dc8ccd3ef01771e088a26d0779190e7"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_001/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_001/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "8a501be4ab3a593143ca3aa69a05eca949512fd933178ed3b87617d6bbc782fe"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_001/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_001/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "d247434370eccaad2b143775f9954b650dd9983d49e7270325f36345e9ebce55"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_001/truth_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_001/truth_0.npy",
+      "bytes": 4673967,
+      "sha256": "5fc7f945c8d0db86388b3d828517b5706424518d218dc8721b39f0ee8f5f9e66"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_001/truth_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_001/truth_1.npy",
+      "bytes": 4673968,
+      "sha256": "46035c94620c77f24b998c7cd7c3c88386c5d5b0f33960df76de3589c37e9826"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_002/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_002/cm.npy",
+      "bytes": 2176,
+      "sha256": "9bdc8a60551ff9bc65a1b0b3296d591ec65a57820a49f1f1dd9d554f055932b0"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_002/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_002/metrics.csv",
+      "bytes": 324,
+      "sha256": "7898117667bc256ea7d57bf03a8d022c320afa46959286dafc40348dd880cca2"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_002/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_002/metrics.json",
+      "bytes": 917,
+      "sha256": "aa43ce95f97fc8a83f485d2479cc531676d9b0446eec2f418da2ba637b6c3961"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_002/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_002/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "05863fcd1fc8297a46070b5363d29dbd84df0d38bee827de36898a1f8f439831"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_002/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_002/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "5d45ca3cfdb41dffe5984cf807173101050aaff7ec7450858c8fa1c8136ea53b"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_003/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_003/cm.npy",
+      "bytes": 2176,
+      "sha256": "e83dcd12731003fb1f8c48e02f4456bbada7f28797a4d9ea8b12ca0c5a99650c"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_003/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_003/metrics.csv",
+      "bytes": 322,
+      "sha256": "4d021e28173b8e493f8d9b1b0e0414025921aadc186369ff2a895c45daa48d8f"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_003/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_003/metrics.json",
+      "bytes": 912,
+      "sha256": "dea166d4a7df6dcd960d52ce47affbf8254ac797df80175093f233400b39a27c"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_003/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_003/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "a460cc6f8e044d4a5d940e1915b1c59fb7cfffe6f0c0f8e973452167ec03f096"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_003/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_003/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "f8456acf20260df7ab53abada3836ff2707fedb22df583dc123e0783a39acbb1"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_004/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_004/cm.npy",
+      "bytes": 2176,
+      "sha256": "fbfbd9a184d50a330d5afec55a55e761d8f4fe546ba779e6d8fca0a56613292a"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_004/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_004/metrics.csv",
+      "bytes": 324,
+      "sha256": "2234ee6d727f83a8fc09b9c9635d5059a7e4bde9c194cc15ad0ee32fb35e9d1e"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_004/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_004/metrics.json",
+      "bytes": 915,
+      "sha256": "c209a5c8a3e478890863e54b9896d17aee8e6a0d9871f194d2120fc735d53b3f"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_004/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_004/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "ba0e107c8e830d798c4e3225e3c4ff5eebc8d9cb9adb4be41c0615f8f7735828"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_004/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_004/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "f5b2ae01c62a01757f81175f6f10e52d905fa631f52448e922bc73a5e2798e0a"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_005/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_005/cm.npy",
+      "bytes": 2176,
+      "sha256": "48d162ce06875f00d5655bf3da3c960c04f9f5e7219ddac6f0b60a9ef9d88597"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_005/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_005/metrics.csv",
+      "bytes": 323,
+      "sha256": "9c319bb1623edd5ec9f92c6b2bd488cda5b76abc49e35a2367c484841dbc23c1"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_005/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_005/metrics.json",
+      "bytes": 915,
+      "sha256": "b83ff6fe75f75544dba5ad759ba3632452c0f0adb4173ea77d43b38cd2260d2b"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_005/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_005/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "97e7d68bc0d3b22f66e662247ff153c48156b9830437b01ea41cf85012eb31a4"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_005/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_005/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "c63fdd73ad49a67f47a34959a3c3fd49c6afc2145f156e2d11436cc619659fd3"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_006/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_006/cm.npy",
+      "bytes": 2176,
+      "sha256": "270344283769feb488e84fac17a52eabca5c60a4e9f5a1bad594a21f3a619460"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_006/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_006/metrics.csv",
+      "bytes": 324,
+      "sha256": "dc0ff96cc70c8168b691349b48840c49847d11fc3646df599df0c8184b323b83"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_006/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_006/metrics.json",
+      "bytes": 917,
+      "sha256": "d5ae8fbb501307cb2f82a042802866097bc2b184bc8010c46a60807c8f7a1675"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_006/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_006/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "8cea624ced27428a7a63e24bd78ecc4c6788f2f56f2372f0d99ddb04932b7cb2"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_006/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_006/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "89f76893a896bd866119abb6e4e376391d304cd51543ce2d41fb4228fba17017"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_007/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_007/cm.npy",
+      "bytes": 2176,
+      "sha256": "aa56f85b5bffb2065f635176902e82900f6bb2a5708a93249b98ff16c1bbf032"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_007/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_007/metrics.csv",
+      "bytes": 324,
+      "sha256": "5b4309192fde328f427dd6e5d25ccad53806c35a14161c8a3c7c6992badf78b3"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_007/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_007/metrics.json",
+      "bytes": 916,
+      "sha256": "179d6c0476349ce8010d6ae236fe819236e7354b32ab374e10036ff16ef0ab79"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_007/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_007/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "7bc36029bb2f9f3b064c3674eba746c107631a1c4c5fed7336e70d88dbefe2c7"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_007/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_007/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "4110e22f6a0e478946a23bd47cc9f8fe5db47fac3772e63f53595de2dd99606b"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_008/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_008/cm.npy",
+      "bytes": 2176,
+      "sha256": "1b853dca9724f1b03a482afedfbe9f27bc0c60ed40d384c412799188ddc13cf9"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_008/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_008/metrics.csv",
+      "bytes": 324,
+      "sha256": "70a8d974d3571dd98daab8c1757937b6b8c0e896bb3e32944c5efc9fe7981fc9"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_008/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_008/metrics.json",
+      "bytes": 917,
+      "sha256": "bcc15170dfc88f0e4457764a5cce5760aaf00d6046c3c590419e3d667ae3e2dd"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_008/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_008/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "5ecac0f961432c26b9a005e2b0d906a35d3b5ccd7bef74f015e2dcca182a5296"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_008/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_008/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "79a64fcb13112f00886eab75308cd78522624d2b9f3eac636692ed1e42cc5680"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_009/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_009/cm.npy",
+      "bytes": 2176,
+      "sha256": "e40af45d11cae4f9a34848105cef4eb6c31287638e88b4742b2100ba7c25528d"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_009/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_009/metrics.csv",
+      "bytes": 323,
+      "sha256": "3f6d541f5018715ff41285f9dcb84af8476726a19000d8f51bfd2b9a3ba8d1ec"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_009/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_009/metrics.json",
+      "bytes": 916,
+      "sha256": "e5f947f3e7fc5157f71e2c37de43ff32e743ce79bff45ded4e8c844c3596da5a"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_009/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_009/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "db58a2e747a01613942f0f79f8ff78e79cfffb6a82dc36e47fe9b519a7e37d7f"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_009/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_009/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "a37e13713fcf45f1c11eb92ed46fcbe68d98fd8b7437ae70eca1edd9d811c15e"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_010/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_010/cm.npy",
+      "bytes": 2176,
+      "sha256": "4640d2dfcb5bd3d87867de7e36f7e0395e87f9e93e5fc7658a80def1017d1805"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_010/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_010/metrics.csv",
+      "bytes": 323,
+      "sha256": "18312e8216990476c102a5e2f0f2b32dbd6bb2f1e1620f2d278dd896c3c0adb8"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_010/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_010/metrics.json",
+      "bytes": 914,
+      "sha256": "56b0f8ece91109fc06d9a23962df16efb7de96e6414cf1bd8ba1cbce08b37439"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_010/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_010/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "3f10905ad20b5d15d49edd337055d06328b895ccb7f6188c362460a185731c9a"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_010/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_010/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "44717de95a89297374a3bc27c43c0f20dc6b529d13bec3a75e971e7f1c2ebfd0"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_011/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_011/cm.npy",
+      "bytes": 2176,
+      "sha256": "f851b828a337711f21ff22a633535476c6eb8343a90bb019681df28dbf1886d7"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_011/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_011/metrics.csv",
+      "bytes": 324,
+      "sha256": "30c4c583da4b8a6b102287c45d7b583026bf26cdbb12558ee3d4d8dabeebe05b"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_011/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_011/metrics.json",
+      "bytes": 918,
+      "sha256": "f2881e95ac91dfc828b26425876224de9ca81a021527f6ce154d9da6087a5180"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_011/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_011/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "d628225c65ece950c76acb088bb9fb5ad8c10db39e08b3ebeaded0060868d521"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_011/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_011/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "280f2544061298ee5f3fb940d6523c031f52e3a689b417500ea40703758ef15e"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_012/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_012/cm.npy",
+      "bytes": 2176,
+      "sha256": "2ddf150ee5250fc107b39ca93f5034d5376eb476b8ae39512dc88d562d661669"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_012/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_012/metrics.csv",
+      "bytes": 324,
+      "sha256": "40ec672bb15fa74c335c4af908431681940f1ddb50bb3c26dc575c05739ea19b"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_012/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_012/metrics.json",
+      "bytes": 915,
+      "sha256": "1806b4dd4b7ac139a0e81a79c7a9dc2bfafd412e75b398b5e50e8350ec21b563"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_012/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_012/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "5ad57c9c4695edb0fb0f06b5bed5ecc7ed65b4a8853703051d00f280a172a84f"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_012/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_012/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "fc13fb6d403e994b0c37efd1bf859a2061ffe8d90485907ba3e57c50f5bd6a2a"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_013/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_013/cm.npy",
+      "bytes": 2176,
+      "sha256": "55122c6e28bf2009d7f523e2f49e443ea7ca447bad2b8b6509cc3b2dabd1ebc2"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_013/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_013/metrics.csv",
+      "bytes": 323,
+      "sha256": "9dc895e5b65431f0a9ef5facc6aec3232b60cb427ea7e4b4233dcf19f4f71904"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_013/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_013/metrics.json",
+      "bytes": 915,
+      "sha256": "04cd97ca86de518aa20d3ec5cc8bd15cc3f612926f50438ad6f5473387f1763b"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_013/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_013/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "c6c39579cea36c4cc08343ccee9d64bc5108d51eb808a57bb079f564731653a4"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_013/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_013/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "05bca72553d0a67863ab071bf280f931cade1c115505e7e46602016c5eace787"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_014/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_014/cm.npy",
+      "bytes": 2176,
+      "sha256": "454aff655800d684dd02219cb2ba963c90a68fb8fad31ef6e9a4022851ddc074"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_014/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_014/metrics.csv",
+      "bytes": 319,
+      "sha256": "04a032075dfb0526f78b8a22cfc676b90ee049e9523f593697a2e1d0711ba9fd"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_014/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_014/metrics.json",
+      "bytes": 912,
+      "sha256": "6d604510e07d2e228a87e7b61db124b46caca0b9e50008438a233cabc8e9f1f1"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_014/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_014/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "833f940f0800aff3435018a927c6d45e6d41fbca3e212ae8ac56ec9f5692a9e5"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_014/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_014/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "784dbc1899a45eab4367569f5a3265eee9eab378cbe1a81eaa6ab73e8a3dd829"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_015/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_015/cm.npy",
+      "bytes": 2176,
+      "sha256": "1e06a2ac422d806fff9d09a3273ffaf32122eca67133b3b0fdfbf00989a2ec65"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_015/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_015/metrics.csv",
+      "bytes": 324,
+      "sha256": "a4bf9c71c4569f3ff7e589054f0b21b40ae078d1aaafae128805468aa7ae5d2a"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_015/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_015/metrics.json",
+      "bytes": 916,
+      "sha256": "c67aa4cbe1fef77204cc37669c5842eada19b9ce139c503e6ebc67256be13ce0"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_015/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_015/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "2c721788cf737a014fc64ecbf345eb7de76d82a6035a8c63ce6ac86ee4338603"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_015/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_015/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "13f0f6ff7d434b34e8f2f803701e4ebd4e3fff64a483ad0a0dd2676ffb4666b4"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_016/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_016/cm.npy",
+      "bytes": 2176,
+      "sha256": "c335b34f30a063161969bb8b9aa4ace13cd03e2b28eb8abf7f6670bf3debccf9"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_016/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_016/metrics.csv",
+      "bytes": 324,
+      "sha256": "8765a0386dc93c891eb62fc660128bf9f55e8765f42bb929f0f32dccfbdfa409"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_016/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_016/metrics.json",
+      "bytes": 911,
+      "sha256": "7fff311e29805b5b4cdffb5f95b3911fd434896b8f56a66ccf25d17d3c33e153"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_016/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_016/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "36863677608d54ca91b92f0d5c25773f41c277bb1052e037f0286be020d61f94"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_016/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_016/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "b5f8e351fec8fb283b04dc027ba2a891c6049e82d31fabf06ce6d06219f15356"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_017/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_017/cm.npy",
+      "bytes": 2176,
+      "sha256": "97f9197f749065e13b5899a17f41f9e5ab48503bf4cbc89696919c53b8435760"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_017/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_017/metrics.csv",
+      "bytes": 324,
+      "sha256": "f890aee1ffed81f550143d402f065c1002c8328bdccf904e2df084521d1fbdeb"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_017/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_017/metrics.json",
+      "bytes": 916,
+      "sha256": "d14e97c6f8865f3b8f56800a82db081c1545e905263e60b174ebb9c9fe646fe1"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_017/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_017/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "20e711f371d5fde7c919488f0c6dc0aa585bcb78b30f9bf742fab9d4a4dd807f"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_017/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_017/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "5d5005fa55ec8d2e34b5fb409ef9e6f68e9c21cbc338e38b8e72c8faf22232e7"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_018/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_018/cm.npy",
+      "bytes": 2176,
+      "sha256": "367dbbf43c6c5868f89974c69e572f6cff4fe97347251f4374c48c48c26d8942"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_018/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_018/metrics.csv",
+      "bytes": 324,
+      "sha256": "8b48f95ba8a8ff5c2e0910011d19876cdc7224b29ff2e0569134fc8eab3a4a72"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_018/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_018/metrics.json",
+      "bytes": 912,
+      "sha256": "f26aed858beee6e65f7c2eac356f426893777c41a6f0838c8e49383f945e68fe"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_018/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_018/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "e0c2411aa5ef55a2fde51f9b4cf3534fee016b4004806681e92c66fe9d8d555a"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_018/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_018/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "cf783a0da6c460fdf8b43ff7ddfd0c1fa057c73b0def4a60749b58390ffb6dc2"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_019/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_019/cm.npy",
+      "bytes": 2176,
+      "sha256": "88f3f3942898f0363eb68cd2634048e6700822ef26a87bfa79b5ff0c7c176869"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_019/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_019/metrics.csv",
+      "bytes": 324,
+      "sha256": "ffea4d012b78b63e3bb34933c426c84ec6c157de2656c34f4030cf2247b9de19"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_019/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_019/metrics.json",
+      "bytes": 913,
+      "sha256": "62e92ca26be3a34f926060b992ca5f8447e91df90c3c8fc6c1b1cf667ad25e65"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_019/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_019/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "5d25b1c68ae6ab4f3c9a587b8b9cac1f05e05d55f2c2d620d56616617bbd964b"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_019/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_019/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "1b3aab56decb07e4fcaca76578d8a5c407f1c041abf23a079cf3baacd5855f3c"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_020/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_020/cm.npy",
+      "bytes": 2176,
+      "sha256": "d8ec74cbe4ae250a2c24976cca60f2c584e81d9745cc3c59687fb83ef1438919"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_020/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_020/metrics.csv",
+      "bytes": 324,
+      "sha256": "44afa4185e094614dbd6518300352788b09d25eec51c914573c6d68eec7906f0"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_020/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_020/metrics.json",
+      "bytes": 916,
+      "sha256": "b3426c742583821a1c5a35c4b9bd66975435eb0362e2c6e9d9f08ab52621cae5"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_020/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_020/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "856e933e1435eb510f1b43237d33bbeefb656b31d6953f9e92e9dd743e6e7be4"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_020/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_020/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "fe96d2bd0b44858814d55166191e3c16bcac0abda6bb2e2d5569ea07c888deae"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_021/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_021/cm.npy",
+      "bytes": 2176,
+      "sha256": "0413d35692f3d973c87df961cc23b5ed49d77fe2f6304963be56211c4e092bdc"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_021/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_021/metrics.csv",
+      "bytes": 319,
+      "sha256": "38b5682932ef61e398bfe570a8d70722b4474b06a7ebc4505a7a92a9853ca3ab"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_021/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_021/metrics.json",
+      "bytes": 913,
+      "sha256": "66c52f45278782da9cd9ae8d61a002195352925155818ba4adc5def6cd6d347a"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_021/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_021/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "f0a398f586f2ee4bdf7a3017f83c810b02a706f562ddd26f19d64a49039929b6"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_021/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_021/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "01aa367c512ec825e8a4687ffa86efeae3beab8d359025e564fee502c341a76f"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_022/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_022/cm.npy",
+      "bytes": 2176,
+      "sha256": "fd7b3926e1ec3cc113c27386ee353a4112d63263363341af889bb331f9ba3856"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_022/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_022/metrics.csv",
+      "bytes": 324,
+      "sha256": "4bf821ffa76362197d43d5b4aeeb008d1fb8e0bc6a487e888df30f59eb9a24ce"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_022/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_022/metrics.json",
+      "bytes": 917,
+      "sha256": "e4f529a8f37c75c0027b036ec001c862748966b24eeb07b08b3f12daa242c73b"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_022/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_022/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "5fc5a2147f4320be2c6a90b88f644d081746d9fce9c1a53e76602f76f7e6432e"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_022/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_022/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "8be1a8fa157e015299b3bc96b5333dcea35aac7b435b6e7017465c289ee0d355"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_023/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_023/cm.npy",
+      "bytes": 2176,
+      "sha256": "e8026e7900e3a78ba647f146aff5b60c3cc0d5af1146bcc6c1a1125cb99966cd"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_023/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_023/metrics.csv",
+      "bytes": 319,
+      "sha256": "8b27fe080a31bee2adcd5a3337bf611d519f6e617b43add029b4671952ad01b4"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_023/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_023/metrics.json",
+      "bytes": 912,
+      "sha256": "f22d04d1dd7554adacf4ace247f8e6f8e2f6561fca7f20a17b4a7b6ac2777cf0"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_023/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_023/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "8ae456b5ea8f8e17c64e68cc67fc678ebb77c2b561831afbbf32d4877e670c9b"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_023/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_023/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "1ec9869d04aa5f64741278885b468b61974e91015b0a6e2c267d1d8fac51e262"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_024/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_024/cm.npy",
+      "bytes": 2176,
+      "sha256": "92c2b8e142560511a4e3d4033a42e5a2e129bbea474a3e158909c54a359ce743"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_024/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_024/metrics.csv",
+      "bytes": 324,
+      "sha256": "a1d761ab1a13f647407c5537849afd4bc53f2f935f323e3bdf23090ef816cf1d"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_024/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_024/metrics.json",
+      "bytes": 918,
+      "sha256": "74e8a10c408b5c2ff6620ae591bd1c121484550f786a6737d87d1dded73dc1e7"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_024/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_024/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "a54c7a3f93027bc5f5280881c4cf6c28de8f4a454b1cf2cc2fbc1442ff30299b"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_024/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_024/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "ea08b676da4cd2613ddb861c0494371ec4e7f249f4e6f99e60389c8e03c676c6"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_025/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_025/cm.npy",
+      "bytes": 2176,
+      "sha256": "3c6b2d5d7e18bf234f9bcbd6dce3f2bbcdaf8faf643b5e67e8ce688677f84fec"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_025/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_025/metrics.csv",
+      "bytes": 323,
+      "sha256": "28414887f21c1a1a913bbc0c13c6ddfb7792a05c852d16b713537c5546fa9fae"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_025/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_025/metrics.json",
+      "bytes": 916,
+      "sha256": "fa201250fc615761a0fefa1fd866350485eef7d8bd4d9b5822d8fd53483b6410"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_025/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_025/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "de2cb4eb0bfbd2b7a91032206bb70bb4cefa1151ad4768aad8f0c9fe212625ba"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_025/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_025/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "300e489b6204902263ef167e1625c5d2cf5121051d4d7c37577189863c65c27e"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_026/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_026/cm.npy",
+      "bytes": 2176,
+      "sha256": "3c8c2f100aa0fbc2d28dd2b69db995864c763e88e373a154c99aaf2ebbe0a0d6"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_026/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_026/metrics.csv",
+      "bytes": 319,
+      "sha256": "83f177ed33004e7d46baad02c71fefb4d6ec5fd8c3381c9c2c5968c8cbae21d8"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_026/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_026/metrics.json",
+      "bytes": 913,
+      "sha256": "5767c6053f53854ec6930f939e275abea602a71272f215e2b6214ed609bdab25"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_026/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_026/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "0f9225fcce862911142fb2f3d0439b8a664018e2c5e556ead32da6a8c2b9a2f2"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_026/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_026/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "23427e90b6780ce975b9acb700991c6b7b54e0d39b067c565b9138efac10ab51"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_027/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_027/cm.npy",
+      "bytes": 2176,
+      "sha256": "5ddfb33ae31e600524b05917d4929ee722c54109bd4b048042b2f10dde4f3a71"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_027/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_027/metrics.csv",
+      "bytes": 323,
+      "sha256": "4d5f09779e9e7afeaee3de7c939453050f0d08de6bf4e9f2a499927c39e91252"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_027/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_027/metrics.json",
+      "bytes": 917,
+      "sha256": "91e76f1e62216e9ebf5adec602f85d130c17aad27f847920bd124eb4f3db83ad"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_027/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_027/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "a7c13223dae977d294872a9f2741002ac5e0dc11aefe0e60061b8dee31b13b04"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_027/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_027/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "a2dbc614c5a74308c7a24b916e6fb34fe4d6f25146dd1dd347bff5e8ce160380"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_028/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_028/cm.npy",
+      "bytes": 2176,
+      "sha256": "6f1897d7a7245b043264990cedd4c2f684c705b38d2d905dbe0b0f7b97739932"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_028/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_028/metrics.csv",
+      "bytes": 324,
+      "sha256": "33fa69895d64c615fcb52c66a0c08642b873aef0e708cdea8fb3a11b3bef5466"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_028/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_028/metrics.json",
+      "bytes": 917,
+      "sha256": "313360efbb5c670b305898e1bfb4c331bb4769fcb8e38e35768e0260b8cc6b7f"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_028/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_028/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "fd15c5376572435ca98da7f3f89030d34cab39320b323f35a39125061a6d863c"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_028/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_028/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "921541e02846f152991ee65b6ca45d04ef8fbe2c2d5fdc167b1c674055fe777d"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_029/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_029/cm.npy",
+      "bytes": 2176,
+      "sha256": "96e583ef1ece2d81362508296599ece582e7d92a77c1cd156b4bf3dcb9695d69"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_029/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_029/metrics.csv",
+      "bytes": 324,
+      "sha256": "1fe383d98955c182c50077219d31a46156f5c8e4f3b69616c95262076fadff84"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_029/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_029/metrics.json",
+      "bytes": 919,
+      "sha256": "5c04c5d1d52eee7f016c83b20bbf04a94bcc481ab3782002e8f1c1809a31cf7c"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_029/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_029/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "81174e66f0303043584e2fe58093ae3df1bd23d9811e1c95f5756cdfe294a0a6"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_029/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_029/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "e0db83d2329bd413d2348b431b94f7a5f18b8a53e00396f9766c249e6b7ac7fe"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_030/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_030/cm.npy",
+      "bytes": 2176,
+      "sha256": "c5762768ce0df6ab37f2a6551f0dea2e7bc5f13556b726788b4fa0e617f2123e"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_030/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_030/metrics.csv",
+      "bytes": 324,
+      "sha256": "67dbd200ead2891f9a9b5ccfd41d774a61cbcfc7e0db36065088608cdcf4fdd2"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_030/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_030/metrics.json",
+      "bytes": 920,
+      "sha256": "e4b7c59246cf0a32248faaf6ff1646591d73cc9eca751998063eada53cbbb03d"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_030/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_030/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "e03212283f8241341ad72358a31f186c5a986f332e96aa18909ee95a967140cd"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_030/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_030/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "41f3258d2919c4068b202cf660b1379c51f2b8b08c00759d8a9cd86b4407157b"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_031/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_031/cm.npy",
+      "bytes": 2176,
+      "sha256": "2f36751f217d411870e75b63e8686d8a7a052c558706aef5a87c44cbff0d381a"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_031/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_031/metrics.csv",
+      "bytes": 324,
+      "sha256": "4c14a3be2b6aecff74da5f19bfbcda8ca201584669e29b5f936e5018e5d7a366"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_031/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_031/metrics.json",
+      "bytes": 919,
+      "sha256": "1ef3e0a5df24940f58feba6dd14ca397921b41c08373bf913275111ae08f0ee6"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_031/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_031/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "8be95e1bfc24001e9a7e70b00c1ed201ab5441e7bce553554310fc481ff3c4f5"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_031/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_031/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "da60898a0fed8f0b261fb449068974a2cf161a2062a50896158c8345f10c68d5"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_032/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_032/cm.npy",
+      "bytes": 2176,
+      "sha256": "d2165dc0d1c15b12a83e6475e6fcde7aa7e43b4b50b6863cf95f049bef137388"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_032/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_032/metrics.csv",
+      "bytes": 322,
+      "sha256": "1cee2dd9831565564f2d77dd4faff7728ccab85521851a5df4f0a777d9ca9921"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_032/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_032/metrics.json",
+      "bytes": 915,
+      "sha256": "a0db46c5de9623cc16d0893e06fca4437d800fc740201b4ff6ab8c8912bfe772"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_032/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_032/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "681c23612d4374f6f57d199cd022f12787e399ec051e4c7ec6ad4f7d6063d734"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_032/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_032/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "f842cd5e35508ee290e99d7b9f74d1eda3a4a03e320f01a3e4e4557cf9e8bd55"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_033/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_033/cm.npy",
+      "bytes": 2176,
+      "sha256": "ea727fe6596b5ff683556fb222a32482de6cc7c57241280fa744d41d8880afc0"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_033/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_033/metrics.csv",
+      "bytes": 318,
+      "sha256": "23544ad4b58e77fe074fcae916fc8ecd5533a69f3319974eb314676bb496b4db"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_033/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_033/metrics.json",
+      "bytes": 911,
+      "sha256": "0b641f861e623682623831db2f0a2c620b4d4094d626bccd31d5c18e1ce19e25"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_033/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_033/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "0122bcb1154e8e25eeb1fa0229430149db0d8f28332013e3361ca03b1816728d"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_033/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_033/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "ad412c8178cf081d249729ff0095c013d9e2331ede0b0be1589878c2318b8128"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_034/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_034/cm.npy",
+      "bytes": 2176,
+      "sha256": "84a32b06c256928f3b58b69eb260b2dfa6ade0de00ad7b9af0235c5bd2b3b6d0"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_034/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_034/metrics.csv",
+      "bytes": 324,
+      "sha256": "c3522b3df90a2868040c0ef85a0ece949d578320911708ddd09ec724846e70ef"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_034/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_034/metrics.json",
+      "bytes": 916,
+      "sha256": "cf2a0b8bb7c6e4c4c59dc4df0adbdf9c96eb51081ec94b1d35f07dde95d2961d"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_034/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_034/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "def35fedc7216733a5d497b84d1f6fb0e0dd538b9b9093f6a909468fd0806dcc"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_034/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_034/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "3ef003cb793e3021a02aa68e478535e92bc08c314b3dcce86c122ebebc2b8db9"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_035/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_035/cm.npy",
+      "bytes": 2176,
+      "sha256": "4ce59e64ab5869aa883ee8d3ed4eb719e797df0166f86b731eab801aba094f16"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_035/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_035/metrics.csv",
+      "bytes": 323,
+      "sha256": "7fcd9d1e0a4a07a15d739fc494b363b1cbcf0c05827a0631771bdb5263668f1b"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_035/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_035/metrics.json",
+      "bytes": 918,
+      "sha256": "b95181682d63a578960b39ac404c73b1cef75e4480e5df54a7862f11c5086fe2"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_035/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_035/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "e28f010462b0e0ff9fd98fcf36a38329c20320d69a99f939e2808ae9e9cabcad"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_035/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_035/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "3053bba6cf085dfce1c32234e53e8aea4b2b423c30a3fa2be8c1344f08d462cf"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_036/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_036/cm.npy",
+      "bytes": 2176,
+      "sha256": "74df0571e1d846b9f3dcf96a5ae9477a60387bd744a5356e4ea4e143a35bd852"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_036/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_036/metrics.csv",
+      "bytes": 323,
+      "sha256": "55def67cbe8cea97f4ae2efae0d74479b8a7b6fc3bd33c4d1c66070f741eb4a5"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_036/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_036/metrics.json",
+      "bytes": 918,
+      "sha256": "eeff2c5f3b889cc3e22341a8680e108ba39aa719aac19045a8e7ac779cecfe25"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_036/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_036/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "c09e6a6e5dde3433e283153eafa52d53fc839e587203d139160988ed856a9123"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_036/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_036/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "c03d0e51fd433a31f2afc857ece0c278b201724073398e8735834fa7cc87ef3c"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_037/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_037/cm.npy",
+      "bytes": 2176,
+      "sha256": "1a7bfd8a7d1b63a4635d0f0c8ec0ab3849c2dbd17282c87c82d268073fe995d7"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_037/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_037/metrics.csv",
+      "bytes": 323,
+      "sha256": "4157a1ee2a484c6da8283e9e141a2db04db7b540fbc170f90fe46361bb7d7aaa"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_037/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_037/metrics.json",
+      "bytes": 917,
+      "sha256": "3c6e7c371800fe7ebe2f55502b4bf231366673268f566b1e9b37cea35fd09b43"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_037/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_037/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "5b56e5a6c6a08040939aa0331a7d95cb8bf9b884599ec2fe6dc6cc4884c03936"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_037/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_037/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "43e219cf5035bcc4e1fc96b753a54778176f45c1387c265a8ed05562e83e40e4"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_038/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_038/cm.npy",
+      "bytes": 2176,
+      "sha256": "7cd46510261dbe9208d422008632c2349fe447bc99b2bfb009ab1686d3d43706"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_038/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_038/metrics.csv",
+      "bytes": 319,
+      "sha256": "99d811e6164270b9b39cd1b27a230a9460fdce8a3020775d5f5a6574dddf493d"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_038/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_038/metrics.json",
+      "bytes": 910,
+      "sha256": "90be17fcde84d387d4aac0fc0f0ddb9399db603cde179d6ab086702c43d7e98c"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_038/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_038/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "5d7105aeef3e12d235537badf2d1f8c97272464367235c2c069035fd03299ebe"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_038/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_038/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "9cfdc1c625e789493adaee2aacad6c2cb90178d2b860a864491f77a350dea10a"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_039/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_039/cm.npy",
+      "bytes": 2176,
+      "sha256": "b1daabace62777ea249d38a5bc809d942f14905328cc45b4069b4f0213bebf2f"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_039/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_039/metrics.csv",
+      "bytes": 323,
+      "sha256": "5b7c270f53f3b2ff1371f515e8129e684e0c0d0fd7f8fa6150925e1db48cf196"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_039/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_039/metrics.json",
+      "bytes": 918,
+      "sha256": "0bb57e0135f282536450ccfc40899b3f5e3020f5e2ab2c18079c72c3e2def34d"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_039/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_039/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "e09cfcf7ab55a47a5513463621a28ee4b53e5378e70b158b716b941dc3b9d8a7"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_039/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_039/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "c4479ef05e7d904965438cd96b730add432f0bc3d190f1a376f45a0c786dc25a"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_040/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_040/cm.npy",
+      "bytes": 2176,
+      "sha256": "c366abc0788415456711872b83d14b01abbe7af4eefa0ecdd7dde88c624d4767"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_040/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_040/metrics.csv",
+      "bytes": 321,
+      "sha256": "ebcaebef8ba18039b97726020b5fa6bed98fd9752c27424615bc4e53f08464ad"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_040/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_040/metrics.json",
+      "bytes": 914,
+      "sha256": "35b5d53291917ca21dd411501ebfdcfe68b72b37f9a1c75021643b991c097560"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_040/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_040/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "57bc69cbbbd39e88a1bdf53cfbc4f58ccaaa79dc84c6f4aaac3d492da58389f8"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_040/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_040/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "d7d459ebaa8a9b6fb0671472358b861d220d2bda08f85a0ff63b5047bd31c9dd"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_041/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_041/cm.npy",
+      "bytes": 2176,
+      "sha256": "633b07a2f8cfeb1a4931c04d09e42c405380ed4e5bc5ade9dc10d7dc56e6b205"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_041/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_041/metrics.csv",
+      "bytes": 319,
+      "sha256": "7cd880dd5a631658212f23c9bf8605c9787e571074441060a261720dc4f3bfe5"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_041/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_041/metrics.json",
+      "bytes": 913,
+      "sha256": "555c2ccb3bc450b9042bdd0c4245ce58edfa88d4d7ed02ba2ac1cbd4690e19a0"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_041/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_041/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "50407d86cd77e69397341666f2c88747af641d0fb40166c9351ef52a199abd45"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_041/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_041/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "2a8ef1c6e2736c785aa5ea3d5f6d539e6faf7ba9c1a30da35282e30df9e4d2d7"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_042/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_042/cm.npy",
+      "bytes": 2176,
+      "sha256": "dca1eeb89a547e38458d3e4b234a46ff52b7902bb11d440a8bbac4d77f044cc4"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_042/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_042/metrics.csv",
+      "bytes": 324,
+      "sha256": "85b227a9f36292b11cbd96be6c08c9e21a0c76af50a1dfb5afd73299accf01ed"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_042/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_042/metrics.json",
+      "bytes": 918,
+      "sha256": "0d09e00b1ab7664cf8c369f927459c6302166ca30877fa4cbdf3851c5e774a0f"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_042/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_042/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "ae934411d5abc139631426d737d960975b9018c5665550274089da0d2a04a799"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_042/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_042/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "586f87cb7b3ebfc9ec7f85140192f3857f8edfbf5a485d53d2634529985082d8"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_043/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_043/cm.npy",
+      "bytes": 2176,
+      "sha256": "7cc6bef5cfd0e47ebc1589666bc814aeb10f9a8ced38670846a937be1dd4fb89"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_043/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_043/metrics.csv",
+      "bytes": 322,
+      "sha256": "e26b14bdaa34bd477eadefca7b53f99c25ccbe01a07a7f3610e550a4aa64a9fc"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_043/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_043/metrics.json",
+      "bytes": 916,
+      "sha256": "a95f7663488d2439ecca320192b0655279b16168e0f139b4cbf917262b38c1f7"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_043/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_043/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "200b22ed48620f91762589d2fe7d6b94cf8276f29b4db35138c1350c8f4d5595"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_043/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_043/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "f6ae7ecdd507908b3e568956c0fdcc065b355edec30063d4e17e8565c9a6a50d"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_044/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_044/cm.npy",
+      "bytes": 2176,
+      "sha256": "a728a51c6f04050529058862a244e213ad6c88088bf9cb45dea5709b68448ad4"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_044/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_044/metrics.csv",
+      "bytes": 324,
+      "sha256": "46c5c1f6efb5fd6184792c97a97896538e2dccc9407466060017051ff3659335"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_044/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_044/metrics.json",
+      "bytes": 916,
+      "sha256": "0a6c2d5db24493b93a1820e8ae0c6d919fb270f3a446d372fe62010569f9ca71"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_044/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_044/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "105cc7da222dafd9e57a118adbacf2bcf47fdbcc07c951b07b577028111f2a83"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_044/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_044/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "88d9732305cce5af6806dd3855ac1c79038febb8fe859ad25ee61b38da0a91d5"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_045/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_045/cm.npy",
+      "bytes": 2176,
+      "sha256": "6046469bd34cab952a9468c72737d6a4ed887145b6afd66c6c33466679212dec"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_045/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_045/metrics.csv",
+      "bytes": 324,
+      "sha256": "f1e410b0485b4c7db0e30e5ef1771c2f3a466668c3bc88950eb37a0491876cc7"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_045/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_045/metrics.json",
+      "bytes": 920,
+      "sha256": "227ea343aa99393bb8f60ced66094bf822ee0d65506ec80dd7a04862b15c8850"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_045/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_045/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "490331c481f5e517a5ce4caf23f5be7ff0e042328f42406acf694184f2581cdb"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_045/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_045/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "7eabb7a418989436677a3a423477e4a4acf1a42309f6830546e508362c9a6ddf"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_046/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_046/cm.npy",
+      "bytes": 2176,
+      "sha256": "e1159f1610abfb82cd0232069ae1b6fed01d32bc92e37a624a5ff0b887384a63"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_046/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_046/metrics.csv",
+      "bytes": 323,
+      "sha256": "14d933697368785d7eed3025a2e119fd054466ed4aa63f14296db30502790c96"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_046/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_046/metrics.json",
+      "bytes": 917,
+      "sha256": "88afc23eed757c77b4976cdb9c23d1a5a75674d5aaf5af5762118cc2a083635c"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_046/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_046/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "bdb76ec66d487fa90faa3eee00a9a530429f81b8bbfb57d1a2d45fa36c74f5a7"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_046/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_046/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "426f1c33e7d34df269eb590aeb90dd7acdc7ecf587130d88a7fd4f0c52d98bf5"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_047/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_047/cm.npy",
+      "bytes": 2176,
+      "sha256": "abf51bdac8d838406807ae3f94abd4d98ac49702be017ec428b49f697894df1c"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_047/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_047/metrics.csv",
+      "bytes": 319,
+      "sha256": "1c5b03a9c90b5eae05c79b757f01ba6c149a1e00e9ac2916b592958aca97ca59"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_047/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_047/metrics.json",
+      "bytes": 911,
+      "sha256": "521392fa2897f4b2c66458ef9b5ddfb0f4f4aaa8bae7a0a5b9a2fce9808c5274"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_047/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_047/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "267e239f2b17c57cec550c23ed782a803253dee63dbd777309394d821cf45cf7"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_047/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_047/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "e59a31e147d33830318a2323ac72f75af97ac74d80c70a3d66248c946bc6fcae"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_048/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_048/cm.npy",
+      "bytes": 2176,
+      "sha256": "5251026d0ebb6bca1912b89793300c000d29fd4e5ac75ee1d448426f344338e8"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_048/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_048/metrics.csv",
+      "bytes": 324,
+      "sha256": "165fd1f81bff4db3f7138961c1255ae6329beb91b3f55a9cc78f13bc2a3e03b2"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_048/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_048/metrics.json",
+      "bytes": 915,
+      "sha256": "9f2d1140b3b7b3082e65067a080282073e410ae8f17d8b3752fe4cd9b2a75d18"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_048/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_048/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "73841d3fb99692a7c9eacdcc2c567f0211ea147e7d608db458d6066bfd878a75"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_048/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_048/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "87885ee7fb93f7a9dd48e0169c93616dc8c2618dcc94593927085403a9a6ef0a"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_049/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_049/cm.npy",
+      "bytes": 2176,
+      "sha256": "0205eb95cef09e6b2dbfc2cbed231f5b1964dfc723542d340c7df69176ff4be8"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_049/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_049/metrics.csv",
+      "bytes": 324,
+      "sha256": "9d20e3a236b308f4ca33a03757b130df31b10c5df33a6f37437a57584775df78"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_049/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_049/metrics.json",
+      "bytes": 919,
+      "sha256": "59ce1ac6ddbc7810e0e18b5ad52a5fb818117b899982685d26123f9a6ceb4e41"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_049/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_049/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "e2b988c6d0e0e47760878dba17a9bbe1247ddf75ee84b036b369b61bcc777874"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_049/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_049/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "48dad0fc2c0e7240b14f8cbcf702526d20a9512466835ee0f45eb6b6004b109a"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_050/cm.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_050/cm.npy",
+      "bytes": 2176,
+      "sha256": "f275377b0da136d7dbba8543eee12fc07ce079cce58aeaaeb5fe6ea68ef599be"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_050/metrics.csv",
+      "source_path": "central-cnn-lstm-feature/epoch_050/metrics.csv",
+      "bytes": 324,
+      "sha256": "115d0b2097f63f0f386e3fefd59950d3e976cb0144bd53676e9cea0b8a37073f"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_050/metrics.json",
+      "source_path": "central-cnn-lstm-feature/epoch_050/metrics.json",
+      "bytes": 904,
+      "sha256": "8389843b83d1511e7abc4d6ed830217204e8d2661965654c011b18825f2dfd0a"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_050/pred_0.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_050/pred_0.npy",
+      "bytes": 4673967,
+      "sha256": "ee3523e7af79f3bc7bd2519b3d0847b7ad43c879447109685ce27a3e3ce7f6d2"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/central-cnn-lstm-feature/epoch_050/pred_1.npy",
+      "source_path": "central-cnn-lstm-feature/epoch_050/pred_1.npy",
+      "bytes": 4673968,
+      "sha256": "2e97102a2e918ee48264a6d6b3d1e678cf1d875902daceccc20607bedfd56e24"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/source_manifest.json",
+      "source_path": "source_manifest.json",
+      "bytes": 1514,
+      "sha256": "855808aac16ff5f2b6720ebe3b592967ecbbf263fad50a3084b724ef1d620f50"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/source_snapshot.json",
+      "source_path": "source_snapshot.json",
+      "bytes": 80473,
+      "sha256": "c95f72e719f419564f9da91f59dc1dd0a09022fac2c100ac290bc6e94b24c034"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/timing-cnn-lstm-feature/config.json",
+      "source_path": "timing-cnn-lstm-feature/config.json",
+      "bytes": 1422,
+      "sha256": "01f4c6bcf1165345d5fe0b7f20c91b0e7b319222a1a587df4676c680a53db68f"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/timing-cnn-lstm-feature/probe.json",
+      "source_path": "timing-cnn-lstm-feature/probe.json",
+      "bytes": 285,
+      "sha256": "ec575faf6ff5259421171df676689495eae3df4351aef265364d6097bd006289"
+    },
+    {
+      "archive_path": "central-cnn-lstm-feature-supplement/veremi-central-cnn-lstm-feature-e50.log",
+      "source_path": "veremi-central-cnn-lstm-feature-e50.log",
+      "bytes": 1010694,
+      "sha256": "797ea90d66820f7feac95d313725e993d292682dcecd0aa86d9ecfa328a5227f"
+    }
+  ]
+}

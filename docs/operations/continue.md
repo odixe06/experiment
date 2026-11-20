@@ -1,5 +1,18 @@
 # Continue — bàn giao sống, 01/11/2026 (giờ VN)
 
+## 20/11 — final artifact backup audit
+
+Mixed-model final matrix now 45/45 audited. Case2 V2X-HtFL seeds41/42/43 and
+Case3 FedTGP41/TinyProto41/TinyProto43 have exact final R1–R50 histories in
+`artifacts/mixed-history-supplement-2026-11-20.zip`; 300 history rows total.
+Single-model FL backup resolves 504/504 required files for all168 final runs.
+Centralized CNN-LSTM-feature missing raw output was recovered from exact Kaggle v1:
+50/50 metrics and CMs PASS, every prediction reconstructs CM exactly; packaged as
+`artifacts/central-cnn-lstm-feature-supplement-2026-11-20.zip`. Full non-checkpoint
+backup audit PASS. BERT has18 recorded epochs and TCNN has1 because those experiments
+did not finish50; their recorded artifacts are complete, not missing from backup.
+Checkpoints remain intentionally outside Git backup. No local cleanup performed.
+
 ## 19/11 11:51ICT — results file refreshed
 
 Collected current15 mixed experiments; refreshed raw evidence
@@ -1176,3 +1189,12 @@ Bước tiếp: xác nhận 2 T4, test/resume filter và smoke PASS; khi COMPLET
   tổng audit40/45. Case1 V2X s42 chỉ committed tới r42, đã push continuation
   `minhgia2026/mix128-case1-v2x-htfl-s42-a2-r04-r05-r06-r07-r42/1`, RUNNING, budget3,5h.
   Năm cấu hình chưa audit còn lại đều đang RUNNING; không còn scientific tuple chưa submit.
+- 20/11 08:15 ICT: collect chính xác năm run cuối: Case1 V2X s42 COMPLETE50 + final-CM audit PASS
+  (macro-F1 0,84564), Case3 pFedES s41 COMPLETE50 + PASS (0,80720); tổng audit42/45.
+  Ba run còn lại dừng ngân sách sạch tại r44/r44/r43, không lỗi. Đã refresh quota/slot và push
+  ba continuation private, mỗi run budget4h: `sonlebaodac/mix128-case1-v2x-htfl-s41-a2-r10-r44/1`,
+  `nguyntngquckhnh/mix128-case1-v2x-htfl-s43-a2-r08-r44/1`,
+  `nguynkhacao/mix128-case3-pfedes-s43-a1-r06-r08-r09-r10-r43/1`. Cả ba báo RUNNING sau push;
+  preflight xác nhận parent checkpoint/config/round và nguồn notebook private/T4. Log startup còn rỗng,
+  nên chưa gọi restore/round mới khỏe trước lần kiểm kế tiếp. Ledger `runs/mixed128-final3-launch.json`;
+  bảng `docs/research/mixed128-all-results.*` đã refresh42/45, giữ trống ba ô chưa audit round50.
