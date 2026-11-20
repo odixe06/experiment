@@ -1,5 +1,22 @@
 # Git / DVC backup record
 
+## GitHub single-model artifact supplement — 20/11/2026
+
+- Remote: `origin` → `https://github.com/odixe06/experiment.git`; branch:
+  `codex/mobihet-v4-relkd`; artifact commit:
+  `0af58af785ba24eb2709999d6773880657bb3ff9`.
+- Git LFS object: `artifacts/single-fl-final-artifacts-supplement-2026-11-20.zip`,
+  88.537.309 bytes; SHA-256
+  `46f4ef982fcee7f42ca8d8a8a196396acee252f4534e0f843170336c6c773051`.
+- Scope: 390 missing non-checkpoint files / 97.685.945 source bytes from 132 exact final
+  runs in the 4-backbone × 14-method × 3-seed matrix.
+- Combined with `runs-no-checkpoints-2026-11-20.zip`: 504/504 required files present
+  (one final CM, `config.json`, and `rounds.jsonl` for each of 168 runs).
+- Checks: 132/132 configs match model/method/seed; round histories contiguous; every CM has
+  5.343 clients × 16 × 16, 9.347.679 test rows per view, and all ten final metrics match;
+  ZIP integrity PASS; credential/signed-URL scan PASS; LFS upload 100%.
+- No checkpoints included; no local cleanup requested or performed.
+
 ## GitHub mixed-model results — 20/11/2026
 
 - Remote: `origin` → `https://github.com/odixe06/experiment.git`; branch:
