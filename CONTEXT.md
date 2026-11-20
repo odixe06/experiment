@@ -26,13 +26,13 @@ phát triển ban đầu ở `../mobihet`. Biến thể L4 đã tích hợp vào
   - Compute: **chỉ FLOP** (đếm op), bỏ GPU-time vì khác phần cứng; job không vừa GPU local thì đếm trên Kaggle.
 - Task < 1 h chạy local (RTX 3050 4 GB, env conda `nckh`); task dài chạy Kaggle (account ở `~/.kaggle/accounts`, quota live).
 
-## Trạng thái — 21/11/2026, 03:34 +07
+## Trạng thái — 21/11/2026, 04:28 +07
 
 - Repo phát triển tại `/home/odixe/project/experiment`, nhánh local `main`. FeatureBERT chạy từ `bert/`.
   Lịch sử nguồn và bổ sung artifact Codex đã nhập vào main. [Vị trí dữ liệu ORICO](docs/operations/backup.md)
 - MobiHet L4 đủ 3 seed R50 cho sáu backbone đơn và cả ba mixed case. [Kết quả L4](docs/research/mobihet-l4.md)
 - Mixed128 baseline đủ 45/45 cấu hình r50. Đã đối chiếu 10 metric mỗi dòng với confusion matrix từ bản sao Kaggle. [Kết quả](docs/research/mixed/mixed128-all-results.md)
-- Centralized BERT đã audit tới E17/E19/E19 theo seed 41/42/43. Seed 41 đang chạy P3. Seed 42 và 43 đang chạy P4 từ E19 với cache v4 NPY đã kiểm. Các backbone centralized trong ma trận còn lại đủ ba seed.
+- Centralized BERT đã audit tới E21/E19/E19 theo seed 41/42/43. Cả ba đang chạy P4 với cache v4 NPY đã kiểm. Các backbone centralized trong ma trận còn lại đủ ba seed.
 - Chi phí đủ 9 kịch bản và 114/114 hàng chi tiết. Đã audit thêm 27 trace CNN-BiGRU và mixed case1/3. [Compute](docs/research/compute.md)
 - TabM/SAE/MLP/CNN-BiGRU FL baseline đủ 10 metric cuối từ confusion matrix cho cả 168 run. Lịch sử từng round và manifest thống nhất nằm tại `runs/round-metrics/` trên ORICO. [Bàn giao](docs/operations/continue.md#lịch-sử-từng-round-và-epoch) · [Bảng baseline](docs/research/backbones/four-backbone-seed-results-live.md)
 - Kernel, kiểm chứng, bản sao artifact và việc tiếp theo nằm ở [bàn giao sống](docs/operations/continue.md).
