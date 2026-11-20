@@ -2,6 +2,11 @@
 
 Dùng `/home/odixe/project/experiment` trên nhánh `main`. Trạng thái phiên Claude e360305d đã nhập vào lịch sử Git và artifacts bên dưới. Protocol, seed 41/42/43, HP L4 và cosine 50 giữ nguyên. [Context](../../CONTEXT.md) · [Protocol](../research/protocol.md) · [Compute](../research/compute.md)
 
+## Cập nhật lúc 22:56 +07
+
+- Mixed L4 case3 seed 42 đã đạt r50. Audit 50 round gồm CM gộp và từng backbone, support 5.343 xe, source/config và hai rank checkpoint trên ORICO. Accuracy 0,906247, macro-F1 0,874446. Case2 đủ 3/3. Case1 chạy cả ba seed, case3 còn seed 41 và 43 chạy. [Bảng case3](../../experiments/mixed-case3/results.csv)
+- Đã gỡ hai symlink tên checkout cũ. Source BERT nằm trong `bert/`, DAGSNet ở gốc repo. Năm script MobiHet local dùng đường dẫn mới. [Hồ sơ backup](backup.md)
+
 ## Trạng thái kiểm lúc 20:47 +07
 
 - Đã query cả **27 exact ref** trong bàn giao. 18 COMPLETE, 9 RUNNING. Kiểm Mixed L4 trước. Listing output exact version trả 0 file cho cả chín phiên đang chạy (`after-boot/active-output-listings.json`). Hai kernel FLOP đã COMPLETE và 27 trace mới đã audit.
@@ -55,7 +60,7 @@ Ba BERT epoch 9 dùng source đóng băng riêng theo seed. Seed 41 và 43 có c
 | `dinhan20t/mixl4-case1-s41/1` | RUNNING, log r21 |
 | `lelovo/mixl4-case1-s42-h2/1` | RUNNING, restore r2, log r32 |
 | `dinhan20t/mixl4-case1-s43/1` | RUNNING, log r20 |
-| `lelovo/mixl4-case3-s42-h2/1` | RUNNING, restore r2, log r38 |
+| `lelovo/mixl4-case3-s42-h2/1` | COMPLETE r50, audit PASS cả 50 CM và checkpoint hai rank |
 | `gaming3/mixl4-case3-s41/1` | RUNNING, log r31 |
 | `goilaaiudi/mixl4-case3-s43/1` | RUNNING, log r26 |
 
@@ -81,14 +86,14 @@ Import hai commit Codex `5d2648b` và `66c1e9c` qua merge `3281ad6`. Khôi phụ
 
 Khôi phục đủ 10 metric và exact ref cho 168 cấu hình FL của TabM, SAE, MLP và CNN-BiGRU từ bản sao Kaggle. Hai ZIP có đủ config, history và CM cuối. Audit tính lại 10 metric cho cả 168 run, khớp CSV và support từng xe/lớp. Đã nâng 132 dòng từ `marker_metrics` lên `audited`. [Bảng bốn backbone](../research/backbones/four-backbone-seed-results-live.md)
 
-**333 dòng endpoint có đủ 10 metric và nhãn `audited`**. Chín ô endpoint còn thiếu thuộc Mixed L4 case1/3 và Centralized BERT. [Chỉ mục kết quả](../../experiments/README.md)
+**334 dòng endpoint có đủ 10 metric và nhãn `audited`**. Tám ô endpoint còn thiếu thuộc Mixed L4 case1/3 và Centralized BERT. [Chỉ mục kết quả](../../experiments/README.md)
 
 ## Lịch sử từng round và epoch
 
 - `runs/round-metrics/` trỏ tới `ORICO/experiment-data/experiment/round-metrics/`. Mỗi run có đúng hai file trong `<scenario>/<method>/s<seed>/`. `metrics.csv` dùng cùng schema `step,view` và 10 metric cho mỗi bước/view. `run.json` ghi seed, đích, exact ref khi xác minh được, source/config, CM, log, checkpoint, SHA-256 và danh sách dữ liệu thiếu. `index.json` tra cả 342 run. CANPerFL có 10 epoch fine-tune và trỏ về FedAvg 50 round cùng seed.
-- **327/342 run đủ lịch sử**, **37.145 dòng bước/view** đã kiểm. Khôi phục history DAGSNet từ object DVC xác minh MD5. Kéo 550 CM của 11 run Centralized, đối chiếu lại đủ 10 metric cho từng epoch. CNN-BiGRU Centralized seed 42 dùng bảng audit 50 epoch ở độ chính xác 5 chữ số do Kaggle trả 403 với artifact gốc. [Bảng CNN-BiGRU](../../papers/mnkash-2026-cnn-bigru/results.md)
-- Sáu run Mixed128 cần quyền đọc Kaggle. Case2 V2X-HtFL cả ba seed thiếu r1–49. Case3 FedTGP s41 thiếu r42–49, TinyProto s41 thiếu r43–49, TinyProto s43 thiếu r37–49. Giữ lịch sử parent đã kiểm và CM r50. Các ref và bước thiếu nằm trong `run.json`.
-- Chín run còn lại đều `RUNNING` khi query exact ref lúc 22:17 +07. Collector tiếp tục thu output khi kernel terminal. Sau khi audit và cập nhật CSV endpoint, chạy lại `PYTHONPATH=. python runs/round-metrics/audit/audit.py` với env `nckh`, rồi `verify.py` cùng thư mục. Biên bản pull và kiểm nằm ở `runs/round-metrics/audit/`.
+- **328/342 run đủ lịch sử**, **37.433 dòng bước/view** đã kiểm. Khôi phục history DAGSNet từ object DVC xác minh MD5. Kéo 550 CM của 11 run Centralized, đối chiếu lại đủ 10 metric cho từng epoch. CNN-BiGRU Centralized seed 42 dùng bảng audit 50 epoch ở độ chính xác 5 chữ số do Kaggle trả 403 với artifact gốc. [Bảng CNN-BiGRU](../../papers/mnkash-2026-cnn-bigru/results.md)
+- Sáu run Mixed128 vẫn cần quyền đọc Kaggle. Case2 V2X-HtFL cả ba seed thiếu r1–49. Case3 FedTGP s41 thiếu r42–49, TinyProto s41 thiếu r43–49, TinyProto s43 thiếu r37–49. Soát lại ZIP và output local, giữ lịch sử parent và CM r50. Cả sáu exact ref trả 403 khi pull lại. Ref và bước thiếu trong `run.json`, log ở `runs/round-metrics/audit/recheck-mixed128.log`.
+- Tám run đang chờ output terminal. Collector tiếp tục thu output khi kernel terminal. Sau khi audit và cập nhật CSV endpoint, chạy lại `PYTHONPATH=. python runs/round-metrics/audit/audit.py` với env `nckh`, rồi `verify.py` cùng thư mục. Biên bản pull và kiểm nằm ở `runs/round-metrics/audit/`.
 
 ## Git và dữ liệu
 

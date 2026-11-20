@@ -11,7 +11,7 @@
   Dữ liệu checkpoint DAGSNet và Mixed lịch sử chuyển vào `experiment-data/experiment/recovered-checkpoints-20261120`.
   Symlink local trong `bert/` và `runs/` giữ nguyên đường dẫn dùng bởi script. Bốn cây BERT `runs/` đã có trên ORICO được giữ nguyên.
 - Tiến độ copy và SHA-256 lưu trong `runs/worktree-consolidation/orico-20261120/`. File `consolidated.json` xác nhận đã đổi symlink
-  và thu hồi bản trùng local. Hai tên đường dẫn cũ `fl_dagsnet_veremi_v2` và `fl_veremi_bert` phục vụ script MobiHet dùng đường dẫn cố định.
+  và thu hồi bản trùng local. Hai symlink cấp checkout `fl_dagsnet_veremi_v2` và `fl_veremi_bert` đã gỡ sau khi chuyển năm script MobiHet local sang `experiment/` và `experiment/bert/`.
 - Các checkpoint Mixed L4 case2, L4 port, regression và đầu vào/trace compute chuyển vào
   `experiment-data/experiment/local-artifacts/`. `relocation.json` ghi SHA-256 từng file, các đường dẫn local trỏ tới bản đã xác minh.
 - `experiment-data/experiment/round-metrics/` giữ lịch sử metrics, manifest từng run và evidence bổ sung.
