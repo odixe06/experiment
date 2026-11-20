@@ -29,10 +29,10 @@ phát triển ban đầu ở `../mobihet`. Biến thể L4 đã tích hợp vào
 ## Trạng thái — 20/11/2026
 
 - Repo phát triển tại `/home/odixe/project/experiment`, nhánh local `main`. Lịch sử ba nguồn đã nhập vào main.
-- MobiHet L4 đủ 3 seed r50 cho sáu backbone đơn. Mixed L4 case2 seed 42 đã audit r50. Case1 và case3 seed 42 đang nối từ r2. [Kết quả L4](docs/research/mobihet-l4.md)
+- MobiHet L4 đủ 3 seed r50 cho sáu backbone đơn và mixed case2. Sáu phiên mixed case1/3 đang chạy. [Kết quả L4](docs/research/mobihet-l4.md)
 - Mixed128 baseline đủ 45/45 cấu hình r50. Đã đối chiếu 10 metric mỗi dòng với confusion matrix từ bản sao Kaggle. [Kết quả](docs/research/mixed/mixed128-all-results.md)
 - Centralized BERT đủ ba checkpoint epoch 9, đã khởi động phiên nối. Các backbone centralized khác đủ ba seed.
-- Chi phí lịch sử đủ 9 kịch bản. Trace chi tiết công thức FLOP và ước tính phép toán đang bổ sung theo [compute](docs/research/compute.md).
+- Chi phí lịch sử đủ 9 kịch bản. Đã kiểm 87/114 trace chi tiết, còn CNN-BiGRU và mixed case1/3. [Compute](docs/research/compute.md)
 - TabM/SAE/MLP/CNN-BiGRU FL baseline đều đủ 10 metric. 36 cấu hình TabM có CM audit local, 132 cấu hình có marker cuối được đối chiếu. [Bảng baseline](docs/research/backbones/four-backbone-seed-results-live.md)
 - Kernel, kiểm chứng, bản sao artifact và việc tiếp theo nằm ở [bàn giao sống](docs/operations/continue.md).
 

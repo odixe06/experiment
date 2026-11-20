@@ -42,15 +42,16 @@ python .agents/skills/kaggle-training-notebook/scripts/kaggle_account.py quota
 
 ## Account
 
-**Máy này (20/11/2026): 30 account** có OAuth snapshot `~/.kaggle/accounts/<user>.credentials.json` (ngoài repo, 0600; không ghi
+**Máy này (20/11/2026): 31 account** có OAuth snapshot `~/.kaggle/accounts/<user>.credentials.json` (ngoài repo, 0600; không ghi
 token/email vào docs). Dùng qua `kaggle_as.py <user> -- kaggle ...`; quota live: `kaggle_quota.py --users ...` hoặc `kaggle_account.py quota`.
 
-abbafan, accanniez, anhtruong1909, annhannh331, annhtnt, bestyorn, catbaochau, chiencosieuhang, chuchimnon, dinhan25, emtrangtri,
+abbafan, accanniez, anhtruong1909, annhannh331, annhtnt, bestyorn, catbaochau, chiencosieuhang, chuchimnon, dinhan20t, dinhan25, emtrangtri,
 gaming3, goilaaiudi, heykewtiie, hoangdang20t, keocaosu, khanhmay0304, lelovo, minhtran0601, minhtriethihi, minhtrit06,
 nguyenminhtran060113, nguyetquedo, novahihi, odixe0502, odixeuit, outlookcheck, takids1909, thuyanh316, trietbackup.
 
 - Mới 19–20/11 (30 h GPU khi thêm): bestyorn, abbafan, goilaaiudi, hoangdang20t (19/11 tối), chiencosieuhang, lelovo, gaming3 (20/11 ~01:45).
   Đã dùng ngay cho centralized ([continue](continue.md)); đều xác minh identity + quota bằng `kaggle_quota.py` (OK 30,00 h).
+- `dinhan20t` thêm chiều 20/11. Xác minh identity, 30 giờ quota và hai slot trống trước khi gửi hai phiên mixed L4 case1.
 - `dinhan25` dành cho dự án khác (RCD).
 - Account teammate (sonlebaodac, minhgia2026, nghuay, nguynkhacao, qwerasdf3004, …; bảng [quota live](kaggle-quota-live.md)) **không có
   credential trên máy này** — chỉ teammate xem/pull được.

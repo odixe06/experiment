@@ -87,12 +87,16 @@ Tổng FL 50 round, đơn vị: **× FedAvg cùng kịch bản** (đơn model); 
 
 | Kịch bản | L4 (TFLOPs, 50 round) | Baseline (TFLOPs) | Tỷ lệ chi tiết | Tỷ lệ lịch sử |
 |---|---:|---:|---:|---:|
+| DAGSNet | 3.537,92 | FedAvg 3.856,93 | 0,917× | 0,920× |
+| BERT | 10.697,68 | FedAvg 11.680,44 | 0,916× | 0,917× |
 | TabM | 29,84 | FedAvg 28,38 | 1,051× | 1,310× |
 | SAE | 10,07 | FedAvg 6,86 | 1,469× | 2,445× |
 | MLP | 13,42 | FedAvg 10,52 | 1,276× | 1,952× |
 | Mixed case2 | 187,26 | FedProto 91,82 | 2,039× | 2,202× |
 
-Synthetic tốn khoảng 3,65 TFLOPs cho mỗi backbone đơn trong bảng và 9,06 TFLOPs cho mixed case2. Với SAE, chi phí synthetic riêng đã bằng khoảng 53% tổng FedAvg. Phép nhân ma trận forward/backward của FedAvg MLP ở r2 khớp trace lịch sử, tổng 195,08 GFLOPs. Cộng lại indexing, copy, RNG, sắp xếp và công việc phần tử khác cho bốn trace L4 tái tạo tổng lịch sử với sai số dưới 0,003 Tops. Một phần lớn chênh lệch xuất phát từ các thao tác này trong lấy mẫu copula/KM.
+Hai kernel Kaggle DAGSNet và BERT hoàn thành 30 trace, đã kiểm SHA-256 và đối chiếu tổng theo scope. Tỷ lệ BERT 0,916× dùng phép đếm trực tiếp ở `group_rows=4096`.
+
+Synthetic tốn khoảng 3,65 TFLOPs cho mỗi backbone TabM, SAE và MLP, và 9,06 TFLOPs cho mixed case2. Với SAE, chi phí synthetic riêng đã bằng khoảng 53% tổng FedAvg. Phép nhân ma trận forward/backward của FedAvg MLP ở r2 khớp trace lịch sử, tổng 195,08 GFLOPs. Cộng lại indexing, copy, RNG, sắp xếp và công việc phần tử khác cho bốn trace L4 của TabM, SAE, MLP và mixed case2 tái tạo tổng lịch sử với sai số dưới 0,003 Tops. Một phần lớn chênh lệch xuất phát từ các thao tác này trong lấy mẫu copula/KM.
 
 Grouped chọn chiều rộng compact theo xe có quota lớn nhất còn gộp trong nhóm. Panel 200 có ít xe mỗi backbone. Nhiều bước mixed case2 chạy chiều rộng 64 thật + 64 synthetic dù mask kích hoạt ít hơn. Chi phí đó lặp lại theo từng nhóm backbone và phụ thuộc phân bố số dòng trên xe. So sánh này dùng panel 200. Định lượng padding ở 5.343 xe cần phép đo panel rộng hơn hoặc full-scale.
 
