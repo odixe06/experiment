@@ -1,5 +1,20 @@
 # Git / DVC backup record
 
+## GitHub run artifacts — 20/11/2026
+
+- Canonical remote: `origin` → `https://github.com/odixe06/experiment.git` (GitHub redirected the old
+  `fl_dagsnet_veremi_v2` URL during push).
+- Branch: `codex/mobihet-v4-relkd`; artifact commit:
+  `de5904a5facd2ba5f7d9966242808a76ded91016`.
+- Git LFS object: `artifacts/runs-no-checkpoints-2026-11-20.zip`, 903.962.154 bytes;
+  SHA-256 `9e5d8eb4573785f418ff710c38de0af0b238cdac0bcfd31714a871ee42f2c012`.
+- Archive contains 5.176 files / 1.112.281.698 source bytes from `runs/`. Excluded: 1.036
+  `.pt`/`.pth`/`.ckpt` checkpoints and 95 files matching signed-URL/credential gates.
+- Manifest: `artifacts/runs-no-checkpoints-2026-11-20.manifest.json`; packaging helper:
+  `scripts/package_runs_without_checkpoints.py`.
+- Checks: ZIP integrity PASS; Git LFS upload 100% (904 MB); no local cleanup requested or performed.
+- DVC remains unconfigured; this selected artifact was explicitly stored in GitHub LFS.
+
 ## GitHub code + docs — 20/11/2026
 
 - Remote: `origin` → `https://github.com/odixe06/fl_dagsnet_veremi_v2.git`.
