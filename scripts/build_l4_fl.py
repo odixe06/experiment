@@ -55,7 +55,7 @@ def main():
     short = {"cnn-bigru-attention": "cnnbigru"}.get(args.backbone, args.backbone)
     run = f"{short}-l4-s{args.seed}"                      # run directory: the same in every session
     slug = run if args.session == 1 else f"{run}-h{args.session}"
-    paths = sorted([*ROOT.glob("core/*.py"), *ROOT.glob("methods/*.py"), ROOT / model["test"], ROOT / "tests/test_aligned_fl.py",
+    paths = sorted([*ROOT.glob("core/*.py"), *ROOT.glob("methods/*.py"), ROOT / model["test"], ROOT / "tests/test_sae_fl.py", ROOT / "tests/test_aligned_fl.py",
                     ROOT / "scripts/run_fl.py", ROOT / "scripts/run_p21_recovery.py", *ROOT.glob("knowledge/*.json")])
     source = {p.relative_to(ROOT).as_posix(): p.read_text(encoding="utf-8") for p in paths}
     hashes = {name: hashlib.sha256(value.encode()).hexdigest() for name, value in source.items()}
