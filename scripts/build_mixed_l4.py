@@ -30,7 +30,9 @@ def main():
     ap.add_argument("--seed", required=True, type=int, choices=(41, 42, 43))
     ap.add_argument("--session", type=int, default=1)
     ap.add_argument("--parent", default="", help="<owner>/<slug> of the previous session (session > 1)")
-    ap.add_argument("--parent-artifacts", type=Path, help="audited parent pull with frozen source and checkpoint receipt")
+    sources = ap.add_mutually_exclusive_group()
+    sources.add_argument("--parent-artifacts", type=Path, help="audited parent pull with frozen source and checkpoint receipt")
+    sources.add_argument("--source-artifacts", type=Path, help="reuse a pilot source snapshot for a new seed")
     ap.add_argument("--stop-after", type=int, default=50)
     ap.add_argument("--max-hours", type=float, default=11.5)
     args = ap.parse_args()
@@ -61,8 +63,11 @@ def main():
         if set(parent_sizes) != {"state_rank0.pt", "state_rank1.pt"} or min(parent_sizes.values()) <= 0:
             ap.error("parent audit must cover two checkpoint ranks")
         source = json.loads((pull / "source_snapshot.json").read_text())
+    if args.source_artifacts:
+        source = json.loads((args.source_artifacts / "source_snapshot.json").read_text())
     hashes = {name: hashlib.sha256(value.encode()).hexdigest() for name, value in source.items()}
-    if args.parent_artifacts and hashes != json.loads((args.parent_artifacts / "source_manifest.json").read_text()):
+    frozen = args.parent_artifacts or args.source_artifacts
+    if frozen and hashes != json.loads((frozen / "source_manifest.json").read_text()):
         ap.error("frozen parent source and manifest disagree")
     manifest = {"experiment": f"mixed-{args.case}-mobihet-l4", "method": "mobihet_l4", "case": args.case, "seed": args.seed,
                 "rounds": 50, "stop_after": args.stop_after, "session": args.session, "parent": args.parent or None,

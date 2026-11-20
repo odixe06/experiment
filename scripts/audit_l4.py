@@ -9,6 +9,8 @@ the pull dir; --csv appends the row (view "client": each vehicle's own model on 
 """
 import argparse
 import ast
+import csv
+import fcntl
 import hashlib
 import json
 import math
@@ -35,6 +37,19 @@ def value(v):
         return json.loads(v)
     except json.JSONDecodeError:
         return v
+
+def append_csv_row(path, fields):
+    """Keep one result per method/seed/view/round even when collectors overlap."""
+    path = Path(path)
+    with path.open("r+", newline="") as stream:
+        fcntl.flock(stream, fcntl.LOCK_EX)
+        matches = [row for row in csv.reader(stream) if row[:4] == fields[:4]]
+        if matches:
+            if matches != [fields]:
+                raise ValueError(f"conflicting existing result in {path}: {fields[:4]}")
+            return False
+        csv.writer(stream, lineterminator="\n").writerow(fields)
+        return True
 
 
 def main():
@@ -86,18 +101,9 @@ def main():
           "macro %.5f bytes %.0f train %.2f h" % (ten["f1_macro"], total, res["t_train_hours"]))
     if a.csv and chk["pass"]:
         ref_k = json.loads((nbdir / "kernel-metadata.json").read_text())["id"]
-        row = ",".join(["mobihet_l4", str(seed), "client", "50", *(f"{ten[k]:.6f}" for k in TEN), "audited",
-                        f'"kaggle {ref_k} (scripts/audit_l4.py: CM r50 -> 10 metrics, hp/source/rounds checked)"'])
-        existing = Path(a.csv).read_text()
-        matches = [line for line in existing.splitlines() if line.startswith(f"mobihet_l4,{seed},client,50,")]
-        if matches:
-            if matches != [row]:
-                raise ValueError(f"conflicting result already recorded for L4 seed {seed}")
-            print("already recorded", a.csv)
-            return
-        with open(a.csv, "a") as f:
-            f.write(row + "\n")
-        print("appended", a.csv)
+        fields = ["mobihet_l4", str(seed), "client", "50", *(f"{ten[k]:.6f}" for k in TEN), "audited",
+                  f"kaggle {ref_k} (scripts/audit_l4.py: CM r50 -> 10 metrics, hp/source/rounds checked)"]
+        print("appended" if append_csv_row(a.csv, fields) else "already recorded", a.csv)
     if not chk["pass"]:
         return 1
 

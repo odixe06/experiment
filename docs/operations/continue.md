@@ -24,20 +24,22 @@ CNN-BiGRU L4 đủ 10 metric r50 trong [results.csv](../../experiments/cnn-bigru
 
 Ba BERT epoch 9 dùng source đóng băng riêng theo seed. Seed 41 và 43 có cùng hash, seed 42 có sửa thứ tự barrier/config DDP và bật find_unused cho SAE-CE. Cấu hình BERT dùng cùng HP. Đã kiểm full state của model, optimizer và AMP scaler, fingerprint data, history liên tục, prediction → CM và 10 metric. Byte nguồn, log, prediction và checkpoint ở `runs/central-20261120/pulls/` và ledger recovery.
 
-| Exact ref nối phiên | Trạng thái quan sát gần 14:20 |
+| Exact ref nối phiên | Trạng thái quan sát 14:20–14:30 |
 |---|---|
 | `abbafan/exp-central-bert-s41-p2/1` | RUNNING, import epoch 9, train epoch 10 đã qua step 3.000 / 9.122 |
 | `chiencosieuhang/exp-central-bert-s42-p2/1` | RUNNING, import epoch 9, train epoch 10 đã qua step 2.750 / 9.122 |
 | `bestyorn/exp-central-bert-s43-p2/1` | RUNNING, import epoch 9, train epoch 10 đã qua step 3.250 / 9.122 |
-| `lelovo/mixl4-case1-s42-h2/1` | RUNNING, mount đúng parent và import r2 |
+| `lelovo/mixl4-case1-s42-h2/1` | RUNNING, hai rank xác nhận restore r2 |
 | `gaming3/mixl4-case2-s42-h2/1` | RUNNING, restore r2, log qua r17, skip 0% |
-| `lelovo/mixl4-case3-s42-h2/1` | RUNNING, mount đúng parent, rank log restore r2 |
+| `lelovo/mixl4-case3-s42-h2/1` | RUNNING, hai rank xác nhận restore r2 |
+| `gaming3/mixl4-case2-s41/1` | RUNNING, seed mới sau pilot PASS, source đóng băng của pilot, mục tiêu r50 |
+| `abbafan/mixl4-case2-s43/1` | RUNNING, seed mới sau pilot PASS, source đóng băng của pilot, mục tiêu r50 |
 | `goilaaiudi/exp-flops-v3-bert/1` | RUNNING, trace mới FeatureBERT và native BERT L4 |
 | `goilaaiudi/exp-flops-v3-dagsnet/1` | RUNNING, trace mới DAGSNet |
 | `hoangdang20t/exp-flops-v3-cnnbigru/1` | RUNNING, trace mới CNN-BiGRU |
 | `hoangdang20t/exp-flops-v3-mixed13/1` | RUNNING, trace mới mixed case1/3 |
 
-H2 mixed kiểm receipt và kích thước hai rank từ mount trước khi decode dataset. Tiếp theo, đọc `RUN_STATUS.json` và checkpoint đã commit trước khi dựng H3. BERT tiếp tục bằng `scripts/build_central_backbones.py --parent-artifacts ... --parent-epoch E`. Mixed dùng `scripts/build_mixed_l4.py --parent-artifacts ...`, giữ source, assignment và checkpoint hash của parent. Không chạy orchestrator MobiHet cũ.
+H2 mixed kiểm receipt và kích thước hai rank từ mount trước khi decode dataset. `scripts/audit_mixed_l4.py` nhận pull, notebook đã chạy, exact ref và inventory checkpoint. Script xuất receipt cho phiên nối và chỉ nhận `--csv` khi đủ r50. Tiếp theo, đọc `RUN_STATUS.json` và checkpoint đã commit trước khi dựng H3. BERT tiếp tục bằng `scripts/build_central_backbones.py --parent-artifacts ... --parent-epoch E`. Mixed dùng `scripts/build_mixed_l4.py --parent-artifacts ...`, giữ source, assignment và checkpoint hash của parent. Không chạy orchestrator MobiHet cũ.
 
 ## Git và dữ liệu
 
@@ -59,7 +61,7 @@ Kiểm local trên main. 47 pytest PASS trong suite portable và 38 PASS trong F
 
 ## Việc còn lại
 
-1. Audit các phiên BERT và mixed khi terminal. Nối từ checkpoint được kiểm cho tới epoch/round 50. Mixed seed 41/43 còn chưa chạy. Chọn slot/quota mới ở lúc push.
+1. Audit các phiên BERT và mixed khi terminal. Nối từ checkpoint được kiểm cho tới epoch/round 50. Mixed case1 và case3 seed 41/43 còn chưa chạy. Case2 đã đủ ba seed đang chạy. Chọn slot/quota mới ở lúc push.
 2. Thu đủ trace chi tiết từ hai hàng đợi. Xử lý từng trường hợp OOM và xác minh số backward, padding và provenance trước khi đưa vào bảng. So các trace mới với lịch sử theo nguồn và quy ước.
 3. Teammate bổ sung CM hoặc đủ 10 metric của TabM/SAE/MLP/CNN-BiGRU FL và kết quả mixed128 còn thiếu. Account teammate không có credential ở đây.
 4. Đóng các phiên dùng cwd `experiment-wt`, mở workspace `experiment` và gỡ worktree cũ sau khi kiểm trạng thái lần cuối. Chỉ phát triển trên main.
