@@ -3,7 +3,8 @@
 ## GitHub centralized CNN-LSTM-feature supplement — 20/11/2026
 
 - Remote: `origin` → `https://github.com/odixe06/experiment.git`; branch:
-  `codex/mobihet-v4-relkd`.
+  `codex/mobihet-v4-relkd`; artifact commit:
+  `8b1a3d4a360e5431d2be1a426040ad10c4f4d0fc`.
 - Git LFS object: `artifacts/central-cnn-lstm-feature-supplement-2026-11-20.zip`,
   77.224.724 bytes; SHA-256
   `1bca385fd7ed168fc630781d2e6674deb19bf54c07ce40370fdae0e1b29562b5`.
