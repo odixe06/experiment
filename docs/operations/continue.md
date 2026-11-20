@@ -51,14 +51,14 @@ Ba BERT epoch 9 dùng source đóng băng riêng theo seed. Seed 41 và 43 có c
 
 | Exact ref đang chạy | Quan sát gần nhất |
 |---|---|
-| `abbafan/exp-central-bert-s41-p2/1` | RUNNING, import epoch 9, kiểm exact ref trước shutdown |
-| `chiencosieuhang/exp-central-bert-s42-p2/1` | RUNNING, import epoch 9, kiểm exact ref trước shutdown |
-| `bestyorn/exp-central-bert-s43-p2/1` | RUNNING, import epoch 9, kiểm exact ref trước shutdown |
+| `abbafan/exp-central-bert-s41-p2/1` | RUNNING, log epoch 11 bước 6.250 / 9.122 |
+| `chiencosieuhang/exp-central-bert-s42-p2/1` | RUNNING, log epoch 11 bước 4.750 / 9.122 |
+| `bestyorn/exp-central-bert-s43-p2/1` | RUNNING, log epoch 11 bước 6.750 / 9.122 |
 | `dinhan20t/mixl4-case1-s41/1` | RUNNING, 2×T4, lockstep PASS |
-| `lelovo/mixl4-case1-s42-h2/1` | RUNNING, hai rank xác nhận restore r2 |
+| `lelovo/mixl4-case1-s42-h2/1` | RUNNING, restore r2, log qua r9 |
 | `dinhan20t/mixl4-case1-s43/1` | RUNNING, 2×T4, lockstep PASS |
-| `lelovo/mixl4-case3-s42-h2/1` | RUNNING, hai rank xác nhận restore r2 |
-| `gaming3/mixl4-case3-s41/1` | RUNNING, 2×T4 và lockstep PASS, source pilot case3, seed 41, ngân sách 9,25 giờ |
+| `lelovo/mixl4-case3-s42-h2/1` | RUNNING, restore r2, log qua r10 |
+| `gaming3/mixl4-case3-s41/1` | RUNNING, log qua r1, source pilot case3, ngân sách 9,25 giờ |
 | `goilaaiudi/mixl4-case3-s43/1` | RUNNING, 2×T4, lockstep PASS |
 | `hoangdang20t/exp-flops-v3-cnnbigru/1` | RUNNING, trace mới CNN-BiGRU |
 | `hoangdang20t/exp-flops-v3-mixed13/1` | RUNNING, trace mới mixed case1/3 |
