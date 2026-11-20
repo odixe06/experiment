@@ -42,6 +42,7 @@ def main():
     ap.add_argument("--width", type=float, default=float(os.environ.get("DAGS_WIDTH", 1.0)))
     ap.add_argument("--rounds", type=int, default=PROTOCOL["rounds"])
     ap.add_argument("--subset", type=int, default=0, help="local probes: N random clients (seed 7)")
+    ap.add_argument("--clients", default="", help="local probes: comma-separated client ids (overrides --subset)")
     ap.add_argument("--cache", default=os.environ.get("V4_CACHE", "cache"))
     ap.add_argument("--compile", action="store_true")
     ap.add_argument("--wandb", default="", help="W&B project; empty = off")
@@ -58,7 +59,12 @@ def main():
     T0 = time.monotonic()
 
     hp = dict(PROTOCOL, rounds=a.rounds)
-    mhp = {k: json.loads(v) for k, v in (s.split("=", 1) for s in a.set)}
+    def _val(v):
+        try:
+            return json.loads(v)
+        except json.JSONDecodeError:
+            return v                                                   # bare string, e.g. arm=none (MobiHet hp)
+    mhp = {k: _val(v) for k, v in (s.split("=", 1) for s in a.set)}
     hp.update(mhp)
     if bool(a.train_fold) != bool(a.eval_fold) or (a.train_fold and a.train_fold == a.eval_fold):
         raise ValueError("--train-fold and --eval-fold must be distinct and supplied together")
@@ -74,6 +80,8 @@ def main():
     clients = None
     if a.subset:
         clients = np.sort(np.random.default_rng(7).choice(5343, a.subset, replace=False)).tolist()
+    if a.clients:
+        clients = sorted(int(c) for c in a.clients.split(","))
     env = fl.Env(cfg, hp, clients=clients, cache=a.cache or None)
     M = importlib.import_module(f"methods.{a.method}").Method(env)
     cfg = env.cfg                                                     # a method may change the model (LwFedNIDS prunes it)

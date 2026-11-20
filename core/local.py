@@ -123,6 +123,11 @@ def local_epoch(lay, flat, bufs, data, clients, cfg, hp, lr, gen, loss_fn=None, 
     b = slot(n.max().item(), hp["batch"])
     floor = hp.get("synthetic_step_floor", 0)
     steps = max(int(math.ceil(n.max().item() / b)), floor)
+    # MobiHet (methods/mobihet_*, port of ../mobihet core/local.py 20/11/2026): a client with fewer than `mh_floor` real steps
+    # takes extra steps on its synthetic rows only; BN buffers and the logged loss come from steps with a real row only.
+    mh = "synth_step_floor" in hp
+    mh_floor = hp.get("synth_step_floor", 0)
+    steps = max(steps, mh_floor)
     ctx = Ctx()
     ctx.G, ctx.Gfix = G, group_size(off, clients, hp)
     clients_p = ctx.pad(clients)
@@ -148,9 +153,12 @@ def local_epoch(lay, flat, bufs, data, clients, cfg, hp, lr, gen, loss_fn=None, 
         # contiguous: a slice of the (G, steps*b) schedule has a group-dependent stride, and a stride change is a
         # recompile of the static-shape graph (8 recompiles -> silent eager fallback, Kaggle probe 29/10)
         rows, mask = pos[:, sl].contiguous(), valid[:, sl].contiguous()
-        active = mask.any(1)
+        has_real = mask.any(1)
+        active = has_real
         if s < floor:
             active = n_p > 0
+        if mh_floor:
+            active = has_real | ((s < mh_floor) & (n_p > 0))
         ctx.active = active
         ctx.P, ctx.B, ctx.flat = (leaves[0], bviews[0], flat_p) if one else (leaves, bviews, flat_p)
         ctx.x, ctx.y, ctx.mask, ctx.rows, ctx.step = X[rows], Y[rows].long(), mask, rows, s
@@ -175,14 +183,14 @@ def local_epoch(lay, flat, bufs, data, clients, cfg, hp, lr, gen, loss_fn=None, 
         _, ok = opt.step(flat_p, grad, lr, active)
         if Bn:
             nb = lay.flat_bufs(newB) if one else torch.cat([lay.flat_bufs(d) for d in newB], dim=1)
-            bufs_p.copy_(torch.where(ok[:, None], nb, bufs_p))
-        loss_sum += torch.where(ok, loss.detach(), torch.zeros_like(loss))
+            bufs_p.copy_(torch.where(((ok & has_real) if mh else ok)[:, None], nb, bufs_p))
+        loss_sum += loss.detach() * (ok & has_real) if mh else torch.where(ok, loss.detach(), torch.zeros_like(loss))
         skipped += (active & ~ok).float()
         applied += ok.float()
     flat.copy_(flat_p[:G]); bufs.copy_(bufs_p[:G])
     if _round_steps is not None:
         _round_steps.append(torch.stack((applied[:G].double().sum(), skipped[:G].double().sum())))
-    return {"loss": loss_sum[:G] / applied[:G].clamp_min(1), "skipped": skipped[:G], "applied": applied[:G],
+    return {"loss": loss_sum[:G] / (torch.ceil(n.float() / b) if mh else applied[:G].clamp_min(1)), "skipped": skipped[:G], "applied": applied[:G],
             "steps": steps}
 
 

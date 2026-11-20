@@ -30,6 +30,7 @@ def main():
     ap.add_argument("--slug", required=True)
     ap.add_argument("--jobs", required=True, help="comma-separated run_queue.py job-name prefixes")
     ap.add_argument("--sha", default="")
+    ap.add_argument("--embed", action="store_true", help="embed this worktree's source (unpushed code) instead of git clone")
     ap.add_argument("--fold-counts", default=os.environ.get("V4_CACHE", "cache") + "/fold_counts.npy")
     a = ap.parse_args()
     sha = a.sha or subprocess.run(["git", "-C", str(ROOT), "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
@@ -39,14 +40,32 @@ def main():
     fc = base64.b64encode(zlib.compress(raw, 9)).decode()
     fc_sha = hashlib.sha256(raw).hexdigest()
     jobs = a.jobs.split(",")
+    if a.embed:                                                       # core, methods, scripts, knowledge, assignment, scenarios
+        files = sorted(p for p in [*ROOT.glob("core/*.py"), *ROOT.glob("methods/*.py"), *ROOT.glob("scripts/*.py"),
+                                   *ROOT.glob("scripts/compute/*.py"), *ROOT.glob("knowledge/*.json"),
+                                   *ROOT.glob("experiments/mixed-model-v1/*"), ROOT / "experiments/scenarios.json"])
+        blob = {f.relative_to(ROOT).as_posix(): f.read_bytes() for f in files}
+        packed = base64.b64encode(zlib.compress(json.dumps({k: base64.b64encode(v).decode() for k, v in blob.items()}).encode(), 9)).decode()
+        src_sha = hashlib.sha256(json.dumps({k: hashlib.sha256(v).hexdigest() for k, v in blob.items()}, sort_keys=True).encode()).hexdigest()
+        fetch = f'''import json as _j
+blob = _j.loads(zlib.decompress(base64.b64decode("{packed}")))
+for name, body in blob.items():
+    (src / name).parent.mkdir(parents=True, exist_ok=True)
+    (src / name).write_bytes(base64.b64decode(body))
+digest = {{k: hashlib.sha256((src / k).read_bytes()).hexdigest() for k in blob}}
+assert hashlib.sha256(_j.dumps(digest, sort_keys=True).encode()).hexdigest() == "{src_sha}", "embedded source mismatch"
+print("embedded source", len(blob), "files, sha256", "{src_sha}"[:16])'''
+        sha = "embedded:" + src_sha[:16]
+    else:
+        fetch = f'''subprocess.run(["git", "clone", "-q", "{REPO}", str(src)], check=True)
+subprocess.run(["git", "-C", str(src), "checkout", "-q", "{sha}"], check=True)
+print(subprocess.run(["git", "-C", str(src), "log", "-1", "--format=%H %s"], capture_output=True, text=True).stdout)'''
     cells = [f'''import base64, hashlib, io, os, subprocess, sys, time, zlib
 from pathlib import Path
 import numpy as np, torch
 assert torch.cuda.device_count() == 2 and all(torch.cuda.get_device_capability(i) == (7, 5) for i in range(2)), "expected 2 T4"
 src, cache, npy, out = Path("/kaggle/temp/src"), Path("/kaggle/temp/cache"), Path("/kaggle/temp/v4npy"), Path("/kaggle/working/compute")
-subprocess.run(["git", "clone", "-q", "{REPO}", str(src)], check=True)
-subprocess.run(["git", "-C", str(src), "checkout", "-q", "{sha}"], check=True)
-print(subprocess.run(["git", "-C", str(src), "log", "-1", "--format=%H %s"], capture_output=True, text=True).stdout)
+{fetch}
 cache.mkdir(parents=True, exist_ok=True); out.mkdir(parents=True, exist_ok=True)
 raw = zlib.decompress(base64.b64decode("{fc}"))
 assert hashlib.sha256(raw).hexdigest() == "{fc_sha}", "fold_counts mismatch"
@@ -66,7 +85,8 @@ D.build_npy(D.find_root(), str(npy), clients=[int(i) for i in ids])
 print(f"panel npy built in {{time.time() - t:.0f}}s")''',
              f'''jobs = {jobs!r}
 half = [jobs[0::2], jobs[1::2]]
-env = dict(os.environ, V4_NPY=str(npy), V4_CACHE=str(cache), PYTHONUNBUFFERED="1", OMP_NUM_THREADS="2")
+env = dict(os.environ, V4_NPY=str(npy), V4_CACHE=str(cache), PYTHONUNBUFFERED="1", OMP_NUM_THREADS="2",
+           MOBIHET_RECOVERY_DIR=str(out / "recovery"))
 procs = [subprocess.Popen([sys.executable, "scripts/compute/run_queue.py", "--only", ",".join(h), "--out", str(out)], cwd=src,
                           env=dict(env, CUDA_VISIBLE_DEVICES=str(g)), stdout=open(out / f"worker{{g}}.log", "w"), stderr=subprocess.STDOUT)
          for g, h in enumerate(half) if h]
