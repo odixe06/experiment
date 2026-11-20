@@ -1,0 +1,6 @@
+method,status,bootstrap_tops,train_tops_per_round,other_tops_per_round,eval_tops_per_round,rounds,total_tops,x_fedavg,real_rows,executed_rows_r2,useful_rows_r2,source
+v2x_htfl,done,4.97633e-05,217.685,15.3748,5.08052,50,11653,,1476064,9675520,1476064,experiment-wt/runs/compute-20261120/kaggle/exp-count-mixed-g4096/compute/mixed-case1-v2x_htfl.count.json
+tinyproto,done,4.57628e-05,216.634,15.2953,5.05831,50,11596.5,,1476064,9675520,1476064,experiment-wt/runs/compute-20261120/kaggle/exp-count-mixed-g4096/compute/mixed-case1-tinyproto.count.json
+pfedes,done,4.12579e-05,575.087,0.000306206,2.51588,50,28754.3,,1476064,19351040,2952128,experiment-wt/runs/compute-20261120/kaggle/exp-count-mixed-g4096/compute/mixed-case1-pfedes.count.json
+fedtgp,done,4.58297e-05,216.634,15.3041,5.05831,50,11596.9,,1476064,9675520,1476064,experiment-wt/runs/compute-20261120/kaggle/exp-count-mixed-g4096/compute/mixed-case1-fedtgp.count.json
+fedproto,done,4.57595e-05,216.636,0.000303997,5.05831,50,10831.8,,1476064,9675520,1476064,experiment-wt/runs/compute-20261120/kaggle/exp-count-mixed-g4096/compute/mixed-case1-fedproto.count.json

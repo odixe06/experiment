@@ -9,7 +9,8 @@ v2x_htfl,done,9.64877e-05,81.5009,8.37847,2.47857,50,4493.97,1.1392,1476064,5562
 canperfl,done,8.01331e-05,78.8966,0.00015947,2.16831,10,4733.81,1.2000,1476064,5562368,1476064,mobihet/runs/total-compute-20261119/dags-base-canperfl.count.json
 tinyproto,done,8.72632e-05,78.9123,8.06331,2.405,50,4348.78,1.1024,1476064,5562368,1476064,mobihet/runs/total-compute-20261119/dags-base-tinyproto.count.json
 pfedes,done,8.13341e-05,208.167,0.000185289,1.20249,50,10408.4,2.6385,1476064,11124736,2952128,mobihet/runs/total-compute-20261119/dags-base-pfedes.count.json
-nilm,done,8.17311e-05,157.795,0.000641864,2.11418,50,7889.8,2.0000,1476064,11124736,2952128,mobihet/runs/total-compute-20261119/dags-base-nilm.count.json
+nilm,done,8.17311e-05,157.795,0.000640668,2.16832,50,7889.78,2.0000,1476064,11124736,2952128,experiment-wt/runs/compute-20261120/kaggle/exp-count-mixed-g4096/compute/dags-base-nilm.count.json
 fedtgp,done,8.16037e-05,78.9123,8.09335,2.405,50,4350.28,1.1028,1476064,5562368,1476064,mobihet/runs/total-compute-20261119/dags-base-fedtgp.count.json
 perfedskd,done,8.17313e-05,104.414,8.06341,1.20249,50,5623.86,1.4256,1476064,5562368,1476064,mobihet/runs/total-compute-20261119/dags-base-perfedskd.count.json
 fedproto,done,8.13365e-05,78.9141,0.000163033,2.405,50,3945.71,1.0002,1476064,5562368,1476064,mobihet/runs/total-compute-20261119/dags-base-fedproto.count.json
+mobihet_l4,done,0.0640037,72.5723,0.000160867,1.20249,50,3628.69,0.9199,1476064,5092288,1437976,mobihet/runs/total-compute-20261119/dags-mh-l4.count.json

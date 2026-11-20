@@ -1,0 +1,15 @@
+method,status,bootstrap_tops,train_tops_per_round,other_tops_per_round,eval_tops_per_round,rounds,total_tops,x_fedavg,real_rows,executed_rows_r2,useful_rows_r2,source
+fedavg,done,4.73793e-07,144.387,7.17617e-05,1.75369,50,7219.37,1.0000,1476064,5562368,1476064,experiment-wt/runs/compute-20261120/cnn-bigru-fedavg.count.json
+fedprox,done,4.73793e-07,144.418,7.17617e-05,1.75369,50,7220.91,1.0002,1476064,5562368,1476064,experiment-wt/runs/compute-20261120/cnn-bigru-fedprox.count.json
+afpha,done,4.74193e-07,144.418,0.000170565,1.75369,50,7220.92,1.0002,1476064,5562368,1476064,experiment-wt/runs/compute-20261120/kaggle/exp-count-cnnbigru-a/compute/cnn-bigru-afpha.count.json
+fd_ids,done,4.73793e-07,190.712,7.17617e-05,1.75369,50,9535.6,1.3208,1476064,5562368,1476064,experiment-wt/runs/compute-20261120/kaggle/exp-count-cnnbigru-a/compute/cnn-bigru-fd_ids.count.json
+apfed,done,4.77587e-05,288.598,0.000328358,3.93678,50,14429.9,1.9988,1476064,11124736,2952128,experiment-wt/runs/compute-20261120/kaggle/exp-count-cnnbigru-b/compute/cnn-bigru-apfed.count.json
+lwfednids,done,7.74748e-07,15.6597,7.36634e-06,0.17614,50,782.985,0.1085,1476064,5562368,1476064,experiment-wt/runs/compute-20261120/kaggle/exp-count-cnnbigru-a/compute/cnn-bigru-lwfednids.count.json
+v2x_htfl,done,2.80323e-05,145.065,14.7193,4.38573,50,7989.21,1.1066,1476064,5562368,1476064,experiment-wt/runs/compute-20261120/kaggle/exp-count-cnnbigru-b/compute/cnn-bigru-v2x_htfl.count.json
+canperfl,done,2.38016e-05,144.387,4.73678e-05,3.93678,10,8663.24,1.2000,1476064,5562368,1476064,experiment-wt/runs/compute-20261120/kaggle/exp-count-cnnbigru-b/compute/cnn-bigru-canperfl.count.json
+tinyproto,done,3.00828e-05,144.394,14.639,4.3662,50,7951.64,1.1014,1476064,5562368,1476064,experiment-wt/runs/compute-20261120/kaggle/exp-count-cnnbigru-b/compute/cnn-bigru-tinyproto.count.json
+pfedes,done,2.41587e-05,386.257,5.52498e-05,2.18309,50,19312.8,2.6751,1476064,11124736,2952128,experiment-wt/runs/compute-20261120/kaggle/exp-count-cnnbigru-a/compute/cnn-bigru-pfedes.count.json
+nilm,done,2.42754e-05,288.776,0.000190296,3.93678,50,14438.8,2.0000,1476064,11124736,2952128,experiment-wt/runs/compute-20261120/kaggle/exp-count-cnnbigru-b/compute/cnn-bigru-nilm.count.json
+fedtgp,done,2.42271e-05,144.394,14.6478,4.3662,50,7952.08,1.1015,1476064,5562368,1476064,experiment-wt/runs/compute-20261120/kaggle/exp-count-cnnbigru-a/compute/cnn-bigru-fedtgp.count.json
+perfedskd,done,2.42756e-05,190.681,14.639,2.18309,50,10266,1.4220,1476064,5562368,1476064,experiment-wt/runs/compute-20261120/kaggle/exp-count-cnnbigru-b/compute/cnn-bigru-perfedskd.count.json
+fedproto,done,2.41591e-05,144.395,4.91547e-05,4.3662,50,7219.74,1.0001,1476064,5562368,1476064,experiment-wt/runs/compute-20261120/kaggle/exp-count-cnnbigru-a/compute/cnn-bigru-fedproto.count.json

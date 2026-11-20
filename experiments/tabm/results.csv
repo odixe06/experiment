@@ -1,4 +1,7 @@
 method,seed,view,round,accuracy,precision_macro,precision_micro,precision_weighted,recall_macro,recall_micro,recall_weighted,f1_macro,f1_micro,f1_weighted,status,source
+centralized,43,global,50,0.920953,0.960298,0.920953,0.931522,0.879970,0.920953,0.920953,0.887659,0.920953,0.898808,audited,"kaggle nguyenminhtran060113/exp-central-tabm-s43/2 (in-kernel audit_central_backbones, 50 epoch)"
+centralized,42,global,50,0.922556,0.946301,0.922556,0.919995,0.885671,0.922556,0.922556,0.892032,0.922556,0.900405,audited,"kaggle minhtran0601/exp-central-tabm-s42/3 (in-kernel audit_central_backbones, 50 epoch)"
+centralized,41,global,50,0.920843,0.955597,0.920843,0.927816,0.882953,0.920843,0.920843,0.890054,0.920843,0.898862,audited,"kaggle anhtruong1909/exp-central-tabm-s41/2 (in-kernel audit_central_backbones, 50 epoch)"
 fedavg,41,global,50,,,,,,,,0.842640,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
 fedavg,42,global,50,,,,,,,,0.847420,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
 fedavg,43,global,50,,,,,,,,0.843760,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
@@ -41,3 +44,6 @@ perfedskd,43,client,50,,,,,,,,0.828930,,,audited_f1,docs/research/backbones/four
 fedproto,41,client_proto,50,,,,,,,,0.714520,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
 fedproto,42,client_proto,50,,,,,,,,0.748040,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
 fedproto,43,client_proto,50,,,,,,,,0.735810,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
+mobihet_l4,42,client,50,0.900124,0.922963,0.900124,0.901435,0.821549,0.900124,0.900124,0.836912,0.900124,0.877702,audited,"kaggle lelovo/tabm-l4-s42 (scripts/audit_l4.py: CM r50 -> 10 metrics, hp/source/rounds checked)"
+mobihet_l4,41,client,50,0.897658,0.924677,0.897658,0.902114,0.814076,0.897658,0.897658,0.830078,0.897658,0.875070,audited,"kaggle anhtruong1909/tabm-l4-s41 (scripts/audit_l4.py: CM r50 -> 10 metrics, hp/source/rounds checked)"
+mobihet_l4,43,client,50,0.898135,0.921286,0.898135,0.899490,0.816430,0.898135,0.898135,0.831174,0.898135,0.875521,audited,"kaggle nguyenminhtran060113/tabm-l4-s43 (scripts/audit_l4.py: CM r50 -> 10 metrics, hp/source/rounds checked)"

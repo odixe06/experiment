@@ -47,6 +47,7 @@ def main():
     ap.add_argument("--stop-after", type=int, default=50)
     ap.add_argument("--max-hours", type=float, default=10.)
     ap.add_argument("--save-every", type=int, default=5)
+    ap.add_argument("--group-rows", type=int, default=8192, help="engine packing (production 8192); FLOP counts use one value for all")
     ap.add_argument("--compile", action="store_true")
     args = ap.parse_args()
     started = time.monotonic()
@@ -64,7 +65,7 @@ def main():
             clients.extend(rng.choice(ids, count, replace=False).tolist())
         clients.sort()
     hp = dict(rounds=50, seed=args.seed, batch=64, lr_max=1e-3, lr_min=1e-5,
-              weight_decay=1e-4, clip=1., group_rows=8192, eval_rows=32768, amp=True)
+              weight_decay=1e-4, clip=1., group_rows=args.group_rows, eval_rows=32768, amp=True)
     env = fl.Env(width(1), hp, clients=clients, cache=None)
     if args.smoke_rows:
         if not args.smoke_clients or args.smoke_rows < 1:

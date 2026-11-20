@@ -26,12 +26,15 @@ phát triển ở repo `../mobihet` (không thuộc bảng kịch bản ở đâ
   - Compute: **chỉ FLOP** (đếm op), bỏ GPU-time vì khác phần cứng; job không vừa GPU local thì đếm trên Kaggle.
 - Task < 1 h chạy local (RTX 3050 4 GB, env conda `nckh`); task dài chạy Kaggle (account ở `~/.kaggle/accounts`, quota live).
 
-## Trạng thái — 20/11/2026
+## Trạng thái — 20/11/2026 ≈ 09:35
 
-- Bảng kịch bản: 6 kịch bản đơn model đủ 14 PP × 3 seed; thiếu centralized (16 run, 11 đang chạy Kaggle). Mixed: 40/45 audited,
-  5 run đang chạy trên account của teammate. Chi tiết job, ref, bước tiếp: [continue](docs/operations/continue.md).
-- 10 metric đầy đủ trong repo: DAGSNet, BERT, mixed. TabM/SAE/MLP/CNN-BiGRU mới có macro-F1 (artifact ở máy teammate) — việc tay.
-- Compute FLOP: DAGSNet + BERT xong (14 PP); 4 backbone + mixed đang đếm local ([compute](docs/research/compute.md)).
+- 20/11 trưa: mixed L4 đã code + test + smoke (worktree `experiment-l4`, chưa commit), pilot 2 round × 3 case seed 42 đang chạy Kaggle; compute L4 trong [compute](docs/research/compute.md); centralized CNN-BiGRU 3/3.
+- Thêm cột **MobiHet L4** (owner 20/11; code ở worktree `~/project/experiment-l4`, nhánh `feat/mobihet-l4`): DAGSNet/BERT 3/3 (dùng lại chain
+  MobiHet, PASS), TabM/SAE/MLP 3/3 (dưới FedAvg cùng backbone), CNN-BiGRU 3 kernel đang chạy; mixed chưa làm.
+- Centralized: DAGSNet/MLP/SAE-CE/TabM 3/3, CNN-BiGRU 2/3 (s41 chạy), BERT 0/3 (phiên 1 chạy, cần nối phiên).
+- Compute FLOP xong mọi kịch bản ([compute](docs/research/compute.md)). Orchestrator MobiHet bỏ (owner 20/11).
+- 10 metric đầy đủ: DAGSNet, BERT, mixed, centralized, L4. TabM/SAE/MLP/CNN-BiGRU FL baseline mới có macro-F1 — việc tay.
+- Job, lệnh, bước tiếp: [continue](docs/operations/continue.md).
 
 ## Cần biết → mở
 

@@ -1,5 +1,12 @@
 # Bài học vận hành MobiHet
 
+- 20/11 `pkill -f "<chuỗi>"` trong cùng lệnh bash có chuỗi đó ⇒ khớp chính shell, giết lệnh (exit 144), phần sau không chạy.
+  Dùng `pgrep -f` + kill PID cụ thể, hoặc lệnh riêng. `kaggle kernels list -m` có thể trả rỗng dù account có kernel RUNNING:
+  kiểm slot bằng status từng ref đã biết; push trả "Maximum batch GPU session count of 2" là bằng chứng chắc nhất.
+- 20/11 builder đếm FLOP Kaggle clone GitHub tại SHA đã push; code chưa push ⇒ `build_kaggle_count.py --embed` (nhúng source
+  worktree, sha256 kiểm trong notebook). Panel nhỏ: compile gate `G = group_rows/64` client > số xe nhóm ⇒ đệm client rỗng ⇒
+  BN NaN ⇒ gate FAIL giả; gate dùng `G = min(4, K_nhóm)`.
+
 - 19/11 terminal resume: `ERROR`/`CANCEL_ACKNOWLEDGED` không tự chứng minh có checkpoint dùng được.
   Chỉ resume khi tải được marker + checkpoint + history liên tục và fingerprint khớp; nếu child terminal
   thiếu artifact, quay về parent `COMPLETE` gần nhất có committed round, không suy round từ tên slug.
@@ -151,3 +158,6 @@ Bài học ở đây là quy tắc rút ra khi chạy thí nghiệm và hạ t�
 - Script Python đặt trong thư mục có `queue.py` (vd `runs/total-compute-20261119/`): thư mục script là `sys.path[0]` ⇒ `from queue import
   Queue` của stdlib (torch.fx) lấy nhầm file ⇒ ImportError. Bỏ thư mục đó khỏi `sys.path` trước khi import torch, nạp queue.py bằng importlib.
 - Account Kaggle quota thấp: đặt `--max-hours` < quota live để runner dừng sạch ở biên epoch (nối tiếp được) thay vì bị Kaggle cắt.
+- Test CPU một tiến trình không lộ lỗi chỉ có ở DDP 2 rank: `sae-ce` (decoder không vào loss CE) ⇒ DDP "parameters that were not used";
+  `config.json` rank 0 đang ghi thì rank 1 đọc rỗng (JSONDecodeError, race có sẵn). Runner nhiều rank cần test `torchrun --nproc_per_node=2
+  --cpu` (gloo) trên fixture trước khi push (`test_two_rank_ddp`).
