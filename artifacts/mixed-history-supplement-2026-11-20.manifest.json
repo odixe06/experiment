@@ -1,0 +1,141 @@
+{
+  "format": 1,
+  "scope": "complete R1-R50 histories absent from the prior mixed-model backup",
+  "runs": 6,
+  "round_rows": 300,
+  "history_bytes": 4406178,
+  "checks": [
+    "exact final kernel/version",
+    "non-smoke rounds.jsonl",
+    "contiguous unique rounds 1..50",
+    "client and client_proto macro-F1 at every round",
+    "all ten round-50 metrics match final confusion-matrix audit"
+  ],
+  "results": [
+    {
+      "case": "case2",
+      "method": "v2x_htfl",
+      "seed": 41,
+      "ref": "hiulhuy/mix128-case2-v2x-htfl-s41-a2",
+      "version": 1,
+      "remote_path": "mix128-case2-v2x-htfl-s41-a2/rounds.jsonl",
+      "archive_path": "case2/v2x_htfl/seed41/rounds.jsonl",
+      "bytes": 573358,
+      "sha256": "c2d0a0d56257b7f6a5ace7ab77e8472f55bd56de6726b7da688acc4ae3e082e5",
+      "rounds": 50,
+      "views": [
+        "client",
+        "client_proto"
+      ],
+      "final_f1_macro": {
+        "client": 0.8386209840530883,
+        "client_proto": 0.8148983551595194
+      }
+    },
+    {
+      "case": "case2",
+      "method": "v2x_htfl",
+      "seed": 42,
+      "ref": "huygia1611/mix128-case2-v2x-htfl-s42-a2",
+      "version": 1,
+      "remote_path": "mix128-case2-v2x-htfl-s42-a2/rounds.jsonl",
+      "archive_path": "case2/v2x_htfl/seed42/rounds.jsonl",
+      "bytes": 572334,
+      "sha256": "f7bf08ceb232225676a748c55f76b523a81e68354ed0a6d5904bc1522d69213a",
+      "rounds": 50,
+      "views": [
+        "client",
+        "client_proto"
+      ],
+      "final_f1_macro": {
+        "client": 0.8383875833987363,
+        "client_proto": 0.5753339931298274
+      }
+    },
+    {
+      "case": "case2",
+      "method": "v2x_htfl",
+      "seed": 43,
+      "ref": "honghunhnh/mix128-case2-v2x-htfl-s43-a2",
+      "version": 1,
+      "remote_path": "mix128-case2-v2x-htfl-s43-a2/rounds.jsonl",
+      "archive_path": "case2/v2x_htfl/seed43/rounds.jsonl",
+      "bytes": 571912,
+      "sha256": "f62bda994078f73717afa480102fc1779929a69df8f05e25ca6d6e65ec4a6956",
+      "rounds": 50,
+      "views": [
+        "client",
+        "client_proto"
+      ],
+      "final_f1_macro": {
+        "client": 0.8391675158823715,
+        "client_proto": 0.8122236472597941
+      }
+    },
+    {
+      "case": "case3",
+      "method": "fedtgp",
+      "seed": 41,
+      "ref": "sonlebaodac/mix128-case3-fedtgp-s41-a1-r12-r38-r41",
+      "version": 1,
+      "remote_path": "mix128-case3-fedtgp-s41-a1/rounds.jsonl",
+      "archive_path": "case3/fedtgp/seed41/rounds.jsonl",
+      "bytes": 896131,
+      "sha256": "a2b57881150577c3e5087dc292e2e4b561cc1a6c555edf31541a78c785803697",
+      "rounds": 50,
+      "views": [
+        "client",
+        "client_proto"
+      ],
+      "final_f1_macro": {
+        "client": 0.8385229741174953,
+        "client_proto": 0.7141323532552754
+      }
+    },
+    {
+      "case": "case3",
+      "method": "tinyproto",
+      "seed": 41,
+      "ref": "nghuay/mix128-case3-tinyproto-s41-a1-r12-r39-r40-r42",
+      "version": 1,
+      "remote_path": "mix128-case3-tinyproto-s41-a1/rounds.jsonl",
+      "archive_path": "case3/tinyproto/seed41/rounds.jsonl",
+      "bytes": 896816,
+      "sha256": "1243c256b31dbfcca749c718e9ea122853bc2ca4005ec18e964de3f76dd3ac85",
+      "rounds": 50,
+      "views": [
+        "client",
+        "client_proto"
+      ],
+      "final_f1_macro": {
+        "client": 0.8425815248537019,
+        "client_proto": 0.8049729101882505
+      }
+    },
+    {
+      "case": "case3",
+      "method": "tinyproto",
+      "seed": 43,
+      "ref": "nguynkhacao/mix128-case3-tinyproto-s43-a1-r12-r31-r34-r35-r36",
+      "version": 1,
+      "remote_path": "mix128-case3-tinyproto-s43-a1/rounds.jsonl",
+      "archive_path": "case3/tinyproto/seed43/rounds.jsonl",
+      "bytes": 895627,
+      "sha256": "732c12f294feb4041f5f9eb53e26fa55d16b5616dc961a0ef06d7315477128e9",
+      "rounds": 50,
+      "views": [
+        "client",
+        "client_proto"
+      ],
+      "final_f1_macro": {
+        "client": 0.8421267702422685,
+        "client_proto": 0.8072549641172849
+      }
+    }
+  ],
+  "csv": {
+    "path": "mixed-history-macro-f1-2026-11-20.csv",
+    "rows": 300,
+    "sha256": "bd28b6cfaee35b226e6d62f6ce3a290cc001a2efb90c37946b8e7d05cae37eb8"
+  }
+}
