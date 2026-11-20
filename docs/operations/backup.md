@@ -1,5 +1,18 @@
 # Git / DVC backup record
 
+## Gộp checkout local và ORICO — 20/11/2026
+
+- Checkout chính `/home/odixe/project/experiment`, nhánh local `main`. FeatureBERT chạy trong `bert/`.
+  Git giữ lịch sử BERT tới `49b2d88`, worktree tới `a8cb691` và bổ sung Codex tới `5cf5795`.
+- Đã gỡ Git worktree `experiment-wt` sau khi đối chiếu 1.872 file ngoài Git. Bundle BERT, patch local,
+  metadata checkout và biên bản lưu dưới `runs/worktree-consolidation/orico-20261120/`.
+  Snapshot chứa bản sửa và script T3/Lite2 cũ, theo quyết định loại chúng khỏi code chạy chính.
+- Mount ORICO tại `/run/media/odixe/ORICO`. Đích dữ liệu BERT là `experiment-data/fl_veremi_bert/{runs,artifacts,dvc-cache}`.
+  Dữ liệu checkpoint DAGSNet và Mixed lịch sử chuyển vào `experiment-data/experiment/recovered-checkpoints-20261120`.
+  Symlink local trong `bert/` và `runs/` giữ nguyên đường dẫn dùng bởi script. Bốn cây BERT `runs/` đã có trên ORICO được giữ nguyên.
+- Tiến độ copy và SHA-256 lưu trong `runs/worktree-consolidation/orico-20261120/`. File `consolidated.json` xác nhận đã đổi symlink
+  và thu hồi bản trùng local. Hai tên đường dẫn cũ `fl_dagsnet_veremi_v2` và `fl_veremi_bert` phục vụ script MobiHet dùng đường dẫn cố định.
+
 ## GitHub single-model artifact supplement — 20/11/2026
 
 - Remote: `origin` → `https://github.com/odixe06/experiment.git`; branch:

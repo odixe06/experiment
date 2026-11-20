@@ -1,7 +1,8 @@
 # bert/ — FeatureBERT FL (trước 20/11/2026: repo `fl_veremi_bert`)
 
 Gộp vào repo `experiment` bằng git subtree (giữ lịch sử); tài liệu đã dời sang [docs/bert/](../docs/bert/README.md),
-kết quả theo kịch bản ở [experiments/bert/](../experiments/bert/README.md). Chạy lệnh với cwd `bert/`. Nội dung cũ bên dưới.
+kết quả theo kịch bản ở [experiments/bert/](../experiments/bert/README.md). Chạy lệnh với cwd `bert/`.
+Dữ liệu lớn và cách truy cập qua ORICO ở [hồ sơ backup](../docs/operations/backup.md).
 
 Phần này là IDS federated cho V2X trên VeReMi NextGen v4: **5.343 client = 5.343 xe nhận**, 16 lớp. Model client là **FeatureBERT**
 (77 token đặc trưng + CLS, 2 lớp Transformer encoder, 77.904 tham số; từ [veremi-bert-77](https://github.com/dangvanhoang1711/veremi-bert-77)).

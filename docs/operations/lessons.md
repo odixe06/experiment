@@ -164,3 +164,5 @@ Bài học ở đây là quy tắc rút ra khi chạy thí nghiệm và hạ t�
   --cpu` (gloo) trên fixture trước khi push (`test_two_rank_ddp`).
 - Dùng exact ref và version trong inventory để nối marker hoặc CM từ backup với results.csv. Một số lượt rerun dùng cấu hình khác dù
   trùng backbone, method và seed. Marker cuối có thể giữ đủ 10 metric. Ghi mức kiểm chứng marker hoặc CM vào cột `status`.
+- Khi dời checkout sang ORICO exFAT, đo riêng kích thước logic của cache DVC và artifact. Hardlink trên SSD có thể làm
+  `du` báo cache nhỏ khi đo chung hai cây. Giữ metadata và symlink trên SSD, kiểm SHA-256 bản dữ liệu trên ORICO trước khi bỏ bản trùng.

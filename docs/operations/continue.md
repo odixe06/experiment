@@ -79,7 +79,7 @@ Import hai commit Codex `5d2648b` và `66c1e9c` qua merge `3281ad6`. Khôi phụ
 
 ### Baseline bốn backbone
 
-Khôi phục đủ 10 metric và exact ref cho 168 cấu hình FL của TabM, SAE, MLP và CNN-BiGRU từ bản sao Kaggle. Tính lại 36 cấu hình TabM từ CM, đối chiếu config, toàn bộ vòng liên tục và support từng lớp. 132 cấu hình được đối chiếu marker cuối, manifest và smoke của đúng phiên bản, trạng thái `marker_metrics` trong results.csv. Không có CM của các phiên bản đó trong backup. Macro-F1 giữ nguyên ở độ chính xác công bố. Các checksum và script audit nằm trong `runs/recovery-20261120/{backbone-archive-audit.json,audit_backbone_archive.py}`. [Bảng bốn backbone](../research/backbones/four-backbone-seed-results-live.md)
+Khôi phục đủ 10 metric và exact ref cho 168 cấu hình FL của TabM, SAE, MLP và CNN-BiGRU từ bản sao Kaggle. Backup gốc có 36 cấu hình TabM kiểm được bằng CM, còn 132 dòng trong CSV đang mang nhãn `marker_metrics`. ZIP Codex bổ sung CM cuối cho 132 run đó. Audit hai ZIP tính lại đủ 10 metric cho 168 run, khớp CSV, history và support từng xe/lớp. [Bảng bốn backbone](../research/backbones/four-backbone-seed-results-live.md)
 
 Buổi tối kiểm lại cả 9 bảng. **333 dòng endpoint có đủ 10 metric**, gồm 201 dòng `audited` và 132 dòng `marker_metrics`. Audit lại 168 cấu hình bốn backbone và 45 cấu hình mixed128 (378 dòng view/backbone). Chỉ còn 9 ô endpoint thuộc mixed case1/3 L4 và centralized BERT. Receipt `runs/recovery-20261120/after-boot/research-tables-audit.json`. [Chỉ mục kết quả](../../experiments/README.md)
 
@@ -87,7 +87,7 @@ Buổi tối kiểm lại cả 9 bảng. **333 dòng endpoint có đủ 10 metri
 
 - Local main chứa merge `ee262da` (central + kết quả), `dd1dba1` (L4), `2bf7680` (Codex, backup Git LFS) và `3281ad6` (Codex, mixed128 r50). Source, docs, tests và thay đổi đã bảo toàn đều nằm trong lịch sử main. GitHub main chưa push.
 - Kiểm checksum 71 mapping artifact. `runs/worktree-consolidation/copy-map.json` cho biết vị trí gốc và đích. Collisions, biến thể cache và Git admin được giữ trong cùng thư mục. Notebooks, run cũ, checkpoints, metadata và DVC pointers đã có bản canonical.
-- Checkout `experiment-l4` và checkout detached dùng hồi quy đã gỡ. `experiment-wt` còn được phiên Codex và shell mở làm cwd. Dùng main cho mọi công việc mới. Gỡ sau khi các tiến trình đó chuyển sang main hoặc đóng. Commit `a8cb691` đã nằm trong main.
+- Worktree `experiment-wt` đã gỡ sau khi kiểm Git và đối chiếu 1.872 file ngoài Git với bản canonical. Commit `a8cb691` và hai commit Codex tới `5cf5795` đều nằm trong `main`. Dữ liệu BERT cũ và checkpoint nặng chuyển sang ORICO theo [hồ sơ backup](backup.md).
 - Backup LFS remote 903.962.154 byte có bản local `runs/worktree-consolidation/runs-no-checkpoints-2026-11-20.zip`, SHA-256 `9e5d8eb4573785f418ff710c38de0af0b238cdac0bcfd31714a871ee42f2c012`.
 - Kết quả khoa học chạy trước đây lưu trong `experiments/`. Evidence DAGSNet/BERT L4, source native và lịch LR nằm trong `runs/recovery-20261120/references/`. Đã pull đủ cả hai rank cho sáu run CNN-BiGRU và mixed pilot. Kiểm kích thước object, đọc metadata state weights-only, đối chiếu round/config và ghi SHA-256 trong `runs/recovered-checkpoints-20261120/`.
 
@@ -105,5 +105,5 @@ Kiểm local trên main buổi tối. Suite portable 46 PASS (thêm 4 subtest), 
 
 1. Khi Mixed L4 terminal, đọc receipt collector. Điền CSV cho r50 đã audit hoặc kiểm quota/slot rồi nối từ checkpoint đã commit nếu dưới r50. Case2 đã đủ ba seed.
 2. Khi BERT P2 terminal, đọc receipt và mốc epoch thật. Nếu dưới 50, triển khai P3 cùng seed, source, config và optimizer/scaler đã audit. Cập nhật CSV khi có e50.
-3. Teammate cung cấp CM cho 132 cấu hình còn ở mức kiểm marker. Xác minh 21 owner tương ứng đều thiếu credential local.
+3. ZIP bổ sung Codex đã cung cấp CM cuối cho 132 cấu hình còn ở mức kiểm marker. Đã audit lại đủ 168 cấu hình từ hai ZIP và khớp CSV. Biên bản `runs/worktree-consolidation/single-fl-artifact-supplement-independent-audit.json`. [Backup](backup.md)
 4. Sinh lại chỉ mục, kiểm bảng và commit local các endpoint mới sau khi audit. Làm việc tiếp trên main canonical.

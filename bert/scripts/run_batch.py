@@ -24,7 +24,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SK = ROOT / ".agents/skills/kaggle-training-notebook/scripts"
+SK = ROOT.parent / ".agents/skills/kaggle-training-notebook/scripts"
 PY = sys.executable
 SEED = int(__import__("os").environ.get("FLB_SEED", 42))   # 41/43: separate batch dir + slug suffix (owner 14/11)
 OUT = ROOT / ("runs/batch" if SEED == 42 else f"runs/batch-s{SEED}")

@@ -1,11 +1,11 @@
 """Generate one private Kaggle notebook (2xT4) that runs scripts/run_fl.py (or another repo script) at a pinned commit.
 
     python scripts/gen_notebook.py --owner odixe0502 --slug flb-fedavg --method fedavg --max-hours 11.5
-    python .claude/skills/kaggle-training-notebook/scripts/embed_wandb_key.py notebooks/flb-fedavg/flb-fedavg.ipynb \
+    python ../.agents/skills/kaggle-training-notebook/scripts/embed_wandb_key.py notebooks/flb-fedavg/flb-fedavg.ipynb \
         --metadata notebooks/flb-fedavg/kernel-metadata.json
-    python .claude/skills/kaggle-training-notebook/scripts/kaggle_as.py odixe0502 -- kaggle kernels push -p notebooks/flb-fedavg
+    python ../.agents/skills/kaggle-training-notebook/scripts/kaggle_as.py odixe0502 -- kaggle kernels push -p notebooks/flb-fedavg
 
-The notebook clones github.com/odixe06/fl_veremi_bert at --sha (default: local HEAD, must be pushed), reads the v4
+The notebook clones github.com/odixe06/experiment at --sha (default: local HEAD, must be pushed), reads the v4
 dataset mount, resumes from a previous session's output when --resume-kernel is given, and writes everything under
 /kaggle/working/<run>. notebooks/ is gitignored: embedded notebooks hold a credential.
 """
@@ -22,7 +22,7 @@ import nbformat
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 RUNTIME = json.load(open(os.path.join(ROOT, "knowledge", "runtime.json")))
 DATASET = "odixe0502/veremi-nextgen-v4-scaled-per-vehicle"
-REPO = "https://github.com/odixe06/fl_veremi_bert.git"
+REPO = "https://github.com/odixe06/experiment.git"
 WANDB_PROJECT = "fl-veremi-bert"
 
 
@@ -44,11 +44,16 @@ print(torch.__version__, sys.version, [torch.cuda.get_device_name(i) for i in ra
         assert not p.is_absolute() and ".." not in p.parts, name
         data = (Path(ROOT) / p).read_bytes()
         overlay[name] = {"base64": base64.b64encode(data).decode(), "sha256": hashlib.sha256(data).hexdigest()}
-    yield "code", f"""subprocess.run(["git", "clone", "-q", "{REPO}", "/kaggle/temp/src"], check=True)
-subprocess.run(["git", "-C", "/kaggle/temp/src", "checkout", "-q", "{sha}"], check=True)
-print(subprocess.run(["git", "-C", "/kaggle/temp/src", "log", "-1", "--format=%H %s"], capture_output=True, text=True).stdout)
-import base64, hashlib, json
+    yield "code", f"""import base64, hashlib, json
 from pathlib import Path
+checkout = Path("/kaggle/temp/checkout")
+git_env = dict(os.environ, GIT_LFS_SKIP_SMUDGE="1")
+subprocess.run(["git", "clone", "-q", "{REPO}", str(checkout)], check=True, env=git_env)
+subprocess.run(["git", "-C", str(checkout), "checkout", "-q", "{sha}"], check=True, env=git_env)
+print(subprocess.run(["git", "-C", str(checkout), "log", "-1", "--format=%H %s"], capture_output=True, text=True).stdout)
+source = checkout / "bert" if (checkout / "bert/core/bert.py").is_file() else checkout
+assert (source / "core/bert.py").is_file(), "pinned commit does not contain FeatureBERT"
+Path("/kaggle/temp/src").symlink_to(source, target_is_directory=True)
 overlay = {overlay!r}
 for name, spec in overlay.items():
     data = base64.b64decode(spec["base64"])
@@ -75,8 +80,9 @@ raise SystemExit("W&B credential not embedded: run embed_wandb_key.py")
 print("W&B authenticated")"""
     resume = ""
     if a.resume_kernel or a.resume_dataset:
-        resume = f"""prev = [p for p in glob.glob("/kaggle/input/**/{run}/state.pt", recursive=True)]
-assert len(prev) == 1, "resume requested: missing or ambiguous {run}/state.pt"
+        where = a.resume_dataset.split("/")[-1] if a.resume_dataset else run
+        resume = f"""prev = [p for p in glob.glob("/kaggle/input/**/{where}/state.pt", recursive=True)]
+assert len(prev) == 1, "resume requested: missing or ambiguous {where}/state.pt"
 parent = Path(prev[0]).parent
 s = torch.load(parent / "state.pt", map_location="cpu", weights_only=True, mmap=True)
 assert s["method"] == "{a.method}" and s["hp"]["rounds"] == {a.rounds} and 0 < s["round"] < {a.rounds}
@@ -135,7 +141,7 @@ def main():
     ap.add_argument("--sha", default="")
     ap.add_argument("--overlay", nargs="*", default=[], help="embed exact local source files over --sha; record hashes, no Git push")
     ap.add_argument("--resume-kernel", default="", help="<owner>/<slug> whose output holds <run>/state.pt")
-    ap.add_argument("--resume-dataset", default="", help="<owner>/<slug> private dataset holding <run>/state.pt (cross-account)")
+    ap.add_argument("--resume-dataset", default="", help="<owner>/<slug> private dataset with state.pt at its root")
     ap.add_argument("--input-kernel", default="", help="<owner>/<slug> mounted read-only under /kaggle/input (e.g. CANPerFL's FedAvg)")
     a = ap.parse_args()
     sha = a.sha or subprocess.run(["git", "-C", ROOT, "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()

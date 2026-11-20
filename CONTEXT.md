@@ -28,7 +28,8 @@ phát triển ban đầu ở `../mobihet`. Biến thể L4 đã tích hợp vào
 
 ## Trạng thái — 20/11/2026, 20:47 +07
 
-- Repo phát triển tại `/home/odixe/project/experiment`, nhánh local `main`. Lịch sử ba nguồn đã nhập vào main.
+- Repo phát triển tại `/home/odixe/project/experiment`, nhánh local `main`. FeatureBERT chạy từ `bert/`.
+  Lịch sử nguồn và bổ sung artifact Codex đã nhập vào main. [Vị trí dữ liệu ORICO](docs/operations/backup.md)
 - MobiHet L4 đủ 3 seed r50 cho sáu backbone đơn và mixed case2. Kaggle xác nhận sáu phiên mixed case1/3 vẫn chạy. Collector chờ output cuối. [Kết quả L4](docs/research/mobihet-l4.md)
 - Mixed128 baseline đủ 45/45 cấu hình r50. Đã đối chiếu 10 metric mỗi dòng với confusion matrix từ bản sao Kaggle. [Kết quả](docs/research/mixed/mixed128-all-results.md)
 - Centralized BERT có ba checkpoint epoch 9 đã audit. Cả ba phiên P2 vẫn chạy, log ghi commit epoch 14. Các backbone centralized khác đủ ba seed.
