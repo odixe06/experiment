@@ -2,18 +2,19 @@
 
 Dùng `/home/odixe/project/experiment` trên nhánh `main`. Trạng thái phiên Claude e360305d đã nhập vào lịch sử Git và artifacts bên dưới. Protocol, seed 41/42/43, HP L4 và cosine 50 giữ nguyên. [Context](../../CONTEXT.md) · [Protocol](../research/protocol.md) · [Compute](../research/compute.md)
 
-## Cập nhật lúc 00:23 +07
+## Cập nhật lúc 02:05 +07
 
-- Collector Mixed L4 Case3 đã kết thúc với audit PASS. Seed 41 và 42 đạt R50 với macro-F1 0,874621 và 0,874446. Seed 43 chốt R49, đã xác minh SHA-256 và trạng thái hai rank. Biên bản độc lập ở `runs/round-metrics/audit/mixed-l4-case3-collector-recheck.json`. [Bảng case3](../../experiments/mixed-case3/results.csv)
+- Mixed L4 Case3 đủ 3/3 seed ở R50. Phiên seed 43 H2 khớp history và CM R1–R49 với parent. Audit đủ 50 CM, 10 metric gộp và theo backbone, SHA-256 checkpoint hai rank. Biên bản `runs/round-metrics/audit/mixed-l4-case3-s43-r50-independent.json`. [Bảng case3](../../experiments/mixed-case3/results.csv)
+- Mixed L4 Case1 seed 42 H3 đã audit R50, 50 CM, SHA-256 hai shard checkpoint và prefix R1–R44 với H2. Collector đã thu lên ORICO. Exact refs seed 41 và 43 vẫn RUNNING. [Bảng case1](../../experiments/mixed-case1/results.csv)
 - Centralized BERT P2 đã audit PASS cả ba seed tại E17/E16/E17 (41/42/43). Kiểm lại 50 CM, metrics CSV, dự đoán epoch cuối, weights và optimizer/scaler. Biên bản độc lập ở `runs/round-metrics/audit/central-bert-p2-independent.json`.
 - Codex `9b576f7` bổ sung đủ sáu history Mixed128. Kiểm độc lập 300 round, đủ 10 metric cho mọi view gộp và theo backbone, 30.000 giá trị hữu hạn. R50 khớp CM và CSV; case3 khớp prefix parent, case2 khớp macro-F1 log. ZIP trên ORICO, receipt `runs/round-metrics/audit/mixed-history-codex-verification.json`.
-- Mixed L4 case2 đủ 3/3 seed tại R50. Mixed case1 chạy cả ba seed. [Chỉ mục kết quả](../../experiments/README.md)
+- Mixed L4 case2 đủ 3/3 seed tại R50. [Chỉ mục kết quả](../../experiments/README.md)
 - Đã gỡ hai symlink tên checkout cũ. Source BERT nằm trong `bert/`, DAGSNet ở gốc repo. Năm script MobiHet local dùng đường dẫn mới. [Hồ sơ backup](backup.md)
 
-| Phiên nối | Mốc parent audit PASS | Budget | Trạng thái lúc khởi động |
+| Phiên nối | Mốc parent audit PASS | Budget | Trạng thái |
 |---|---:|---:|---|
-| `lelovo/mixl4-case1-s42-h3/1` | R44 | 2,90 h | RUNNING |
-| `goilaaiudi/mixl4-case3-s43-h2/1` | R49 | 2,50 h | RUNNING |
+| `lelovo/mixl4-case1-s42-h3/1` | R44 | 2,90 h | COMPLETE, R50 audit PASS |
+| `goilaaiudi/mixl4-case3-s43-h2/1` | R49 | 2,50 h | COMPLETE, R50 audit PASS |
 | `abbafan/exp-central-bert-s41-p3/1` | E17 | 5,70 h | RUNNING |
 | `chiencosieuhang/exp-central-bert-s42-p3/1` | E16 | 4,25 h | RUNNING |
 | `bestyorn/exp-central-bert-s43-p3/1` | E17 | 3,35 h | RUNNING |
@@ -22,7 +23,7 @@ Collector `experiment-continuations-2324-20261120`, supervisor PID 105332, deliv
 
 Collector seed 41 P3 `experiment-central-bert-s41-p3-20261120`, supervisor PID 111540, delivery `queue`. State ở `~/.codex/long-jobs/jobs/experiment-central-bert-s41-p3-20261120/state.json`. Log `runs/recovery-20261120/after-boot/central-bert-s41-p3-watch.log`, ledger `continuation-launch-2340.json` cùng thư mục. Output trên ORICO. Collector đối chiếu E1–E17 với parent.
 
-Collector Case3 seed 43 H2 `experiment-mixed-case3-s43-h2-20261121`, supervisor PID 131174, delivery `queue`. State ở `~/.codex/long-jobs/jobs/experiment-mixed-case3-s43-h2-20261121/state.json`. Log `runs/recovery-20261120/after-boot/mixed-case3-s43-h2-watch.log`, ledger `continuation-launch-0021.json` cùng thư mục. Output trên ORICO. Collector đối chiếu R1–R49 và config với parent trước khi xác nhận.
+Collector Case3 seed 43 H2 `experiment-mixed-case3-s43-h2-20261121` kết thúc lúc 01:16 +07, exit code 0. State ở `~/.codex/long-jobs/jobs/experiment-mixed-case3-s43-h2-20261121/state.json`. Log `runs/recovery-20261120/after-boot/mixed-case3-s43-h2-watch.log`, ledger `continuation-launch-0021.json` cùng thư mục. Output trên ORICO.
 
 ## Trạng thái kiểm ngày 20/11 lúc 20:47 +07
 
@@ -103,13 +104,13 @@ Import hai commit Codex `5d2648b` và `66c1e9c` qua merge `3281ad6`. Khôi phụ
 
 Khôi phục đủ 10 metric và exact ref cho 168 cấu hình FL của TabM, SAE, MLP và CNN-BiGRU từ bản sao Kaggle. Hai ZIP có đủ config, history và CM cuối. Audit tính lại 10 metric cho cả 168 run, khớp CSV và support từng xe/lớp. Đã nâng 132 dòng từ `marker_metrics` lên `audited`. [Bảng bốn backbone](../research/backbones/four-backbone-seed-results-live.md)
 
-**335 dòng endpoint có đủ 10 metric và nhãn `audited`**. Bảy ô endpoint còn thiếu thuộc Mixed L4 case1/3 và Centralized BERT. [Chỉ mục kết quả](../../experiments/README.md)
+**337 dòng endpoint có đủ 10 metric và nhãn `audited`**. Năm ô endpoint còn thiếu thuộc Mixed L4 case1 và Centralized BERT. [Chỉ mục kết quả](../../experiments/README.md)
 
 ## Lịch sử từng round và epoch
 
 - `runs/round-metrics/` trỏ tới `ORICO/experiment-data/experiment/round-metrics/`. Mỗi run có đúng hai file trong `<scenario>/<method>/s<seed>/`. `metrics.csv` dùng cùng schema `step,view` và 10 metric cho mỗi bước/view. `run.json` ghi seed, đích, exact ref khi xác minh được, source/config, CM, log, checkpoint, SHA-256 và danh sách dữ liệu thiếu. `index.json` tra cả 342 run. CANPerFL có 10 epoch fine-tune và trỏ về FedAvg 50 round cùng seed.
-- **335/342 run đủ lịch sử**, gồm 45/45 baseline Mixed128. Đã kiểm **39.730 dòng bước/view**. Khôi phục history DAGSNet từ object DVC xác minh MD5. Kéo 550 CM của 11 run Centralized, đối chiếu lại đủ 10 metric cho từng epoch. CNN-BiGRU Centralized seed 42 dùng bảng audit 50 epoch ở độ chính xác 5 chữ số do Kaggle trả 403 với artifact gốc. [Bảng CNN-BiGRU](../../papers/mnkash-2026-cnn-bigru/results.md)
-- Bảy run đang chờ output terminal. Giữ R44 của Mixed case1 seed 42, R49 của Mixed case3 seed 43 và E17/E16/E17 của BERT seed 41/42/43 trong lịch sử từng run. Sau khi audit và cập nhật CSV endpoint, chạy lại `PYTHONPATH=. python runs/round-metrics/audit/audit.py` với env `nckh`, rồi `verify.py` cùng thư mục. Biên bản pull và kiểm nằm ở `runs/round-metrics/audit/`.
+- **337/342 run đủ lịch sử**, gồm 45/45 baseline Mixed128. Đã kiểm **39.760 dòng bước/view**. Khôi phục history DAGSNet từ object DVC xác minh MD5. Kéo 550 CM của 11 run Centralized, đối chiếu lại đủ 10 metric cho từng epoch. CNN-BiGRU Centralized seed 42 dùng bảng audit 50 epoch ở độ chính xác 5 chữ số do Kaggle trả 403 với artifact gốc. [Bảng CNN-BiGRU](../../papers/mnkash-2026-cnn-bigru/results.md)
+- Năm run chờ output cuối, gồm Mixed case1 seed 41/43 và Centralized BERT seed 41/42/43. E17/E16/E17 là các epoch BERT đã audit. Sau khi audit và cập nhật CSV endpoint, chạy lại `PYTHONPATH=. python runs/round-metrics/audit/audit.py` với env `nckh`, rồi `verify.py` cùng thư mục. Biên bản pull và kiểm nằm ở `runs/round-metrics/audit/`.
 
 ## Git và dữ liệu
 
@@ -131,6 +132,6 @@ Kiểm local trên main buổi tối. Suite portable 46 PASS (thêm 4 subtest), 
 
 ## Việc còn lại
 
-1. Khi Mixed L4 terminal, đọc receipt collector. Điền CSV cho r50 đã audit hoặc kiểm quota/slot rồi nối từ checkpoint đã commit nếu dưới r50. Case2 đã đủ ba seed.
+1. Khi Mixed L4 case1 terminal, đọc receipt collector. Điền CSV cho r50 đã audit hoặc kiểm quota/slot rồi nối từ checkpoint đã commit nếu dưới r50. Case2 và case3 đã đủ ba seed.
 2. Khi các phiên BERT P3 kết thúc, đọc receipt và mốc epoch thật. Nếu dưới 50, nối cùng seed, source, config và optimizer/scaler đã audit. Cập nhật CSV khi có e50.
 3. Sinh lại chỉ mục, kiểm bảng và commit local các endpoint mới sau khi audit. Làm việc tiếp trên main canonical.
