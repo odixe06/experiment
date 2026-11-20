@@ -25,7 +25,9 @@ class Method(Budget):
         if model == "sae":
             loss, new_b = super()._loss_tier(ctx)
             return loss + grouped.sae_regularizer(ctx.P, ctx.x, None, ctx.mask, self.env.cfg), new_b
-        if model != "tabm":
+        # mixed-adapter (methods/mobihet_mixed_l4.py): TabM keeps its 4 member logits; the adapter itself gives every unused
+        # native parameter (SAE decoder) its explicit zero gradient, so only the TabM branch differs there.
+        if self.env.cfg.get("backbone", model) != "tabm":
             return super()._loss_tier(ctx)
         assert self.budget, "TabM path is defined for the L4 row budget"
         G, b, a = ctx.Gfix, ctx.x.shape[1], self.aux

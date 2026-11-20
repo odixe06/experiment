@@ -128,8 +128,8 @@ projects). A long job started locally competes for RAM with everything else and 
    [multi-account.md](references/multi-account.md), "Scheduling short quotas". Carry the compile cache into resume sessions:
    `federated-training-speed` skill, "Session startup".
 7. Pull bulk output with `scripts/pull_kernel_output.py` through `scripts/kaggle_as.py <owner>`
-   (parallel, resumable, all-page listing, non-zero exit on gaps; one process per kernel, ~32 connections
-   in total); account credentials stay process-scoped. Require exit 0 before artifact verification.
+   (parallel, resumable, all-page listing, non-zero exit on gaps; one process per kernel, always
+   `-j 64` = maximum threads, owner 20/11); account credentials stay process-scoped. Require exit 0 before artifact verification.
    For operation/recovery read [pull-outputs.md](references/pull-outputs.md),
    [stop-session.md](references/stop-session.md), and only if needed
    [multi-account.md](references/multi-account.md). Distinguish latest batch-version status,

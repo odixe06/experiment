@@ -34,4 +34,37 @@ tầng cỡ xe, synthetic 64,64/16,16/16,16), chọn dòng thật theo CE cũ (`
 | Smoke L4 TabM/SAE/MLP (CPU) + CNN-BiGRU (GPU), compile gate | PASS, loss hữu hạn |
 | `tests/test_{tabm,sae,dense_recurrent,aligned}_fl.py` | PASS |
 
+## Mixed case1–3 (20/11)
+
+Owner 20/11: model mỗi xe = **MixedAdapter** của backbone được gán (`core.mixed_backbones.config(m)`, đúng model của
+FedProto/FedTGP/TinyProto/V2X-HtFL mixed); bảng gán `experiments/mixed-model-v1`, protocol, hp L4 (`L4_HP` + seed) giữ nguyên.
+
+- `methods/mobihet_mixed_l4.py`: mỗi nhóm backbone = một `mobihet_l4` không đổi trên `GroupEnv` (dòng của xe nhóm đó trên rank,
+  cfg/layout/lịch nhóm). Mọi trao đổi của L4 là tổng trên xe (`env.allreduce`) ⇒ **Lockstep**: các nhóm chạy như rank ảo
+  (thread, lần lượt theo thứ tự nhóm, chỉ đổi tại allreduce; nhóm cuối cộng theo thứ tự nhóm rồi all-reduce qua GPU). Bootstrap
+  copula/KM, Q lớp, loss/byte gộp **mọi xe của case**; mỗi nhóm giữ loss, dòng synthetic, chọn dòng thật, compact của nó.
+  `local.local_epoch` (wrapper budget/sim/refine) và `local._round_steps` lưu/khôi phục theo thread ⇒ health riêng backbone.
+  Collective rank-only duy nhất: compile guard round 1 của L4. Không trao tham số.
+- `methods/mobihet_l4.py`: nhánh TabM nhận cả `backbone=tabm` của adapter (adapter tự cho decoder SAE gradient 0).
+- Đóng gói engine (không phải hp): BERT `group_rows`/`eval_rows` 256 như `methods/mixed.py`; còn lại `group_rows` 4096 của L4.
+- `scripts/run_mixed_l4.py` (checkpoint/resume như `run_mixed_fl.py`, gate health từng backbone mỗi round), `scripts/build_mixed_l4.py`
+  (notebook; `--stop-after 2` = pilot, phiên sau `--parent` nối từ checkpoint r2, cùng cosine 50).
+
+| kiểm (`tests/test_mixed_l4.py`, CPU, panel 20 xe) | kết quả |
+|---|---|
+| lockstep toy: tổng theo nhóm, globals riêng thread, lệch collective ⇒ lỗi, config dynamo chép vào thread | PASS |
+| bootstrap gộp case2 = L4 đơn model trên hợp các xe | PASS: `cop_*` exact; KM bằng nhau **sau hoán vị cluster** (thứ tự cộng float64 lật dấu vector riêng lớp 14 ⇒ tâm `mu ∓ d`; sai khác sau hoán vị = 0) |
+| gán xe: id nhóm = bảng gán; CM đặt đúng client, mỗi dòng test đếm 1 lần; health từng backbone r1 | PASS (skip 0) |
+| một nhóm giữ mọi xe = L4 đơn model (state, Q, CM, 1 round) | PASS bit-exact |
+| resume case2 r1 → r2 = liền (state + CM) | PASS bit-exact |
+
+GPU smoke local (RTX 3050, compiled, 2 round, seed 42; `runs/mixed-l4/dbg-case*`): case2 panel 100 xe PASS (compile gate 3/3, skip 0,
+`real_frac` .623); case1 panel 100 PASS (r2 F1 .737: DAGSNet .818 / BERT .809 / CNN-BiGRU .572); case3 panel 100 OOM 4 GB ⇒ panel
+20 xe + `--test-set km2_frac=1.0` (20 xe không đủ dòng lớp 11 cho KM frac .25) PASS, skip 0 cả 5 backbone, không còn cảnh báo
+recompile sau sửa config thread-local. Sửa trong lúc smoke: gate compile `G = min(4, K_nhóm)` (đệm client rỗng ⇒ BN NaN).
+
+Compute FLOP (panel 200, `experiment-wt/docs/research/compute.md`): L4 DAGSNet .920×, BERT .917×, TabM 1,310×, SAE 2,445×,
+MLP 1,952× FedAvg; mixed case2 212,2 Tops (FedProto 96,4) — xem LESSONS 20/11 (chi phí synthetic cố định; panel 200 đệm mixed).
+CNN-BiGRU L4 + mixed case1/3: Kaggle `goilaaiudi/exp-count-l4-g4096`.
+
 Kernel, kết quả: [continue](../operations/continue.md); số ghi `experiments/<kịch bản>/results.csv` (method `mobihet_l4`).
