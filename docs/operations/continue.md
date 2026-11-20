@@ -73,13 +73,13 @@ Kiểm local trên main. 47 pytest PASS trong suite portable và 38 PASS trong F
 
 Đã cập nhật đủ 9 bảng lịch sử và xuất 9 bảng `compute-detail.csv`, kèm trace source, loại đo, FLOP client/server/other/bootstrap, eval riêng, Big-O và ranking. Có 57/114 hàng có trace chi tiết, gồm 6 probe centralized. BERT lịch sử có ước tính scaling 2.048 → 4.096, trace mới đo trực tiếp. Mixed dùng FedProto cùng case. [Quy ước, số liệu và cách tái lập](../research/compute.md)
 
-- `experiment-flops-small-20261120` PASS. Đủ trace cho TabM, SAE, MLP (16 hàng mỗi backbone), mixed case2 (6 hàng). Log `runs/compute-detailed-v3/local-matrix.log`.
+- `experiment-flops-small-20261120` PASS lúc 14:39 +07. Đủ trace cho TabM, SAE, MLP (16 hàng mỗi backbone) và mixed case2 (6 hàng). Kiểm lại SHA-256 của 57 trace đã công bố. Sinh lại cả 9 bảng và `activity.csv` cho kết quả khớp từng byte. Log và receipt nằm trong `runs/compute-detailed-v3/{local-matrix.log,local-matrix-verification.json}`.
 - `experiment-flops-kaggle-20261120` chờ bốn kernel count ở trên, pull/audit output exact version và sinh lại bảng. Log `runs/compute-detailed-v3/remote-collect.log`.
 - CSV detailed chỉ xếp hạng hàng có trace đã kiểm. Trace baseline cũ, phép đo seed 42, hai round mới và extrapolation 50 đều có nhãn riêng.
 
 ## Việc còn lại
 
 1. Audit các phiên BERT và mixed khi terminal. Nối từ checkpoint được kiểm cho tới epoch/round 50. Mixed case1 và case3 seed 41/43 còn chưa chạy. Case2 đã đủ ba seed đang chạy. Chọn slot/quota mới ở lúc push.
-2. Thu đủ trace chi tiết từ hai hàng đợi. Xử lý từng trường hợp OOM và xác minh số backward, padding và provenance trước khi đưa vào bảng. So các trace mới với lịch sử theo nguồn và quy ước.
+2. Thu 57 trace chi tiết còn thiếu từ bốn kernel Kaggle. Xử lý từng trường hợp OOM và xác minh số backward, padding và provenance trước khi đưa vào bảng. So các trace mới với lịch sử theo nguồn và quy ước.
 3. Teammate bổ sung CM cho 132 cấu hình còn ở mức kiểm marker. Account teammate không có credential ở đây.
 4. Đóng các phiên dùng cwd `experiment-wt`, mở workspace `experiment` và gỡ worktree cũ sau khi kiểm trạng thái lần cuối. Chỉ phát triển trên main.
