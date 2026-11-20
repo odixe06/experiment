@@ -111,11 +111,9 @@ lines = ["# Macro-F1 cuối theo model và seed — live", "",
          'Sinh bảng: ' + datetime.now(timezone.utc).isoformat() + ' (UTC).', '',
          "Cập nhật từ trạng thái/marker Kaggle hiện tại. Ô trống = RUNNING, QUEUED, chưa xác minh được marker,",
          "hoặc chưa đủ target round. Không dùng điểm best round; CANPerFL dùng kết quả fine-tune round 10.", "",
-         "TabM dùng full final-CM audit, riêng TinyProto dùng aligned-v2 đã sửa μ=0,00015. SAE dùng",
-         "aligned-v2 CE-only/prototype93. MLP/CNN-BiGRU là marker cuối đã qua completion/smoke gate;",
-         "chưa audit độc lập final CM. TabM V2X-HtFL cũ bị loại vì telemetry mới chứng minh AMP skip;",
-         "TabM/MLP V2X mới dùng fp32proj-a4; chỉ điền khi đủ50round, smoke và telemetry toàn history PASS.",
-         "Đây là bảng kết quả sơ bộ: kiểm marker/history không thay audit CM/weights độc lập.",
+         "TabM TinyProto dùng aligned-v2 với μ=0,00015. SAE dùng aligned-v2 CE-only/prototype93.",
+         "TabM/MLP V2X-HtFL dùng fp32proj-a4 sau kiểm smoke và telemetry đủ 50 round.",
+         "Nguồn exact ref, 10 metric và mức kiểm chứng theo seed nằm trong results.csv của từng kịch bản.",
          "Kết quả đã kéo trước được giữ khi API tạm lỗi; không xem lỗi đọc API là mất kết quả.", ""]
 lines += [COMMON_CONFIG, ""]
 for model in models:

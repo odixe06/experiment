@@ -1,10 +1,8 @@
 # Macro-F1 cuối theo model và seed — live
 
-TabM dùng full final-CM audit, riêng TinyProto dùng aligned-v2 đã sửa μ=0,00015. SAE dùng
-aligned-v2 CE-only/prototype93. MLP/CNN-BiGRU là marker cuối đã qua completion/smoke gate;
-chưa audit độc lập final CM.
-TabM/MLP V2X dùng fp32proj-a4;
-Đây là bảng kết quả sơ bộ: kiểm marker/history không thay audit CM/weights độc lập.
+Đủ 10 metric cho 168 cấu hình từ backup Kaggle. Đã tính lại 36 cấu hình TabM từ final confusion matrix. 132 cấu hình còn lại có đủ 10 metric trong marker cuối và qua kiểm seed, phiên bản, completion và smoke. Xem cột trạng thái và ref chính xác trong [TabM](../../../experiments/tabm/results.csv), [SAE](../../../experiments/sae/results.csv), [MLP](../../../experiments/mlp/results.csv) và [CNN-BiGRU](../../../experiments/cnn-bigru/results.csv).
+
+TabM TinyProto dùng aligned-v2 với μ=0,00015. SAE dùng aligned-v2 CE-only/prototype93. TabM và MLP V2X-HtFL dùng fp32proj-a4.
 
 **Cấu hình chung:** 77 feature/bản tin, 16 lớp; 5.343 client theo xe; 14 phương pháp, seed 41/42/43. Train 50 round, 1 epoch local/round, batch 64; AdamW, LR cosine 1e-3 → 1e-5. CANPerFL fine-tune thêm 10 round sau FedAvg50. Số tham số dưới đây là backbone gốc, chưa tính module riêng của phương pháp hoặc pruning.
 

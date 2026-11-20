@@ -2,48 +2,48 @@ method,seed,view,round,accuracy,precision_macro,precision_micro,precision_weight
 centralized,43,global,50,0.922312,0.931947,0.922312,0.912341,0.888026,0.922312,0.922312,0.891441,0.922312,0.900299,audited,"kaggle keocaosu/exp-central-saece-s43/3 (in-kernel audit_central_backbones, 50 epoch)"
 centralized,42,global,50,0.922226,0.928597,0.922226,0.909747,0.887965,0.922226,0.922226,0.891765,0.922226,0.900579,audited,"kaggle takids1909/exp-central-saece-s42/3 (in-kernel audit_central_backbones, 50 epoch)"
 centralized,41,global,50,0.922281,0.930077,0.922281,0.910823,0.889215,0.922281,0.922281,0.892315,0.922281,0.900349,audited,"kaggle thuyanh316/exp-central-saece-s41/3 (in-kernel audit_central_backbones, 50 epoch)"
-fedavg,41,global,50,,,,,,,,0.757340,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fedavg,42,global,50,,,,,,,,0.760080,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fedavg,43,global,50,,,,,,,,0.755910,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fedprox,41,global,50,,,,,,,,0.724780,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fedprox,42,global,50,,,,,,,,0.720840,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fedprox,43,global,50,,,,,,,,0.716910,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-afpha,41,global,50,,,,,,,,0.711160,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-afpha,42,global,50,,,,,,,,0.701100,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-afpha,43,global,50,,,,,,,,0.695180,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fd_ids,41,global,50,,,,,,,,0.753610,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fd_ids,42,global,50,,,,,,,,0.749250,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fd_ids,43,global,50,,,,,,,,0.754340,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-apfed,41,client,50,,,,,,,,0.774340,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-apfed,42,client,50,,,,,,,,0.792060,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-apfed,43,client,50,,,,,,,,0.775610,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-lwfednids,41,global,50,,,,,,,,0.708050,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-lwfednids,42,global,50,,,,,,,,0.741720,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-lwfednids,43,global,50,,,,,,,,0.737130,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-v2x_htfl,41,client,50,,,,,,,,0.791720,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-v2x_htfl,42,client,50,,,,,,,,0.792290,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-v2x_htfl,43,client,50,,,,,,,,0.791140,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-canperfl,41,client,10,,,,,,,,0.791830,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-canperfl,42,client,10,,,,,,,,0.796060,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-canperfl,43,client,10,,,,,,,,0.791390,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-tinyproto,41,client_proto,50,,,,,,,,0.602580,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-tinyproto,42,client_proto,50,,,,,,,,0.585020,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-tinyproto,43,client_proto,50,,,,,,,,0.606310,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-pfedes,41,client,50,,,,,,,,0.705900,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-pfedes,42,client,50,,,,,,,,0.705200,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-pfedes,43,client,50,,,,,,,,0.706790,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-nilm,41,client,50,,,,,,,,0.712770,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-nilm,42,client,50,,,,,,,,0.711230,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-nilm,43,client,50,,,,,,,,0.710780,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fedtgp,41,client_proto,50,,,,,,,,0.534510,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fedtgp,42,client_proto,50,,,,,,,,0.553820,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fedtgp,43,client_proto,50,,,,,,,,0.541160,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-perfedskd,41,client,50,,,,,,,,0.720290,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-perfedskd,42,client,50,,,,,,,,0.718650,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-perfedskd,43,client,50,,,,,,,,0.720670,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fedproto,41,client_proto,50,,,,,,,,0.499250,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fedproto,42,client_proto,50,,,,,,,,0.504890,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fedproto,43,client_proto,50,,,,,,,,0.492200,,,audited_f1,docs/research/backbones/four-backbone-seed-results-live.md
+fedavg,41,global,50,0.862510,0.829400,0.862510,0.830940,0.749390,0.862510,0.862510,0.7573419311,0.862510,0.839343,marker_metrics,"minhiw/sae-fl-fedavg-s41-a2/1, runs/aligned-v2-live/sae-fl-fedavg-s41-a2/RUN_STATUS.json"
+fedavg,42,global,50,0.858372,0.825053,0.858372,0.827947,0.749216,0.858372,0.858372,0.7600763811,0.858372,0.836025,marker_metrics,"hoangdangnhi/sae-fl-fedavg-s42-a2/1, runs/aligned-v2-live/sae-fl-fedavg-s42-a2/RUN_STATUS.json"
+fedavg,43,global,50,0.859033,0.828201,0.859033,0.829574,0.749598,0.859033,0.859033,0.7559126111,0.859033,0.836649,marker_metrics,"phamquang0606/sae-fl-fedavg-s43-a2/1, runs/aligned-v2-live/sae-fl-fedavg-s43-a2/RUN_STATUS.json"
+fedprox,41,global,50,0.845779,0.813819,0.845779,0.816124,0.713443,0.845779,0.845779,0.7247762519,0.845779,0.822298,marker_metrics,"ttalgies/sae-fl-fedprox-s41-a2/1, runs/aligned-v2-live/sae-fl-fedprox-s41-a2/RUN_STATUS.json"
+fedprox,42,global,50,0.844041,0.750745,0.844041,0.807234,0.707440,0.844041,0.844041,0.7208398356,0.844041,0.820044,marker_metrics,"hoangdang1711/sae-fl-fedprox-s42-a2/1, runs/aligned-v2-live/sae-fl-fedprox-s42-a2/RUN_STATUS.json"
+fedprox,43,global,50,0.845718,0.753811,0.845718,0.810053,0.703728,0.845718,0.845718,0.7169105538,0.845718,0.821227,marker_metrics,"nguynt298/sae-fl-fedprox-s43-a2/1, runs/aligned-v2-live/sae-fl-fedprox-s43-a2/RUN_STATUS.json"
+afpha,41,global,50,0.838034,0.746495,0.838034,0.802991,0.698205,0.838034,0.838034,0.7111604523,0.838034,0.814061,marker_metrics,"hoangdang1711/sae-fl-afpha-s41-a2/1, runs/aligned-v2-live/sae-fl-afpha-s41-a2/RUN_STATUS.json"
+afpha,42,global,50,0.834706,0.742856,0.834706,0.799523,0.687154,0.834706,0.834706,0.7010988704,0.834706,0.809799,marker_metrics,"nguynt298/sae-fl-afpha-s42-a2/1, runs/aligned-v2-live/sae-fl-afpha-s42-a2/RUN_STATUS.json"
+afpha,43,global,50,0.838880,0.747385,0.838880,0.804095,0.682864,0.838880,0.838880,0.6951803751,0.838880,0.812586,marker_metrics,"dangthiet/sae-fl-afpha-s43-a2/1, runs/aligned-v2-live/sae-fl-afpha-s43-a2/RUN_STATUS.json"
+fd_ids,41,global,50,0.863316,0.831957,0.863316,0.830959,0.741207,0.863316,0.863316,0.7536065848,0.863316,0.839560,marker_metrics,"hoangdangnhi/sae-fl-fd-ids-s41-a2/1, runs/aligned-v2-live/sae-fl-fd-ids-s41-a2/RUN_STATUS.json"
+fd_ids,42,global,50,0.861682,0.823049,0.861682,0.828509,0.739554,0.861682,0.861682,0.7492547331,0.861682,0.837686,marker_metrics,"phamquang0606/sae-fl-fd-ids-s42-a2/1, runs/aligned-v2-live/sae-fl-fd-ids-s42-a2/RUN_STATUS.json"
+fd_ids,43,global,50,0.859756,0.824679,0.859756,0.827627,0.746400,0.859756,0.859756,0.7543363480,0.859756,0.836718,marker_metrics,"ttalgies/sae-fl-fd-ids-s43-a2/1, runs/aligned-v2-live/sae-fl-fd-ids-s43-a2/RUN_STATUS.json"
+apfed,41,client,50,0.876824,0.841194,0.876824,0.842962,0.767886,0.876824,0.876824,0.7743367168,0.876824,0.853007,marker_metrics,"dangthiet/sae-fl-apfed-s41-a2/1, runs/aligned-v2-live/sae-fl-apfed-s41-a2/RUN_STATUS.json"
+apfed,42,client,50,0.878844,0.832455,0.878844,0.843617,0.781611,0.878844,0.878844,0.7920557891,0.878844,0.856053,marker_metrics,"hoangdv1711/sae-fl-apfed-s42-a2/1, runs/aligned-v2-live/sae-fl-apfed-s42-a2/RUN_STATUS.json"
+apfed,43,client,50,0.877780,0.842103,0.877780,0.844199,0.771128,0.877780,0.877780,0.7756091119,0.877780,0.854029,marker_metrics,"minhiw/sae-fl-apfed-s43-a2/1, runs/aligned-v2-live/sae-fl-apfed-s43-a2/RUN_STATUS.json"
+lwfednids,41,global,50,0.845450,0.824876,0.845450,0.820487,0.698713,0.845450,0.845450,0.7080533487,0.845450,0.818928,marker_metrics,"hoangdv1711/sae-fl-lwfednids-s41-a2/1, runs/aligned-v2-live/sae-fl-lwfednids-s41-a2/RUN_STATUS.json"
+lwfednids,42,global,50,0.849661,0.821554,0.849661,0.819193,0.732360,0.849661,0.849661,0.7417245809,0.849661,0.826520,marker_metrics,"minhiw/sae-fl-lwfednids-s42-a2/1, runs/aligned-v2-live/sae-fl-lwfednids-s42-a2/RUN_STATUS.json"
+lwfednids,43,global,50,0.851970,0.823523,0.851970,0.822011,0.725462,0.851970,0.851970,0.7371258298,0.851970,0.828102,marker_metrics,"hoangdangnhi/sae-fl-lwfednids-s43-a2/1, runs/aligned-v2-live/sae-fl-lwfednids-s43-a2/RUN_STATUS.json"
+v2x_htfl,41,client,50,0.869018,0.844833,0.869018,0.848040,0.774678,0.869018,0.869018,0.7917151852,0.869018,0.848071,marker_metrics,"nguynt298/sae-fl-v2x-htfl-s41-a2/1, runs/aligned-v2-live/sae-fl-v2x-htfl-s41-a2/RUN_STATUS.json"
+v2x_htfl,42,client,50,0.868168,0.845297,0.868168,0.848002,0.776408,0.868168,0.868168,0.7922888320,0.868168,0.847351,marker_metrics,"dangthiet/sae-fl-v2x-htfl-s42-a2/1, runs/aligned-v2-live/sae-fl-v2x-htfl-s42-a2/RUN_STATUS.json"
+v2x_htfl,43,client,50,0.868186,0.845048,0.868186,0.848420,0.774561,0.868186,0.868186,0.7911401835,0.868186,0.847433,marker_metrics,"hoangdv1711/sae-fl-v2x-htfl-s43-a2/1, runs/aligned-v2-live/sae-fl-v2x-htfl-s43-a2/RUN_STATUS.json"
+canperfl,41,client,10,0.877740,0.855191,0.877740,0.858305,0.778862,0.877740,0.877740,0.7918253632,0.877740,0.855049,marker_metrics,"minhiw/sae-fl-canperfl-s41-a2/1, runs/aligned-v2-live/sae-fl-canperfl-s41-a2/RUN_STATUS.json"
+canperfl,42,client,10,0.876531,0.853197,0.876531,0.856799,0.782312,0.876531,0.876531,0.7960638411,0.876531,0.854315,marker_metrics,"hoangdangnhi/sae-fl-canperfl-s42-a2/1, runs/aligned-v2-live/sae-fl-canperfl-s42-a2/RUN_STATUS.json"
+canperfl,43,client,10,0.877561,0.853840,0.877561,0.858559,0.780241,0.877561,0.877561,0.7913860468,0.877561,0.855053,marker_metrics,"phamquang0606/sae-fl-canperfl-s43-a2/1, runs/aligned-v2-live/sae-fl-canperfl-s43-a2/RUN_STATUS.json"
+tinyproto,41,client_proto,50,0.664771,0.601211,0.664771,0.760921,0.699299,0.664771,0.664771,0.6025795605,0.664771,0.672256,marker_metrics,"dangthiet/sae-fl-tinyproto-s41-a2/1, runs/aligned-v2-live/sae-fl-tinyproto-s41-a2/RUN_STATUS.json"
+tinyproto,42,client_proto,50,0.649240,0.587277,0.649240,0.754324,0.686142,0.649240,0.649240,0.5850151489,0.649240,0.657547,marker_metrics,"hoangdv1711/sae-fl-tinyproto-s42-a2/1, runs/aligned-v2-live/sae-fl-tinyproto-s42-a2/RUN_STATUS.json"
+tinyproto,43,client_proto,50,0.669680,0.605061,0.669680,0.764467,0.701639,0.669680,0.669680,0.6063116041,0.669680,0.678246,marker_metrics,"minhiw/sae-fl-tinyproto-s43-a2/1, runs/aligned-v2-live/sae-fl-tinyproto-s43-a2/RUN_STATUS.json"
+pfedes,41,client,50,0.824071,0.832260,0.824071,0.822847,0.668941,0.824071,0.824071,0.7058972991,0.824071,0.800855,marker_metrics,"phamquang0606/sae-fl-pfedes-s41-a2/1, runs/aligned-v2-live/sae-fl-pfedes-s41-a2/RUN_STATUS.json"
+pfedes,42,client,50,0.826085,0.837371,0.826085,0.827015,0.671220,0.826085,0.826085,0.7051973271,0.826085,0.801957,marker_metrics,"ttalgies/sae-fl-pfedes-s42-a2/1, runs/aligned-v2-live/sae-fl-pfedes-s42-a2/RUN_STATUS.json"
+pfedes,43,client,50,0.825586,0.839827,0.825586,0.829427,0.671512,0.825586,0.825586,0.7067907297,0.825586,0.801970,marker_metrics,"hoangdang1711/sae-fl-pfedes-s43-a2/1, runs/aligned-v2-live/sae-fl-pfedes-s43-a2/RUN_STATUS.json"
+nilm,41,client,50,0.827471,0.843293,0.827471,0.827203,0.675601,0.827471,0.827471,0.7127657673,0.827471,0.804493,marker_metrics,"qwerasdf3004/sae-fl-nilm-s41-a2/1, runs/aligned-v2-live/sae-fl-nilm-s41-a2/RUN_STATUS.json"
+nilm,42,client,50,0.827308,0.850435,0.827308,0.831990,0.674081,0.827308,0.827308,0.7112347353,0.827308,0.803939,marker_metrics,"nguynt298/sae-fl-nilm-s42-a2/1, runs/aligned-v2-live/sae-fl-nilm-s42-a2/RUN_STATUS.json"
+nilm,43,client,50,0.828645,0.855782,0.828645,0.837689,0.676264,0.828645,0.828645,0.7107845778,0.828645,0.804985,marker_metrics,"dangthiet/sae-fl-nilm-s43-a2/1, runs/aligned-v2-live/sae-fl-nilm-s43-a2/RUN_STATUS.json"
+fedtgp,41,client_proto,50,0.633584,0.596954,0.633584,0.712215,0.580865,0.633584,0.633584,0.5345079235,0.633584,0.642708,marker_metrics,"hoangdang1711/sae-fl-fedtgp-s41-a2/1, runs/aligned-v2-live/sae-fl-fedtgp-s41-a2/RUN_STATUS.json"
+fedtgp,42,client_proto,50,0.649093,0.600833,0.649093,0.713452,0.601610,0.649093,0.649093,0.5538187866,0.649093,0.652829,marker_metrics,"qwerasdf3004/sae-fl-fedtgp-s42-a2/1, runs/aligned-v2-live/sae-fl-fedtgp-s42-a2/RUN_STATUS.json"
+fedtgp,43,client_proto,50,0.658941,0.615410,0.658941,0.715230,0.574874,0.658941,0.658941,0.5411550310,0.658941,0.662301,marker_metrics,"nguynt298/sae-fl-fedtgp-s43-a2/1, runs/aligned-v2-live/sae-fl-fedtgp-s43-a2/RUN_STATUS.json"
+perfedskd,41,client,50,0.840086,0.824401,0.840086,0.826358,0.694461,0.840086,0.840086,0.7202921917,0.840086,0.814620,marker_metrics,"minhiw/sae-fl-perfedskd-s41-a2/1, runs/aligned-v2-live/sae-fl-perfedskd-s41-a2/RUN_STATUS.json"
+perfedskd,42,client,50,0.841034,0.827125,0.841034,0.827946,0.693083,0.841034,0.841034,0.7186542159,0.841034,0.814993,marker_metrics,"hoangdv1711/sae-fl-perfedskd-s42-a2/1, runs/aligned-v2-live/sae-fl-perfedskd-s42-a2/RUN_STATUS.json"
+perfedskd,43,client,50,0.840798,0.827033,0.840798,0.829136,0.695465,0.840798,0.840798,0.7206748681,0.840798,0.815293,marker_metrics,"hoangdangnhi/sae-fl-perfedskd-s43-a2/1, runs/aligned-v2-live/sae-fl-perfedskd-s43-a2/RUN_STATUS.json"
+fedproto,41,client_proto,50,0.581438,0.523166,0.581438,0.711400,0.593670,0.581438,0.581438,0.4992502550,0.581438,0.579423,marker_metrics,"hoangdangnhi/sae-fl-fedproto-s41-a2/1, runs/aligned-v2-live/sae-fl-fedproto-s41-a2/RUN_STATUS.json"
+fedproto,42,client_proto,50,0.575402,0.554260,0.575402,0.733659,0.609876,0.575402,0.575402,0.5048893457,0.575402,0.573163,marker_metrics,"phamquang0606/sae-fl-fedproto-s42-a2/1, runs/aligned-v2-live/sae-fl-fedproto-s42-a2/RUN_STATUS.json"
+fedproto,43,client_proto,50,0.570641,0.530351,0.570641,0.713109,0.596863,0.570641,0.570641,0.4922032435,0.570641,0.563804,marker_metrics,"ttalgies/sae-fl-fedproto-s43-a2/1, runs/aligned-v2-live/sae-fl-fedproto-s43-a2/RUN_STATUS.json"
 mobihet_l4,42,client,50,0.833855,0.838719,0.833855,0.821394,0.674530,0.833855,0.833855,0.712910,0.833855,0.809537,audited,"kaggle lelovo/sae-l4-s42 (scripts/audit_l4.py: CM r50 -> 10 metrics, hp/source/rounds checked)"
 mobihet_l4,43,client,50,0.838017,0.849843,0.838017,0.830507,0.686906,0.838017,0.838017,0.726321,0.838017,0.814455,audited,"kaggle thuyanh316/sae-l4-s43 (scripts/audit_l4.py: CM r50 -> 10 metrics, hp/source/rounds checked)"
 mobihet_l4,41,client,50,0.836197,0.843891,0.836197,0.826160,0.679586,0.836197,0.836197,0.719180,0.836197,0.812447,audited,"kaggle annhtnt/sae-l4-s41 (scripts/audit_l4.py: CM r50 -> 10 metrics, hp/source/rounds checked)"

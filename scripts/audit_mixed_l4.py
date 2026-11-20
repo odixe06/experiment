@@ -1,7 +1,9 @@
 """Audit any committed mixed L4 session and emit a receipt for cross-session resume."""
 import argparse
 import ast
+import csv
 import hashlib
+import io
 import json
 import math
 from pathlib import Path
@@ -12,7 +14,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from core.metrics import TEN, summary
+from core.metrics import TEN, ten
 from scripts.audit_l4 import append_csv_row
 from scripts.run_mixed_l4 import l4_hp
 
@@ -50,6 +52,9 @@ def main():
     assert cfg["hp"] == l4_hp(seed) and cfg["test_set"] == []
     assignment = source[f"experiments/mixed-model-v1/{case}.csv"].encode()
     assert cfg["assignment_sha256"] == hashlib.sha256(assignment).hexdigest()
+    mapping = {int(row["client_id"]): row["model"]
+               for row in csv.DictReader(io.StringIO(assignment.decode()))}
+    assert set(mapping.values()) == set(cfg["groups"])
     last = status["last_round"]
     assert 1 <= last <= min(50, manifest["stop_after"]) and last == checkpoint["round"]
     assert status["complete"] == (last == 50) and status["seed"] == seed
@@ -68,12 +73,21 @@ def main():
             prefix = f"health/{model}/"
             assert row[prefix + "finite"] and row[prefix + "applied_steps"] > 0
             assert 0 <= row[prefix + "skipped_frac"] < .01
-    with np.load(run / f"cms_r{last:03}.npz") as proof:
+    assert read(run / f"round_r{last:03}.json") == rows[-1]
+    with np.load(run / f"cms_r{last:03}.npz", allow_pickle=False) as proof:
         ids, cm = proof["ids"], proof["client"]
-        assert np.array_equal(ids, cfg["clients"]) and len(set(ids)) == 5343
-        assert cm.shape == (5343, 16, 16) and cm.min() >= 0 and int(cm.sum()) == 9347679
-        scores = summary(cm)
-    assert all(abs(scores[k] - rows[-1]["client/" + k]) < 1e-9 for k in TEN)
+        assert np.array_equal(ids, cfg["clients"]) and len(ids) == len(set(ids)) == len(mapping) == 5343
+        assert set(ids) == set(mapping)
+        assert cm.shape == (5343, 16, 16) and np.issubdtype(cm.dtype, np.integer)
+        assert cm.min() >= 0 and (cm.sum(axis=(1, 2)) > 0).all() and int(cm.sum()) == 9347679
+        support_path = ROOT / "runs/test_support.npy"
+        if support_path.is_file():
+            assert np.array_equal(cm.sum(axis=2), np.load(support_path, allow_pickle=False)[ids])
+        scores = ten(cm.sum(axis=0))
+        models = np.array([mapping[int(cid)] for cid in ids])
+        per_model = {model: ten(cm[models == model].sum(axis=0)) for model in cfg["groups"]}
+    for prefix, values in {"client/": scores, **{f"model/{m}/client/": s for m, s in per_model.items()}}.items():
+        assert all(abs(values[k] - rows[-1][prefix + k]) < 1e-9 for k in TEN)
 
     inventory = read(args.inventory)["checkpoints"]
     expected = {f"{manifest['run']}/checkpoint-r{last:03}/state_rank{rank}.pt" for rank in range(2)}
@@ -83,7 +97,7 @@ def main():
     receipt = dict(ref=args.ref, last_round=last, config_sha256=digest,
                    checkpoint_remote=checks, scores={k: float(scores[k]) for k in TEN},
                    t_train_r2=rows[1]["t_train"] if last > 1 else None,
-                   per_model_f1={m: rows[-1][f"model/{m}/client/f1_macro"] for m in cfg["groups"]})
+                   per_model_f1={m: float(s["f1_macro"]) for m, s in per_model.items()})
     receipt["pass"] = True
     (p / "recovery-audit.json").write_text(json.dumps(receipt, indent=2))
     print(args.ref, "PASS", last, receipt["scores"]["f1_macro"])

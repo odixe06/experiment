@@ -155,11 +155,12 @@ Bài học ở đây là quy tắc rút ra khi chạy thí nghiệm và hạ t�
 - Builder notebook nhúng **danh sách file cố định** (`build_central_backbones.py`): `core/central_backbones.py` đã chuyển sang
   `from core.tabm import TabM` nhưng danh sách không có `core/tabm.py` ⇒ 11 phiên version 1 ERROR ở cell test (mất vài phút quota mỗi
   account). Builder giờ dựng snapshot vào thư mục tạm và chạy test của nó trước khi ghi notebook; builder nhúng source khác cần guard tương tự.
-- Orchestrator hop của `../mobihet` chọn account **quota lớn nhất**, không biết slot GPU của job dự án khác. Dùng chung account mới thì
-  chỉ chiếm 1/2 slot mỗi account (để mọi lựa chọn của nó còn slot) hoặc ghi `runs/fbl-r50/exclude.json` + restart orchestrator.
+- Khi chọn account cho phiên nối, kiểm quota và slot GPU riêng. Account có quota cao vẫn có thể hết slot vì job khác.
 - Script Python đặt trong thư mục có `queue.py` (vd `runs/total-compute-20261119/`): thư mục script là `sys.path[0]` ⇒ `from queue import
   Queue` của stdlib (torch.fx) lấy nhầm file ⇒ ImportError. Bỏ thư mục đó khỏi `sys.path` trước khi import torch, nạp queue.py bằng importlib.
 - Account Kaggle quota thấp: đặt `--max-hours` < quota live để runner dừng sạch ở biên epoch (nối tiếp được) thay vì bị Kaggle cắt.
 - Test CPU một tiến trình không lộ lỗi chỉ có ở DDP 2 rank: `sae-ce` (decoder không vào loss CE) ⇒ DDP "parameters that were not used";
   `config.json` rank 0 đang ghi thì rank 1 đọc rỗng (JSONDecodeError, race có sẵn). Runner nhiều rank cần test `torchrun --nproc_per_node=2
   --cpu` (gloo) trên fixture trước khi push (`test_two_rank_ddp`).
+- Dùng exact ref và version trong inventory để nối marker hoặc CM từ backup với results.csv. Một số lượt rerun dùng cấu hình khác dù
+  trùng backbone, method và seed. Marker cuối có thể giữ đủ 10 metric. Ghi mức kiểm chứng marker hoặc CM vào cột `status`.

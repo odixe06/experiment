@@ -4,7 +4,8 @@
     python scripts/experiments_status.py --check   # exit 1 if a scenario misses a (method, seed) round-50 result
 
 results.csv (one row per method/seed/view): method, seed, view, round, the ten metrics, status, source.
-status: audited (CM -> 10 metrics checked), audited_f1 / marker_f1 (macro-F1 only in this repo), running, missing.
+status: audited (CM -> 10 metrics checked), marker_metrics (10 metrics from the final run marker),
+audited_f1 / marker_f1 (macro-F1 only in this repo), running, missing.
 A cell counts as done only with a final-round f1_macro (round 50; CANPerFL 10 fine-tune epochs after FedAvg r50).
 """
 import csv
@@ -15,8 +16,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 EXP = ROOT / "experiments"
-DONE = {"audited", "audited_f1", "marker_f1"}
-MARK = {"audited": "", "audited_f1": "ᶠ", "marker_f1": "ᵐ"}
+MARK = {"audited": "", "audited_f1": "ᶠ", "marker_f1": "ᵐ", "marker_metrics": "ᵐ"}
 
 
 def load(scen):
@@ -25,7 +25,7 @@ def load(scen):
 
 
 def final(r):
-    return r["status"] in DONE and r["f1_macro"] and int(r["round"]) == (10 if r["method"] == "canperfl" else 50)
+    return r["status"] in MARK and r["f1_macro"] and int(r["round"]) == (10 if r["method"] == "canperfl" else 50)
 
 
 def cells(spec, rows, scen_cfg, hetero):

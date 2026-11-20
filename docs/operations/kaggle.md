@@ -51,11 +51,10 @@ nguyenminhtran060113, nguyetquedo, novahihi, odixe0502, odixeuit, outlookcheck, 
 
 - Mới 19–20/11 (30 h GPU khi thêm): bestyorn, abbafan, goilaaiudi, hoangdang20t (19/11 tối), chiencosieuhang, lelovo, gaming3 (20/11 ~01:45).
   Đã dùng ngay cho centralized ([continue](continue.md)); đều xác minh identity + quota bằng `kaggle_quota.py` (OK 30,00 h).
-- `dinhan25`: dự án khác (RCD) dùng; orchestrator MobiHet loại account này.
+- `dinhan25` dành cho dự án khác (RCD).
 - Account teammate (sonlebaodac, minhgia2026, nghuay, nguynkhacao, qwerasdf3004, …; bảng [quota live](kaggle-quota-live.md)) **không có
   credential trên máy này** — chỉ teammate xem/pull được.
-- Quota reset hằng tuần (lần tới **21/11/2026 00:00 +07**). Mỗi account 2 slot GPU đồng thời; khi orchestrator `../mobihet` còn hop,
-  để mỗi account quota cao ≥ 1 slot trống (nó chọn theo quota, không theo slot).
+- Mỗi account có tối đa 2 slot GPU đồng thời. Đọc thời điểm reset, quota và slot live trước mỗi đợt push.
 
 | lưu ý | account |
 |---|---|

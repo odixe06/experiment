@@ -2,48 +2,48 @@ method,seed,view,round,accuracy,precision_macro,precision_micro,precision_weight
 centralized,43,global,50,0.933517,0.959030,0.933517,0.935000,0.904880,0.933517,0.933517,0.912579,0.933517,0.917297,audited,"kaggle annhtnt/exp-central-mlp-s43/2 (in-kernel audit_central_backbones, 50 epoch)"
 centralized,42,global,50,0.932166,0.953281,0.932166,0.929897,0.903719,0.932166,0.932166,0.910295,0.932166,0.914881,audited,"kaggle nguyetquedo/exp-central-mlp-s42/2 (in-kernel audit_central_backbones, 50 epoch)"
 centralized,41,global,50,0.931485,0.953784,0.931485,0.930089,0.902629,0.931485,0.931485,0.908762,0.931485,0.913553,audited,"kaggle odixeuit/exp-central-mlp-s41/2 (in-kernel audit_central_backbones, 50 epoch)"
-fedavg,41,global,50,,,,,,,,0.875260,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fedavg,42,global,50,,,,,,,,0.881220,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fedavg,43,global,50,,,,,,,,0.876290,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fedprox,41,global,50,,,,,,,,0.868050,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fedprox,42,global,50,,,,,,,,0.875890,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fedprox,43,global,50,,,,,,,,0.870690,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-afpha,41,global,50,,,,,,,,0.864960,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-afpha,42,global,50,,,,,,,,0.872660,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-afpha,43,global,50,,,,,,,,0.867380,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fd_ids,41,global,50,,,,,,,,0.820490,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fd_ids,42,global,50,,,,,,,,0.831870,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fd_ids,43,global,50,,,,,,,,0.819750,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-apfed,41,client,50,,,,,,,,0.878690,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-apfed,42,client,50,,,,,,,,0.885510,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-apfed,43,client,50,,,,,,,,0.881170,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-lwfednids,41,global,50,,,,,,,,0.800140,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-lwfednids,42,global,50,,,,,,,,0.802040,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-lwfednids,43,global,50,,,,,,,,0.806080,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-v2x_htfl,41,client,50,,,,,,,,0.846340,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-v2x_htfl,42,client,50,,,,,,,,0.846640,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-v2x_htfl,43,client,50,,,,,,,,0.846950,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-canperfl,41,client,10,,,,,,,,0.881790,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-canperfl,42,client,10,,,,,,,,0.886730,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-canperfl,43,client,10,,,,,,,,0.884360,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-tinyproto,41,client_proto,50,,,,,,,,0.844760,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-tinyproto,42,client_proto,50,,,,,,,,0.845410,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-tinyproto,43,client_proto,50,,,,,,,,0.846820,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-pfedes,41,client,50,,,,,,,,0.840760,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-pfedes,42,client,50,,,,,,,,0.842170,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-pfedes,43,client,50,,,,,,,,0.843520,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-nilm,41,client,50,,,,,,,,0.840960,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-nilm,42,client,50,,,,,,,,0.847090,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-nilm,43,client,50,,,,,,,,0.845090,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fedtgp,41,client_proto,50,,,,,,,,0.803870,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fedtgp,42,client_proto,50,,,,,,,,0.793440,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fedtgp,43,client_proto,50,,,,,,,,0.807040,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-perfedskd,41,client,50,,,,,,,,0.850150,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-perfedskd,42,client,50,,,,,,,,0.852270,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-perfedskd,43,client,50,,,,,,,,0.851380,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fedproto,41,client_proto,50,,,,,,,,0.845440,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fedproto,42,client_proto,50,,,,,,,,0.846720,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
-fedproto,43,client_proto,50,,,,,,,,0.849280,,,marker_f1,docs/research/backbones/four-backbone-seed-results-live.md
+fedavg,41,global,50,0.912137,0.914923,0.912137,0.897411,0.869290,0.912137,0.912137,0.8752572222,0.912137,0.890221,marker_metrics,"hibwyli/mlp-fl-fedavg-s41-a2/1, runs/aligned-v2-backbones-live/mlp-fl-fedavg-s41-a2/RUN_STATUS.json"
+fedavg,42,global,50,0.915080,0.914984,0.915080,0.896607,0.876010,0.915080,0.915080,0.8812212232,0.915080,0.893134,marker_metrics,"nguynt298/mlp-fl-fedavg-s42-a2/1, runs/aligned-v2-backbones-live/mlp-fl-fedavg-s42-a2/RUN_STATUS.json"
+fedavg,43,global,50,0.912863,0.913109,0.912863,0.899712,0.873024,0.912863,0.912863,0.8762906209,0.912863,0.891007,marker_metrics,"hoangdangnhi/mlp-fl-fedavg-s43-a2/1, runs/aligned-v2-backbones-live/mlp-fl-fedavg-s43-a2/RUN_STATUS.json"
+fedprox,41,global,50,0.909892,0.883030,0.909892,0.872845,0.861912,0.909892,0.909892,0.8680478553,0.909892,0.887861,marker_metrics,"ttalgies/mlp-fl-fedprox-s41-a2/1, runs/aligned-v2-backbones-live/mlp-fl-fedprox-s41-a2/RUN_STATUS.json"
+fedprox,42,global,50,0.912423,0.915989,0.912423,0.898035,0.870060,0.912423,0.912423,0.8758859481,0.912423,0.890452,marker_metrics,"hoangdv1711/mlp-fl-fedprox-s42-a2/1, runs/aligned-v2-backbones-live/mlp-fl-fedprox-s42-a2/RUN_STATUS.json"
+fedprox,43,global,50,0.911107,0.882098,0.911107,0.873857,0.865335,0.911107,0.911107,0.8706867827,0.911107,0.889147,marker_metrics,"hibwyli/mlp-fl-fedprox-s43-a2/1, runs/aligned-v2-backbones-live/mlp-fl-fedprox-s43-a2/RUN_STATUS.json"
+afpha,41,global,50,0.908613,0.881491,0.908613,0.871770,0.858512,0.908613,0.908613,0.8649645289,0.908613,0.886579,marker_metrics,"voxuandatapply/mlp-fl-afpha-s41-a2/1, runs/aligned-v2-backbones-live/mlp-fl-afpha-s41-a2/RUN_STATUS.json"
+afpha,42,global,50,0.910972,0.911866,0.910972,0.895153,0.866584,0.910972,0.910972,0.8726588807,0.910972,0.889005,marker_metrics,"hunhthanhhong/mlp-fl-afpha-s42-a2/1, runs/aligned-v2-backbones-live/mlp-fl-afpha-s42-a2/RUN_STATUS.json"
+afpha,43,global,50,0.909871,0.880582,0.909871,0.872793,0.861415,0.909871,0.909871,0.8673805794,0.909871,0.887883,marker_metrics,"nguynt298/mlp-fl-afpha-s43-a2/1, runs/aligned-v2-backbones-live/mlp-fl-afpha-s43-a2/RUN_STATUS.json"
+fd_ids,41,global,50,0.905767,0.882643,0.905767,0.869801,0.824077,0.905767,0.905767,0.8204867690,0.905767,0.881019,marker_metrics,"ttalgies/mlp-fl-fd-ids-s41-a2/1, runs/aligned-v2-backbones-live/mlp-fl-fd-ids-s41-a2/RUN_STATUS.json"
+fd_ids,42,global,50,0.907906,0.883763,0.907906,0.871456,0.831501,0.907906,0.907906,0.8318743891,0.907906,0.883795,marker_metrics,"qwerasdf3004/mlp-fl-fd-ids-s42-a2/1, runs/aligned-v2-backbones-live/mlp-fl-fd-ids-s42-a2/RUN_STATUS.json"
+fd_ids,43,global,50,0.905175,0.881551,0.905175,0.869259,0.823636,0.905175,0.905175,0.8197549248,0.905175,0.880427,marker_metrics,"huygia1611/mlp-fl-fd-ids-s43-a2/1, runs/aligned-v2-backbones-live/mlp-fl-fd-ids-s43-a2/RUN_STATUS.json"
+apfed,41,client,50,0.915039,0.917714,0.915039,0.903812,0.875239,0.915039,0.915039,0.8786944487,0.915039,0.894005,marker_metrics,"nguynt298/mlp-fl-apfed-s41-a2/1, runs/aligned-v2-backbones-live/mlp-fl-apfed-s41-a2/RUN_STATUS.json"
+apfed,42,client,50,0.918066,0.924216,0.918066,0.907694,0.882302,0.918066,0.918066,0.8855088692,0.918066,0.897176,marker_metrics,"hoangdangnhi/mlp-fl-apfed-s42-a2/1, runs/aligned-v2-backbones-live/mlp-fl-apfed-s42-a2/RUN_STATUS.json"
+apfed,43,client,50,0.915803,0.916277,0.915803,0.904867,0.879445,0.915803,0.915803,0.8811690542,0.915803,0.895046,marker_metrics,"ttalgies/mlp-fl-apfed-s43-a2/1, runs/aligned-v2-backbones-live/mlp-fl-apfed-s43-a2/RUN_STATUS.json"
+lwfednids,41,global,50,0.889885,0.837387,0.889885,0.853673,0.798530,0.889885,0.889885,0.8001416910,0.889885,0.865997,marker_metrics,"qwerasdf3004/mlp-fl-lwfednids-s41-a2/1, runs/aligned-v2-backbones-live/mlp-fl-lwfednids-s41-a2/RUN_STATUS.json"
+lwfednids,42,global,50,0.888685,0.841716,0.888685,0.852822,0.799842,0.888685,0.888685,0.8020375950,0.888685,0.865008,marker_metrics,"anduyvo06/mlp-fl-lwfednids-s42-a2/1, runs/aligned-v2-backbones-live/mlp-fl-lwfednids-s42-a2/RUN_STATUS.json"
+lwfednids,43,global,50,0.892125,0.849527,0.892125,0.856150,0.803730,0.892125,0.892125,0.8060816572,0.892125,0.868187,marker_metrics,"honghunhnh/mlp-fl-lwfednids-s43-a2/1, runs/aligned-v2-backbones-live/mlp-fl-lwfednids-s43-a2/RUN_STATUS.json"
+v2x_htfl,41,client,50,0.886446,0.857649,0.886446,0.873413,0.848256,0.886446,0.886446,0.8463441728,0.886446,0.874034,marker_metrics,"voxuandatapply/mlp-fl-v2x-htfl-s41-fp32proj-a4/1, runs/aligned-v2-backbones-live/mlp-fl-v2x-htfl-s41-fp32proj-a4/RUN_STATUS.json"
+v2x_htfl,42,client,50,0.887710,0.860580,0.887710,0.874953,0.846241,0.887710,0.887710,0.8466449048,0.887710,0.875250,marker_metrics,"hibwyli/mlp-fl-v2x-htfl-s42-fp32proj-a4/1, runs/aligned-v2-backbones-live/mlp-fl-v2x-htfl-s42-fp32proj-a4/RUN_STATUS.json"
+v2x_htfl,43,client,50,0.886909,0.859544,0.886909,0.874610,0.847536,0.886909,0.886909,0.8469471732,0.886909,0.875173,marker_metrics,"huygia1611/mlp-fl-v2x-htfl-s43-fp32proj-a4/1, runs/aligned-v2-backbones-live/mlp-fl-v2x-htfl-s43-fp32proj-a4/RUN_STATUS.json"
+canperfl,41,client,10,0.914752,0.912803,0.914752,0.902873,0.878040,0.914752,0.914752,0.8817901524,0.914752,0.896557,marker_metrics,"hibwyli/mlp-fl-canperfl-s41-a2/2, runs/aligned-v2-backbones-live/mlp-fl-canperfl-s41-a2/RUN_STATUS.json"
+canperfl,42,client,10,0.916666,0.917500,0.916666,0.905663,0.883463,0.916666,0.916666,0.8867335949,0.916666,0.898670,marker_metrics,"nguynt298/mlp-fl-canperfl-s42-a2/1, runs/aligned-v2-backbones-live/mlp-fl-canperfl-s42-a2/RUN_STATUS.json"
+canperfl,43,client,10,0.914903,0.912307,0.914903,0.903318,0.880827,0.914903,0.914903,0.8843640636,0.914903,0.897913,marker_metrics,"hoangdangnhi/mlp-fl-canperfl-s43-a2/1, runs/aligned-v2-backbones-live/mlp-fl-canperfl-s43-a2/RUN_STATUS.json"
+tinyproto,41,client_proto,50,0.860373,0.838590,0.860373,0.879866,0.859324,0.860373,0.860373,0.8447560262,0.860373,0.867446,marker_metrics,"hoangdv1711/mlp-fl-tinyproto-s41-a2/1, runs/aligned-v2-backbones-live/mlp-fl-tinyproto-s41-a2/RUN_STATUS.json"
+tinyproto,42,client_proto,50,0.860963,0.837657,0.860963,0.880031,0.860932,0.860963,0.860963,0.8454094159,0.860963,0.867805,marker_metrics,"huynhkyy/mlp-fl-tinyproto-s42-a2/1, runs/aligned-v2-backbones-live/mlp-fl-tinyproto-s42-a2/RUN_STATUS.json"
+tinyproto,43,client_proto,50,0.861774,0.840501,0.861774,0.880170,0.860650,0.861774,0.861774,0.8468198554,0.861774,0.868519,marker_metrics,"nguynt298/mlp-fl-tinyproto-s43-a2/1, runs/aligned-v2-backbones-live/mlp-fl-tinyproto-s43-a2/RUN_STATUS.json"
+pfedes,41,client,50,0.888051,0.872372,0.888051,0.878560,0.831750,0.888051,0.888051,0.8407564122,0.888051,0.873992,marker_metrics,"anduyvo06/mlp-fl-pfedes-s41-a2/1, runs/aligned-v2-backbones-live/mlp-fl-pfedes-s41-a2/RUN_STATUS.json"
+pfedes,42,client,50,0.888584,0.876359,0.888584,0.879922,0.831394,0.888584,0.888584,0.8421678040,0.888584,0.874158,marker_metrics,"huygia1611/mlp-fl-pfedes-s42-a2/1, runs/aligned-v2-backbones-live/mlp-fl-pfedes-s42-a2/RUN_STATUS.json"
+pfedes,43,client,50,0.888619,0.873666,0.888619,0.879486,0.834453,0.888619,0.888619,0.8435204014,0.888619,0.874990,marker_metrics,"voxuandatapply/mlp-fl-pfedes-s43-a2/1, runs/aligned-v2-backbones-live/mlp-fl-pfedes-s43-a2/RUN_STATUS.json"
+nilm,41,client,50,0.897778,0.881551,0.897778,0.872737,0.832448,0.897778,0.897778,0.8409611339,0.897778,0.875869,marker_metrics,"honghunhnh/mlp-fl-nilm-s41-a2/1, runs/aligned-v2-backbones-live/mlp-fl-nilm-s41-a2/RUN_STATUS.json"
+nilm,42,client,50,0.899550,0.885574,0.899550,0.875908,0.838047,0.899550,0.899550,0.8470865349,0.899550,0.877775,marker_metrics,"kinhongkhctrung/mlp-fl-nilm-s42-a2/1, runs/aligned-v2-backbones-live/mlp-fl-nilm-s42-a2/RUN_STATUS.json"
+nilm,43,client,50,0.899210,0.888372,0.899210,0.877553,0.835810,0.899210,0.899210,0.8450926285,0.899210,0.877369,marker_metrics,"nguynt298/mlp-fl-nilm-s43-a2/1, runs/aligned-v2-backbones-live/mlp-fl-nilm-s43-a2/RUN_STATUS.json"
+fedtgp,41,client_proto,50,0.866194,0.793809,0.866194,0.849377,0.822063,0.866194,0.866194,0.8038708903,0.866194,0.855366,marker_metrics,"huynhkyy/mlp-fl-fedtgp-s41-a2/1, runs/aligned-v2-backbones-live/mlp-fl-fedtgp-s41-a2/RUN_STATUS.json"
+fedtgp,42,client_proto,50,0.867030,0.798163,0.867030,0.845654,0.811540,0.867030,0.867030,0.7934410682,0.867030,0.851674,marker_metrics,"voxuandatapply/mlp-fl-fedtgp-s42-a2/1, runs/aligned-v2-backbones-live/mlp-fl-fedtgp-s42-a2/RUN_STATUS.json"
+fedtgp,43,client_proto,50,0.875273,0.815324,0.875273,0.852950,0.818480,0.875273,0.875273,0.8070440182,0.875273,0.858812,marker_metrics,"hoangdangnhi/mlp-fl-fedtgp-s43-a2/1, runs/aligned-v2-backbones-live/mlp-fl-fedtgp-s43-a2/RUN_STATUS.json"
+perfedskd,41,client,50,0.896216,0.886625,0.896216,0.888052,0.842774,0.896216,0.896216,0.8501461926,0.896216,0.880642,marker_metrics,"dangthiet/mlp-fl-perfedskd-s41-a2/1, runs/aligned-v2-backbones-live/mlp-fl-perfedskd-s41-a2/RUN_STATUS.json"
+perfedskd,42,client,50,0.896893,0.888691,0.896893,0.889155,0.844910,0.896893,0.896893,0.8522660482,0.896893,0.881225,marker_metrics,"hoangdang1711/mlp-fl-perfedskd-s42-a2/1, runs/aligned-v2-backbones-live/mlp-fl-perfedskd-s42-a2/RUN_STATUS.json"
+perfedskd,43,client,50,0.896792,0.887095,0.896792,0.888511,0.843894,0.896792,0.896792,0.8513820095,0.896792,0.881174,marker_metrics,"qwerasdf3004/mlp-fl-perfedskd-s43-a2/1, runs/aligned-v2-backbones-live/mlp-fl-perfedskd-s43-a2/RUN_STATUS.json"
+fedproto,41,client_proto,50,0.859375,0.837817,0.859375,0.882556,0.861623,0.859375,0.859375,0.8454369769,0.859375,0.867631,marker_metrics,"hoangdv1711/mlp-fl-fedproto-s41-a2/1, runs/aligned-v2-backbones-live/mlp-fl-fedproto-s41-a2/RUN_STATUS.json"
+fedproto,42,client_proto,50,0.853788,0.839260,0.853788,0.880421,0.862327,0.853788,0.853788,0.8467167960,0.853788,0.862789,marker_metrics,"qwerasdf3004/mlp-fl-fedproto-s42-a2/1, runs/aligned-v2-backbones-live/mlp-fl-fedproto-s42-a2/RUN_STATUS.json"
+fedproto,43,client_proto,50,0.862848,0.844171,0.862848,0.879233,0.858950,0.862848,0.862848,0.8492782628,0.862848,0.869431,marker_metrics,"voxuandatapply/mlp-fl-fedproto-s43-a2/1, runs/aligned-v2-backbones-live/mlp-fl-fedproto-s43-a2/RUN_STATUS.json"
 mobihet_l4,42,client,50,0.911964,0.916645,0.911964,0.903221,0.864033,0.911964,0.911964,0.873403,0.911964,0.894057,audited,"kaggle hoangdang20t/mlp-l4-s42 (scripts/audit_l4.py: CM r50 -> 10 metrics, hp/source/rounds checked)"
 mobihet_l4,41,client,50,0.911310,0.914786,0.911310,0.902266,0.861683,0.911310,0.911310,0.871325,0.911310,0.893585,audited,"kaggle minhtran0601/mlp-l4-s41 (scripts/audit_l4.py: CM r50 -> 10 metrics, hp/source/rounds checked)"
 mobihet_l4,43,client,50,0.911662,0.915239,0.911662,0.902794,0.864327,0.911662,0.911662,0.873692,0.911662,0.894317,audited,"kaggle takids1909/mlp-l4-s43 (scripts/audit_l4.py: CM r50 -> 10 metrics, hp/source/rounds checked)"

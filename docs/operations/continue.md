@@ -24,13 +24,13 @@ CNN-BiGRU L4 đủ 10 metric r50 trong [results.csv](../../experiments/cnn-bigru
 
 Ba BERT epoch 9 dùng source đóng băng riêng theo seed. Seed 41 và 43 có cùng hash, seed 42 có sửa thứ tự barrier/config DDP và bật find_unused cho SAE-CE. Cấu hình BERT dùng cùng HP. Đã kiểm full state của model, optimizer và AMP scaler, fingerprint data, history liên tục, prediction → CM và 10 metric. Byte nguồn, log, prediction và checkpoint ở `runs/central-20261120/pulls/` và ledger recovery.
 
-| Exact ref nối phiên | Trạng thái quan sát 14:20–14:30 |
+| Exact ref nối phiên | Trạng thái quan sát 14:30–14:42 |
 |---|---|
-| `abbafan/exp-central-bert-s41-p2/1` | RUNNING, import epoch 9, train epoch 10 đã qua step 3.000 / 9.122 |
-| `chiencosieuhang/exp-central-bert-s42-p2/1` | RUNNING, import epoch 9, train epoch 10 đã qua step 2.750 / 9.122 |
-| `bestyorn/exp-central-bert-s43-p2/1` | RUNNING, import epoch 9, train epoch 10 đã qua step 3.250 / 9.122 |
+| `abbafan/exp-central-bert-s41-p2/1` | RUNNING, import epoch 9, epoch 10 đã qua step 5.250 / 9.122 |
+| `chiencosieuhang/exp-central-bert-s42-p2/1` | RUNNING, import epoch 9, epoch 10 đã qua step 4.750 / 9.122 |
+| `bestyorn/exp-central-bert-s43-p2/1` | RUNNING, import epoch 9, epoch 10 đã qua step 5.500 / 9.122 |
 | `lelovo/mixl4-case1-s42-h2/1` | RUNNING, hai rank xác nhận restore r2 |
-| `gaming3/mixl4-case2-s42-h2/1` | RUNNING, restore r2, log qua r17, skip 0% |
+| `gaming3/mixl4-case2-s42-h2/1` | RUNNING, restore r2, log qua r28, skip 0% |
 | `lelovo/mixl4-case3-s42-h2/1` | RUNNING, hai rank xác nhận restore r2 |
 | `gaming3/mixl4-case2-s41/1` | RUNNING, seed mới sau pilot PASS, source đóng băng của pilot, mục tiêu r50 |
 | `abbafan/mixl4-case2-s43/1` | RUNNING, seed mới sau pilot PASS, source đóng băng của pilot, mục tiêu r50 |
@@ -40,6 +40,8 @@ Ba BERT epoch 9 dùng source đóng băng riêng theo seed. Seed 41 và 43 có c
 | `hoangdang20t/exp-flops-v3-mixed13/1` | RUNNING, trace mới mixed case1/3 |
 
 H2 mixed kiểm receipt và kích thước hai rank từ mount trước khi decode dataset. `scripts/audit_mixed_l4.py` nhận pull, notebook đã chạy, exact ref và inventory checkpoint. Script xuất receipt cho phiên nối và chỉ nhận `--csv` khi đủ r50. Tiếp theo, đọc `RUN_STATUS.json` và checkpoint đã commit trước khi dựng H3. BERT tiếp tục bằng `scripts/build_central_backbones.py --parent-artifacts ... --parent-epoch E`. Mixed dùng `scripts/build_mixed_l4.py --parent-artifacts ...`, giữ source, assignment và checkpoint hash của parent. Không chạy orchestrator MobiHet cũ.
+
+`experiment-mixed-l4-terminal-20261120` theo dõi 5 exact ref mixed, pull output của phiên terminal đầu tiên, chạy audit metric và kiểm checkpoint hai rank. Job gửi thông báo qua Codex queue khi có terminal. Log `runs/recovery-20261120/mixed-l4-session-watch.log`, trạng thái `mixed-l4-session-watch.json` cùng thư mục.
 
 ## Mixed128 baseline
 
@@ -53,6 +55,10 @@ Import hai commit Codex `5d2648b` và `66c1e9c` qua merge `3281ad6`. Khôi phụ
 | Case 3 pFedES seed 41 | `nguynkhacao/mix128-case3-pfedes-s41-a1-r06-r16-r17-r18/1` | .80720 |
 | Case 3 pFedES seed 43 | `nguynkhacao/mix128-case3-pfedes-s43-a1-r06-r08-r09-r10-r43/1` | .80866 |
 
+### Baseline bốn backbone
+
+Khôi phục đủ 10 metric và exact ref cho 168 cấu hình FL của TabM, SAE, MLP và CNN-BiGRU từ bản sao Kaggle. Tính lại 36 cấu hình TabM từ CM, đối chiếu config, toàn bộ vòng liên tục và support từng lớp. 132 cấu hình được đối chiếu marker cuối, manifest và smoke của đúng phiên bản, trạng thái `marker_metrics` trong results.csv. Không có CM của các phiên bản đó trong backup. Macro-F1 giữ nguyên ở độ chính xác công bố. Các checksum và script audit nằm trong `runs/recovery-20261120/{backbone-archive-audit.json,audit_backbone_archive.py}`. [Bảng bốn backbone](../research/backbones/four-backbone-seed-results-live.md)
+
 ## Git và dữ liệu
 
 - Local main chứa merge `ee262da` (central + kết quả), `dd1dba1` (L4), `2bf7680` (Codex, backup Git LFS) và `3281ad6` (Codex, mixed128 r50). Source, docs, tests và thay đổi đã bảo toàn đều nằm trong lịch sử main. GitHub main chưa push.
@@ -65,9 +71,9 @@ Kiểm local trên main. 47 pytest PASS trong suite portable và 38 PASS trong F
 
 ## Compute
 
-Đã cập nhật đủ 9 bảng lịch sử và xuất 9 bảng `compute-detail.csv`, kèm trace source, loại đo, FLOP client/server/other/bootstrap, eval riêng, Big-O và ranking. Bảng chi tiết đang bổ sung theo tiến độ. BERT lịch sử có ước tính scaling 2.048 → 4.096, trace mới đo trực tiếp. Mixed dùng FedProto cùng case. [Quy ước, số liệu và cách tái lập](../research/compute.md)
+Đã cập nhật đủ 9 bảng lịch sử và xuất 9 bảng `compute-detail.csv`, kèm trace source, loại đo, FLOP client/server/other/bootstrap, eval riêng, Big-O và ranking. Có 57/114 hàng có trace chi tiết, gồm 6 probe centralized. BERT lịch sử có ước tính scaling 2.048 → 4.096, trace mới đo trực tiếp. Mixed dùng FedProto cùng case. [Quy ước, số liệu và cách tái lập](../research/compute.md)
 
-- `experiment-flops-small-20261120` đo TabM, SAE, MLP, mixed case2 trong canonical. Log `runs/compute-detailed-v3/local-matrix.log`.
+- `experiment-flops-small-20261120` PASS. Đủ trace cho TabM, SAE, MLP (16 hàng mỗi backbone), mixed case2 (6 hàng). Log `runs/compute-detailed-v3/local-matrix.log`.
 - `experiment-flops-kaggle-20261120` chờ bốn kernel count ở trên, pull/audit output exact version và sinh lại bảng. Log `runs/compute-detailed-v3/remote-collect.log`.
 - CSV detailed chỉ xếp hạng hàng có trace đã kiểm. Trace baseline cũ, phép đo seed 42, hai round mới và extrapolation 50 đều có nhãn riêng.
 
@@ -75,5 +81,5 @@ Kiểm local trên main. 47 pytest PASS trong suite portable và 38 PASS trong F
 
 1. Audit các phiên BERT và mixed khi terminal. Nối từ checkpoint được kiểm cho tới epoch/round 50. Mixed case1 và case3 seed 41/43 còn chưa chạy. Case2 đã đủ ba seed đang chạy. Chọn slot/quota mới ở lúc push.
 2. Thu đủ trace chi tiết từ hai hàng đợi. Xử lý từng trường hợp OOM và xác minh số backward, padding và provenance trước khi đưa vào bảng. So các trace mới với lịch sử theo nguồn và quy ước.
-3. Teammate bổ sung CM hoặc đủ 10 metric của TabM/SAE/MLP/CNN-BiGRU FL. Account teammate không có credential ở đây.
+3. Teammate bổ sung CM cho 132 cấu hình còn ở mức kiểm marker. Account teammate không có credential ở đây.
 4. Đóng các phiên dùng cwd `experiment-wt`, mở workspace `experiment` và gỡ worktree cũ sau khi kiểm trạng thái lần cuối. Chỉ phát triển trên main.

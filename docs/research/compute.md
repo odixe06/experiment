@@ -85,9 +85,16 @@ Tổng FL 50 round, đơn vị: **× FedAvg cùng kịch bản** (đơn model); 
 
 Ước tính lịch sử dùng cùng panel cho từng cặp. CNN-BiGRU L4 đạt 0,917× FedAvg. Mixed case1/case2/case3 lần lượt đạt 1,879×, 2,202× và 1,874× FedProto. BERT L4 lịch sử nhân **phần train** với 5.092.288 / 3.045.792 = 1,672 khi chuyển từ 2.048 lên 4.096. Bootstrap, eval và phần round ngoài train vẫn giữ phép đo ở layout nguồn. Tỷ lệ 0,917× là ước tính theo dòng. Job BERT chi tiết đo trực tiếp 4.096 trên source native đã đóng băng.
 
-MLP L4 trên trace mới khoảng 13,42 TFLOPs chiếu 50 round, gồm khoảng 3,65 TFLOPs ở phạm vi synthetic. FedAvg khoảng 10,52 TFLOPs. Tỷ lệ mới 1,276× thấp hơn 1,952× quy ước cũ do cột chi phí dữ liệu và các op phần tử không số học được tách khỏi tổng FLOP. Số nhân ma trận forward/backward FedAvg ở r2 khớp trace cũ, tổng 195,08 GFLOPs. Chênh lệch quy ước đặc biệt lớn khi lấy mẫu copula/KM chứa indexing, copy, RNG và `searchsorted`.
+| Kịch bản | L4 (TFLOPs, 50 round) | Baseline (TFLOPs) | Tỷ lệ chi tiết | Tỷ lệ lịch sử |
+|---|---:|---:|---:|---:|
+| TabM | 29,84 | FedAvg 28,38 | 1,051× | 1,310× |
+| SAE | 10,07 | FedAvg 6,86 | 1,469× | 2,445× |
+| MLP | 13,42 | FedAvg 10,52 | 1,276× | 1,952× |
+| Mixed case2 | 187,26 | FedProto 91,82 | 2,039× | 2,202× |
 
-Mixed case2 L4 đạt khoảng 187,26 TFLOPs, FedProto khoảng 91,82 TFLOPs, tỷ lệ 2,039×. Nhóm grouped chọn chiều rộng compact theo xe có quota lớn nhất còn gộp trong nhóm. Panel 200 có ít xe mỗi backbone. Nhiều bước vẫn chạy chiều rộng 64 thật + 64 synthetic dù mask chỉ kích hoạt ít hơn. Mixed còn nhân chi phí theo từng nhóm và phân phối model. So sánh giới hạn trong panel. Cần đo panel rộng hơn hoặc full-scale để định lượng padding ở 5.343 xe.
+Synthetic tốn khoảng 3,65 TFLOPs cho mỗi backbone đơn trong bảng và 9,06 TFLOPs cho mixed case2. Với SAE, chi phí synthetic riêng đã bằng khoảng 53% tổng FedAvg. Phép nhân ma trận forward/backward của FedAvg MLP ở r2 khớp trace lịch sử, tổng 195,08 GFLOPs. Cộng lại indexing, copy, RNG, sắp xếp và công việc phần tử khác cho bốn trace L4 tái tạo tổng lịch sử với sai số dưới 0,003 Tops. Một phần lớn chênh lệch xuất phát từ các thao tác này trong lấy mẫu copula/KM.
+
+Grouped chọn chiều rộng compact theo xe có quota lớn nhất còn gộp trong nhóm. Panel 200 có ít xe mỗi backbone. Nhiều bước mixed case2 chạy chiều rộng 64 thật + 64 synthetic dù mask kích hoạt ít hơn. Chi phí đó lặp lại theo từng nhóm backbone và phụ thuộc phân bố số dòng trên xe. So sánh này dùng panel 200. Định lượng padding ở 5.343 xe cần phép đo panel rộng hơn hoặc full-scale.
 
 Big-O trong CSV là chi phí mỗi round trừ khi biểu thức ghi số vòng. `E` là dòng thực thi kể cả đệm, `F` chi phí backbone mỗi dòng, `U` số bước grouped thực thi tính theo số client, `P` tham số, `K` client, `C` lớp, `H` chiều prototype, `D` số feature, `B` số bin CDF và `S` epoch server. Mixed dùng tổng qua các nhóm backbone. Bootstrap L4 xét riêng, gồm thống kê feature và KM với số sample, chiều feature, số cụm và số vòng Lloyd.
 
