@@ -1,0 +1,4796 @@
+{
+  "format": 1,
+  "scope": "missing non-checkpoint artifacts for exact final 4-backbone x 14-method x 3-seed runs",
+  "source_inventory": "runs/four-backbone-final-checkpoint-size-inventory.json",
+  "runs": 132,
+  "files": 390,
+  "bytes": 97685945,
+  "audited": 132,
+  "results": [
+    {
+      "model": "cnn-bigru-attention",
+      "method": "afpha",
+      "seed": 41,
+      "ref": "hoangdangnhi/cnn-bigru-attention-fl-afpha-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-afpha-s41-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/afpha/seed41/cms_r050.npz",
+          "bytes": 396799,
+          "sha256": "aa7236119d5bacd6a4d41947d12b773956fc90991c7157166b7396428cb60d53"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-afpha-s41-a2/config.json",
+          "archive_path": "cnn-bigru-attention/afpha/seed41/config.json",
+          "bytes": 556,
+          "sha256": "54f647f733bc6cc87677adfae8c07a6483eabae1fa29ef50960a7a78aee1ce33"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-afpha-s41-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/afpha/seed41/rounds.jsonl",
+          "bytes": 62107,
+          "sha256": "a1fedc501027520f6a39cd30ed116fb33b475aa1b6f116130e79ab17a2479c0e"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "afpha",
+      "seed": 42,
+      "ref": "huygia1611/cnn-bigru-attention-fl-afpha-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-afpha-s42-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/afpha/seed42/cms_r050.npz",
+          "bytes": 410327,
+          "sha256": "369f8bf40fb33af3d952b0ea61fd3f1c93dee2d263d962a385abf6a7fcb40699"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-afpha-s42-a2/config.json",
+          "archive_path": "cnn-bigru-attention/afpha/seed42/config.json",
+          "bytes": 556,
+          "sha256": "1898aa1958a26ab6ac1e59bfec832afff19d96b4ead1cbe30da6db450fafe364"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-afpha-s42-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/afpha/seed42/rounds.jsonl",
+          "bytes": 62100,
+          "sha256": "03b9cdc82ffc69ee57491e87933acffff098344435c2c7e1a48ba644bc32d65e"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "afpha",
+      "seed": 43,
+      "ref": "ttalgies/cnn-bigru-attention-fl-afpha-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-afpha-s43-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/afpha/seed43/cms_r050.npz",
+          "bytes": 400376,
+          "sha256": "a167dd05c4a3797fbc32859fdf404d49f203dae214562489fbbd534cdabc6d18"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-afpha-s43-a2/config.json",
+          "archive_path": "cnn-bigru-attention/afpha/seed43/config.json",
+          "bytes": 556,
+          "sha256": "071ef0c955a75b485a81a8e89f5ed170b16ac47c2472f68fc0ddfe64345035a9"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-afpha-s43-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/afpha/seed43/rounds.jsonl",
+          "bytes": 61968,
+          "sha256": "0987de27e5114bc6d2d2689fc63af8d8199f050f18f0200243eff82ec7189fbe"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "apfed",
+      "seed": 41,
+      "ref": "minhiw/cnn-bigru-attention-fl-apfed-s41-a2-r2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-apfed-s41-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/apfed/seed41/cms_r050.npz",
+          "bytes": 771921,
+          "sha256": "4538a1b75026a81947d2c921469e1c3837edcd2ad4dbdf11fb62501a11b4e759"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-apfed-s41-a2/config.json",
+          "archive_path": "cnn-bigru-attention/apfed/seed41/config.json",
+          "bytes": 556,
+          "sha256": "88d363c85cf45589dcb89087ebc33cc09c695eb1d748891152910681065b2294"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-apfed-s41-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/apfed/seed41/rounds.jsonl",
+          "bytes": 109985,
+          "sha256": "dacb6bc24d1ddfde03844474a9a0c51c88d8b04eda75db43f10d4e4de3116607"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "apfed",
+      "seed": 42,
+      "ref": "phamquang0606/cnn-bigru-attention-fl-apfed-s42-a2-r2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-apfed-s42-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/apfed/seed42/cms_r050.npz",
+          "bytes": 777182,
+          "sha256": "ed2379e40a17d9b7bf43b7eb4781165fb628625adc35260c3abfaae19cb1679a"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-apfed-s42-a2/config.json",
+          "archive_path": "cnn-bigru-attention/apfed/seed42/config.json",
+          "bytes": 556,
+          "sha256": "035eec5d5a4989fa66d7009d792b7cbfe86cbf60cbe00b7504e5b988fc560e8c"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-apfed-s42-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/apfed/seed42/rounds.jsonl",
+          "bytes": 110094,
+          "sha256": "f49dc819e687089a7a3e4a959e6c607b669cbeec7b4c07b1015edef587dc79d4"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "apfed",
+      "seed": 43,
+      "ref": "dangthiet/cnn-bigru-attention-fl-apfed-s43-a2-r2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-apfed-s43-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/apfed/seed43/cms_r050.npz",
+          "bytes": 790515,
+          "sha256": "3fb1122ed12d12db39cb12470e157c51e00985e2b69fc544ab9bafd6b1ee9eae"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-apfed-s43-a2/config.json",
+          "archive_path": "cnn-bigru-attention/apfed/seed43/config.json",
+          "bytes": 556,
+          "sha256": "7757101139041d3bd0238b0c5578252f9e083c30e5eb6f508f5a0b361bdf65fb"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-apfed-s43-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/apfed/seed43/rounds.jsonl",
+          "bytes": 109814,
+          "sha256": "1739f138f2d891d768bc7c7557bf6499843468b5b61cd62f1558f766687a2e76"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "canperfl",
+      "seed": 41,
+      "ref": "kinhongkhctrung/cnn-bigru-attention-fl-canperfl-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-canperfl-s41-a2/cms_r010.npz",
+          "archive_path": "cnn-bigru-attention/canperfl/seed41/cms_r010.npz",
+          "bytes": 781361,
+          "sha256": "c4e38a81bb9756876cbc2b300bc30fa91180c35095cc34f5ebdf8211dab0ac85"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-canperfl-s41-a2/config.json",
+          "archive_path": "cnn-bigru-attention/canperfl/seed41/config.json",
+          "bytes": 699,
+          "sha256": "ef8a1322a64c1b8b794453941de5181dc09386b956779944ef274755c7a5a800"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-canperfl-s41-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/canperfl/seed41/rounds.jsonl",
+          "bytes": 21733,
+          "sha256": "17a2775fcb0556627f66a45280904a22f0f8ea3ef09e3e274ef1fccc654427ca"
+        }
+      ],
+      "audit": {
+        "target_round": 10,
+        "history_rows": 10,
+        "views": [
+          "client",
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "canperfl",
+      "seed": 42,
+      "ref": "minhiw/cnn-bigru-attention-fl-canperfl-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-canperfl-s42-a2/cms_r010.npz",
+          "archive_path": "cnn-bigru-attention/canperfl/seed42/cms_r010.npz",
+          "bytes": 782645,
+          "sha256": "cf283e0d4641c1a32543594383f3a2010cdd873440aeef10cba89a30749cf27f"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-canperfl-s42-a2/config.json",
+          "archive_path": "cnn-bigru-attention/canperfl/seed42/config.json",
+          "bytes": 699,
+          "sha256": "7a2a3ec82467e345bfb09883a01eea21449018489b6c506b595fd45698cfe1f4"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-canperfl-s42-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/canperfl/seed42/rounds.jsonl",
+          "bytes": 21671,
+          "sha256": "c90e82fe4017fcb9a7d42317afcb46aa5663b1d652511504727e6971c8e82319"
+        }
+      ],
+      "audit": {
+        "target_round": 10,
+        "history_rows": 10,
+        "views": [
+          "client",
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "canperfl",
+      "seed": 43,
+      "ref": "phamquang0606/cnn-bigru-attention-fl-canperfl-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-canperfl-s43-a2/cms_r010.npz",
+          "archive_path": "cnn-bigru-attention/canperfl/seed43/cms_r010.npz",
+          "bytes": 792325,
+          "sha256": "4d8fb953faf64d8c62397b642b1a8f770125d1ce8e23e941f43585db51770615"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-canperfl-s43-a2/config.json",
+          "archive_path": "cnn-bigru-attention/canperfl/seed43/config.json",
+          "bytes": 699,
+          "sha256": "c11538d025ad85bd2241f2fa5ff5edd22433b83f77f5227bb182c83cabe874f1"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-canperfl-s43-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/canperfl/seed43/rounds.jsonl",
+          "bytes": 21698,
+          "sha256": "c844dcee09880c88efd8de9fb50917b394faf752f255ecf78c6a300ff2bc935a"
+        }
+      ],
+      "audit": {
+        "target_round": 10,
+        "history_rows": 10,
+        "views": [
+          "client",
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "fd_ids",
+      "seed": 41,
+      "ref": "hoangdv1711/cnn-bigru-attention-fl-fd-ids-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-fd-ids-s41-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/fd_ids/seed41/cms_r050.npz",
+          "bytes": 383616,
+          "sha256": "96830301f5fefa188b27c3dad4a1bfb180de23319bb84400def1a4494185cd5f"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fd-ids-s41-a2/config.json",
+          "archive_path": "cnn-bigru-attention/fd_ids/seed41/config.json",
+          "bytes": 557,
+          "sha256": "4dbdf1844e00274bb59edb682d6bd30e304d4d25c1912a1bea43db9d8509c4c2"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fd-ids-s41-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/fd_ids/seed41/rounds.jsonl",
+          "bytes": 58572,
+          "sha256": "42783af4b6922499a63a30ec8b8b4dff348f2e928866105cb52c77ee5da5193e"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "fd_ids",
+      "seed": 42,
+      "ref": "hunhthanhhong/cnn-bigru-attention-fl-fd-ids-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-fd-ids-s42-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/fd_ids/seed42/cms_r050.npz",
+          "bytes": 381691,
+          "sha256": "76074263c745dd677832d74c1028c7da2deadc1e56f7a28e20e6e3a0df96eaa1"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fd-ids-s42-a2/config.json",
+          "archive_path": "cnn-bigru-attention/fd_ids/seed42/config.json",
+          "bytes": 557,
+          "sha256": "2ce6c92474f0d1cff3cc128e6783f900f9dfbfbdbff0f51e74cb20381defd836"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fd-ids-s42-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/fd_ids/seed42/rounds.jsonl",
+          "bytes": 58585,
+          "sha256": "89ab1600d0ef7855c3b4c687ebfd9b0ba08c334b8fbd16b06c0250c37a7c227f"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "fd_ids",
+      "seed": 43,
+      "ref": "huynhkyy/cnn-bigru-attention-fl-fd-ids-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-fd-ids-s43-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/fd_ids/seed43/cms_r050.npz",
+          "bytes": 392182,
+          "sha256": "749432c9a13e6708ff1ce9c8d7f1381ea62126456a39495450639b17732ce590"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fd-ids-s43-a2/config.json",
+          "archive_path": "cnn-bigru-attention/fd_ids/seed43/config.json",
+          "bytes": 557,
+          "sha256": "89f01d9ebf728f2b7e7a64ad1b772756e7e93181705cf260e5dbd870d07fff6e"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fd-ids-s43-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/fd_ids/seed43/rounds.jsonl",
+          "bytes": 58520,
+          "sha256": "6406f6aa77fb122d558c83140d99153200b4edf6cda1835b4844ec4347b6116f"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "fedavg",
+      "seed": 41,
+      "ref": "kinhongkhctrung/cnn-bigru-attention-fl-fedavg-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedavg-s41-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/fedavg/seed41/cms_r050.npz",
+          "bytes": 385098,
+          "sha256": "0053d6beb3c68231ab4670d42f530ce12c11a84c065b2d77811bbfb212529c02"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedavg-s41-a2/config.json",
+          "archive_path": "cnn-bigru-attention/fedavg/seed41/config.json",
+          "bytes": 557,
+          "sha256": "71d4156768d01f899ecce54aba88e599efa534aa9bfc5009256e1d628a4a8b4f"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedavg-s41-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/fedavg/seed41/rounds.jsonl",
+          "bytes": 59127,
+          "sha256": "5c75c9230229e65630e473a23d50dd04ba6a3381728f3036f5bf4844477d80c5"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "fedavg",
+      "seed": 42,
+      "ref": "minhiw/cnn-bigru-attention-fl-fedavg-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedavg-s42-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/fedavg/seed42/cms_r050.npz",
+          "bytes": 385810,
+          "sha256": "d88d5644f8363bdd05f2247132e066897d75f9911d50f688436ff909627c25ed"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedavg-s42-a2/config.json",
+          "archive_path": "cnn-bigru-attention/fedavg/seed42/config.json",
+          "bytes": 557,
+          "sha256": "3c32cd724985242862832f8cfd6fccf5ddba6767c144c0e13f8ca6aeca45b6f9"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedavg-s42-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/fedavg/seed42/rounds.jsonl",
+          "bytes": 59265,
+          "sha256": "ed65b7a9a88ba662bf67ff03f6ebf2897d668882277c1db3b7d307a3d290d3f8"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "fedavg",
+      "seed": 43,
+      "ref": "phamquang0606/cnn-bigru-attention-fl-fedavg-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedavg-s43-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/fedavg/seed43/cms_r050.npz",
+          "bytes": 393105,
+          "sha256": "7f4059efd9e6bf947a303deff87a4d08729928548256d315de136f9a2d2233d7"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedavg-s43-a2/config.json",
+          "archive_path": "cnn-bigru-attention/fedavg/seed43/config.json",
+          "bytes": 557,
+          "sha256": "f9c17e265bf01f7fcf6c9a9b7982844836c0f4ddcbc13e31a6988829549305a9"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedavg-s43-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/fedavg/seed43/rounds.jsonl",
+          "bytes": 59132,
+          "sha256": "1d3b1d9d4b1b5294f33fc78d00d8e9d04bc9328377fd19cf4bde9f835738f3b1"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "fedproto",
+      "seed": 41,
+      "ref": "hoangdang1711/cnn-bigru-attention-fl-fedproto-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedproto-s41-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/fedproto/seed41/cms_r050.npz",
+          "bytes": 1010479,
+          "sha256": "6b6050a71e0d848203ec85657e9e1d5f1a7ad8ac16753d970af2ce4afeb3f49c"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedproto-s41-a2/config.json",
+          "archive_path": "cnn-bigru-attention/fedproto/seed41/config.json",
+          "bytes": 612,
+          "sha256": "63af23cb9502206272a4e68741d9daceea2b58fe490cfb2a9d621c2a13771a5e"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedproto-s41-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/fedproto/seed41/rounds.jsonl",
+          "bytes": 111541,
+          "sha256": "e0c74c23325d0224ab457a188fc2b8206b838df14c6e3cf9ae2dc7e10cb67b56"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "fedproto",
+      "seed": 42,
+      "ref": "voxuandatapply/cnn-bigru-attention-fl-fedproto-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedproto-s42-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/fedproto/seed42/cms_r050.npz",
+          "bytes": 1015077,
+          "sha256": "d9a197cee064a12b588920b22eb0cd5b9480c4850673e1dad052e2986c117608"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedproto-s42-a2/config.json",
+          "archive_path": "cnn-bigru-attention/fedproto/seed42/config.json",
+          "bytes": 612,
+          "sha256": "c3668a0d877aa4b105a5c995266d97d03d53f657ac5c5d2863f06be0e4fcf2a6"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedproto-s42-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/fedproto/seed42/rounds.jsonl",
+          "bytes": 111468,
+          "sha256": "13f3623e108b987bc6d72730c4334038261b6c835933249564f83cba627ec1cb"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "fedproto",
+      "seed": 43,
+      "ref": "buidinh0303/cnn-bigru-attention-fl-fedproto-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedproto-s43-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/fedproto/seed43/cms_r050.npz",
+          "bytes": 1015629,
+          "sha256": "dcc7d4af613d4bc28abf5d239555e64425ad6fb8e63c2ac71bd4d93a2f13da7f"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedproto-s43-a2/config.json",
+          "archive_path": "cnn-bigru-attention/fedproto/seed43/config.json",
+          "bytes": 612,
+          "sha256": "517d84696f89edbd32c3722e81b39b5a3b74c62d1ead215d2ebae5f6d4b3b13d"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedproto-s43-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/fedproto/seed43/rounds.jsonl",
+          "bytes": 111686,
+          "sha256": "accdf4c628f85f64c784d16f2aa3f2fb7f171689df13f8f770f76f2d7d3e1e7e"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "fedprox",
+      "seed": 41,
+      "ref": "dangthiet/cnn-bigru-attention-fl-fedprox-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedprox-s41-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/fedprox/seed41/cms_r050.npz",
+          "bytes": 393708,
+          "sha256": "d4a37fc2ea208091c57b45a6381ca9ea8a55ae147feb9bd020aaa3df624c18bb"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedprox-s41-a2/config.json",
+          "archive_path": "cnn-bigru-attention/fedprox/seed41/config.json",
+          "bytes": 558,
+          "sha256": "78f89d84430d1dfdadb00fdf4a38e643bfefb5f58ccdc59d2f779cc1a517c34a"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedprox-s41-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/fedprox/seed41/rounds.jsonl",
+          "bytes": 59111,
+          "sha256": "19a9bbf41fff6dc6b343fc5ef7f2fbbf3e61b2ae91530b5739691bf0b1b95f4a"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "fedprox",
+      "seed": 42,
+      "ref": "hoangdang1711/cnn-bigru-attention-fl-fedprox-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedprox-s42-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/fedprox/seed42/cms_r050.npz",
+          "bytes": 407185,
+          "sha256": "f62e13f8a295a1d837d6bba61afd93868de8f0497a0a00679683e17acbd280cb"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedprox-s42-a2/config.json",
+          "archive_path": "cnn-bigru-attention/fedprox/seed42/config.json",
+          "bytes": 558,
+          "sha256": "b15cbe10863d62a076284324eec87ae7098c9f28fc4e3b2999aa29e266181505"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedprox-s42-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/fedprox/seed42/rounds.jsonl",
+          "bytes": 59014,
+          "sha256": "1451c194aa98991b4845cbe86116cf9cd0fdf86ca53785dd51097050e9c40992"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "fedprox",
+      "seed": 43,
+      "ref": "kinhongkhctrung/cnn-bigru-attention-fl-fedprox-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedprox-s43-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/fedprox/seed43/cms_r050.npz",
+          "bytes": 397672,
+          "sha256": "1e84071fc01c13bbf44967b56a8dba2a1ad8e092f3227f4520f83a0bf1d646eb"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedprox-s43-a2/config.json",
+          "archive_path": "cnn-bigru-attention/fedprox/seed43/config.json",
+          "bytes": 558,
+          "sha256": "6be07a44fa15ac8648bd172e1e6082ee152e598ce9af6adf5138e91a25f0465d"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedprox-s43-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/fedprox/seed43/rounds.jsonl",
+          "bytes": 58894,
+          "sha256": "9c53fe85abc36242db5c2bb5c4d4c3ec7f80ef2031e568a095cec35f0f4aef30"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "fedtgp",
+      "seed": 41,
+      "ref": "hibwyli/cnn-bigru-attention-fl-fedtgp-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedtgp-s41-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/fedtgp/seed41/cms_r050.npz",
+          "bytes": 1022546,
+          "sha256": "874272a01c6ff0d39f9ced4b3b410703fdcec55efa6bbde6ead948c719c94f42"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedtgp-s41-a2/config.json",
+          "archive_path": "cnn-bigru-attention/fedtgp/seed41/config.json",
+          "bytes": 553,
+          "sha256": "1bb64e0698edf6fbbb66b4ec2c3b71968ab93bd8308266c601bed3b6c7de6027"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedtgp-s41-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/fedtgp/seed41/rounds.jsonl",
+          "bytes": 114340,
+          "sha256": "27637dff44a745bc955573c8ae05b358729c9a1ff3ff628145828d42dcc0fe80"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "fedtgp",
+      "seed": 42,
+      "ref": "nguynt298/cnn-bigru-attention-fl-fedtgp-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedtgp-s42-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/fedtgp/seed42/cms_r050.npz",
+          "bytes": 1028992,
+          "sha256": "3909937fae885d690f82732a95ccffb271715e5d6f7b3c43915563346ef47199"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedtgp-s42-a2/config.json",
+          "archive_path": "cnn-bigru-attention/fedtgp/seed42/config.json",
+          "bytes": 553,
+          "sha256": "0504b5df7bb03885dac361d0e6a4b0bcaad87de40ffdce040f3c4bf507a4728c"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedtgp-s42-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/fedtgp/seed42/rounds.jsonl",
+          "bytes": 114174,
+          "sha256": "15c63a7b6d19dd6dece8cc82eb64d60774798619e26e1377579ab084756dfe6d"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "fedtgp",
+      "seed": 43,
+      "ref": "ttalgies/cnn-bigru-attention-fl-fedtgp-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedtgp-s43-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/fedtgp/seed43/cms_r050.npz",
+          "bytes": 1031644,
+          "sha256": "cae603bc1bff4fd5819d618dd91527f117d38953c52be07bdcb61dc8d91ec154"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedtgp-s43-a2/config.json",
+          "archive_path": "cnn-bigru-attention/fedtgp/seed43/config.json",
+          "bytes": 553,
+          "sha256": "59f34a46ccc8a0026c1635fde83fa356a3726a22483427c18b7c9f44984037f9"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-fedtgp-s43-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/fedtgp/seed43/rounds.jsonl",
+          "bytes": 114362,
+          "sha256": "c46bafeaf65499ec5c317b4a98c8a1672a600d559ad4a733042f314170c36d32"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "lwfednids",
+      "seed": 41,
+      "ref": "anduyvo06/cnn-bigru-attention-fl-lwfednids-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-lwfednids-s41-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/lwfednids/seed41/cms_r050.npz",
+          "bytes": 441378,
+          "sha256": "abb72f47d4de59899dc285ebdd5d1abc5e9456bc0bceac0fee196321ece89d1e"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-lwfednids-s41-a2/config.json",
+          "archive_path": "cnn-bigru-attention/lwfednids/seed41/config.json",
+          "bytes": 553,
+          "sha256": "d61acb16095ec57649da28cf8f5e1bb675c2867406a2904d4ddd29931cdf3fbd"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-lwfednids-s41-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/lwfednids/seed41/rounds.jsonl",
+          "bytes": 58708,
+          "sha256": "9eb2283e08ddb90d2cffbfc25d42c702fcbe106b7d7ca51f36d5f3a9e25c7a48"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "lwfednids",
+      "seed": 42,
+      "ref": "hiulhuy/cnn-bigru-attention-fl-lwfednids-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-lwfednids-s42-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/lwfednids/seed42/cms_r050.npz",
+          "bytes": 442038,
+          "sha256": "63ba306e0a9f1774c9da8d3d36c07e0207d2f559bf12630c58f91893ad77c5df"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-lwfednids-s42-a2/config.json",
+          "archive_path": "cnn-bigru-attention/lwfednids/seed42/config.json",
+          "bytes": 553,
+          "sha256": "f4505f198a31265070deae8b8928006d4ace485b0cd3bebedb25473036db5bf2"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-lwfednids-s42-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/lwfednids/seed42/rounds.jsonl",
+          "bytes": 58650,
+          "sha256": "7c653c58fd6c9a9c952fb9073c280010cf8698a73c9143e6c4a401432df26e3a"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "lwfednids",
+      "seed": 43,
+      "ref": "iamabighotdog/cnn-bigru-attention-fl-lwfednids-s43-a2",
+      "version": 2,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-lwfednids-s43-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/lwfednids/seed43/cms_r050.npz",
+          "bytes": 439996,
+          "sha256": "6b01d5ae02e0ff743cdfd76f6bd55cd15e108738fa6488284b88d512dc3ac8a2"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-lwfednids-s43-a2/config.json",
+          "archive_path": "cnn-bigru-attention/lwfednids/seed43/config.json",
+          "bytes": 553,
+          "sha256": "e308156e2f05bf6b03a38c04ed20f9f4b0b23cdd823914304382b80c9372619e"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-lwfednids-s43-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/lwfednids/seed43/rounds.jsonl",
+          "bytes": 58384,
+          "sha256": "d70ca0390abd23d4f22306ae9353f25c37c0fea5bf2a3f1d7ffe6cd3b9676ebd"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "nilm",
+      "seed": 41,
+      "ref": "iamabighotdog/cnn-bigru-attention-fl-nilm-s41-a2-r2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-nilm-s41-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/nilm/seed41/cms_r050.npz",
+          "bytes": 804331,
+          "sha256": "3d25ec731502c9340529ef2213829eb680c323d414bf8a6eedcfeace2bb41b92"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-nilm-s41-a2/config.json",
+          "archive_path": "cnn-bigru-attention/nilm/seed41/config.json",
+          "bytes": 555,
+          "sha256": "73ee071db1fc33aec389ff6611d34ce13cbc42ddd9e467262ebb615a3ff2c430"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-nilm-s41-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/nilm/seed41/rounds.jsonl",
+          "bytes": 106602,
+          "sha256": "58d56620499677d386d5d9a12f79d45912c36f2e03939435c1bc57c427379f51"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "proxy"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "nilm",
+      "seed": 42,
+      "ref": "hoangdv1711/cnn-bigru-attention-fl-nilm-s42-a2-r2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-nilm-s42-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/nilm/seed42/cms_r050.npz",
+          "bytes": 805886,
+          "sha256": "8fb12c087c55924ac267e91b473f67952589c21b875612d20d612c871ebc1083"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-nilm-s42-a2/config.json",
+          "archive_path": "cnn-bigru-attention/nilm/seed42/config.json",
+          "bytes": 555,
+          "sha256": "eea240da9ba9d002a15d5022c2f39192d07735c1c56b259963a88b209a5d36da"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-nilm-s42-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/nilm/seed42/rounds.jsonl",
+          "bytes": 106582,
+          "sha256": "fb153a35c49eaa37b4544b8184ba1280141aa2025ba34c3d4b927f1e897f3f00"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "proxy"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "nilm",
+      "seed": 43,
+      "ref": "huygia1611/cnn-bigru-attention-fl-nilm-s43-a2-r2-alt",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-nilm-s43-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/nilm/seed43/cms_r050.npz",
+          "bytes": 810799,
+          "sha256": "ce8bc98d79b72b51eb8dad5f3c2e0f2dab39bf818f4051159c75ff7843f4158b"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-nilm-s43-a2/config.json",
+          "archive_path": "cnn-bigru-attention/nilm/seed43/config.json",
+          "bytes": 555,
+          "sha256": "b4db85c7ebf82751d7f0cb37609c696aeb6f91884d99efd13dde4d81d7a5fc94"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-nilm-s43-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/nilm/seed43/rounds.jsonl",
+          "bytes": 106539,
+          "sha256": "62b10b919c1fdd73c69aec081ffa76b892cd60786492469625dcb26c5ee128bd"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "proxy"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "perfedskd",
+      "seed": 41,
+      "ref": "minhiw/cnn-bigru-attention-fl-perfedskd-s41-a2-r2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-perfedskd-s41-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/perfedskd/seed41/cms_r050.npz",
+          "bytes": 478593,
+          "sha256": "8246ec11f275c2bcc9bd7aa97cbf0e10ff4dc2eea6809a85ecf12b1d14ae09fe"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-perfedskd-s41-a2/config.json",
+          "archive_path": "cnn-bigru-attention/perfedskd/seed41/config.json",
+          "bytes": 624,
+          "sha256": "f504422e27d761d8cdbf6bb5572757195f93d03a3c6f42a2f7d5872a98acfb6b"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-perfedskd-s41-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/perfedskd/seed41/rounds.jsonl",
+          "bytes": 63201,
+          "sha256": "a5f8c9f8a41759d193a023039c1c80fab4a60027d20e45fe8579adbbc7cbff23"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "perfedskd",
+      "seed": 42,
+      "ref": "kinhongkhctrung/cnn-bigru-attention-fl-perfedskd-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-perfedskd-s42-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/perfedskd/seed42/cms_r050.npz",
+          "bytes": 483094,
+          "sha256": "c0c76053a5a295c0ce018bc5651a5178d2184995acc897b23560540a5bf323e0"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-perfedskd-s42-a2/config.json",
+          "archive_path": "cnn-bigru-attention/perfedskd/seed42/config.json",
+          "bytes": 624,
+          "sha256": "33646e1adc466f7cf4f035aa11d3ab000456d327f4cf708904c18f081a69aa70"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-perfedskd-s42-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/perfedskd/seed42/rounds.jsonl",
+          "bytes": 63390,
+          "sha256": "28b99edf22a7fe7d9c9345bac95154b78ee017082d766515cf83100e2263fd1d"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "perfedskd",
+      "seed": 43,
+      "ref": "honghunhnh/cnn-bigru-attention-fl-perfedskd-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-perfedskd-s43-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/perfedskd/seed43/cms_r050.npz",
+          "bytes": 484037,
+          "sha256": "c45e9b85f5a0829606c2532600d4183cc81fd469e5f3b3da24269bf90c5a8e90"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-perfedskd-s43-a2/config.json",
+          "archive_path": "cnn-bigru-attention/perfedskd/seed43/config.json",
+          "bytes": 624,
+          "sha256": "328f33c5f497cd2ef15f09a8df61c2e8d7b29555835dd910c38445170f100a90"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-perfedskd-s43-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/perfedskd/seed43/rounds.jsonl",
+          "bytes": 63406,
+          "sha256": "177eb35fa57aff50d9b27d0d5aa410f52bbcf867d721b63fb70144b5b63db177"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "pfedes",
+      "seed": 41,
+      "ref": "hunhthanhhong/cnn-bigru-attention-fl-pfedes-s41-a2-r2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-pfedes-s41-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/pfedes/seed41/cms_r050.npz",
+          "bytes": 529354,
+          "sha256": "6eadc8d7c5084cf358c2a2bfe55f9b843b80ea2c0b958aa9316d5a4df803c74b"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-pfedes-s41-a2/config.json",
+          "archive_path": "cnn-bigru-attention/pfedes/seed41/config.json",
+          "bytes": 553,
+          "sha256": "8b7a033077203f966f082a006cfeb9f4d7737cb5214e284894867c4c93ecdd95"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-pfedes-s41-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/pfedes/seed41/rounds.jsonl",
+          "bytes": 59461,
+          "sha256": "27c05c0cb01e7fcf18db905a6c0bbf2cdec9d81ea29b8b302349514044d6d3fa"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "pfedes",
+      "seed": 42,
+      "ref": "huynhkyy/cnn-bigru-attention-fl-pfedes-s42-a2-r2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-pfedes-s42-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/pfedes/seed42/cms_r050.npz",
+          "bytes": 529892,
+          "sha256": "b4f8e649cc86bccb56cae59dc8e86f878c5a06c341222a2a38c291a547882d11"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-pfedes-s42-a2/config.json",
+          "archive_path": "cnn-bigru-attention/pfedes/seed42/config.json",
+          "bytes": 553,
+          "sha256": "d2297a8be073c652ffd3b5b78f93135b0b3c965ce6320a0b47c65da851164594"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-pfedes-s42-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/pfedes/seed42/rounds.jsonl",
+          "bytes": 59405,
+          "sha256": "4fc2b87e74b254b9f5fa2c4dd9bb7dffe6bcafea4e9a8e0321c4335932c5bc60"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "pfedes",
+      "seed": 43,
+      "ref": "hiulhuy/cnn-bigru-attention-fl-pfedes-s43-a2-r2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-pfedes-s43-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/pfedes/seed43/cms_r050.npz",
+          "bytes": 526202,
+          "sha256": "25fbfa9881ec6095403fca28bcf411a2b7b8b024d87a7a8ae3f2bd1625125f24"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-pfedes-s43-a2/config.json",
+          "archive_path": "cnn-bigru-attention/pfedes/seed43/config.json",
+          "bytes": 553,
+          "sha256": "3c680cb4b13f0864bc8e51b63a4eca0af4a313feefd0e9db1b60e7ae56911010"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-pfedes-s43-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/pfedes/seed43/rounds.jsonl",
+          "bytes": 59362,
+          "sha256": "b99aaa24ae6f4b11c7a1bcd77a808dd03d9ecb3ec31026e771609a885b5a9d8e"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "tinyproto",
+      "seed": 41,
+      "ref": "buidinh0303/cnn-bigru-attention-fl-tinyproto-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-tinyproto-s41-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/tinyproto/seed41/cms_r050.npz",
+          "bytes": 1012642,
+          "sha256": "b57371406464faaf915ce4c18456e1ec6993ac3e54d7e1f4968786bba4310aa3"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-tinyproto-s41-a2/config.json",
+          "archive_path": "cnn-bigru-attention/tinyproto/seed41/config.json",
+          "bytes": 592,
+          "sha256": "7943d208427366872cf588d55fca5e09aa994c7b9237236a4ac4f3584e05c781"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-tinyproto-s41-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/tinyproto/seed41/rounds.jsonl",
+          "bytes": 118618,
+          "sha256": "b707c2993480332387d7b486b5d4c51907908fbe2235a1cc79b8e5f8155bfd66"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "tinyproto",
+      "seed": 42,
+      "ref": "hibwyli/cnn-bigru-attention-fl-tinyproto-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-tinyproto-s42-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/tinyproto/seed42/cms_r050.npz",
+          "bytes": 1014394,
+          "sha256": "74d8acf73991886824afb93deb856d13ea148ba58a30c3b25e19f78d78392a04"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-tinyproto-s42-a2/config.json",
+          "archive_path": "cnn-bigru-attention/tinyproto/seed42/config.json",
+          "bytes": 592,
+          "sha256": "31d47e15cb0e94a760b94d4c19121917c6155b7fd1bf287c2d0ee8f1bae60a42"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-tinyproto-s42-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/tinyproto/seed42/rounds.jsonl",
+          "bytes": 118578,
+          "sha256": "0af1f7010ffdc46a33fbd59e92215f8a1f5899b1b0f3dfd33129b0913019d04e"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "tinyproto",
+      "seed": 43,
+      "ref": "hoangdangnhi/cnn-bigru-attention-fl-tinyproto-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-tinyproto-s43-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/tinyproto/seed43/cms_r050.npz",
+          "bytes": 1018191,
+          "sha256": "ff4f7ffa49c8df8793c370a73bd6ea86c912a0efddd6624f888f40a2005d1b04"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-tinyproto-s43-a2/config.json",
+          "archive_path": "cnn-bigru-attention/tinyproto/seed43/config.json",
+          "bytes": 592,
+          "sha256": "a76e6d1d87eb9d952223ab34f70e06c7f86b2fc633e003579b58d777bc233c6c"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-tinyproto-s43-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/tinyproto/seed43/rounds.jsonl",
+          "bytes": 118654,
+          "sha256": "ff39fd7c1283b6456aedf32704d2a53fc063dcb9a35a250ee82e5056d77e274e"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "v2x_htfl",
+      "seed": 41,
+      "ref": "hoangdang1711/cnn-bigru-attention-fl-v2x-htfl-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-v2x-htfl-s41-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/v2x_htfl/seed41/cms_r050.npz",
+          "bytes": 1035143,
+          "sha256": "c5069978d49583234897504a37e2e746d90b12fa4117d5d69a42dabf9da65669"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-v2x-htfl-s41-a2/config.json",
+          "archive_path": "cnn-bigru-attention/v2x_htfl/seed41/config.json",
+          "bytes": 612,
+          "sha256": "2d2af3c47e3582f93735c3ed2bbd3a5020c754a524063411ee08abe3aa6f88bf"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-v2x-htfl-s41-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/v2x_htfl/seed41/rounds.jsonl",
+          "bytes": 114582,
+          "sha256": "31e8b1278d2da4dc0ef59567d23a985bd79a846c9faa9d57538b65ca369fe37e"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "v2x_htfl",
+      "seed": 42,
+      "ref": "honghunhnh/cnn-bigru-attention-fl-v2x-htfl-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-v2x-htfl-s42-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/v2x_htfl/seed42/cms_r050.npz",
+          "bytes": 1044013,
+          "sha256": "1f9ca12ee562165f8a5f0ed331475c8de0894035763ba8c9d3a46513ff76485c"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-v2x-htfl-s42-a2/config.json",
+          "archive_path": "cnn-bigru-attention/v2x_htfl/seed42/config.json",
+          "bytes": 612,
+          "sha256": "22323395ffb25ffab00481819f3082369eec6c1dbfe19285993a3b1b4019aa4c"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-v2x-htfl-s42-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/v2x_htfl/seed42/rounds.jsonl",
+          "bytes": 114673,
+          "sha256": "e7168c91fd99009952d37bbdbef919d00834848c8f128479d36e54f109c68b26"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "cnn-bigru-attention",
+      "method": "v2x_htfl",
+      "seed": 43,
+      "ref": "hoangdang1711/cnn-bigru-attention-fl-v2x-htfl-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "cnn-bigru-attention-fl-v2x-htfl-s43-a2/cms_r050.npz",
+          "archive_path": "cnn-bigru-attention/v2x_htfl/seed43/cms_r050.npz",
+          "bytes": 1032316,
+          "sha256": "221a70f5377f69a06029320f50dc4df848b12f18ddc7fed44562e308e28577a7"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-v2x-htfl-s43-a2/config.json",
+          "archive_path": "cnn-bigru-attention/v2x_htfl/seed43/config.json",
+          "bytes": 612,
+          "sha256": "6eacd1db9a6ee2303891b8576035859106a6d211bf15fe4d37e50e7fe138b845"
+        },
+        {
+          "remote_path": "cnn-bigru-attention-fl-v2x-htfl-s43-a2/rounds.jsonl",
+          "archive_path": "cnn-bigru-attention/v2x_htfl/seed43/rounds.jsonl",
+          "bytes": 114642,
+          "sha256": "67eadfe67c69a75af66f197170ef3b10e2c3852c83e6a1ee614c46d94655cd8e"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "afpha",
+      "seed": 41,
+      "ref": "voxuandatapply/mlp-fl-afpha-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-afpha-s41-a2/cms_r050.npz",
+          "archive_path": "mlp/afpha/seed41/cms_r050.npz",
+          "bytes": 369912,
+          "sha256": "2460f6fcaafd1a4536e0421050ebadce7f2df7691053a7a5d12f2409ac2ff9e7"
+        },
+        {
+          "remote_path": "mlp-fl-afpha-s41-a2/config.json",
+          "archive_path": "mlp/afpha/seed41/config.json",
+          "bytes": 477,
+          "sha256": "7e0cabed1f08d348d4fc30af6f6a391f173aee143c192dace7885e6a17ce1303"
+        },
+        {
+          "remote_path": "mlp-fl-afpha-s41-a2/rounds.jsonl",
+          "archive_path": "mlp/afpha/seed41/rounds.jsonl",
+          "bytes": 61507,
+          "sha256": "4db0117403d0a4dca8ad3131a98fc4f13e7832920fe815014e67d7550e8a3dc2"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "afpha",
+      "seed": 42,
+      "ref": "hunhthanhhong/mlp-fl-afpha-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-afpha-s42-a2/cms_r050.npz",
+          "archive_path": "mlp/afpha/seed42/cms_r050.npz",
+          "bytes": 365239,
+          "sha256": "0fdb0328288525ca68d7e4c1b7ea4eebf9e7a98739a440ce8b1540ad30ceaebe"
+        },
+        {
+          "remote_path": "mlp-fl-afpha-s42-a2/config.json",
+          "archive_path": "mlp/afpha/seed42/config.json",
+          "bytes": 477,
+          "sha256": "52950d12f48ef2f2e7e22a1b87db11a655367121aa96831ac52f08476abca087"
+        },
+        {
+          "remote_path": "mlp-fl-afpha-s42-a2/rounds.jsonl",
+          "archive_path": "mlp/afpha/seed42/rounds.jsonl",
+          "bytes": 61824,
+          "sha256": "41e558ad0febff04006987617a1603239b327c4e08df164b6a664f75d10f2fc6"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "afpha",
+      "seed": 43,
+      "ref": "nguynt298/mlp-fl-afpha-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-afpha-s43-a2/cms_r050.npz",
+          "archive_path": "mlp/afpha/seed43/cms_r050.npz",
+          "bytes": 365993,
+          "sha256": "eb92b2a700eef690cd36991852ec4f45faa761280a324ba4efa9ecc8364a8cd4"
+        },
+        {
+          "remote_path": "mlp-fl-afpha-s43-a2/config.json",
+          "archive_path": "mlp/afpha/seed43/config.json",
+          "bytes": 477,
+          "sha256": "0ba6c95b82f10412c7566eae0a97a2356cf51fe90b245dc717178025fabb1a5d"
+        },
+        {
+          "remote_path": "mlp-fl-afpha-s43-a2/rounds.jsonl",
+          "archive_path": "mlp/afpha/seed43/rounds.jsonl",
+          "bytes": 61666,
+          "sha256": "e25a6c79332e372cb8a29c326a2b1c26e791a2b215c063323ce1faa6f892359a"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "apfed",
+      "seed": 41,
+      "ref": "nguynt298/mlp-fl-apfed-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-apfed-s41-a2/cms_r050.npz",
+          "archive_path": "mlp/apfed/seed41/cms_r050.npz",
+          "bytes": 735480,
+          "sha256": "d4e4cbaa29c6c657921af277439e0424a932d0918755ddf84e51b3b39a849bc5"
+        },
+        {
+          "remote_path": "mlp-fl-apfed-s41-a2/config.json",
+          "archive_path": "mlp/apfed/seed41/config.json",
+          "bytes": 477,
+          "sha256": "b0ca9b9347cb63c9da7172779b50f99f439a9d2d44f7aa245c7cff2df3300ba5"
+        },
+        {
+          "remote_path": "mlp-fl-apfed-s41-a2/rounds.jsonl",
+          "archive_path": "mlp/apfed/seed41/rounds.jsonl",
+          "bytes": 109432,
+          "sha256": "ea38bf7ca57b9da3ee73b62dea85a36578a32e76547cd947d3e3436f572df993"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "apfed",
+      "seed": 42,
+      "ref": "hoangdangnhi/mlp-fl-apfed-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-apfed-s42-a2/cms_r050.npz",
+          "archive_path": "mlp/apfed/seed42/cms_r050.npz",
+          "bytes": 720463,
+          "sha256": "6c1dc73b1ca5ec498ccf1ec3fb77f54f14e44a7fd559883ea9e28de121af3a86"
+        },
+        {
+          "remote_path": "mlp-fl-apfed-s42-a2/config.json",
+          "archive_path": "mlp/apfed/seed42/config.json",
+          "bytes": 477,
+          "sha256": "32e6a9d9a68611be8e7c7bed20d464ce6de45b9ce23089e556c1b9e924cb2de6"
+        },
+        {
+          "remote_path": "mlp-fl-apfed-s42-a2/rounds.jsonl",
+          "archive_path": "mlp/apfed/seed42/rounds.jsonl",
+          "bytes": 109251,
+          "sha256": "c6e040527225a4b76446ed905b2faef14df72fda2368c2d947f8096c64efdf26"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "apfed",
+      "seed": 43,
+      "ref": "ttalgies/mlp-fl-apfed-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-apfed-s43-a2/cms_r050.npz",
+          "archive_path": "mlp/apfed/seed43/cms_r050.npz",
+          "bytes": 729129,
+          "sha256": "6f0edee75c2d3150e43d701a08ae208cf15c2d80f5890eb7e3c44416e25762d9"
+        },
+        {
+          "remote_path": "mlp-fl-apfed-s43-a2/config.json",
+          "archive_path": "mlp/apfed/seed43/config.json",
+          "bytes": 477,
+          "sha256": "04252857727174d40b38152f6bd15c7fb8142dc047b2b3b902362a11627df77d"
+        },
+        {
+          "remote_path": "mlp-fl-apfed-s43-a2/rounds.jsonl",
+          "archive_path": "mlp/apfed/seed43/rounds.jsonl",
+          "bytes": 109946,
+          "sha256": "b7d0d320fabe12f8b1d7bfdfbeab3dc5406b1999019f035f980035b2408650ed"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "canperfl",
+      "seed": 41,
+      "ref": "hibwyli/mlp-fl-canperfl-s41-a2",
+      "version": 2,
+      "files": [
+        {
+          "remote_path": "mlp-fl-canperfl-s41-a2/cms_r010.npz",
+          "archive_path": "mlp/canperfl/seed41/cms_r010.npz",
+          "bytes": 728175,
+          "sha256": "035d16fa1e467ba39fc43889693937f704c4a70352197858f65a5a3aa380d90c"
+        },
+        {
+          "remote_path": "mlp-fl-canperfl-s41-a2/config.json",
+          "archive_path": "mlp/canperfl/seed41/config.json",
+          "bytes": 606,
+          "sha256": "d73050d0b8b5b6d0ca9abfebd58e299f6d2a0177070d49ac1e37d19eb7fb0ed4"
+        },
+        {
+          "remote_path": "mlp-fl-canperfl-s41-a2/rounds.jsonl",
+          "archive_path": "mlp/canperfl/seed41/rounds.jsonl",
+          "bytes": 21674,
+          "sha256": "a0a9cdca2df7b61e50ee15e74f0551e328af09abfab94787f79c1de76584792f"
+        }
+      ],
+      "audit": {
+        "target_round": 10,
+        "history_rows": 10,
+        "views": [
+          "client",
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "canperfl",
+      "seed": 42,
+      "ref": "nguynt298/mlp-fl-canperfl-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-canperfl-s42-a2/cms_r010.npz",
+          "archive_path": "mlp/canperfl/seed42/cms_r010.npz",
+          "bytes": 717158,
+          "sha256": "80c7beb81dc8bd9157839968c3b65e28f1b97699bbb537cf51c98f9b594522d0"
+        },
+        {
+          "remote_path": "mlp-fl-canperfl-s42-a2/config.json",
+          "archive_path": "mlp/canperfl/seed42/config.json",
+          "bytes": 606,
+          "sha256": "43bccd30f678d79c823674a2cc047002cc54b9b211479c91a6bc8188c994b295"
+        },
+        {
+          "remote_path": "mlp-fl-canperfl-s42-a2/rounds.jsonl",
+          "archive_path": "mlp/canperfl/seed42/rounds.jsonl",
+          "bytes": 21659,
+          "sha256": "30a407739d622e474a5454e502b7ed1bd9ed825b60a9b793b8030bb7f0884aef"
+        }
+      ],
+      "audit": {
+        "target_round": 10,
+        "history_rows": 10,
+        "views": [
+          "client",
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "canperfl",
+      "seed": 43,
+      "ref": "hoangdangnhi/mlp-fl-canperfl-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-canperfl-s43-a2/cms_r010.npz",
+          "archive_path": "mlp/canperfl/seed43/cms_r010.npz",
+          "bytes": 724193,
+          "sha256": "797d648dfa42fdbed3d18228f0d0a8cd00b2edf2da17797c89916bcd8089af02"
+        },
+        {
+          "remote_path": "mlp-fl-canperfl-s43-a2/config.json",
+          "archive_path": "mlp/canperfl/seed43/config.json",
+          "bytes": 606,
+          "sha256": "b989d8841ad1a092097d849a3f4cd2a055359f4af75269fd033afd5acfeacd46"
+        },
+        {
+          "remote_path": "mlp-fl-canperfl-s43-a2/rounds.jsonl",
+          "archive_path": "mlp/canperfl/seed43/rounds.jsonl",
+          "bytes": 21485,
+          "sha256": "1fe817a1fe1c082a71f0b1367636d989fff3519346807b2592272c51025a13d8"
+        }
+      ],
+      "audit": {
+        "target_round": 10,
+        "history_rows": 10,
+        "views": [
+          "client",
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "fd_ids",
+      "seed": 41,
+      "ref": "ttalgies/mlp-fl-fd-ids-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-fd-ids-s41-a2/cms_r050.npz",
+          "archive_path": "mlp/fd_ids/seed41/cms_r050.npz",
+          "bytes": 368555,
+          "sha256": "69adf5006f7aa77ed1583c9c2738ad2c57ad2c65bcbd3f662e9c23e7c4420e7c"
+        },
+        {
+          "remote_path": "mlp-fl-fd-ids-s41-a2/config.json",
+          "archive_path": "mlp/fd_ids/seed41/config.json",
+          "bytes": 478,
+          "sha256": "4786aecb9dc2d1e650de9d2ea9516b90ea7edfd7dd04d9860313a269a899c6dc"
+        },
+        {
+          "remote_path": "mlp-fl-fd-ids-s41-a2/rounds.jsonl",
+          "archive_path": "mlp/fd_ids/seed41/rounds.jsonl",
+          "bytes": 58226,
+          "sha256": "e61d062e843b410735b4fcfe87ba6d3e499c1bd00c9b6af7604be2bef921b453"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "fd_ids",
+      "seed": 42,
+      "ref": "qwerasdf3004/mlp-fl-fd-ids-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-fd-ids-s42-a2/cms_r050.npz",
+          "archive_path": "mlp/fd_ids/seed42/cms_r050.npz",
+          "bytes": 366605,
+          "sha256": "c49e8f882e52e6e4acf9c1148cebd10bc3fb2ed4966ba102bf28ef428edeb5bf"
+        },
+        {
+          "remote_path": "mlp-fl-fd-ids-s42-a2/config.json",
+          "archive_path": "mlp/fd_ids/seed42/config.json",
+          "bytes": 478,
+          "sha256": "3640a5cbab582a0c7a85dfac4029dd59a011ad9f43fe9d53d77340eb29a163ee"
+        },
+        {
+          "remote_path": "mlp-fl-fd-ids-s42-a2/rounds.jsonl",
+          "archive_path": "mlp/fd_ids/seed42/rounds.jsonl",
+          "bytes": 57745,
+          "sha256": "d8fd5a389bd5434c14871576faf931a19133e4fe710d9c018fa03bb03942379e"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "fd_ids",
+      "seed": 43,
+      "ref": "huygia1611/mlp-fl-fd-ids-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-fd-ids-s43-a2/cms_r050.npz",
+          "archive_path": "mlp/fd_ids/seed43/cms_r050.npz",
+          "bytes": 368048,
+          "sha256": "1174c827f4e4edb8b1ebba8baf3bbecee052042c927642229e1c238c34006e06"
+        },
+        {
+          "remote_path": "mlp-fl-fd-ids-s43-a2/config.json",
+          "archive_path": "mlp/fd_ids/seed43/config.json",
+          "bytes": 478,
+          "sha256": "55d579b677b3620976fd393b33b7d4fd16251521ea05a01f82319ae2aac2fee1"
+        },
+        {
+          "remote_path": "mlp-fl-fd-ids-s43-a2/rounds.jsonl",
+          "archive_path": "mlp/fd_ids/seed43/rounds.jsonl",
+          "bytes": 57911,
+          "sha256": "d13dffeeeb6436ffd4f6e2f3b76b3133c9329f3700e7bf74136255a9f2dfc9ea"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "fedavg",
+      "seed": 41,
+      "ref": "hibwyli/mlp-fl-fedavg-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-fedavg-s41-a2/cms_r050.npz",
+          "archive_path": "mlp/fedavg/seed41/cms_r050.npz",
+          "bytes": 365400,
+          "sha256": "69c4b615cd629e838cc7ec41c5c664e9c91939ebe670f9db05897ab6528734ae"
+        },
+        {
+          "remote_path": "mlp-fl-fedavg-s41-a2/config.json",
+          "archive_path": "mlp/fedavg/seed41/config.json",
+          "bytes": 478,
+          "sha256": "a7b6f52226e8f7ea6a8296c26c3b922a8843c398e8e8ce8fd92638f2a2564034"
+        },
+        {
+          "remote_path": "mlp-fl-fedavg-s41-a2/rounds.jsonl",
+          "archive_path": "mlp/fedavg/seed41/rounds.jsonl",
+          "bytes": 58833,
+          "sha256": "ca889f8565aa6d8acb21e97f820960087623451a3fa15142755df66766374345"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "fedavg",
+      "seed": 42,
+      "ref": "nguynt298/mlp-fl-fedavg-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-fedavg-s42-a2/cms_r050.npz",
+          "archive_path": "mlp/fedavg/seed42/cms_r050.npz",
+          "bytes": 359325,
+          "sha256": "edc51d530a17d82d3ab121f48e901e83b243ca8e80b62f09e360622ccb524dff"
+        },
+        {
+          "remote_path": "mlp-fl-fedavg-s42-a2/config.json",
+          "archive_path": "mlp/fedavg/seed42/config.json",
+          "bytes": 478,
+          "sha256": "a0485ad00eeeb2748072735dfb6481dd8d891ba9ec7c05ec3437202e4d31816e"
+        },
+        {
+          "remote_path": "mlp-fl-fedavg-s42-a2/rounds.jsonl",
+          "archive_path": "mlp/fedavg/seed42/rounds.jsonl",
+          "bytes": 58941,
+          "sha256": "dadba424cd5322ece73c12370668222a88888340f6df8f3e5cf6eef00c5dfa71"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "fedavg",
+      "seed": 43,
+      "ref": "hoangdangnhi/mlp-fl-fedavg-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-fedavg-s43-a2/cms_r050.npz",
+          "archive_path": "mlp/fedavg/seed43/cms_r050.npz",
+          "bytes": 362850,
+          "sha256": "cdd91cf46aaed76575583f943cb902b18e76b812f56173704746720c201fc43d"
+        },
+        {
+          "remote_path": "mlp-fl-fedavg-s43-a2/config.json",
+          "archive_path": "mlp/fedavg/seed43/config.json",
+          "bytes": 478,
+          "sha256": "23d10b88470b37e614215764ca1799c3b26a499712b9ce8ad0affbeee30a2d0c"
+        },
+        {
+          "remote_path": "mlp-fl-fedavg-s43-a2/rounds.jsonl",
+          "archive_path": "mlp/fedavg/seed43/rounds.jsonl",
+          "bytes": 58569,
+          "sha256": "e6f0189e1f6e5a2bf51150f86a78d75228f8624a968ee8d3fe78ebc5b1e1c1b4"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "fedproto",
+      "seed": 41,
+      "ref": "hoangdv1711/mlp-fl-fedproto-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-fedproto-s41-a2/cms_r050.npz",
+          "archive_path": "mlp/fedproto/seed41/cms_r050.npz",
+          "bytes": 861626,
+          "sha256": "548d0dc603a397811b91e8ac7332262dcab1490b3d88e4de3802687da2e06858"
+        },
+        {
+          "remote_path": "mlp-fl-fedproto-s41-a2/config.json",
+          "archive_path": "mlp/fedproto/seed41/config.json",
+          "bytes": 535,
+          "sha256": "d31a7a5fc935ba5c827f3592942306ac8344d71f290aa75ae840d658e180ec99"
+        },
+        {
+          "remote_path": "mlp-fl-fedproto-s41-a2/rounds.jsonl",
+          "archive_path": "mlp/fedproto/seed41/rounds.jsonl",
+          "bytes": 111844,
+          "sha256": "c726255d97a4a7b058f894faf6eaf280ee868c049b818714fc04dac4f29a6a39"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "fedproto",
+      "seed": 42,
+      "ref": "qwerasdf3004/mlp-fl-fedproto-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-fedproto-s42-a2/cms_r050.npz",
+          "archive_path": "mlp/fedproto/seed42/cms_r050.npz",
+          "bytes": 853994,
+          "sha256": "8b8de5462e5a3e647cde438ae93d42a9e412d2f1d15eaf5981207938409817bf"
+        },
+        {
+          "remote_path": "mlp-fl-fedproto-s42-a2/config.json",
+          "archive_path": "mlp/fedproto/seed42/config.json",
+          "bytes": 535,
+          "sha256": "a4567bca059c03ae3bfa0fbf8f173657d88ff8f13788f7dc08af809daeede343"
+        },
+        {
+          "remote_path": "mlp-fl-fedproto-s42-a2/rounds.jsonl",
+          "archive_path": "mlp/fedproto/seed42/rounds.jsonl",
+          "bytes": 111863,
+          "sha256": "c2094f17db7d62272bb952b4d6576453dfaeafa15ef005216dabdfca91ce8153"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "fedproto",
+      "seed": 43,
+      "ref": "voxuandatapply/mlp-fl-fedproto-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-fedproto-s43-a2/cms_r050.npz",
+          "archive_path": "mlp/fedproto/seed43/cms_r050.npz",
+          "bytes": 855616,
+          "sha256": "c7c4881e1ac9d423ae043d9552418f96872ddce9a857034017b5c8d4c4c60133"
+        },
+        {
+          "remote_path": "mlp-fl-fedproto-s43-a2/config.json",
+          "archive_path": "mlp/fedproto/seed43/config.json",
+          "bytes": 535,
+          "sha256": "218b75e4dc53a95d9606aeb8cb8a23cb68aae07d87274af8651ee4b6b4d14018"
+        },
+        {
+          "remote_path": "mlp-fl-fedproto-s43-a2/rounds.jsonl",
+          "archive_path": "mlp/fedproto/seed43/rounds.jsonl",
+          "bytes": 112173,
+          "sha256": "e2b24e8d146e20452f0901ed681bcadc2bb9cdf1d2ecff96de7b07b0f1e33f91"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "fedprox",
+      "seed": 41,
+      "ref": "ttalgies/mlp-fl-fedprox-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-fedprox-s41-a2/cms_r050.npz",
+          "archive_path": "mlp/fedprox/seed41/cms_r050.npz",
+          "bytes": 368881,
+          "sha256": "9530c08edde811b757dcc1e270bb4f8e2cb26e2d42bd89e1288bd56175b60afe"
+        },
+        {
+          "remote_path": "mlp-fl-fedprox-s41-a2/config.json",
+          "archive_path": "mlp/fedprox/seed41/config.json",
+          "bytes": 479,
+          "sha256": "a00e86a3d93e43da01c7c225fc204e7ec47292222e9c2fb737d58893b490200c"
+        },
+        {
+          "remote_path": "mlp-fl-fedprox-s41-a2/rounds.jsonl",
+          "archive_path": "mlp/fedprox/seed41/rounds.jsonl",
+          "bytes": 58229,
+          "sha256": "4d8141a9948582257fe411af6d2ba77d56107928055d37cb7e89850d4a35fcdb"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "fedprox",
+      "seed": 42,
+      "ref": "hoangdv1711/mlp-fl-fedprox-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-fedprox-s42-a2/cms_r050.npz",
+          "archive_path": "mlp/fedprox/seed42/cms_r050.npz",
+          "bytes": 363091,
+          "sha256": "0111e22c07b89a1f79149a98341cf082ddd28b5f1401892dbb33bfe46c350ba9"
+        },
+        {
+          "remote_path": "mlp-fl-fedprox-s42-a2/config.json",
+          "archive_path": "mlp/fedprox/seed42/config.json",
+          "bytes": 479,
+          "sha256": "12ae432bd8f499b6e3efba09034782095b05c5c975ed166cd2a05f016dd583cf"
+        },
+        {
+          "remote_path": "mlp-fl-fedprox-s42-a2/rounds.jsonl",
+          "archive_path": "mlp/fedprox/seed42/rounds.jsonl",
+          "bytes": 58770,
+          "sha256": "f3085c7100ca1378dfe70f58db6bcf2f756df70a4807cbaee70c5558a9488ac9"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "fedprox",
+      "seed": 43,
+      "ref": "hibwyli/mlp-fl-fedprox-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-fedprox-s43-a2/cms_r050.npz",
+          "archive_path": "mlp/fedprox/seed43/cms_r050.npz",
+          "bytes": 364712,
+          "sha256": "a5a47b74d37dbe91e18f030f0d4560e59eb9e44e56fdbae631092f97b55581e9"
+        },
+        {
+          "remote_path": "mlp-fl-fedprox-s43-a2/config.json",
+          "archive_path": "mlp/fedprox/seed43/config.json",
+          "bytes": 479,
+          "sha256": "744af91aa4fd4562abfd90229038190ff7137d86901600c807c7369898c2dc66"
+        },
+        {
+          "remote_path": "mlp-fl-fedprox-s43-a2/rounds.jsonl",
+          "archive_path": "mlp/fedprox/seed43/rounds.jsonl",
+          "bytes": 58555,
+          "sha256": "7d855e739e40a0bde1de83a0a656408259cb11289f93670e515fd85feaad6ec2"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "fedtgp",
+      "seed": 41,
+      "ref": "huynhkyy/mlp-fl-fedtgp-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-fedtgp-s41-a2/cms_r050.npz",
+          "archive_path": "mlp/fedtgp/seed41/cms_r050.npz",
+          "bytes": 892505,
+          "sha256": "1dc3cf4b697b6a91210285d552f596b4b514076f0e002c3a52d4bb7a69beeb3b"
+        },
+        {
+          "remote_path": "mlp-fl-fedtgp-s41-a2/config.json",
+          "archive_path": "mlp/fedtgp/seed41/config.json",
+          "bytes": 476,
+          "sha256": "6f10cf0b7f636ba9249daddb04203d3e7cb0bf4630476b9e34cdc24f50085b3c"
+        },
+        {
+          "remote_path": "mlp-fl-fedtgp-s41-a2/rounds.jsonl",
+          "archive_path": "mlp/fedtgp/seed41/rounds.jsonl",
+          "bytes": 114096,
+          "sha256": "cdf8ea4a15ec559734d140ad4d26f01386115315125b52043bff285f69082fe4"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "fedtgp",
+      "seed": 42,
+      "ref": "voxuandatapply/mlp-fl-fedtgp-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-fedtgp-s42-a2/cms_r050.npz",
+          "archive_path": "mlp/fedtgp/seed42/cms_r050.npz",
+          "bytes": 884802,
+          "sha256": "d70dd78b2d8375c4f732efe64cf6f2252e2895bd8353e97dbc35724356cc179d"
+        },
+        {
+          "remote_path": "mlp-fl-fedtgp-s42-a2/config.json",
+          "archive_path": "mlp/fedtgp/seed42/config.json",
+          "bytes": 476,
+          "sha256": "6ee2a9f92cbf487c3772b098eb8033eafc398012d310a6e1e4e43170cba1ec97"
+        },
+        {
+          "remote_path": "mlp-fl-fedtgp-s42-a2/rounds.jsonl",
+          "archive_path": "mlp/fedtgp/seed42/rounds.jsonl",
+          "bytes": 114026,
+          "sha256": "2b7acb1e8ad8aaf55f2458f04bc47ff45a8bba42810ee5392dc18dbc19ea43dd"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "fedtgp",
+      "seed": 43,
+      "ref": "hoangdangnhi/mlp-fl-fedtgp-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-fedtgp-s43-a2/cms_r050.npz",
+          "archive_path": "mlp/fedtgp/seed43/cms_r050.npz",
+          "bytes": 880184,
+          "sha256": "8c60073cb9bd496d0e31dbe4809bea6e8a162de830abacc30addfce5b2569956"
+        },
+        {
+          "remote_path": "mlp-fl-fedtgp-s43-a2/config.json",
+          "archive_path": "mlp/fedtgp/seed43/config.json",
+          "bytes": 476,
+          "sha256": "009f8aa41e47269376a8bcb1e659c7ed75398079748a7f40163062956e14bf0a"
+        },
+        {
+          "remote_path": "mlp-fl-fedtgp-s43-a2/rounds.jsonl",
+          "archive_path": "mlp/fedtgp/seed43/rounds.jsonl",
+          "bytes": 113932,
+          "sha256": "52b423ffdfd7cc7860a872366838715eb7cf469d1e5e176c93a525a6429fda47"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "lwfednids",
+      "seed": 41,
+      "ref": "qwerasdf3004/mlp-fl-lwfednids-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-lwfednids-s41-a2/cms_r050.npz",
+          "archive_path": "mlp/lwfednids/seed41/cms_r050.npz",
+          "bytes": 395824,
+          "sha256": "254800343a0af46d068b06895909dca9ada0a427e71117c399ab3701a475f12c"
+        },
+        {
+          "remote_path": "mlp-fl-lwfednids-s41-a2/config.json",
+          "archive_path": "mlp/lwfednids/seed41/config.json",
+          "bytes": 479,
+          "sha256": "54a3ab7dfb80274abcebc49661e0a3c7713a692306830784a5a0910aa607aaeb"
+        },
+        {
+          "remote_path": "mlp-fl-lwfednids-s41-a2/rounds.jsonl",
+          "archive_path": "mlp/lwfednids/seed41/rounds.jsonl",
+          "bytes": 58625,
+          "sha256": "306497e3ad285fd28fcd82a88c1cd03c1e249e46a5634fe18fc9441dacf70888"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "lwfednids",
+      "seed": 42,
+      "ref": "anduyvo06/mlp-fl-lwfednids-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-lwfednids-s42-a2/cms_r050.npz",
+          "archive_path": "mlp/lwfednids/seed42/cms_r050.npz",
+          "bytes": 400401,
+          "sha256": "d0647701c37887ce1c83945b44fd24a9c1d2131f0a11e85848ce755a019de905"
+        },
+        {
+          "remote_path": "mlp-fl-lwfednids-s42-a2/config.json",
+          "archive_path": "mlp/lwfednids/seed42/config.json",
+          "bytes": 479,
+          "sha256": "795f163188fc56ade5326de4845bd8d6fb62ab544d909be3398bc251eee67601"
+        },
+        {
+          "remote_path": "mlp-fl-lwfednids-s42-a2/rounds.jsonl",
+          "archive_path": "mlp/lwfednids/seed42/rounds.jsonl",
+          "bytes": 58714,
+          "sha256": "3a1e0239949835a6352d88eb08e5ba1c243d4cdbd81cce8b969679019eaefbd2"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "lwfednids",
+      "seed": 43,
+      "ref": "honghunhnh/mlp-fl-lwfednids-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-lwfednids-s43-a2/cms_r050.npz",
+          "archive_path": "mlp/lwfednids/seed43/cms_r050.npz",
+          "bytes": 398086,
+          "sha256": "a067bb1c6e93969bad76cf9f453a335ed8985aff460590ad7da1b4a94f348166"
+        },
+        {
+          "remote_path": "mlp-fl-lwfednids-s43-a2/config.json",
+          "archive_path": "mlp/lwfednids/seed43/config.json",
+          "bytes": 479,
+          "sha256": "031b6825acbf1d90f1a94e333dba9da8a44f46d7ccb3fb5cbcd675eeeb5ba6cb"
+        },
+        {
+          "remote_path": "mlp-fl-lwfednids-s43-a2/rounds.jsonl",
+          "archive_path": "mlp/lwfednids/seed43/rounds.jsonl",
+          "bytes": 58318,
+          "sha256": "2c24396ebe1d5f8f7a91d8d8b2a33c5cdb9bff1a0a7a0b008fb5c3570cd58925"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "nilm",
+      "seed": 41,
+      "ref": "honghunhnh/mlp-fl-nilm-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-nilm-s41-a2/cms_r050.npz",
+          "archive_path": "mlp/nilm/seed41/cms_r050.npz",
+          "bytes": 754435,
+          "sha256": "a66d2b72af0c6fe3f8ad730f65b4c487fa3029072e5cfca05bf059ff2d26bf2d"
+        },
+        {
+          "remote_path": "mlp-fl-nilm-s41-a2/config.json",
+          "archive_path": "mlp/nilm/seed41/config.json",
+          "bytes": 476,
+          "sha256": "14610834c9b0bac94c9aa0c1d29fd48eb6e6791865c0eada17e7e68722fe967e"
+        },
+        {
+          "remote_path": "mlp-fl-nilm-s41-a2/rounds.jsonl",
+          "archive_path": "mlp/nilm/seed41/rounds.jsonl",
+          "bytes": 106476,
+          "sha256": "ab4ec7d286231a97314dcb0e9b576e528584008df3341b61c95dc07fa5d132c6"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "proxy"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "nilm",
+      "seed": 42,
+      "ref": "kinhongkhctrung/mlp-fl-nilm-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-nilm-s42-a2/cms_r050.npz",
+          "archive_path": "mlp/nilm/seed42/cms_r050.npz",
+          "bytes": 748874,
+          "sha256": "19ddd6166a3274ab006619ad64a5e3d02de01323f76efb1414fc1e6427e852cb"
+        },
+        {
+          "remote_path": "mlp-fl-nilm-s42-a2/config.json",
+          "archive_path": "mlp/nilm/seed42/config.json",
+          "bytes": 476,
+          "sha256": "8466a72ef5cf3772f075ace9f14758b1fce8eac0498012ba277c3e4445078ad9"
+        },
+        {
+          "remote_path": "mlp-fl-nilm-s42-a2/rounds.jsonl",
+          "archive_path": "mlp/nilm/seed42/rounds.jsonl",
+          "bytes": 106221,
+          "sha256": "7d3730347c9469f0b5dbb9768a6e634fc8e8950a3a54eab3b2fc09fc4493ec7e"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "proxy"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "nilm",
+      "seed": 43,
+      "ref": "nguynt298/mlp-fl-nilm-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-nilm-s43-a2/cms_r050.npz",
+          "archive_path": "mlp/nilm/seed43/cms_r050.npz",
+          "bytes": 752998,
+          "sha256": "f53a4f3abb8392b220f0a0c491bca4292537cb1d2249c623fc6e0960b9dec0a8"
+        },
+        {
+          "remote_path": "mlp-fl-nilm-s43-a2/config.json",
+          "archive_path": "mlp/nilm/seed43/config.json",
+          "bytes": 476,
+          "sha256": "d03700b259b8ffd6f74af15a8b3b2f5f8077519cf57653b4245945dd08ab38c5"
+        },
+        {
+          "remote_path": "mlp-fl-nilm-s43-a2/rounds.jsonl",
+          "archive_path": "mlp/nilm/seed43/rounds.jsonl",
+          "bytes": 106311,
+          "sha256": "a9bdace423bde917b35b2952ffc02395944c4ba5f0467eea96d0822809127ce9"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "proxy"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "perfedskd",
+      "seed": 41,
+      "ref": "dangthiet/mlp-fl-perfedskd-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-perfedskd-s41-a2/cms_r050.npz",
+          "archive_path": "mlp/perfedskd/seed41/cms_r050.npz",
+          "bytes": 405554,
+          "sha256": "5c28562ff6dda36ebcec53248c42d8a0b33a1d303baf0d804af879725bd637b7"
+        },
+        {
+          "remote_path": "mlp-fl-perfedskd-s41-a2/config.json",
+          "archive_path": "mlp/perfedskd/seed41/config.json",
+          "bytes": 545,
+          "sha256": "a17769fda7a61e53c6cbde0cd2ee2d25bc6277d278298cf0bb96dd5757ce0b5f"
+        },
+        {
+          "remote_path": "mlp-fl-perfedskd-s41-a2/rounds.jsonl",
+          "archive_path": "mlp/perfedskd/seed41/rounds.jsonl",
+          "bytes": 63091,
+          "sha256": "6d6fb6bd3fac9ef211ef344bf6889a050e3eed9cc54941b2b62e5a8331c27121"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "perfedskd",
+      "seed": 42,
+      "ref": "hoangdang1711/mlp-fl-perfedskd-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-perfedskd-s42-a2/cms_r050.npz",
+          "archive_path": "mlp/perfedskd/seed42/cms_r050.npz",
+          "bytes": 402301,
+          "sha256": "d21dd8a312c7993b0b8823088a898cb19a1c24fadd09a043a61beb070d6b8880"
+        },
+        {
+          "remote_path": "mlp-fl-perfedskd-s42-a2/config.json",
+          "archive_path": "mlp/perfedskd/seed42/config.json",
+          "bytes": 545,
+          "sha256": "902722b3c1d3e2f0dc449af2cb0862a3e90ce01003203e06d23dfec2a4d61268"
+        },
+        {
+          "remote_path": "mlp-fl-perfedskd-s42-a2/rounds.jsonl",
+          "archive_path": "mlp/perfedskd/seed42/rounds.jsonl",
+          "bytes": 63102,
+          "sha256": "ad22730129998e7a4f6d72448f8f83cda7bf570a3009ce699b4f7a0d6176b831"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "perfedskd",
+      "seed": 43,
+      "ref": "qwerasdf3004/mlp-fl-perfedskd-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-perfedskd-s43-a2/cms_r050.npz",
+          "archive_path": "mlp/perfedskd/seed43/cms_r050.npz",
+          "bytes": 404284,
+          "sha256": "7e5b7616aa380a1592625553e75a3cfc2dd9b649ad398429fb680b5c762cc095"
+        },
+        {
+          "remote_path": "mlp-fl-perfedskd-s43-a2/config.json",
+          "archive_path": "mlp/perfedskd/seed43/config.json",
+          "bytes": 545,
+          "sha256": "0275601f63aea3a78edb6b66c0a3ac1c8a2c6939d8ff60d6a86d8a0cf3611723"
+        },
+        {
+          "remote_path": "mlp-fl-perfedskd-s43-a2/rounds.jsonl",
+          "archive_path": "mlp/perfedskd/seed43/rounds.jsonl",
+          "bytes": 63080,
+          "sha256": "3b739c3764c316e913ec693f7dcd7e6e04c9546cb12a38689090b4c59561ed72"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "pfedes",
+      "seed": 41,
+      "ref": "anduyvo06/mlp-fl-pfedes-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-pfedes-s41-a2/cms_r050.npz",
+          "archive_path": "mlp/pfedes/seed41/cms_r050.npz",
+          "bytes": 429369,
+          "sha256": "bc149d54d8364b413615d8c41e189d6584fe5046694ff9eaca87540da3a37275"
+        },
+        {
+          "remote_path": "mlp-fl-pfedes-s41-a2/config.json",
+          "archive_path": "mlp/pfedes/seed41/config.json",
+          "bytes": 476,
+          "sha256": "9af01a6ee624b0381c708c22a0f125ba8672814eb25b64184e700fe9ea54254a"
+        },
+        {
+          "remote_path": "mlp-fl-pfedes-s41-a2/rounds.jsonl",
+          "archive_path": "mlp/pfedes/seed41/rounds.jsonl",
+          "bytes": 59143,
+          "sha256": "b6f3ce69630b9ef1670e7b84278f469665b76e464cfd18c788f54230f35c4ac2"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "pfedes",
+      "seed": 42,
+      "ref": "huygia1611/mlp-fl-pfedes-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-pfedes-s42-a2/cms_r050.npz",
+          "archive_path": "mlp/pfedes/seed42/cms_r050.npz",
+          "bytes": 425722,
+          "sha256": "35985cdc8fa91dfa3d608aa3d9cdcd30932ededdabf98f3959eb6da84fd253e2"
+        },
+        {
+          "remote_path": "mlp-fl-pfedes-s42-a2/config.json",
+          "archive_path": "mlp/pfedes/seed42/config.json",
+          "bytes": 476,
+          "sha256": "859946f3e4d7ae0c79702f4c23d3bff3866115cb649ac3ec5a65ac6eb25d3f7b"
+        },
+        {
+          "remote_path": "mlp-fl-pfedes-s42-a2/rounds.jsonl",
+          "archive_path": "mlp/pfedes/seed42/rounds.jsonl",
+          "bytes": 59269,
+          "sha256": "f83484da21a1a34444647f9a75b7a88e5f04a0005822854d7cb4fef44b67c1ff"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "pfedes",
+      "seed": 43,
+      "ref": "voxuandatapply/mlp-fl-pfedes-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-pfedes-s43-a2/cms_r050.npz",
+          "archive_path": "mlp/pfedes/seed43/cms_r050.npz",
+          "bytes": 429675,
+          "sha256": "92356ded3584b112c24bd184260e5ee8a46acd90b43633feae1d2e1a597b51ea"
+        },
+        {
+          "remote_path": "mlp-fl-pfedes-s43-a2/config.json",
+          "archive_path": "mlp/pfedes/seed43/config.json",
+          "bytes": 476,
+          "sha256": "fa3b5f492ea49e1596811aafd21f847be9c6b33f9a876cf7feba7266769a1179"
+        },
+        {
+          "remote_path": "mlp-fl-pfedes-s43-a2/rounds.jsonl",
+          "archive_path": "mlp/pfedes/seed43/rounds.jsonl",
+          "bytes": 59220,
+          "sha256": "287a5efdbadf2d9440e63793cafa9ed1fd8dd235eb367bb105e3aef57e316cb9"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "tinyproto",
+      "seed": 41,
+      "ref": "hoangdv1711/mlp-fl-tinyproto-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-tinyproto-s41-a2/cms_r050.npz",
+          "archive_path": "mlp/tinyproto/seed41/cms_r050.npz",
+          "bytes": 879650,
+          "sha256": "72450dc52c3ddd2990b46f304043a6cc21abb002e7f3ac4fc5503884d899505f"
+        },
+        {
+          "remote_path": "mlp-fl-tinyproto-s41-a2/config.json",
+          "archive_path": "mlp/tinyproto/seed41/config.json",
+          "bytes": 514,
+          "sha256": "6b9b313a47ad34f003d59b89fa4db3e0c9ddde1dee4fea912a015aab7939b4f1"
+        },
+        {
+          "remote_path": "mlp-fl-tinyproto-s41-a2/rounds.jsonl",
+          "archive_path": "mlp/tinyproto/seed41/rounds.jsonl",
+          "bytes": 119483,
+          "sha256": "49c73e2aae16db154dcf1da43e008923f3643faaee4f74779059ede83ebcf8f5"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "tinyproto",
+      "seed": 42,
+      "ref": "huynhkyy/mlp-fl-tinyproto-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-tinyproto-s42-a2/cms_r050.npz",
+          "archive_path": "mlp/tinyproto/seed42/cms_r050.npz",
+          "bytes": 876857,
+          "sha256": "b3a0307379b8469f3a7846241e552a80f3d91496116a69e58540071126924371"
+        },
+        {
+          "remote_path": "mlp-fl-tinyproto-s42-a2/config.json",
+          "archive_path": "mlp/tinyproto/seed42/config.json",
+          "bytes": 514,
+          "sha256": "2709ae7e2b107e706c94c76e013a89f252f5fb27c348a5235810502a01a1acc9"
+        },
+        {
+          "remote_path": "mlp-fl-tinyproto-s42-a2/rounds.jsonl",
+          "archive_path": "mlp/tinyproto/seed42/rounds.jsonl",
+          "bytes": 119236,
+          "sha256": "6586422c3e346f789d1fe3b302d6051a079abbec9e7129392adc548163955c06"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "tinyproto",
+      "seed": 43,
+      "ref": "nguynt298/mlp-fl-tinyproto-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-tinyproto-s43-a2/cms_r050.npz",
+          "archive_path": "mlp/tinyproto/seed43/cms_r050.npz",
+          "bytes": 881000,
+          "sha256": "d68229cbd5fa19e9f682637fd9b7b9468915ba8c5e3beb1dc563e47a285a35d3"
+        },
+        {
+          "remote_path": "mlp-fl-tinyproto-s43-a2/config.json",
+          "archive_path": "mlp/tinyproto/seed43/config.json",
+          "bytes": 514,
+          "sha256": "c807e98ec4c8d3449c264a67a84c37659a6bb4b2ce4868f5be8f2921cf45e994"
+        },
+        {
+          "remote_path": "mlp-fl-tinyproto-s43-a2/rounds.jsonl",
+          "archive_path": "mlp/tinyproto/seed43/rounds.jsonl",
+          "bytes": 119437,
+          "sha256": "a6820c950607fcdb2a3121728df883da0b8a945e3e2c04ae2fc9929f8c620caa"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "v2x_htfl",
+      "seed": 41,
+      "ref": "voxuandatapply/mlp-fl-v2x-htfl-s41-fp32proj-a4",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-v2x-htfl-s41-fp32proj-a4/cms_r050.npz",
+          "archive_path": "mlp/v2x_htfl/seed41/cms_r050.npz",
+          "bytes": 925196,
+          "sha256": "5ce1f52e29235be2f005ab320b7e8d1692e6dbf5404d48c9eabbd646fff5b989"
+        },
+        {
+          "remote_path": "mlp-fl-v2x-htfl-s41-fp32proj-a4/config.json",
+          "archive_path": "mlp/v2x_htfl/seed41/config.json",
+          "bytes": 535,
+          "sha256": "75e812c6a80ff5437a62ec96e9e5700cd62ec6ff6c070101bdc26e4f678df2e2"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "v2x_htfl",
+      "seed": 42,
+      "ref": "hibwyli/mlp-fl-v2x-htfl-s42-fp32proj-a4",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-v2x-htfl-s42-fp32proj-a4/cms_r050.npz",
+          "archive_path": "mlp/v2x_htfl/seed42/cms_r050.npz",
+          "bytes": 905938,
+          "sha256": "14c8aea85e3ac228ec40af514530db65a1fc5ab00bc4a5841dd5c0cd33f8c505"
+        },
+        {
+          "remote_path": "mlp-fl-v2x-htfl-s42-fp32proj-a4/config.json",
+          "archive_path": "mlp/v2x_htfl/seed42/config.json",
+          "bytes": 535,
+          "sha256": "910789f5e14ac5d5f3e0525a1defcd645b6cadc01cfed8e42bbbeb7de664df1f"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "mlp",
+      "method": "v2x_htfl",
+      "seed": 43,
+      "ref": "huygia1611/mlp-fl-v2x-htfl-s43-fp32proj-a4",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "mlp-fl-v2x-htfl-s43-fp32proj-a4/cms_r050.npz",
+          "archive_path": "mlp/v2x_htfl/seed43/cms_r050.npz",
+          "bytes": 916780,
+          "sha256": "534ced42574d84364368b309b5ca65fbfb5a48f144efa10e76ff594fbffec627"
+        },
+        {
+          "remote_path": "mlp-fl-v2x-htfl-s43-fp32proj-a4/config.json",
+          "archive_path": "mlp/v2x_htfl/seed43/config.json",
+          "bytes": 535,
+          "sha256": "6fa2f738e68d54644f51bf86d2b60bc0a44d649c9ec98af6d3858b2431692dbd"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "afpha",
+      "seed": 41,
+      "ref": "hoangdang1711/sae-fl-afpha-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-afpha-s41-a2/cms_r050.npz",
+          "archive_path": "sae/afpha/seed41/cms_r050.npz",
+          "bytes": 455883,
+          "sha256": "c3cc11e859fabcfc3e4499318a7e723726429cd28562cecdafac53ea1cb48c80"
+        },
+        {
+          "remote_path": "sae-fl-afpha-s41-a2/config.json",
+          "archive_path": "sae/afpha/seed41/config.json",
+          "bytes": 654,
+          "sha256": "7a58b0b3478f9282df5695bf3cf0a7294c7bd942d246279c04ef61e8473926df"
+        },
+        {
+          "remote_path": "sae-fl-afpha-s41-a2/rounds.jsonl",
+          "archive_path": "sae/afpha/seed41/rounds.jsonl",
+          "bytes": 59925,
+          "sha256": "30053579efa98f04ebc0b3e5326f0c7c573a18b3406271ea4cbd05c2724bf4d2"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "afpha",
+      "seed": 42,
+      "ref": "nguynt298/sae-fl-afpha-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-afpha-s42-a2/cms_r050.npz",
+          "archive_path": "sae/afpha/seed42/cms_r050.npz",
+          "bytes": 461856,
+          "sha256": "b29ef698d4434ee561f5698590de35bf314c5ff3d47879cfcff57d1606428978"
+        },
+        {
+          "remote_path": "sae-fl-afpha-s42-a2/config.json",
+          "archive_path": "sae/afpha/seed42/config.json",
+          "bytes": 654,
+          "sha256": "f6eeb5558c507bdc08e53a9a23e73525e824dba454f102e3d5f7671a8c3a46d6"
+        },
+        {
+          "remote_path": "sae-fl-afpha-s42-a2/rounds.jsonl",
+          "archive_path": "sae/afpha/seed42/rounds.jsonl",
+          "bytes": 59907,
+          "sha256": "de6bf73f4c59bf636411b6b68f573b80ae8f70f7b8c6899ff5342fadcc98b6dd"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "afpha",
+      "seed": 43,
+      "ref": "dangthiet/sae-fl-afpha-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-afpha-s43-a2/cms_r050.npz",
+          "archive_path": "sae/afpha/seed43/cms_r050.npz",
+          "bytes": 458879,
+          "sha256": "810a92b0c93704a595acdf5d66bd01f36d2d78700bdf87bc86d452fcc4301c56"
+        },
+        {
+          "remote_path": "sae-fl-afpha-s43-a2/config.json",
+          "archive_path": "sae/afpha/seed43/config.json",
+          "bytes": 654,
+          "sha256": "836e6663b2b32bb8fe0c16a97c5e868351a98bd26d92542e6377a045baf473f1"
+        },
+        {
+          "remote_path": "sae-fl-afpha-s43-a2/rounds.jsonl",
+          "archive_path": "sae/afpha/seed43/rounds.jsonl",
+          "bytes": 59829,
+          "sha256": "672281610764294d59a4ed4eb7c92b778f330f6f78b97648d79b9a9cd2d64866"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "apfed",
+      "seed": 41,
+      "ref": "dangthiet/sae-fl-apfed-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-apfed-s41-a2/cms_r050.npz",
+          "archive_path": "sae/apfed/seed41/cms_r050.npz",
+          "bytes": 853979,
+          "sha256": "4fdd5ce1b7790593608d0d9ad942364787890d6e58f81a39f05ff8226a83750a"
+        },
+        {
+          "remote_path": "sae-fl-apfed-s41-a2/config.json",
+          "archive_path": "sae/apfed/seed41/config.json",
+          "bytes": 654,
+          "sha256": "47acb6ee5cc46cbcaebe01f22a6b49bd68884c0432029ba35663412182c2b97b"
+        },
+        {
+          "remote_path": "sae-fl-apfed-s41-a2/rounds.jsonl",
+          "archive_path": "sae/apfed/seed41/rounds.jsonl",
+          "bytes": 108204,
+          "sha256": "441f0d0c4320f0efcfff29f749d5b62bb6611c2eb21286b376aa35a0d69bb522"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "apfed",
+      "seed": 42,
+      "ref": "hoangdv1711/sae-fl-apfed-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-apfed-s42-a2/cms_r050.npz",
+          "archive_path": "sae/apfed/seed42/cms_r050.npz",
+          "bytes": 857448,
+          "sha256": "5c26accebb76b6a93c7571fad6558defa36f7df89628b5f22439377ce46225bc"
+        },
+        {
+          "remote_path": "sae-fl-apfed-s42-a2/config.json",
+          "archive_path": "sae/apfed/seed42/config.json",
+          "bytes": 654,
+          "sha256": "2fe791e162e51f5d57e522785f88324811edaa20eeea99b75733039baae0b89d"
+        },
+        {
+          "remote_path": "sae-fl-apfed-s42-a2/rounds.jsonl",
+          "archive_path": "sae/apfed/seed42/rounds.jsonl",
+          "bytes": 108506,
+          "sha256": "f8ca3a718150529ac4f7f1d64976eac62735d5c5b89cb0f127d341d68d49e5d1"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "apfed",
+      "seed": 43,
+      "ref": "minhiw/sae-fl-apfed-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-apfed-s43-a2/cms_r050.npz",
+          "archive_path": "sae/apfed/seed43/cms_r050.npz",
+          "bytes": 850301,
+          "sha256": "ad6b2c80ebd2e46c804b664a7829d8fccb4c53e626392ea4c506d5704b3ca4cb"
+        },
+        {
+          "remote_path": "sae-fl-apfed-s43-a2/config.json",
+          "archive_path": "sae/apfed/seed43/config.json",
+          "bytes": 654,
+          "sha256": "a52a5729970a6fad68a468ebca2d86b184ca3bd97df6dc71c4f261b7bbbee656"
+        },
+        {
+          "remote_path": "sae-fl-apfed-s43-a2/rounds.jsonl",
+          "archive_path": "sae/apfed/seed43/rounds.jsonl",
+          "bytes": 108241,
+          "sha256": "e774729a7a361ef3e51df4706b7a82d4063ce654937dfbf424f649a8f10bc155"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "canperfl",
+      "seed": 41,
+      "ref": "minhiw/sae-fl-canperfl-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-canperfl-s41-a2/cms_r010.npz",
+          "archive_path": "sae/canperfl/seed41/cms_r010.npz",
+          "bytes": 857598,
+          "sha256": "ba897fc35f8592426505ee8a2b0f4bbaa48ec534d26a4e8b9d55e74ebfa9f4f0"
+        },
+        {
+          "remote_path": "sae-fl-canperfl-s41-a2/config.json",
+          "archive_path": "sae/canperfl/seed41/config.json",
+          "bytes": 783,
+          "sha256": "d43c1bef81bf449151eff900d855f135622cb6359e7960573a7f3e1cd5fb8acf"
+        },
+        {
+          "remote_path": "sae-fl-canperfl-s41-a2/rounds.jsonl",
+          "archive_path": "sae/canperfl/seed41/rounds.jsonl",
+          "bytes": 21478,
+          "sha256": "0204bfc14b23167d18df99a348bcfff07b27d751c7e2f7debc71bba404571097"
+        }
+      ],
+      "audit": {
+        "target_round": 10,
+        "history_rows": 10,
+        "views": [
+          "client",
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "canperfl",
+      "seed": 42,
+      "ref": "hoangdangnhi/sae-fl-canperfl-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-canperfl-s42-a2/cms_r010.npz",
+          "archive_path": "sae/canperfl/seed42/cms_r010.npz",
+          "bytes": 863877,
+          "sha256": "e6d81a20afccf06cb21e5e5315592caeb7e1ae2671a85f9ae3c9bb125c093257"
+        },
+        {
+          "remote_path": "sae-fl-canperfl-s42-a2/config.json",
+          "archive_path": "sae/canperfl/seed42/config.json",
+          "bytes": 783,
+          "sha256": "2c02bf0020bb711e371b0dfbbf286599009df5a4688ead958b770d0b9088efe9"
+        },
+        {
+          "remote_path": "sae-fl-canperfl-s42-a2/rounds.jsonl",
+          "archive_path": "sae/canperfl/seed42/rounds.jsonl",
+          "bytes": 21512,
+          "sha256": "ecb83c97a419cc394bd296b725f10ab30c32ac7a1abfe92d80d1a860362f4ecb"
+        }
+      ],
+      "audit": {
+        "target_round": 10,
+        "history_rows": 10,
+        "views": [
+          "client",
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "canperfl",
+      "seed": 43,
+      "ref": "phamquang0606/sae-fl-canperfl-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-canperfl-s43-a2/cms_r010.npz",
+          "archive_path": "sae/canperfl/seed43/cms_r010.npz",
+          "bytes": 852909,
+          "sha256": "c8a9fad93cf9c9185c46832f53c6e8c55b354f513f7f0cced36053ff8179fca2"
+        },
+        {
+          "remote_path": "sae-fl-canperfl-s43-a2/config.json",
+          "archive_path": "sae/canperfl/seed43/config.json",
+          "bytes": 783,
+          "sha256": "ea17fc4b6f3a086a393c6d5dde854db7cc366af9a7148074a1afbaf656adbf26"
+        },
+        {
+          "remote_path": "sae-fl-canperfl-s43-a2/rounds.jsonl",
+          "archive_path": "sae/canperfl/seed43/rounds.jsonl",
+          "bytes": 21471,
+          "sha256": "d777d2c20ee4f18dffef8a2276894660b70e6f85de2234427c9723c0f06ecdaa"
+        }
+      ],
+      "audit": {
+        "target_round": 10,
+        "history_rows": 10,
+        "views": [
+          "client",
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "fd_ids",
+      "seed": 41,
+      "ref": "hoangdangnhi/sae-fl-fd-ids-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-fd-ids-s41-a2/cms_r050.npz",
+          "archive_path": "sae/fd_ids/seed41/cms_r050.npz",
+          "bytes": 438258,
+          "sha256": "52a8585501fb9cf7c5feef4e5a6ea980bf90397041972dc7d8223cee282982d7"
+        },
+        {
+          "remote_path": "sae-fl-fd-ids-s41-a2/config.json",
+          "archive_path": "sae/fd_ids/seed41/config.json",
+          "bytes": 655,
+          "sha256": "c5e909571d4e357699046d2c3c3dafb8d1b35289c16821d2796d004c7670d2ab"
+        },
+        {
+          "remote_path": "sae-fl-fd-ids-s41-a2/rounds.jsonl",
+          "archive_path": "sae/fd_ids/seed41/rounds.jsonl",
+          "bytes": 57403,
+          "sha256": "0026a6a2b3f5aab4da5eddc0b9d668e9838a06faddffc5a71ca19f8505c13750"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "fd_ids",
+      "seed": 42,
+      "ref": "phamquang0606/sae-fl-fd-ids-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-fd-ids-s42-a2/cms_r050.npz",
+          "archive_path": "sae/fd_ids/seed42/cms_r050.npz",
+          "bytes": 440895,
+          "sha256": "81fdacdfacbba43b7835d89624f9ff8c10da10a4ed22bceae3bdb7296947de66"
+        },
+        {
+          "remote_path": "sae-fl-fd-ids-s42-a2/config.json",
+          "archive_path": "sae/fd_ids/seed42/config.json",
+          "bytes": 655,
+          "sha256": "860380ef24aba25e9f6c961c8f51beabd5c02845e04def2cfe4b2763d4b2d8a3"
+        },
+        {
+          "remote_path": "sae-fl-fd-ids-s42-a2/rounds.jsonl",
+          "archive_path": "sae/fd_ids/seed42/rounds.jsonl",
+          "bytes": 57539,
+          "sha256": "3b32795baf694fc00212f21cbabc64472981319c4201dce555c8c77468d6690a"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "fd_ids",
+      "seed": 43,
+      "ref": "ttalgies/sae-fl-fd-ids-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-fd-ids-s43-a2/cms_r050.npz",
+          "archive_path": "sae/fd_ids/seed43/cms_r050.npz",
+          "bytes": 442109,
+          "sha256": "4908a3b88338a4d9a20076c2539feb0aa06a48d41d1a7960f6b54c4cf4fc277d"
+        },
+        {
+          "remote_path": "sae-fl-fd-ids-s43-a2/config.json",
+          "archive_path": "sae/fd_ids/seed43/config.json",
+          "bytes": 655,
+          "sha256": "6ec81ef4a23f264c0be1572b48fdaea6d4c11dbd96c968bbabfbb9137000d063"
+        },
+        {
+          "remote_path": "sae-fl-fd-ids-s43-a2/rounds.jsonl",
+          "archive_path": "sae/fd_ids/seed43/rounds.jsonl",
+          "bytes": 57446,
+          "sha256": "aade7e358f1f59e74b5b191b11299aa2720e91d503692ad813268adfb4f3d6d5"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "fedavg",
+      "seed": 41,
+      "ref": "minhiw/sae-fl-fedavg-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-fedavg-s41-a2/cms_r050.npz",
+          "archive_path": "sae/fedavg/seed41/cms_r050.npz",
+          "bytes": 441170,
+          "sha256": "db17b1bec1912472977324c39102165a4fa43905e39c2539a249be931dfdcb8c"
+        },
+        {
+          "remote_path": "sae-fl-fedavg-s41-a2/config.json",
+          "archive_path": "sae/fedavg/seed41/config.json",
+          "bytes": 655,
+          "sha256": "ffad49d9822405e6948c0417c38c6493036a875ee3812efabbf6b7fee3fcbe3d"
+        },
+        {
+          "remote_path": "sae-fl-fedavg-s41-a2/rounds.jsonl",
+          "archive_path": "sae/fedavg/seed41/rounds.jsonl",
+          "bytes": 58002,
+          "sha256": "c0356c68afb466d3543f6bec8a3a9dd6c8b112f39c68abab0a98d14e438c06fe"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "fedavg",
+      "seed": 42,
+      "ref": "hoangdangnhi/sae-fl-fedavg-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-fedavg-s42-a2/cms_r050.npz",
+          "archive_path": "sae/fedavg/seed42/cms_r050.npz",
+          "bytes": 443489,
+          "sha256": "41cbcee49f20e928b63a4bed9ce7e74b6ad0914a8f66a5b023c8235c79e824bd"
+        },
+        {
+          "remote_path": "sae-fl-fedavg-s42-a2/config.json",
+          "archive_path": "sae/fedavg/seed42/config.json",
+          "bytes": 655,
+          "sha256": "b04803a7f49bdd3beb5915b0cd5f9c262c2a95ae3cc579fd02a77aeb7a553a4a"
+        },
+        {
+          "remote_path": "sae-fl-fedavg-s42-a2/rounds.jsonl",
+          "archive_path": "sae/fedavg/seed42/rounds.jsonl",
+          "bytes": 57987,
+          "sha256": "84007dbb82b3221c8f2e054fe8736206a4a34e8e196c534d6c2c2f6044f5366a"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "fedavg",
+      "seed": 43,
+      "ref": "phamquang0606/sae-fl-fedavg-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-fedavg-s43-a2/cms_r050.npz",
+          "archive_path": "sae/fedavg/seed43/cms_r050.npz",
+          "bytes": 439336,
+          "sha256": "e36f97e7f053c06ee2ca975545e5f8168c6cd09349c7e5043e2b5881f35114c1"
+        },
+        {
+          "remote_path": "sae-fl-fedavg-s43-a2/config.json",
+          "archive_path": "sae/fedavg/seed43/config.json",
+          "bytes": 655,
+          "sha256": "19c6d6a849934ae4a50ed523f165e497b5b9f2b8b7f778afed14648c18d94fed"
+        },
+        {
+          "remote_path": "sae-fl-fedavg-s43-a2/rounds.jsonl",
+          "archive_path": "sae/fedavg/seed43/rounds.jsonl",
+          "bytes": 57827,
+          "sha256": "b97d72c484e9a5fc654ae3b0db752fb16f0c65d8fb1707220ef503f59984b606"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "fedproto",
+      "seed": 41,
+      "ref": "hoangdangnhi/sae-fl-fedproto-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-fedproto-s41-a2/cms_r050.npz",
+          "archive_path": "sae/fedproto/seed41/cms_r050.npz",
+          "bytes": 961869,
+          "sha256": "e1868b77c59f2bf6c7812b5e46ad1a2be8499d9c9cdf522299fc5ac675d993c7"
+        },
+        {
+          "remote_path": "sae-fl-fedproto-s41-a2/config.json",
+          "archive_path": "sae/fedproto/seed41/config.json",
+          "bytes": 712,
+          "sha256": "52aa55da67e1e399a6aa4f68ef8ff3af42c3522f933d6916462b81c844048e12"
+        },
+        {
+          "remote_path": "sae-fl-fedproto-s41-a2/rounds.jsonl",
+          "archive_path": "sae/fedproto/seed41/rounds.jsonl",
+          "bytes": 111862,
+          "sha256": "7e02015fc2bdfb40b087abbfaed13b5b295b933f16667c4818668666d67c760e"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "fedproto",
+      "seed": 42,
+      "ref": "phamquang0606/sae-fl-fedproto-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-fedproto-s42-a2/cms_r050.npz",
+          "archive_path": "sae/fedproto/seed42/cms_r050.npz",
+          "bytes": 960506,
+          "sha256": "2e57ed38252ac632d6a1cd0ed469d0a6244bcf5fe4fda044db49b7e656d47ed1"
+        },
+        {
+          "remote_path": "sae-fl-fedproto-s42-a2/config.json",
+          "archive_path": "sae/fedproto/seed42/config.json",
+          "bytes": 712,
+          "sha256": "9f1dae96c03cc71feea5f3e7fb2e961b25e6e875c5916279d51fcb29457ee31b"
+        },
+        {
+          "remote_path": "sae-fl-fedproto-s42-a2/rounds.jsonl",
+          "archive_path": "sae/fedproto/seed42/rounds.jsonl",
+          "bytes": 111838,
+          "sha256": "04065e1b31d2a1be5c24697ef587cc2061bc89ecb696aa567eb3a65681b9d5cb"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "fedproto",
+      "seed": 43,
+      "ref": "ttalgies/sae-fl-fedproto-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-fedproto-s43-a2/cms_r050.npz",
+          "archive_path": "sae/fedproto/seed43/cms_r050.npz",
+          "bytes": 968537,
+          "sha256": "e98d98be19025cb7cb024df038cb2e9d92e2e421ff2464fa8792eb0ef80ad680"
+        },
+        {
+          "remote_path": "sae-fl-fedproto-s43-a2/config.json",
+          "archive_path": "sae/fedproto/seed43/config.json",
+          "bytes": 712,
+          "sha256": "22598d5125600fc7ac34f189d17fa107a0ed5658bcc5b2450156aa66317c778f"
+        },
+        {
+          "remote_path": "sae-fl-fedproto-s43-a2/rounds.jsonl",
+          "archive_path": "sae/fedproto/seed43/rounds.jsonl",
+          "bytes": 111834,
+          "sha256": "b2297baa50d2dff41fedcbe81832dc5dd0757be107f5652140037e8c20ca8756"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "fedprox",
+      "seed": 41,
+      "ref": "ttalgies/sae-fl-fedprox-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-fedprox-s41-a2/cms_r050.npz",
+          "archive_path": "sae/fedprox/seed41/cms_r050.npz",
+          "bytes": 452954,
+          "sha256": "e1f9fa8fa3318eb9f859d91aa6fb3878725bc0b6356c9acd05419d057f63b93c"
+        },
+        {
+          "remote_path": "sae-fl-fedprox-s41-a2/config.json",
+          "archive_path": "sae/fedprox/seed41/config.json",
+          "bytes": 656,
+          "sha256": "58cb4836c623091d31340f9eb58676f1e5a22b9aff149235334859e41ad4bd9f"
+        },
+        {
+          "remote_path": "sae-fl-fedprox-s41-a2/rounds.jsonl",
+          "archive_path": "sae/fedprox/seed41/rounds.jsonl",
+          "bytes": 57030,
+          "sha256": "d50a5ce4a74999e7f1fe39c5b015d31b45c9f244328cff042138101969c70ed2"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "fedprox",
+      "seed": 42,
+      "ref": "hoangdang1711/sae-fl-fedprox-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-fedprox-s42-a2/cms_r050.npz",
+          "archive_path": "sae/fedprox/seed42/cms_r050.npz",
+          "bytes": 457556,
+          "sha256": "12032e8f5891ef61cc63fe1459ae077414626b6f830a88eab60bce6c7c3683a2"
+        },
+        {
+          "remote_path": "sae-fl-fedprox-s42-a2/config.json",
+          "archive_path": "sae/fedprox/seed42/config.json",
+          "bytes": 656,
+          "sha256": "80c01d7388193672991debd669d1bd1667290d70578a0ae7e6d66fea2e57391c"
+        },
+        {
+          "remote_path": "sae-fl-fedprox-s42-a2/rounds.jsonl",
+          "archive_path": "sae/fedprox/seed42/rounds.jsonl",
+          "bytes": 56790,
+          "sha256": "08a08ad854efefa51ae6db060035bd1f2917a598397d23a8975079d555ebdec8"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "fedprox",
+      "seed": 43,
+      "ref": "nguynt298/sae-fl-fedprox-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-fedprox-s43-a2/cms_r050.npz",
+          "archive_path": "sae/fedprox/seed43/cms_r050.npz",
+          "bytes": 455896,
+          "sha256": "34e58edfc11a04f8fc38f0c55509316a29f64db448a1a15af93f7a06e331ac0f"
+        },
+        {
+          "remote_path": "sae-fl-fedprox-s43-a2/config.json",
+          "archive_path": "sae/fedprox/seed43/config.json",
+          "bytes": 656,
+          "sha256": "e52418b2c52d768359a7969e0820978ca68a3a4ff30398be2061e2ad37794d02"
+        },
+        {
+          "remote_path": "sae-fl-fedprox-s43-a2/rounds.jsonl",
+          "archive_path": "sae/fedprox/seed43/rounds.jsonl",
+          "bytes": 56688,
+          "sha256": "553dba66a6c44e675d721ca14b9ad24ca0e871fe15dd8d6e292d3daaf03b1bbd"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "fedtgp",
+      "seed": 41,
+      "ref": "hoangdang1711/sae-fl-fedtgp-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-fedtgp-s41-a2/cms_r050.npz",
+          "archive_path": "sae/fedtgp/seed41/cms_r050.npz",
+          "bytes": 937181,
+          "sha256": "ea6020b31ec337bd20e0e98d724c51502f995f84862b39bf014798efda3965c6"
+        },
+        {
+          "remote_path": "sae-fl-fedtgp-s41-a2/config.json",
+          "archive_path": "sae/fedtgp/seed41/config.json",
+          "bytes": 653,
+          "sha256": "74fede06bfd04c7f7d2db74969c0d913c6559a9efaaa630fd1f945c22e0699d9"
+        },
+        {
+          "remote_path": "sae-fl-fedtgp-s41-a2/rounds.jsonl",
+          "archive_path": "sae/fedtgp/seed41/rounds.jsonl",
+          "bytes": 114095,
+          "sha256": "45433ea52b4394c5b35842a366730dbeb874b3f7c985ab017b4a26e4ae0844c6"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "fedtgp",
+      "seed": 42,
+      "ref": "qwerasdf3004/sae-fl-fedtgp-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-fedtgp-s42-a2/cms_r050.npz",
+          "archive_path": "sae/fedtgp/seed42/cms_r050.npz",
+          "bytes": 942325,
+          "sha256": "35a063476f1dfe048b347def84d2b1dc81caee097d38b86bf45911d44e3d0edf"
+        },
+        {
+          "remote_path": "sae-fl-fedtgp-s42-a2/config.json",
+          "archive_path": "sae/fedtgp/seed42/config.json",
+          "bytes": 653,
+          "sha256": "d1a947f257b056ab79149759fd2c6c41333bbd0dc09e58b7d4ef6d73fc8fc24f"
+        },
+        {
+          "remote_path": "sae-fl-fedtgp-s42-a2/rounds.jsonl",
+          "archive_path": "sae/fedtgp/seed42/rounds.jsonl",
+          "bytes": 114038,
+          "sha256": "6ca64eea9b19772a2017acab00c18a302e921f62625c8f99115620589c586a6a"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "fedtgp",
+      "seed": 43,
+      "ref": "nguynt298/sae-fl-fedtgp-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-fedtgp-s43-a2/cms_r050.npz",
+          "archive_path": "sae/fedtgp/seed43/cms_r050.npz",
+          "bytes": 940348,
+          "sha256": "0b009b98b00897784d303181b961e72fea04c7d5476338e619a3a10c9db3230b"
+        },
+        {
+          "remote_path": "sae-fl-fedtgp-s43-a2/config.json",
+          "archive_path": "sae/fedtgp/seed43/config.json",
+          "bytes": 653,
+          "sha256": "bbd4c5a15691823b803c0804fcd142ca5161c43f060f60bca8201aeb665c413b"
+        },
+        {
+          "remote_path": "sae-fl-fedtgp-s43-a2/rounds.jsonl",
+          "archive_path": "sae/fedtgp/seed43/rounds.jsonl",
+          "bytes": 113997,
+          "sha256": "98965b63f20a04746bd93a08cef1fbdae6c61d22c3ab0c098ca833465a87b88e"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "lwfednids",
+      "seed": 41,
+      "ref": "hoangdv1711/sae-fl-lwfednids-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-lwfednids-s41-a2/cms_r050.npz",
+          "archive_path": "sae/lwfednids/seed41/cms_r050.npz",
+          "bytes": 439882,
+          "sha256": "3018be5bc9cfb2195dc1771bce4e1c4902212230dbd11c63330c8607c0fe8062"
+        },
+        {
+          "remote_path": "sae-fl-lwfednids-s41-a2/config.json",
+          "archive_path": "sae/lwfednids/seed41/config.json",
+          "bytes": 657,
+          "sha256": "14afa9d6f6975d447d43a1a73753b986e91924f04094166df1ce24bae568ca7b"
+        },
+        {
+          "remote_path": "sae-fl-lwfednids-s41-a2/rounds.jsonl",
+          "archive_path": "sae/lwfednids/seed41/rounds.jsonl",
+          "bytes": 58099,
+          "sha256": "13a4eae61f55df9a5a8c69d19ba2288be63cb767406b2dd84f8efa4523fc4664"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "lwfednids",
+      "seed": 42,
+      "ref": "minhiw/sae-fl-lwfednids-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-lwfednids-s42-a2/cms_r050.npz",
+          "archive_path": "sae/lwfednids/seed42/cms_r050.npz",
+          "bytes": 450704,
+          "sha256": "a06c791996fb1d401b6585b82caabb912c24aaa1e411a5c8381b4b16088df6da"
+        },
+        {
+          "remote_path": "sae-fl-lwfednids-s42-a2/config.json",
+          "archive_path": "sae/lwfednids/seed42/config.json",
+          "bytes": 657,
+          "sha256": "8baf3aa6f28e1a3fbdea4c4163fdf6b6cb75ea783a9656a5b3ad88502d446eb2"
+        },
+        {
+          "remote_path": "sae-fl-lwfednids-s42-a2/rounds.jsonl",
+          "archive_path": "sae/lwfednids/seed42/rounds.jsonl",
+          "bytes": 58067,
+          "sha256": "8c223a0ce04ed9fd424c8864ffed5ebc4a7fc2d6d06b64303d9a2c934859d3dd"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "lwfednids",
+      "seed": 43,
+      "ref": "hoangdangnhi/sae-fl-lwfednids-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-lwfednids-s43-a2/cms_r050.npz",
+          "archive_path": "sae/lwfednids/seed43/cms_r050.npz",
+          "bytes": 449972,
+          "sha256": "11014a825fa8f3986146cd2d9706828ceb6b7ef6f0acc6626f88cf5b988c86f9"
+        },
+        {
+          "remote_path": "sae-fl-lwfednids-s43-a2/config.json",
+          "archive_path": "sae/lwfednids/seed43/config.json",
+          "bytes": 657,
+          "sha256": "6ab7c0e1b96cbfabb23c825ca0739d74de24ffeebf5e0e47520ff6b9f8c97f7e"
+        },
+        {
+          "remote_path": "sae-fl-lwfednids-s43-a2/rounds.jsonl",
+          "archive_path": "sae/lwfednids/seed43/rounds.jsonl",
+          "bytes": 57673,
+          "sha256": "17e11010cadd5cc4c814dfaccc02fe0b48092949c472a8030b6c3b6a66fec114"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "global"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "nilm",
+      "seed": 41,
+      "ref": "qwerasdf3004/sae-fl-nilm-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-nilm-s41-a2/cms_r050.npz",
+          "archive_path": "sae/nilm/seed41/cms_r050.npz",
+          "bytes": 837014,
+          "sha256": "0353d0aec3f142d2f6fd278c3bd63221dfcc695095075d5e607a6935bb77d79d"
+        },
+        {
+          "remote_path": "sae-fl-nilm-s41-a2/config.json",
+          "archive_path": "sae/nilm/seed41/config.json",
+          "bytes": 653,
+          "sha256": "88a543900683eb542dda01e658d6fc6b35e26b87e5db080ccf3c3f413d7181ec"
+        },
+        {
+          "remote_path": "sae-fl-nilm-s41-a2/rounds.jsonl",
+          "archive_path": "sae/nilm/seed41/rounds.jsonl",
+          "bytes": 105766,
+          "sha256": "54a1cdcce2a0a99633d2aab8a03d0838ecb38cbfc0bd822af57103ca1178453d"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "proxy"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "nilm",
+      "seed": 42,
+      "ref": "nguynt298/sae-fl-nilm-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-nilm-s42-a2/cms_r050.npz",
+          "archive_path": "sae/nilm/seed42/cms_r050.npz",
+          "bytes": 840950,
+          "sha256": "43c2bd5709236e9b660a524e294e50cfb71ef6327321575bf260a2bb4a270de5"
+        },
+        {
+          "remote_path": "sae-fl-nilm-s42-a2/config.json",
+          "archive_path": "sae/nilm/seed42/config.json",
+          "bytes": 653,
+          "sha256": "efec9adeed16a0ef20ef39db3a22865e3fb882b5edbb5e23f387e8cf6248d5ee"
+        },
+        {
+          "remote_path": "sae-fl-nilm-s42-a2/rounds.jsonl",
+          "archive_path": "sae/nilm/seed42/rounds.jsonl",
+          "bytes": 105676,
+          "sha256": "27dbf4f2febeb448636aaf754336aac4f415695bc2433fece30feae818ae7f2a"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "proxy"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "nilm",
+      "seed": 43,
+      "ref": "dangthiet/sae-fl-nilm-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-nilm-s43-a2/cms_r050.npz",
+          "archive_path": "sae/nilm/seed43/cms_r050.npz",
+          "bytes": 845009,
+          "sha256": "2fb6410d141f67dd05fa7e8a7c00525fae1c220b0510be23c40996256ce8b4e5"
+        },
+        {
+          "remote_path": "sae-fl-nilm-s43-a2/config.json",
+          "archive_path": "sae/nilm/seed43/config.json",
+          "bytes": 653,
+          "sha256": "f882b8805a59156d19da2def9f48bdda8f0409cec6fca31846e564ef5da35564"
+        },
+        {
+          "remote_path": "sae-fl-nilm-s43-a2/rounds.jsonl",
+          "archive_path": "sae/nilm/seed43/rounds.jsonl",
+          "bytes": 105287,
+          "sha256": "a47b9405b0e8a8b551c31d6942981bda75a0da480f061e2d5de606b1923dbb2b"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "proxy"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "perfedskd",
+      "seed": 41,
+      "ref": "minhiw/sae-fl-perfedskd-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-perfedskd-s41-a2/cms_r050.npz",
+          "archive_path": "sae/perfedskd/seed41/cms_r050.npz",
+          "bytes": 439924,
+          "sha256": "881ea444b5471742e2dae6baa451c3e304ca9205549f2ebf490a8dc18fa54d12"
+        },
+        {
+          "remote_path": "sae-fl-perfedskd-s41-a2/config.json",
+          "archive_path": "sae/perfedskd/seed41/config.json",
+          "bytes": 722,
+          "sha256": "b776b857c8cc6a1ae7c5573605fc78ef7ecece244bb417a02571250f7cace0fb"
+        },
+        {
+          "remote_path": "sae-fl-perfedskd-s41-a2/rounds.jsonl",
+          "archive_path": "sae/perfedskd/seed41/rounds.jsonl",
+          "bytes": 63200,
+          "sha256": "44fcef18a10a5503bdae84ac05ae53cb17b365f6161d7047ed5bb5fc1ac04c8c"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "perfedskd",
+      "seed": 42,
+      "ref": "hoangdv1711/sae-fl-perfedskd-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-perfedskd-s42-a2/cms_r050.npz",
+          "archive_path": "sae/perfedskd/seed42/cms_r050.npz",
+          "bytes": 440332,
+          "sha256": "e3b163db76b37d90ac7b4fba2d4b09050c5ffc3557eb4b962a0a9b4716764b1c"
+        },
+        {
+          "remote_path": "sae-fl-perfedskd-s42-a2/config.json",
+          "archive_path": "sae/perfedskd/seed42/config.json",
+          "bytes": 722,
+          "sha256": "a87ac40e5ddbc1f57e4a230ea08c71d9c9c44c1d6f377d57c557ad3df70e2840"
+        },
+        {
+          "remote_path": "sae-fl-perfedskd-s42-a2/rounds.jsonl",
+          "archive_path": "sae/perfedskd/seed42/rounds.jsonl",
+          "bytes": 63004,
+          "sha256": "c22e8a200d39e30daa8ced8a00b452c231b440375ef37066e86a5dacb8d9e638"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "perfedskd",
+      "seed": 43,
+      "ref": "hoangdangnhi/sae-fl-perfedskd-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-perfedskd-s43-a2/cms_r050.npz",
+          "archive_path": "sae/perfedskd/seed43/cms_r050.npz",
+          "bytes": 447249,
+          "sha256": "6d1ef5b8c18cd996706c3fc22e06e197a6c7565a38b9e71a34f74b6703d87629"
+        },
+        {
+          "remote_path": "sae-fl-perfedskd-s43-a2/config.json",
+          "archive_path": "sae/perfedskd/seed43/config.json",
+          "bytes": 722,
+          "sha256": "0dbe176cdd9f85c2d1a414b16b2c46355805a92ec599a8f6cf160b5bd6d85dc7"
+        },
+        {
+          "remote_path": "sae-fl-perfedskd-s43-a2/rounds.jsonl",
+          "archive_path": "sae/perfedskd/seed43/rounds.jsonl",
+          "bytes": 63087,
+          "sha256": "1e5876d0e1b62627dc28bd6a3ec983b8024ea0cfeccffc51a0724565af7a2ad3"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "pfedes",
+      "seed": 41,
+      "ref": "phamquang0606/sae-fl-pfedes-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-pfedes-s41-a2/cms_r050.npz",
+          "archive_path": "sae/pfedes/seed41/cms_r050.npz",
+          "bytes": 410540,
+          "sha256": "480ec27d35e5ca98828bc638eba3d353fb3a269305b364d0ae2b35a1a25f41ec"
+        },
+        {
+          "remote_path": "sae-fl-pfedes-s41-a2/config.json",
+          "archive_path": "sae/pfedes/seed41/config.json",
+          "bytes": 653,
+          "sha256": "fe98262825ca12586ee12cdef4feb3385cd3446d92cee24cd8d35053e41c54c2"
+        },
+        {
+          "remote_path": "sae-fl-pfedes-s41-a2/rounds.jsonl",
+          "archive_path": "sae/pfedes/seed41/rounds.jsonl",
+          "bytes": 58963,
+          "sha256": "bdd79531ca0cf5a5f113aca90149e4660b6d61df69d0b78e26388dd10f2a5214"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "pfedes",
+      "seed": 42,
+      "ref": "ttalgies/sae-fl-pfedes-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-pfedes-s42-a2/cms_r050.npz",
+          "archive_path": "sae/pfedes/seed42/cms_r050.npz",
+          "bytes": 418919,
+          "sha256": "36e5336ba1e7a8b79297d565d9d638b5403473d6d923b67d0e1840030ea504c0"
+        },
+        {
+          "remote_path": "sae-fl-pfedes-s42-a2/config.json",
+          "archive_path": "sae/pfedes/seed42/config.json",
+          "bytes": 653,
+          "sha256": "585ed65917ad1a225e490f3831f29e4c769825d4d9937ab2385bc043d23f73b9"
+        },
+        {
+          "remote_path": "sae-fl-pfedes-s42-a2/rounds.jsonl",
+          "archive_path": "sae/pfedes/seed42/rounds.jsonl",
+          "bytes": 58944,
+          "sha256": "f0223ae32fdcd9d25a26607eb59be683a172eb66962ebbf49dbd2489ab453ae9"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "pfedes",
+      "seed": 43,
+      "ref": "hoangdang1711/sae-fl-pfedes-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-pfedes-s43-a2/cms_r050.npz",
+          "archive_path": "sae/pfedes/seed43/cms_r050.npz",
+          "bytes": 419266,
+          "sha256": "ee99bdd671f483efdbffc52d8787f67ed5f1975b59e0a37d7249e331d8eba90b"
+        },
+        {
+          "remote_path": "sae-fl-pfedes-s43-a2/config.json",
+          "archive_path": "sae/pfedes/seed43/config.json",
+          "bytes": 653,
+          "sha256": "239c829dc0a252ba0213a0b41c9e08d4da2a76ed5f38da3068d1b5f3362c58cd"
+        },
+        {
+          "remote_path": "sae-fl-pfedes-s43-a2/rounds.jsonl",
+          "archive_path": "sae/pfedes/seed43/rounds.jsonl",
+          "bytes": 58860,
+          "sha256": "af8354b1c5e58692947691ebee44c3480eb942a381aef7af81e8b1b57dff29fd"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "tinyproto",
+      "seed": 41,
+      "ref": "dangthiet/sae-fl-tinyproto-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-tinyproto-s41-a2/cms_r050.npz",
+          "archive_path": "sae/tinyproto/seed41/cms_r050.npz",
+          "bytes": 963647,
+          "sha256": "50be5b69cab0d58ee9ff0b2c810196409df828f13cf2a53dfd38e5b2dfe99a39"
+        },
+        {
+          "remote_path": "sae-fl-tinyproto-s41-a2/config.json",
+          "archive_path": "sae/tinyproto/seed41/config.json",
+          "bytes": 692,
+          "sha256": "9c4e2877d2c0b91815165f19ca58094201d61a783701ce17f8dac6848260bc67"
+        },
+        {
+          "remote_path": "sae-fl-tinyproto-s41-a2/rounds.jsonl",
+          "archive_path": "sae/tinyproto/seed41/rounds.jsonl",
+          "bytes": 118600,
+          "sha256": "ae0c6c9806f5091b35c67796e6dd47e04fd8eb2e60867052b4159bc61cd3c613"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "tinyproto",
+      "seed": 42,
+      "ref": "hoangdv1711/sae-fl-tinyproto-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-tinyproto-s42-a2/cms_r050.npz",
+          "archive_path": "sae/tinyproto/seed42/cms_r050.npz",
+          "bytes": 967222,
+          "sha256": "8fb49f167bc6031c343808f4f329e554c8c2cee691a7a5b8edf057dbe284f62f"
+        },
+        {
+          "remote_path": "sae-fl-tinyproto-s42-a2/config.json",
+          "archive_path": "sae/tinyproto/seed42/config.json",
+          "bytes": 692,
+          "sha256": "f757ec325198405280e096a40e54fcb9e83d6e12743ede8877f1945f15b80c7a"
+        },
+        {
+          "remote_path": "sae-fl-tinyproto-s42-a2/rounds.jsonl",
+          "archive_path": "sae/tinyproto/seed42/rounds.jsonl",
+          "bytes": 118617,
+          "sha256": "8a6db33df1391fa4b3eea899479c76f890f01cb49d00202cc0bdae17a4a888b9"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "tinyproto",
+      "seed": 43,
+      "ref": "minhiw/sae-fl-tinyproto-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-tinyproto-s43-a2/cms_r050.npz",
+          "archive_path": "sae/tinyproto/seed43/cms_r050.npz",
+          "bytes": 972070,
+          "sha256": "1e0cc194911eb895ca96902307e30b3afab7a897d48a5c411e85b5426290a391"
+        },
+        {
+          "remote_path": "sae-fl-tinyproto-s43-a2/config.json",
+          "archive_path": "sae/tinyproto/seed43/config.json",
+          "bytes": 692,
+          "sha256": "b3f777089b8bc05e17183f9b94a97071451dc819b6b541c879f201406de42c5d"
+        },
+        {
+          "remote_path": "sae-fl-tinyproto-s43-a2/rounds.jsonl",
+          "archive_path": "sae/tinyproto/seed43/rounds.jsonl",
+          "bytes": 118557,
+          "sha256": "6888817ec97dbcf4271a6fc7f0b06afe6013eaf4234984c526008ba3266a375c"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "v2x_htfl",
+      "seed": 41,
+      "ref": "nguynt298/sae-fl-v2x-htfl-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-v2x-htfl-s41-a2/cms_r050.npz",
+          "archive_path": "sae/v2x_htfl/seed41/cms_r050.npz",
+          "bytes": 942715,
+          "sha256": "d223720ab58202b561bea3e41ce3de63e9b592b0795b0d1bf16fb3d9edcbe8bc"
+        },
+        {
+          "remote_path": "sae-fl-v2x-htfl-s41-a2/config.json",
+          "archive_path": "sae/v2x_htfl/seed41/config.json",
+          "bytes": 713,
+          "sha256": "fd37fdfb5cbc92d7c4b15e99e5b6d8c6485fe0794db64c0f090762ff4e5f187d"
+        },
+        {
+          "remote_path": "sae-fl-v2x-htfl-s41-a2/rounds.jsonl",
+          "archive_path": "sae/v2x_htfl/seed41/rounds.jsonl",
+          "bytes": 114204,
+          "sha256": "ba13d1519146baba48326eb427521bde0578a531e6cdec751284c36be3ddc5df"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "v2x_htfl",
+      "seed": 42,
+      "ref": "dangthiet/sae-fl-v2x-htfl-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-v2x-htfl-s42-a2/cms_r050.npz",
+          "archive_path": "sae/v2x_htfl/seed42/cms_r050.npz",
+          "bytes": 1002777,
+          "sha256": "cffa85d3004f5026cb2deabb5da29ff4b4485d8c19e12922dfbc4d09662597ae"
+        },
+        {
+          "remote_path": "sae-fl-v2x-htfl-s42-a2/config.json",
+          "archive_path": "sae/v2x_htfl/seed42/config.json",
+          "bytes": 713,
+          "sha256": "ae6ff967079b0c81259b73562961bff97b9be06a3edab1ecc27368e86bf7dfd7"
+        },
+        {
+          "remote_path": "sae-fl-v2x-htfl-s42-a2/rounds.jsonl",
+          "archive_path": "sae/v2x_htfl/seed42/rounds.jsonl",
+          "bytes": 114189,
+          "sha256": "1d43a00195d13262464953937beb16039c63e2bc20c1e0ed50bfd538b76db693"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "sae",
+      "method": "v2x_htfl",
+      "seed": 43,
+      "ref": "hoangdv1711/sae-fl-v2x-htfl-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "sae-fl-v2x-htfl-s43-a2/cms_r050.npz",
+          "archive_path": "sae/v2x_htfl/seed43/cms_r050.npz",
+          "bytes": 971785,
+          "sha256": "5a79c10da9245f195a1a1783ab391fdd2457c9a46804a9b2b4ea8fb6af82c570"
+        },
+        {
+          "remote_path": "sae-fl-v2x-htfl-s43-a2/config.json",
+          "archive_path": "sae/v2x_htfl/seed43/config.json",
+          "bytes": 713,
+          "sha256": "6d99dbc12bebae20eca59ab730dfbe18b96378d9b5c4dca3011eb204a49406f9"
+        },
+        {
+          "remote_path": "sae-fl-v2x-htfl-s43-a2/rounds.jsonl",
+          "archive_path": "sae/v2x_htfl/seed43/rounds.jsonl",
+          "bytes": 114646,
+          "sha256": "666c3959b3902af6c24ff9a966f7fda075172b4718ed79542f70eb01e6226736"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "tabm",
+      "method": "tinyproto",
+      "seed": 41,
+      "ref": "nguynt298/tabm-fl-tinyproto-s41-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "tabm-fl-tinyproto-s41-a2/cms_r050.npz",
+          "archive_path": "tabm/tinyproto/seed41/cms_r050.npz",
+          "bytes": 892950,
+          "sha256": "89be7a7cb64689a7e1fffd5e616d3a6282f3c9fd2d2c7d1c0bae97b104e899fc"
+        },
+        {
+          "remote_path": "tabm-fl-tinyproto-s41-a2/config.json",
+          "archive_path": "tabm/tinyproto/seed41/config.json",
+          "bytes": 509,
+          "sha256": "50c7b198ec79997057ae1d0823d72c456beb47cb62db3c06d2930bb0e6bd7e86"
+        },
+        {
+          "remote_path": "tabm-fl-tinyproto-s41-a2/rounds.jsonl",
+          "archive_path": "tabm/tinyproto/seed41/rounds.jsonl",
+          "bytes": 119776,
+          "sha256": "255ca151939cbf5f3e89bbc8e0a622c4cc7803f02672c418a437e1a9a091efc0"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "tabm",
+      "method": "tinyproto",
+      "seed": 42,
+      "ref": "dangthiet/tabm-fl-tinyproto-s42-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "tabm-fl-tinyproto-s42-a2/cms_r050.npz",
+          "archive_path": "tabm/tinyproto/seed42/cms_r050.npz",
+          "bytes": 887656,
+          "sha256": "c3cc5e2cac46e03381a036d29b46a002584636612bba2cab508e97a328f5712e"
+        },
+        {
+          "remote_path": "tabm-fl-tinyproto-s42-a2/config.json",
+          "archive_path": "tabm/tinyproto/seed42/config.json",
+          "bytes": 509,
+          "sha256": "b82cf090f7353a7b7beddfb0252c4af8a0f2c8aea9b814b2fdfd3ae09f14ecf9"
+        },
+        {
+          "remote_path": "tabm-fl-tinyproto-s42-a2/rounds.jsonl",
+          "archive_path": "tabm/tinyproto/seed42/rounds.jsonl",
+          "bytes": 119864,
+          "sha256": "1c9a0a79a0385dd712aab0476f96a65ec729c5b261437e10c2997f9b5fffc9a1"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "tabm",
+      "method": "tinyproto",
+      "seed": 43,
+      "ref": "hoangdv1711/tabm-fl-tinyproto-s43-a2",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "tabm-fl-tinyproto-s43-a2/cms_r050.npz",
+          "archive_path": "tabm/tinyproto/seed43/cms_r050.npz",
+          "bytes": 888797,
+          "sha256": "7e46d84ea50deac508e3673ccdc1d6992ef2a0950f2c78f58dcc4fef6fd44904"
+        },
+        {
+          "remote_path": "tabm-fl-tinyproto-s43-a2/config.json",
+          "archive_path": "tabm/tinyproto/seed43/config.json",
+          "bytes": 509,
+          "sha256": "12771cf3b580557df2611e31b96dad1fe027665253432bebcedc294de8fc1409"
+        },
+        {
+          "remote_path": "tabm-fl-tinyproto-s43-a2/rounds.jsonl",
+          "archive_path": "tabm/tinyproto/seed43/rounds.jsonl",
+          "bytes": 119534,
+          "sha256": "b02e038b018a9aa594ea00655ec5135b99d8232a93df8e28796761678bd17763"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "tabm",
+      "method": "v2x_htfl",
+      "seed": 41,
+      "ref": "buidinh0303/tabm-fl-v2x-htfl-s41-fp32proj-a4",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "tabm-fl-v2x-htfl-s41-fp32proj-a4/cms_r050.npz",
+          "archive_path": "tabm/v2x_htfl/seed41/cms_r050.npz",
+          "bytes": 876935,
+          "sha256": "51b4dd52192dd8cff8817496a0037bb701b26eecadf776686c6e1f405f47d4b0"
+        },
+        {
+          "remote_path": "tabm-fl-v2x-htfl-s41-fp32proj-a4/config.json",
+          "archive_path": "tabm/v2x_htfl/seed41/config.json",
+          "bytes": 530,
+          "sha256": "321e73f742be995a01c62e1ef996191f1e2a7e7d1fb9fe67ada1d94b1d08a027"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "tabm",
+      "method": "v2x_htfl",
+      "seed": 42,
+      "ref": "haivohoanggg/tabm-fl-v2x-htfl-s42-fp32proj-a4",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "tabm-fl-v2x-htfl-s42-fp32proj-a4/cms_r050.npz",
+          "archive_path": "tabm/v2x_htfl/seed42/cms_r050.npz",
+          "bytes": 871138,
+          "sha256": "8275e453b03ebe0cd430b0ba7f808262317b8ff8e9c0e504538c10ba003f8a44"
+        },
+        {
+          "remote_path": "tabm-fl-v2x-htfl-s42-fp32proj-a4/config.json",
+          "archive_path": "tabm/v2x_htfl/seed42/config.json",
+          "bytes": 530,
+          "sha256": "8f92224539e686ef073bfc6ef9edef45e13cc4fa1599161f1cac2e1e7d5bcba2"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    },
+    {
+      "model": "tabm",
+      "method": "v2x_htfl",
+      "seed": 43,
+      "ref": "anduyvo06/tabm-fl-v2x-htfl-s43-fp32proj-a4",
+      "version": 1,
+      "files": [
+        {
+          "remote_path": "tabm-fl-v2x-htfl-s43-fp32proj-a4/cms_r050.npz",
+          "archive_path": "tabm/v2x_htfl/seed43/cms_r050.npz",
+          "bytes": 878769,
+          "sha256": "96a03530c206752a1d4b79e722cc65fcb84850c7cb9fe9e8f46d8d6a4d6a91ea"
+        },
+        {
+          "remote_path": "tabm-fl-v2x-htfl-s43-fp32proj-a4/config.json",
+          "archive_path": "tabm/v2x_htfl/seed43/config.json",
+          "bytes": 530,
+          "sha256": "13060b781c5b622f94445d41f5e98e8304fa9d4e6de49d8b8bdea1dec98070a8"
+        }
+      ],
+      "audit": {
+        "target_round": 50,
+        "history_rows": 50,
+        "views": [
+          "client",
+          "client_proto"
+        ],
+        "clients": 5343,
+        "test_rows_per_view": 9347679
+      }
+    }
+  ]
+}
