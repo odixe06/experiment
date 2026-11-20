@@ -5,8 +5,8 @@
 - Remote: `origin` → `https://github.com/odixe06/experiment.git`; branch:
   `codex/mobihet-v4-relkd`.
 - Results commit: `5d2648b100e0cb09b1de3ea463553d827acb8663`.
-- Scope: `docs/research/mixed128-all-results.md`, its CSV, and
-  `scripts/report_mixed_matrix.py`; no unrelated working-tree changes included.
+- Scope: mixed128 report, CSV and `scripts/report_mixed_matrix.py`. Local merge uses
+  [report](../research/mixed/mixed128-all-results.md) and [CSV](../research/mixed/mixed128-all-results.csv).
 - Checks: merged final-CM audits cover 45/45 unique case/method/seed tuples; all headline
   views contain ten metrics; generated report and CSV contain no missing configuration.
 - No local cleanup requested or performed.

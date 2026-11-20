@@ -1,7 +1,7 @@
 method,seed,view,round,accuracy,precision_macro,precision_micro,precision_weighted,recall_macro,recall_micro,recall_weighted,f1_macro,f1_micro,f1_weighted,status,source
-v2x_htfl,41,client,10,,,,,,,,,,,running,"Kaggle sonlebaodac (teammate), saved round 10"
-v2x_htfl,42,client,42,,,,,,,,,,,running,"Kaggle minhgia2026 (teammate), saved round 42"
-v2x_htfl,43,client,8,,,,,,,,,,,running,"Kaggle nghuay (teammate), saved round 8"
+v2x_htfl,41,client,50,0.885810,0.860970,0.885810,0.877630,0.838050,0.885810,0.885810,0.845380,0.885810,0.878070,audited,"sonlebaodac/mix128-case1-v2x-htfl-s41-a2-r10-r44/1, docs/research/mixed/mixed128-all-results.csv"
+v2x_htfl,42,client,50,0.886270,0.861920,0.886270,0.878320,0.837740,0.886270,0.886270,0.845640,0.886270,0.878620,audited,"minhgia2026/mix128-case1-v2x-htfl-s42-a2-r04-r05-r06-r07-r42/1, docs/research/mixed/mixed128-all-results.csv"
+v2x_htfl,43,client,50,0.885530,0.860020,0.885530,0.877160,0.836500,0.885530,0.885530,0.844110,0.885530,0.877700,audited,"nguyntngquckhnh/mix128-case1-v2x-htfl-s43-a2-r08-r44/1, docs/research/mixed/mixed128-all-results.csv"
 tinyproto,41,client_proto,50,0.878010,0.856950,0.878010,0.877080,0.842790,0.878010,0.878010,0.849430,0.878010,0.877170,audited,docs/research/mixed/mixed128-all-results.csv
 tinyproto,42,client_proto,50,0.877580,0.855490,0.877580,0.876520,0.842350,0.877580,0.877580,0.848490,0.877580,0.876710,audited,docs/research/mixed/mixed128-all-results.csv
 tinyproto,43,client_proto,50,0.877950,0.855670,0.877950,0.876790,0.841460,0.877950,0.877950,0.848080,0.877950,0.876960,audited,docs/research/mixed/mixed128-all-results.csv

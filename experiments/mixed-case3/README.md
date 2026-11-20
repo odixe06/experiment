@@ -22,7 +22,7 @@
 | V2X-HtFL | client | 0.84148 | 0.84053 | 0.84073 | 0.84091 ± 0.00050 |
 | CANPerFL |  | N/A | N/A | N/A |  |
 | TinyProto | client_proto | 0.80497 | 0.81310 | 0.80725 | 0.80844 ± 0.00419 |
-| pFedES | client | chạy (r18) | 0.80690 | chạy (r10) | 0.80690 |
+| pFedES | client | 0.80720 | 0.80690 | 0.80866 | 0.80759 ± 0.00094 |
 | NILM-FL |  | N/A | N/A | N/A |  |
 | FedTGP | client_proto | 0.71413 | 0.70963 | 0.71734 | 0.71370 ± 0.00387 |
 | PerFed-SKD |  | N/A | N/A | N/A |  |
@@ -33,8 +33,6 @@ Không dấu = CM → 10 metric đã audit (đủ 10 cột trong [results.csv](r
 
 ## Còn thiếu
 
-- pFedES seed 41: running
-- pFedES seed 43: running
 - MobiHet L4 seed 41: missing
 - MobiHet L4 seed 42: missing
 - MobiHet L4 seed 43: missing

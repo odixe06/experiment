@@ -41,9 +41,21 @@ Ba BERT epoch 9 dùng source đóng băng riêng theo seed. Seed 41 và 43 có c
 
 H2 mixed kiểm receipt và kích thước hai rank từ mount trước khi decode dataset. `scripts/audit_mixed_l4.py` nhận pull, notebook đã chạy, exact ref và inventory checkpoint. Script xuất receipt cho phiên nối và chỉ nhận `--csv` khi đủ r50. Tiếp theo, đọc `RUN_STATUS.json` và checkpoint đã commit trước khi dựng H3. BERT tiếp tục bằng `scripts/build_central_backbones.py --parent-artifacts ... --parent-epoch E`. Mixed dùng `scripts/build_mixed_l4.py --parent-artifacts ...`, giữ source, assignment và checkpoint hash của parent. Không chạy orchestrator MobiHet cũ.
 
+## Mixed128 baseline
+
+Import hai commit Codex `5d2648b` và `66c1e9c` qua merge `3281ad6`. Khôi phục 1.324 file mixed128 từ backup LFS đã xác minh. Audit local lại 45/45 cấu hình r50, 378 dòng theo backbone/view, đủ 10 metric mỗi dòng. Khớp config hash, assignment, seed, lịch sử r50 và support từng lớp của 5.343 xe trên 9.347.679 bản tin. 342 dòng đã có giữ nguyên. Script đối chiếu và receipt SHA-256 nằm trong `runs/recovery-20261120/{audit_mixed128_archive.py,mixed128-local-audit.json}`. [Bảng đầy đủ](../research/mixed/mixed128-all-results.md) · [CSV](../research/mixed/mixed128-all-results.csv)
+
+| Kết quả mới | Exact ref | Macro-F1 r50 |
+|---|---|---:|
+| Case 1 V2X-HtFL seed 41 | `sonlebaodac/mix128-case1-v2x-htfl-s41-a2-r10-r44/1` | .84538 |
+| Case 1 V2X-HtFL seed 42 | `minhgia2026/mix128-case1-v2x-htfl-s42-a2-r04-r05-r06-r07-r42/1` | .84564 |
+| Case 1 V2X-HtFL seed 43 | `nguyntngquckhnh/mix128-case1-v2x-htfl-s43-a2-r08-r44/1` | .84411 |
+| Case 3 pFedES seed 41 | `nguynkhacao/mix128-case3-pfedes-s41-a1-r06-r16-r17-r18/1` | .80720 |
+| Case 3 pFedES seed 43 | `nguynkhacao/mix128-case3-pfedes-s43-a1-r06-r08-r09-r10-r43/1` | .80866 |
+
 ## Git và dữ liệu
 
-- Local main chứa merge `ee262da` (central + kết quả), `dd1dba1` (L4), `2bf7680` (remote Codex, gồm backup Git LFS). Source, docs, tests và thay đổi chưa commit đều nằm trong lịch sử main. GitHub main chưa push.
+- Local main chứa merge `ee262da` (central + kết quả), `dd1dba1` (L4), `2bf7680` (Codex, backup Git LFS) và `3281ad6` (Codex, mixed128 r50). Source, docs, tests và thay đổi đã bảo toàn đều nằm trong lịch sử main. GitHub main chưa push.
 - Kiểm checksum 71 mapping artifact. `runs/worktree-consolidation/copy-map.json` cho biết vị trí gốc và đích. Collisions, biến thể cache và Git admin được giữ trong cùng thư mục. Notebooks, run cũ, checkpoints, metadata và DVC pointers đã có bản canonical.
 - Checkout `experiment-l4` và checkout detached dùng hồi quy đã gỡ. `experiment-wt` còn được phiên Codex và shell mở làm cwd. Dùng main cho mọi công việc mới. Gỡ sau khi các tiến trình đó chuyển sang main hoặc đóng. Commit `a8cb691` đã nằm trong main.
 - Backup LFS remote 903.962.154 byte có bản local `runs/worktree-consolidation/runs-no-checkpoints-2026-11-20.zip`, SHA-256 `9e5d8eb4573785f418ff710c38de0af0b238cdac0bcfd31714a871ee42f2c012`.
@@ -63,5 +75,5 @@ Kiểm local trên main. 47 pytest PASS trong suite portable và 38 PASS trong F
 
 1. Audit các phiên BERT và mixed khi terminal. Nối từ checkpoint được kiểm cho tới epoch/round 50. Mixed case1 và case3 seed 41/43 còn chưa chạy. Case2 đã đủ ba seed đang chạy. Chọn slot/quota mới ở lúc push.
 2. Thu đủ trace chi tiết từ hai hàng đợi. Xử lý từng trường hợp OOM và xác minh số backward, padding và provenance trước khi đưa vào bảng. So các trace mới với lịch sử theo nguồn và quy ước.
-3. Teammate bổ sung CM hoặc đủ 10 metric của TabM/SAE/MLP/CNN-BiGRU FL và kết quả mixed128 còn thiếu. Account teammate không có credential ở đây.
+3. Teammate bổ sung CM hoặc đủ 10 metric của TabM/SAE/MLP/CNN-BiGRU FL. Account teammate không có credential ở đây.
 4. Đóng các phiên dùng cwd `experiment-wt`, mở workspace `experiment` và gỡ worktree cũ sau khi kiểm trạng thái lần cuối. Chỉ phát triển trên main.

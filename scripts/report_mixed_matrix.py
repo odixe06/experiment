@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
+REPORT_DIR=ROOT/'docs/research/mixed'
 TEN=['accuracy','precision_macro','precision_micro','precision_weighted','recall_macro','recall_micro','recall_weighted','f1_macro','f1_micro','f1_weighted']
 METHODS=['fedproto','fedtgp','tinyproto','v2x_htfl','pfedes']
 def main():
@@ -17,7 +18,9 @@ def main():
     provisional_path=ROOT/'runs/mixed128-provisional-final.json'
     if provisional_path.exists():
         for r in json.loads(provisional_path.read_text()):
-            provisional[(r['case'],r['method'],r['seed'])]=r
+            key=(r['case'],r['method'],r['seed'])
+            if key not in rows:
+                provisional[key]=r
     progress={(r['case'],r['method'],r['seed']):r for r in json.loads((ROOT/'runs/mixed128-progress.json').read_text())}
     latest=ROOT/'runs/mixed128-next-progress.json'
     if latest.exists():
@@ -101,16 +104,17 @@ def main():
                     values.append('')
             lines.append('| '+' | '.join([method]+values)+' |')
         lines.append('')
-    lines+=['## Chưa đủ 50 round','','| Case | Phương pháp | Seed | Round đã lưu | Trạng thái |','|---|---|---:|---:|---|']
-    for key,r in sorted(progress.items()):
-        if key in rows or key in provisional:continue
+    pending={key:r for key,r in progress.items() if key not in rows and key not in provisional}
+    if pending:
+        lines+=['## Chưa đủ 50 round','','| Case | Phương pháp | Seed | Round đã lưu | Trạng thái |','|---|---|---:|---:|---|']
+    for key,r in sorted(pending.items()):
         state='Lỗi, cần xử lý' if r['status']=='ERROR' else 'Dừng ngân sách giờ; nối checkpoint'
         if key in resumed:
             run=resumed[key]
-            state=f"Nối tiếp: {run.get('status',run['state'])} — {run['owner']}"
+            state=f"Nối tiếp: {run.get('status') or run['state']} — {run['owner']}"
         if key in repaired:
             run=repaired[key]
-            state=f"Bản sửa a2: {run.get('status',run['state'])} — {run['owner']}"
+            state=f"Bản sửa a2: {run.get('status') or run['state']} — {run['owner']}"
         active=repaired.get(key,resumed.get(key))
         if active and active['ref']==r['ref']:
             state=f"{r['status']} — {active['owner']}" if r['status']!='COMPLETE' else 'Dừng ngân sách giờ; chờ quota nối tiếp'
@@ -118,9 +122,10 @@ def main():
     if provisional:
         lines+=['','`*` = complete round 50 và đủ 10 metric trong history, nhưng tải confusion matrix đang bị Kaggle timeout; chưa tính vào kết quả audit. CSV chỉ chứa kết quả đã audit.']
     lines+=['','CSV kèm đủ 10 metric, từng seed/model/view. Kết quả dở dang không dùng thay round 50.']
-    (ROOT/'docs/research/mixed128-all-results.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
-    with (ROOT/'docs/research/mixed128-all-results.csv').open('w',newline='',encoding='utf-8-sig') as f:
-        w=csv.DictWriter(f,fieldnames=['case','method','seed','round','group','view']+TEN);w.writeheader()
+    (REPORT_DIR/'mixed128-all-results.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
+    with (REPORT_DIR/'mixed128-all-results.csv').open('w',newline='',encoding='utf-8-sig') as f:
+        w=csv.DictWriter(f,fieldnames=['case','method','seed','round','group','view']+TEN,
+                         lineterminator='\n');w.writeheader()
         for (case,method,seed),r in sorted(rows.items()):
             for group,views in {'all':r['views'],**r['by_model']}.items():
                 for view,stat in views.items():

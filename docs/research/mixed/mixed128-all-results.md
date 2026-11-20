@@ -38,9 +38,5 @@ FedProto/FedTGP/TinyProto: client_proto; V2X-HtFL/pFedES: client. Projection 128
 | v2x_htfl | 0.84148 | 0.84053 | 0.84073 |
 | pfedes | 0.80720 | 0.80690 | 0.80866 |
 
-## Chưa đủ 50 round
-
-| Case | Phương pháp | Seed | Round đã lưu | Trạng thái |
-|---|---|---:|---:|---|
 
 CSV kèm đủ 10 metric, từng seed/model/view. Kết quả dở dang không dùng thay round 50.

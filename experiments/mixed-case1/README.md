@@ -19,7 +19,7 @@
 | FD-IDS |  | N/A | N/A | N/A |  |
 | APFed_LDwCBN |  | N/A | N/A | N/A |  |
 | LwFedNIDS |  | N/A | N/A | N/A |  |
-| V2X-HtFL | client | chạy (r10) | chạy (r42) | chạy (r8) |  |
+| V2X-HtFL | client | 0.84538 | 0.84564 | 0.84411 | 0.84504 ± 0.00082 |
 | CANPerFL |  | N/A | N/A | N/A |  |
 | TinyProto | client_proto | 0.84943 | 0.84849 | 0.84808 | 0.84867 ± 0.00069 |
 | pFedES | client | 0.81583 | 0.81513 | 0.82276 | 0.81791 ± 0.00422 |
@@ -33,9 +33,6 @@ Không dấu = CM → 10 metric đã audit (đủ 10 cột trong [results.csv](r
 
 ## Còn thiếu
 
-- V2X-HtFL seed 41: running
-- V2X-HtFL seed 42: running
-- V2X-HtFL seed 43: running
 - MobiHet L4 seed 41: missing
 - MobiHet L4 seed 42: missing
 - MobiHet L4 seed 43: missing
