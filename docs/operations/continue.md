@@ -16,6 +16,7 @@ Kiểm quota và danh sách 30/30 account. Cửa sổ kernel gần handoff có 6
 | `bestyorn/exp-central-bert-s43/2` | COMPLETE phiên 1, checkpoint epoch 9 PASS, .946489 |
 | `lelovo/mixl4-case1-s42/1` | COMPLETE pilot r2 PASS, .758572 |
 | `gaming3/mixl4-case2-s42/1` | COMPLETE pilot r2 PASS, .676016 |
+| `gaming3/mixl4-case2-s42-h2/1` | COMPLETE r50, PASS 50 round và checkpoint hai rank, .854014 |
 | `lelovo/mixl4-case3-s42/1` | COMPLETE pilot r2 PASS, .717384 |
 | `goilaaiudi/exp-count-l4-g4096/1` | COMPLETE, 3 JSON done và 3 log khớp các job CNN-BiGRU L4, mixed L4 case1/case3 |
 | `gaming3/exp-central-cnnbigru-s41/1` | COMPLETE, epoch 50 đã audit và ghi ở phiên Claude |
@@ -24,16 +25,16 @@ CNN-BiGRU L4 đủ 10 metric r50 trong [results.csv](../../experiments/cnn-bigru
 
 Ba BERT epoch 9 dùng source đóng băng riêng theo seed. Seed 41 và 43 có cùng hash, seed 42 có sửa thứ tự barrier/config DDP và bật find_unused cho SAE-CE. Cấu hình BERT dùng cùng HP. Đã kiểm full state của model, optimizer và AMP scaler, fingerprint data, history liên tục, prediction → CM và 10 metric. Byte nguồn, log, prediction và checkpoint ở `runs/central-20261120/pulls/` và ledger recovery.
 
-| Exact ref nối phiên | Trạng thái quan sát 14:30–14:42 |
+| Exact ref đang chạy | Quan sát gần nhất |
 |---|---|
 | `abbafan/exp-central-bert-s41-p2/1` | RUNNING, import epoch 9, epoch 10 đã qua step 5.250 / 9.122 |
 | `chiencosieuhang/exp-central-bert-s42-p2/1` | RUNNING, import epoch 9, epoch 10 đã qua step 4.750 / 9.122 |
 | `bestyorn/exp-central-bert-s43-p2/1` | RUNNING, import epoch 9, epoch 10 đã qua step 5.500 / 9.122 |
 | `lelovo/mixl4-case1-s42-h2/1` | RUNNING, hai rank xác nhận restore r2 |
-| `gaming3/mixl4-case2-s42-h2/1` | RUNNING, restore r2, log qua r28, skip 0% |
 | `lelovo/mixl4-case3-s42-h2/1` | RUNNING, hai rank xác nhận restore r2 |
 | `gaming3/mixl4-case2-s41/1` | RUNNING, seed mới sau pilot PASS, source đóng băng của pilot, mục tiêu r50 |
 | `abbafan/mixl4-case2-s43/1` | RUNNING, seed mới sau pilot PASS, source đóng băng của pilot, mục tiêu r50 |
+| `gaming3/mixl4-case3-s41/1` | RUNNING, 2×T4 và lockstep PASS, source pilot case3, seed 41, ngân sách 9,25 giờ |
 | `goilaaiudi/exp-flops-v3-bert/1` | RUNNING, trace mới FeatureBERT và native BERT L4 |
 | `goilaaiudi/exp-flops-v3-dagsnet/1` | RUNNING, trace mới DAGSNet |
 | `hoangdang20t/exp-flops-v3-cnnbigru/1` | RUNNING, trace mới CNN-BiGRU |
@@ -41,7 +42,9 @@ Ba BERT epoch 9 dùng source đóng băng riêng theo seed. Seed 41 và 43 có c
 
 H2 mixed kiểm receipt và kích thước hai rank từ mount trước khi decode dataset. `scripts/audit_mixed_l4.py` nhận pull, notebook đã chạy, exact ref và inventory checkpoint. Script xuất receipt cho phiên nối và chỉ nhận `--csv` khi đủ r50. Tiếp theo, đọc `RUN_STATUS.json` và checkpoint đã commit trước khi dựng H3. BERT tiếp tục bằng `scripts/build_central_backbones.py --parent-artifacts ... --parent-epoch E`. Mixed dùng `scripts/build_mixed_l4.py --parent-artifacts ...`, giữ source, assignment và checkpoint hash của parent. Không chạy orchestrator MobiHet cũ.
 
-`experiment-mixed-l4-terminal-20261120` theo dõi 5 exact ref mixed, pull output của phiên terminal đầu tiên, chạy audit metric và kiểm checkpoint hai rank. Job gửi thông báo qua Codex queue khi có terminal. Log `runs/recovery-20261120/mixed-l4-session-watch.log`, trạng thái `mixed-l4-session-watch.json` cùng thư mục.
+`experiment-mixed-l4-terminal-20261120` đã thu case2 seed 42 r50 lúc 15:12 +07. Kiểm lại source, config và lịch cosine với pilot, tính lại đủ 10 metric trên CM gộp và từng backbone ở cả 50 round, kiểm support từng xe/lớp và SHA-256 của 530.729.210 byte checkpoint hai rank. Receipt `runs/mixed-l4/sessions/mixl4-case2-s42-h2/independent-verification.json`. [results.csv](../../experiments/mixed-case2/results.csv)
+
+Case3 seed 41 dùng slot vừa giải phóng trên `gaming3`. Quota kiểm trước push 14,33 giờ, giữ phần ngân sách cho case2 seed 41. Source và HP lấy từ pilot case3, đổi seed 42 → 41. `experiment-mixed-l4-terminal-next-20261120` theo dõi 5 phiên mixed hiện tại, thu phiên terminal kế và gửi Codex queue. Log và trạng thái nằm trong `runs/recovery-20261120/mixed-l4-session-watch-next.{log,json}`.
 
 ## Mixed128 baseline
 
@@ -79,7 +82,7 @@ Kiểm local trên main. 47 pytest PASS trong suite portable và 38 PASS trong F
 
 ## Việc còn lại
 
-1. Audit các phiên BERT và mixed khi terminal. Nối từ checkpoint được kiểm cho tới epoch/round 50. Mixed case1 và case3 seed 41/43 còn chưa chạy. Case2 đã đủ ba seed đang chạy. Chọn slot/quota mới ở lúc push.
+1. Audit các phiên BERT và mixed khi terminal. Nối từ checkpoint được kiểm cho tới epoch/round 50. Case1 seed 41/43 và case3 seed 43 chờ slot/quota. Case2 seed 42 đã đủ r50, seed 41/43 còn chạy. Chọn slot/quota mới ở lúc push.
 2. Thu 57 trace chi tiết còn thiếu từ bốn kernel Kaggle. Xử lý từng trường hợp OOM và xác minh số backward, padding và provenance trước khi đưa vào bảng. So các trace mới với lịch sử theo nguồn và quy ước.
 3. Teammate bổ sung CM cho 132 cấu hình còn ở mức kiểm marker. Account teammate không có credential ở đây.
 4. Đóng các phiên dùng cwd `experiment-wt`, mở workspace `experiment` và gỡ worktree cũ sau khi kiểm trạng thái lần cuối. Chỉ phát triển trên main.

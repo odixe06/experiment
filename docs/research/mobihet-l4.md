@@ -78,8 +78,11 @@ Kernel, kết quả: [continue](../operations/continue.md); số ghi `experiment
 | CNN-BiGRU | 43 | r50 | .861055 |
 | Mixed case1 | 42 | pilot r2 | .758572 |
 | Mixed case2 | 42 | pilot r2 | .676016 |
+| Mixed case2 | 42 | r50 | .854014 |
 | Mixed case3 | 42 | pilot r2 | .717384 |
 
 CNN-BiGRU đạt .86257 ± .00132 ở r50 (SD mẫu), từ CM đủ 9.347.679 dòng. Đủ 10 metric trong [results.csv](../../experiments/cnn-bigru/results.csv). Audit riêng kiểm source đóng băng, HP, seed, lịch LR và 50 round.
 
 Pilot dùng 5.343 xe với gán backbone cố định. Ba case có hai vòng liền mạch, compile gate qua từng backbone, skip dưới 1%, loss hữu hạn và checkpoint r2 đủ hai rank. F1 pilot là endpoint sớm. Bảng baseline mixed công bố ở r50. Phiên nối dùng source notebook đã chạy pilot và giữ cosine 50 round. [Bàn giao](../operations/continue.md)
+
+Mixed case2 seed 42 nối từ r2 đến r50. Macro-F1 theo backbone ở r50 là TabM .846694, SAE .813965 và MLP .881933. Cả 50 round đã được tính lại từ CM với cùng assignment và đủ 9.347.679 dòng test. [10 metric pooled](../../experiments/mixed-case2/results.csv)
