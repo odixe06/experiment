@@ -2,10 +2,10 @@
 
 Dùng `/home/odixe/project/experiment` trên nhánh `main`. Trạng thái phiên Claude e360305d đã nhập vào lịch sử Git và artifacts bên dưới. Protocol, seed 41/42/43, HP L4 và cosine 50 giữ nguyên. [Context](../../CONTEXT.md) · [Protocol](../research/protocol.md) · [Compute](../research/compute.md)
 
-## Cập nhật lúc 03:21 +07
+## Cập nhật lúc 03:34 +07
 
 - Mixed L4 Case3 đủ 3/3 seed ở R50. Phiên seed 43 H2 khớp history và CM R1–R49 với parent. Audit đủ 50 CM, 10 metric gộp và theo backbone, SHA-256 checkpoint hai rank. Biên bản `runs/round-metrics/audit/mixed-l4-case3-s43-r50-independent.json`. [Bảng case3](../../experiments/mixed-case3/results.csv)
-- Mixed L4 Case1 seed 41 H2 và seed 42 H3 đã công bố R50. Cả hai audit 50 CM và SHA-256 hai shard checkpoint. History và CM khớp parent tới R49 và R44 tương ứng. Seed 43 đang chạy H2 từ R47. [Bảng case1](../../experiments/mixed-case1/results.csv)
+- Mixed L4 Case1 đủ 3/3 seed R50. Audit 50 CM và SHA-256 hai shard checkpoint mỗi seed. History và CM của seed 41/42/43 khớp parent tới R49/R44/R47. [Bảng case1](../../experiments/mixed-case1/results.csv)
 - Centralized BERT P2 đã audit PASS cả ba seed tại E17/E16/E17 (41/42/43). Kiểm lại 50 CM, metrics CSV, dự đoán epoch cuối, weights và optimizer/scaler. Biên bản độc lập ở `runs/round-metrics/audit/central-bert-p2-independent.json`.
 - BERT seed 42 P3 audit E19. Kiểm lại dự đoán → CM và đủ 10 metric E1–E19, checkpoint, source thực thi và prefix E1–E16 với P2. Owner cũ còn 1,26 giờ, sát 72–73 phút mỗi epoch. Dataset riêng tư `dinhan25/exp-central-bert-s42-e19-state` đã ready và khớp 137 tên, kích thước file. P4 nối từ E20, budget 7,05 giờ với cache NPY. Receipts `runs/recovery-20261120/after-boot/bert-s42-e19-*.json`.
 - BERT seed 43 P3 audit E19, prefix E1–E17 khớp P2. Owner cũ còn 1,03 giờ, dưới thời gian một epoch đo được. Dataset riêng tư `hoangdang20t/exp-central-bert-s43-e19-state` đã ready, 137 tên và kích cỡ khớp ZIP, cấu hình và checkpoint đã kiểm SHA-256. P4 tiếp tục từ E20. Receipts `runs/recovery-20261120/after-boot/bert-s43-e19-*.json`.
@@ -19,7 +19,7 @@ Dùng `/home/odixe/project/experiment` trên nhánh `main`. Trạng thái phiên
 | `lelovo/mixl4-case1-s42-h3/1` | R44 | 2,90 h | COMPLETE, R50 audit PASS |
 | `goilaaiudi/mixl4-case3-s43-h2/1` | R49 | 2,50 h | COMPLETE, R50 audit PASS |
 | `dinhan20t/mixl4-case1-s41-h2/1` | R49 | 1,60 h | COMPLETE, R50 audit PASS |
-| `dinhan20t/mixl4-case1-s43-h2/1` | R47 | 2,00 h | RUNNING, gắn cache NPY |
+| `dinhan20t/mixl4-case1-s43-h2/1` | R47 | 2,00 h | COMPLETE, R50 audit PASS |
 | `abbafan/exp-central-bert-s41-p3/1` | E17 | 5,70 h | RUNNING |
 | `chiencosieuhang/exp-central-bert-s42-p3/1` | E16 | 4,25 h | COMPLETE, E19 audit PASS |
 | `dinhan25/exp-central-bert-s42-p4/1` | E19 | 7,05 h | RUNNING, gắn cache NPY |
@@ -48,7 +48,7 @@ Ledger `continuation-launch-{case1-s41-h2,case1-s43-h2,bert-s42-p4,bert-s43-p4}.
 - 02:15 +07: Đọc được 12 output cache từ exact ref `odixe0502/mobihet-v4npy-cache/1` qua tất cả owner đang chạy. Manifest được pin SHA-256. Mười NPY khớp cả ba config BERT P2. Đã tải hai metadata v4 gốc, đủ **12/12 SHA-256 khớp** identity của parent. Mixed case1 giữ cùng thứ tự 77 feature, fold, cách decode và đọc các mảng. Receipt `runs/recovery-20261120/after-boot/mobihet-npy-preflight.json`.
 - Hai builder nhận `--npy-cache runs/recovery-20261120/after-boot/mobihet-npy-preflight.json` cho phiên nối. Gate kiểm mount, SHA-256 manifest và từng mảng trước train. Mixed dùng `V4_NPY` trỏ mount. BERT tạo cache view ở `/kaggle/temp` với 10 NPY read-only và `identity.json` từ 12 SHA đã kiểm, đối chiếu `config.data` của parent. BERT giữ parquet v4 để đọc metadata, dùng `--parent-dataset` khi chuyển tài khoản. Source và checkpoint giữ nguyên.
 - Log Mixed ghi build NPY 193–249 giây. BERT P2 ghi 228–305 giây từ import xong tới bắt đầu train. Bốn log L4 ở repo MobiHet ghi kiểm cache 40–47 giây trên T4. Ước tính giảm khoảng 2,5–3,5 phút và 3–4,5 phút cho mỗi phiên nối tương ứng. Tính thời gian mount thực vào budget. Một log MobiHet cũ mất 208 giây để đọc và kiểm cache. Mixed H3 seed 42 có round đầu 30,2 phút và các round sau khoảng 11,7 phút. Notebook hiện tại chưa xuất Inductor tar. Chỉ xét tar cùng source/runtime/GPU khi đã đo và kiểm tương đương.
-- Mixed Case1 seed 41 H2 ghi kiểm SHA-256 cache trên Kaggle **41,77 giây** với manifest đã pin. Receipt `runs/mixed-l4/sessions/mixl4-case1-s41-h2/npy_cache_receipt.json`.
+- Mixed Case1 H2 ghi kiểm SHA-256 cache trên Kaggle **41,77 giây** ở seed 41 và **38,48 giây** ở seed 43 với cùng manifest đã pin. Receipts `runs/mixed-l4/sessions/mixl4-case1-s{41,43}-h2/npy_cache_receipt.json`.
 
 ## Trạng thái kiểm ngày 20/11 lúc 20:47 +07
 
@@ -129,13 +129,13 @@ Import hai commit Codex `5d2648b` và `66c1e9c` qua merge `3281ad6`. Khôi phụ
 
 Khôi phục đủ 10 metric và exact ref cho 168 cấu hình FL của TabM, SAE, MLP và CNN-BiGRU từ bản sao Kaggle. Hai ZIP có đủ config, history và CM cuối. Audit tính lại 10 metric cho cả 168 run, khớp CSV và support từng xe/lớp. Đã nâng 132 dòng từ `marker_metrics` lên `audited`. [Bảng bốn backbone](../research/backbones/four-backbone-seed-results-live.md)
 
-**338 dòng endpoint có đủ 10 metric và nhãn `audited`**. Bốn ô endpoint còn thiếu thuộc Mixed L4 case1 và Centralized BERT. [Chỉ mục kết quả](../../experiments/README.md)
+**339 dòng endpoint có đủ 10 metric và nhãn `audited`**. Ba ô endpoint còn thiếu thuộc Centralized BERT. [Chỉ mục kết quả](../../experiments/README.md)
 
 ## Lịch sử từng round và epoch
 
 - `runs/round-metrics/` trỏ tới `ORICO/experiment-data/experiment/round-metrics/`. Mỗi run có đúng hai file trong `<scenario>/<method>/s<seed>/`. `metrics.csv` dùng cùng schema `step,view` và 10 metric cho mỗi bước/view. `run.json` ghi seed, đích, exact ref khi xác minh được, source/config, CM, log, checkpoint, SHA-256 và danh sách dữ liệu thiếu. `index.json` tra cả 342 run. CANPerFL có 10 epoch fine-tune và trỏ về FedAvg 50 round cùng seed.
-- **338/342 run đã hoàn tất kiểm chứng**, gồm 45/45 baseline Mixed128. Chỉ mục có **40.153 dòng bước/view**. Khôi phục history DAGSNet từ object DVC xác minh MD5. Kéo 550 CM của 11 run Centralized, đối chiếu lại đủ 10 metric cho từng epoch. CNN-BiGRU Centralized seed 42 dùng bảng audit 50 epoch ở độ chính xác 5 chữ số do Kaggle trả 403 với artifact gốc. [Bảng CNN-BiGRU](../../papers/mnkash-2026-cnn-bigru/results.md)
-- Bốn endpoint chờ xác minh cuối, gồm Mixed case1 seed 43 và Centralized BERT seed 41/42/43. E17/E19/E19 là các epoch BERT đã audit. Sau khi audit và cập nhật CSV endpoint, chạy lại `PYTHONPATH=. python runs/round-metrics/audit/audit.py` với env `nckh`, rồi `verify.py` cùng thư mục. Biên bản pull và kiểm nằm ở `runs/round-metrics/audit/`.
+- **339/342 run đã hoàn tất kiểm chứng**, gồm 45/45 baseline Mixed128. Chỉ mục có **40.165 dòng bước/view**. Khôi phục history DAGSNet từ object DVC xác minh MD5. Kéo 550 CM của 11 run Centralized, đối chiếu lại đủ 10 metric cho từng epoch. CNN-BiGRU Centralized seed 42 dùng bảng audit 50 epoch ở độ chính xác 5 chữ số do Kaggle trả 403 với artifact gốc. [Bảng CNN-BiGRU](../../papers/mnkash-2026-cnn-bigru/results.md)
+- Ba endpoint chờ xác minh cuối là Centralized BERT seed 41/42/43. E17/E19/E19 là các epoch BERT đã audit. Sau khi audit và cập nhật CSV endpoint, chạy lại `PYTHONPATH=. python runs/round-metrics/audit/audit.py` với env `nckh`, rồi `verify.py` cùng thư mục. Biên bản pull và kiểm nằm ở `runs/round-metrics/audit/`.
 
 ## Git và dữ liệu
 
@@ -159,6 +159,5 @@ Kiểm local trên main buổi tối. Suite portable 46 PASS (thêm 4 subtest), 
 
 ## Việc còn lại
 
-1. Khi Mixed L4 case1 terminal, đọc receipt collector. Điền CSV cho r50 đã audit hoặc kiểm quota/slot rồi nối từ checkpoint đã commit nếu dưới r50. Case2 và case3 đã đủ ba seed.
-2. Khi phiên BERT hiện tại kết thúc, đọc receipt và mốc epoch thật. Nếu dưới 50, nối cùng seed, source, config và optimizer/scaler đã audit. Cập nhật CSV khi có E50.
-3. Sinh lại chỉ mục, kiểm bảng và commit local các endpoint mới sau khi audit. Làm việc tiếp trên main canonical.
+1. Khi phiên BERT hiện tại kết thúc, đọc receipt và mốc epoch thật. Nếu dưới 50, nối cùng seed, source, config và optimizer/scaler đã audit. Cập nhật CSV khi có E50.
+2. Sinh lại chỉ mục, kiểm bảng và commit local các endpoint mới sau khi audit. Làm việc tiếp trên main canonical.

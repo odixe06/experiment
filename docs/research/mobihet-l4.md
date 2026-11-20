@@ -91,4 +91,4 @@ Mixed case2 đạt Macro-F1 .853871 ± .000668 ở r50 (SD mẫu, ba seed). Seed
 
 Mixed case3 đạt macro-F1 0,874446 ± 0,000175 và accuracy 0,906342 ± 0,000107 tại R50 (SD mẫu, ba seed). Seed 42 nối từ R2, seed 43 nối từ R49. Audit đủ CM của 50 round và checkpoint hai rank cho mỗi seed. [10 metric pooled](../../experiments/mixed-case3/results.csv)
 
-Mixed case1 seed 41 đạt macro-F1 0,894902 và accuracy 0,913920 tại R50. Seed 42 đạt macro-F1 0,895019 và accuracy 0,913720. Audit đủ 50 round, hai shard checkpoint và history/CM khớp parent tới R49/R44 tương ứng. Seed 43 đang chạy. [10 metric pooled](../../experiments/mixed-case1/results.csv)
+Mixed case1 đạt macro-F1 0,894841 ± 0,000215 và accuracy 0,913857 ± 0,000118 tại R50 (SD mẫu, ba seed). Macro-F1 seed 41/42/43 lần lượt là 0,894902 / 0,895019 / 0,894603. Audit đủ 50 round và hai shard checkpoint cho mỗi seed. History và CM khớp parent tới R49/R44/R47 tương ứng. [10 metric pooled](../../experiments/mixed-case1/results.csv)
