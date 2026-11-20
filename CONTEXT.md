@@ -28,6 +28,7 @@ phát triển ở repo `../mobihet` (không thuộc bảng kịch bản ở đâ
 
 ## Trạng thái — 20/11/2026 ≈ 09:35
 
+- 20/11 trưa: mixed L4 đã code + test + smoke (worktree `experiment-l4`, chưa commit), pilot 2 round × 3 case seed 42 đang chạy Kaggle; compute L4 trong [compute](docs/research/compute.md); centralized CNN-BiGRU 3/3.
 - Thêm cột **MobiHet L4** (owner 20/11; code ở worktree `~/project/experiment-l4`, nhánh `feat/mobihet-l4`): DAGSNet/BERT 3/3 (dùng lại chain
   MobiHet, PASS), TabM/SAE/MLP 3/3 (dưới FedAvg cùng backbone), CNN-BiGRU 3 kernel đang chạy; mixed chưa làm.
 - Centralized: DAGSNet/MLP/SAE-CE/TabM 3/3, CNN-BiGRU 2/3 (s41 chạy), BERT 0/3 (phiên 1 chạy, cần nối phiên).

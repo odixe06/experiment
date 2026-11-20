@@ -1,5 +1,12 @@
 # Bài học vận hành MobiHet
 
+- 20/11 `pkill -f "<chuỗi>"` trong cùng lệnh bash có chuỗi đó ⇒ khớp chính shell, giết lệnh (exit 144), phần sau không chạy.
+  Dùng `pgrep -f` + kill PID cụ thể, hoặc lệnh riêng. `kaggle kernels list -m` có thể trả rỗng dù account có kernel RUNNING:
+  kiểm slot bằng status từng ref đã biết; push trả "Maximum batch GPU session count of 2" là bằng chứng chắc nhất.
+- 20/11 builder đếm FLOP Kaggle clone GitHub tại SHA đã push; code chưa push ⇒ `build_kaggle_count.py --embed` (nhúng source
+  worktree, sha256 kiểm trong notebook). Panel nhỏ: compile gate `G = group_rows/64` client > số xe nhóm ⇒ đệm client rỗng ⇒
+  BN NaN ⇒ gate FAIL giả; gate dùng `G = min(4, K_nhóm)`.
+
 - 19/11 terminal resume: `ERROR`/`CANCEL_ACKNOWLEDGED` không tự chứng minh có checkpoint dùng được.
   Chỉ resume khi tải được marker + checkpoint + history liên tục và fingerprint khớp; nếu child terminal
   thiếu artifact, quay về parent `COMPLETE` gần nhất có committed round, không suy round từ tên slug.

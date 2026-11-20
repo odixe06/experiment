@@ -66,7 +66,7 @@ A pulled notebook with zero rendered outputs is a signal, not a file to quietly 
 1. **Bulk output: prefer `scripts/pull_kernel_output.py` for complete multi-page collections.**
    ```bash
    python .agents/skills/kaggle-training-notebook/scripts/kaggle_as.py <owner> -- \
-     python .agents/skills/kaggle-training-notebook/scripts/pull_kernel_output.py <owner>/<slug> -p <dest> -j 16 [--pattern REGEX]
+     python .agents/skills/kaggle-training-notebook/scripts/pull_kernel_output.py <owner>/<slug> -p <dest> -j 64 [--pattern REGEX]
    ```
    Current baseline (2026-10-27): Kaggle CLI **2.2.5** streams/resumes downloads, checks HTTP
    status/size and uses a finite read timeout. Explicit kernel versions are honored. Its output command
@@ -97,10 +97,12 @@ A pulled notebook with zero rendered outputs is a signal, not a file to quietly 
    number of open connections** until the local link saturates (~32 here). Small files (json/npy of a few KB) are
    latency-bound: 49 files took 26 s at `-j 1` vs 10 s at `-j 16`, mostly listing + auth overhead.
 
-   **Several kernels / accounts at once:** one process per kernel, each launched through `kaggle_as.py <its owner>`
-   (credentials are per process, nothing is switched, so owners never mix). Budget ~32 connections in total and split
-   them: 1 kernel → `-j 32`; 2 kernels → `-j 16` each; 4 kernels → `-j 8` each. More processes than that only adds
-   listing/auth overhead and contention. Disk: check free space for the sum of all pulls first.
+   **Owner policy 20/11/2026: always pull at the maximum thread count, for the highest speed.** The helper defaults to
+   `-j 64`; never pass a lower `-j` and never split a connection budget between kernels. Several kernels / accounts at
+   once: one process per kernel, each launched through `kaggle_as.py <its owner>` (credentials are per process, nothing
+   is switched, so owners never mix), each at `-j 64`, all started together. Above link saturation extra connections
+   cost nothing measurable; fewer leave speed unused. A pull of a few small files is bound by listing/auth, not threads.
+   Disk: check free space for the sum of all pulls first.
 
    **Collectors running in parallel must not share an in-memory ledger.** A collector that reads `inventory.json` once
    and rewrites the whole dict after each arm will erase entries written meanwhile by another stream (Build9-P,

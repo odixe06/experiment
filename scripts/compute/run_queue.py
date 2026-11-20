@@ -38,6 +38,20 @@ def jobs():
         for m in HETERO:
             yield f"mixed-{case}-{m}", ROOT, ["scripts/run_mixed_fl.py", "--case", case, "--method", m, "--seed", "42",
                                               "--smoke-clients", "200", "--stop-after", "2", "--group-rows", "4096"], []
+    # MobiHet L4 (20/11, code in worktree ../experiment-l4, run there: python scripts/compute/run_queue.py --only l4)
+    # same panel, 2 rounds, seed 42; L4 hp from scripts/build_l4_fl.py (group_rows 4096 is part of it)
+    l4 = []
+    if (ROOT / "scripts/build_l4_fl.py").exists():
+        sys.path.insert(0, str(ROOT))
+        from scripts.build_l4_fl import L4_HP
+        l4 = [*L4_HP, "seed=42"]
+    for scen, bb in BACKBONES.items():
+        yield f"{scen}-mobihet_l4", ROOT, ["scripts/run_fl.py", "--backbone", bb, "--method", "mobihet_l4", "--rounds", "2",
+                                           "--compile"], l4
+    for case in ("case1", "case2", "case3"):
+        yield f"mixed-{case}-mobihet_l4", ROOT, ["scripts/run_mixed_l4.py", "--case", case, "--seed", "42", "--smoke-clients",
+                                                 "200", "--stop-after", "2", "--compile",
+                                                 *(["--cache", os.environ["V4_CACHE"]] if os.environ.get("V4_CACHE") else [])], []
 
 
 def cmd(base, out, sets):

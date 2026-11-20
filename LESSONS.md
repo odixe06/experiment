@@ -1,5 +1,17 @@
 # LESSONS — bài học kỹ thuật (dữ liệu, model, train, đánh giá, code)
 
+- 20/11 mixed L4 (Lockstep thread mỗi nhóm backbone): torch 2.13 giữ **config dynamo/inductor theo thread** — main đặt
+  `recompile_limit=64`, thread mới đọc 8 ⇒ case3 (5 backbone) chạm giới hạn và dynamo **lặng lẽ chạy eager** frame đó.
+  `TorchDispatchMode` (op counter compute) cũng thread-local ⇒ op trong thread **đếm 0**. Sửa: chép config khác mặc định +
+  enter dispatch mode của thread gọi vào mỗi thread nhóm (`methods/mobihet_mixed_l4.py`, test toy kiểm cả hai).
+  Bootstrap gộp qua nhóm: `cop_*` exact, KM bằng nhau **sau hoán vị cluster** — tổng float64 khác thứ tự lật dấu vector
+  riêng ⇒ tâm `mu ∓ d`; so KM phải theo hoán vị, không theo chỉ số.
+
+- 20/11 compute L4 (panel 200, FLOP): chi phí cố định không phụ thuộc model (lấy mẫu copula/KM + KL synthetic ≈ 0,16–0,19
+  Tops/round op không-matmul, bootstrap 0,064 Tops) ⇒ DAGSNet 0,920× / BERT 0,917× FedAvg nhưng TabM 1,310×, MLP 1,952×,
+  SAE 2,445×. Mixed panel 200: compact lấy độ rộng **max trong nhóm grouped**; mỗi backbone chỉ 53–86 xe nên nhóm xe lớn
+  lẫn xe tầng 0 ⇒ 64 thật + 64 synthetic mọi bước ⇒ executed 2× FedProto (case2 212 vs 96 Tops). Không suy ra full-scale.
+
 - 18/11 BERT/V2X regression: loss thật, batch64, scale4096, seed41/42/43 trên CPU fp16 tái hiện gradient nonfinite ở attention in_proj_bias/out_proj.bias block0. FP32 cùng fixture/loss hữu hạn cả3seed. Sửa precision policy cho BERT+SAE riêng mixed V2X; không đổi kiến trúc/loss/LR/gate1%. tests/test_mixed_bert_precision.py; GPU T4 regression cũng PASS cả3seed (runs/mixed128-bert-precision-gpu.json); còn cần full-data gate, fixture không chứng minh đủ50round.
 
 - 18/11 mixed128: cả 6 V2X case1/3 seed41/42/43 fail full round đầu vì BERT AMP skip 2,62998–3,68301%, vượt gate1%. SAE-only FP32 fix không bao phủ BERT. Không nối/chạy lại nguyên mã lỗi; cần replay/precision proof riêng trước khi sửa và chạy lại.

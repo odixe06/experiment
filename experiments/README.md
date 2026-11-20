@@ -13,7 +13,7 @@ Mỗi kịch bản: `README.md` (sinh tự động), `results.csv` (method, seed
 | [tabm](tabm/README.md) | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 |
 | [sae](sae/README.md) | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 |
 | [mlp](mlp/README.md) | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 |
-| [cnn-bigru](cnn-bigru/README.md) | 2/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 0/3 |
+| [cnn-bigru](cnn-bigru/README.md) | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 |
 | [mixed-case1](mixed-case1/README.md) | N/A | N/A | N/A | N/A | N/A | N/A | N/A | 0/3+ | N/A | 3/3 | 3/3 | N/A | 3/3 | N/A | 3/3 | 0/3 |
 | [mixed-case2](mixed-case2/README.md) | N/A | N/A | N/A | N/A | N/A | N/A | N/A | 3/3 | N/A | 3/3 | 3/3 | N/A | 3/3 | N/A | 3/3 | 0/3 |
 | [mixed-case3](mixed-case3/README.md) | N/A | N/A | N/A | N/A | N/A | N/A | N/A | 3/3 | N/A | 3/3 | 1/3+ | N/A | 3/3 | N/A | 3/3 | 0/3 |

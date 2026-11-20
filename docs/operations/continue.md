@@ -18,12 +18,59 @@ L4: `~/project/experiment-l4/docs/research/mobihet-l4.md`. MobiHet có bàn giao
     `core/local.py`, `scripts/run_fl.py`); `runs/l4-20261120/` (ledger, pull, `collect.sh`), `runs/l4-port/` (smoke), `notebooks/*-l4-s*`
     gitignored. `experiments/scenarios.json` hai nhánh giống hệt. Số L4 ghi vào `results.csv` của **experiment-wt**.
 - Kaggle: luôn `.agents/skills/kaggle-training-notebook/scripts/kaggle_as.py <owner> -- …`; quota `kaggle_quota.py --out <json>`;
-  pull `kaggle_as.py <owner> -- python pull_kernel_output.py <owner>/<slug> -p <dir> -j 16 [--pattern REGEX]` (thiếu `kaggle_as` ⇒ 403).
+  pull `kaggle_as.py <owner> -- python pull_kernel_output.py <owner>/<slug> -p <dir> -j 64 [--pattern REGEX]` (thiếu `kaggle_as` ⇒ 403).
   Log kernel đang chạy: `timeout 40 kaggle_as.py <o> -- kaggle kernels logs -f <o>/<slug> > file` (ghi ra file, không pipe).
   **Quota reset 21/11 00:00 +07.** Mỗi account 2 slot GPU. `dinhan25`: owner cho dùng (20/11); kiểm slot trước (dự án RCD dùng chung).
 - Owner 20/11: **bỏ orchestrator MobiHet** (`~/project/mobihet/runs/fbl-r50/orchestrate.py` — không chạy lại); Claude tự điều phối,
   tận dụng mọi slot/quota còn trống.
 - Commit: **không** `Co-Authored-By`. Không push GitHub `main` khi owner chưa bảo.
+
+## 1-new. Phiên 20/11 trưa (Claude, tắt máy ≈ 11:50) — ĐỌC TRƯỚC
+
+### Kernel Kaggle sống (11:45)
+
+| kernel | việc | khi COMPLETE |
+|---|---|---|
+| `gaming3/cnnbigru-l4-s41`, `hoangdang20t/cnnbigru-l4-s42` (v2), `bestyorn/cnnbigru-l4-s43` | L4 CNN-BiGRU r50 (RUNNING 11:15), dự kiến xong ≈ 13:00–13:30 | mục 1 cũ (`collect.sh`, giờ `-j 64`) |
+| `abbafan/exp-central-bert-s41`, `bestyorn/exp-central-bert-s43`, `chiencosieuhang/exp-central-bert-s42` | centralized BERT phiên 1 (s41 status timeout, s42/s43 RUNNING; log 10:15 ở epoch 8) | mục 1a: nối phiên |
+| `goilaaiudi/exp-count-l4-g4096` v1 | đếm FLOP L4 CNN-BiGRU + mixed L4 case1/case3 (source nhúng) | pull `compute/` (pattern `^compute/.*\.count\.(json|log)$`, `-j 64`) vào `runs/compute-20261120/kaggle/exp-count-l4-g4096/`, rồi lệnh report ở [compute](../research/compute.md) |
+| `lelovo/mixl4-case1-s42`, `lelovo/mixl4-case3-s42`, `gaming3/mixl4-case2-s42` (v1) | **pilot mixed L4** 2 round full 5.343 xe, `--stop-after 2`, max-hours 6 | audit pilot (dưới) |
+
+Slot: goilaaiudi, hoangdang20t, abbafan, chiencosieuhang đầy (push báo max 2 session lúc 11:40); lelovo 2/2, gaming3 2/2.
+Quota 11:20: lelovo 23,1 h, abbafan 20,7, gaming3 19,5, hoangdang20t 19,1, chiencosieuhang 17,6, goilaaiudi 6,1, bestyorn 8,5, dinhan25 7,4 (RCD dùng, tránh).
+
+### Audit pilot mixed L4 (khi COMPLETE)
+
+Pull nhẹ: `kaggle_as.py <o> -- python pull_kernel_output.py <o>/mixl4-caseN-s42 -p ~/project/experiment-l4/runs/mixed-l4/pilot/mixl4-caseN-s42 -j 64 --pattern '^(?!.*state_rank).*'`.
+Gate PASS (mọi điều): log có `lockstep PASS` (cell test), compile gate True mọi backbone, **không có** `recompile_limit` trong log,
+`rounds.jsonl` r1–r2, `health/<backbone>/skipped_frac` < .01 + applied > 0 + finite mọi backbone, loss hữu hạn, CM `cms_r002.npz`
+tổng = 9.347.679 dòng, 5.343 id; `RUN_STATUS.json` last_round 2; checkpoint-r002 có state_rank0/1. So F1 r2 từng backbone với hợp lý
+(r50 baseline mixed: case1 FedProto .842/TinyProto .848; case2 V2X .838; case3 V2X .841 — [mixed128](../research/mixed/mixed128-all-results.md)).
+PASS ⇒ (owner cho phép full sau gate) phiên 2 nối từ r2: `cd ~/project/experiment-l4 && python scripts/build_mixed_l4.py --owner NEW --case caseN
+--seed 42 --session 2 --parent <o>/mixl4-caseN-s42 --max-hours H` (không sửa code giữa hai phiên: config hash gồm source core/methods/runner),
+rồi seed 41/43 cùng cách (`--stop-after 50`). Ghi `t_train` r2 để ước số phiên (BERT case1/3 chậm nhất).
+
+### Đã làm phiên này
+
+- Centralized CNN-BiGRU s41 COMPLETE + audit PASS ⇒ `experiments/cnn-bigru/results.csv` (centralized 3/3, f1 .94951).
+- **Mixed L4** (worktree `experiment-l4`, **chưa commit**): `methods/mobihet_mixed_l4.py` (Lockstep rank ảo, GroupEnv, GroupL4),
+  `methods/mobihet_l4.py` (nhánh TabM nhận `backbone`), `scripts/run_mixed_l4.py`, `scripts/build_mixed_l4.py`, `tests/test_mixed_l4.py`,
+  thiết kế + bảng kiểm: `experiment-l4/docs/research/mobihet-l4.md` mục Mixed. Model = MixedAdapter (owner 20/11).
+  CPU test ALL PASS (lần 1); lần 2 sau sửa thread-config đang chạy khi tắt máy (`runs/mixed-l4/test-cpu2.log`) ⇒ chạy lại:
+  `cd ~/project/experiment-l4 && CUDA_VISIBLE_DEVICES= V4_ROOT=/home/odixe/project/mobihet/knowledge python tests/test_mixed_l4.py`.
+  GPU smoke case1/2/3 PASS (local, panel nhỏ).
+- **Compute** (owner hỏi): bảng [compute](../research/compute.md) có hàng MobiHet L4: DAGSNet .920, BERT .917, TabM 1,310, SAE 2,445,
+  MLP 1,952 × FedAvg; mixed case2 212,2 Tops (FedProto 96,4). Lý do: LESSONS 20/11. Harness/queue sửa ở cả hai worktree
+  (`scripts/compute/{total_compute,run_queue,report,build_kaggle_count}.py`). Chưa báo owner phân tích đầy đủ.
+- Skill pull: `-j 64` mặc định, policy luồng tối đa (7 bản sao skill, `collect.sh`).
+
+### Bước tiếp (thứ tự)
+
+1. Status: 3 L4 CNN-BiGRU → collect; 3 central BERT → nối phiên (mục 1a); count job → report; 3 pilot → audit như trên.
+2. Chạy lại CPU test mixed L4. Báo owner: kết quả pilot + compute (model nhỏ L4 đắt hơn FedAvg; mixed panel-200 đệm gấp đôi —
+   hỏi có cần đo mixed ở panel lớn hơn cho cả FedProto và L4 không).
+3. Pilot PASS ⇒ full 50 round 3 case × 3 seed (9 run; nối pilot s42 từ r2).
+4. Việc cũ còn lại: mục 3 cũ (bước 3, 5, 6), mục 4 việc tay.
 
 ## 1. Kernel Kaggle đang chạy (09:30)
 

@@ -26,6 +26,12 @@ Số liệu từng phương pháp: `experiments/<kịch bản>/compute.csv` (Top
 JSON: `../mobihet/runs/total-compute-20261119/` (DAGSNet, FeatureBERT) và `runs/compute-20261120/` (còn lại; gitignored).
 Sinh lại: `python scripts/compute/report.py`.
 
+- MobiHet L4 (20/11): DAGSNet/BERT = `../mobihet` `dags-mh-l4` / `bert-mh-l4` (cùng harness; BERT đếm 2048, quy về executed của
+  time run như FedAvg BERT); TabM/SAE/MLP/mixed case2 đếm local từ worktree `../experiment-l4` (`run_queue.py --only …mobihet_l4`);
+  CNN-BiGRU + mixed case1/3: Kaggle `goilaaiudi/exp-count-l4-g4096` (source nhúng). Model nhỏ đắt hơn FedAvg vì chi phí synthetic cố
+  định (LESSONS 20/11); mixed panel 200 đệm L4 gấp đôi FedProto (độ rộng compact = max nhóm grouped), chưa đo full-scale.
+  Sinh lại: `python scripts/compute/report.py <abs ../mobihet/runs/total-compute-20261119> <abs runs/compute-20261120> <abs runs/compute-20261120/kaggle/*/compute>`.
+
 ## Bảng tổng
 
 <!-- compute:begin (scripts/compute/report.py) -->
@@ -48,6 +54,7 @@ Tổng FL 50 round, đơn vị: **× FedAvg cùng kịch bản** (đơn model); 
 | FedTGP | 1.103 | 1.101 | 1.110 | 1.178 | 1.134 | 1.101 | 11596.9 | 100.7 | 7158.3 |
 | PerFed-SKD | 1.426 | 1.419 | 1.433 | 1.480 | 1.505 | 1.422 | N/A | N/A | N/A |
 | FedProto | 1.000 | 1.000 | 1.006 | 1.033 | 1.010 | 1.000 | 10831.8 | 96.4 | 6818.6 |
+| MobiHet L4 | 0.920 | 0.917 | 1.310 | 2.445 | 1.952 |  |  | 212.2 |  |
 | *FedAvg tổng (Tops)* | 3944.8 | 11785.5 | 29.4 | 7.5 | 11.1 | 7219.4 |  |  |  |
 
 <!-- compute:end -->
