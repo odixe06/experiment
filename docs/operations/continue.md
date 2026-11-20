@@ -8,6 +8,7 @@ Dùng `/home/odixe/project/experiment` trên nhánh `main`. Trạng thái phiên
 - Mixed L4 Case1 seed 42 H3 đã audit R50, 50 CM, SHA-256 hai shard checkpoint và prefix R1–R44 với H2. Collector đã thu lên ORICO. Exact refs seed 41 và 43 vẫn RUNNING. [Bảng case1](../../experiments/mixed-case1/results.csv)
 - Centralized BERT P2 đã audit PASS cả ba seed tại E17/E16/E17 (41/42/43). Kiểm lại 50 CM, metrics CSV, dự đoán epoch cuối, weights và optimizer/scaler. Biên bản độc lập ở `runs/round-metrics/audit/central-bert-p2-independent.json`.
 - Codex `9b576f7` bổ sung đủ sáu history Mixed128. Kiểm độc lập 300 round, đủ 10 metric cho mọi view gộp và theo backbone, 30.000 giá trị hữu hạn. R50 khớp CM và CSV; case3 khớp prefix parent, case2 khớp macro-F1 log. ZIP trên ORICO, receipt `runs/round-metrics/audit/mixed-history-codex-verification.json`.
+- Đã nhập Codex `aceefc7`. ZIP CNN-LSTM-feature trên ORICO khớp SHA-256 của LFS và 258 mục trong manifest. Cả 50 epoch khớp prediction → CM → 10 metric. Đã chuẩn hóa run lịch sử ở `runs/round-metrics/legacy/cnn-lstm-feature/centralized/s42/`. [Hồ sơ backup](backup.md#github-centralized-cnn-lstm-feature-supplement--20112026)
 - Mixed L4 case2 đủ 3/3 seed tại R50. [Chỉ mục kết quả](../../experiments/README.md)
 - Đã gỡ hai symlink tên checkout cũ. Source BERT nằm trong `bert/`, DAGSNet ở gốc repo. Năm script MobiHet local dùng đường dẫn mới. [Hồ sơ backup](backup.md)
 

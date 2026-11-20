@@ -1,5 +1,25 @@
 # Git / DVC backup record
 
+## GitHub centralized CNN-LSTM-feature supplement — 20/11/2026
+
+- Remote: `origin` → `https://github.com/odixe06/experiment.git`; branch:
+  `codex/mobihet-v4-relkd`; artifact commit:
+  `8b1a3d4a360e5431d2be1a426040ad10c4f4d0fc`.
+- Git LFS object: `artifacts/central-cnn-lstm-feature-supplement-2026-11-20.zip`,
+  77.224.724 bytes; SHA-256
+  `1bca385fd7ed168fc630781d2e6674deb19bf54c07ce40370fdae0e1b29562b5`.
+- Scope: all 258 safe non-checkpoint files / 478.011.181 source bytes from exact
+  `qwerasdf3004/veremi-central-cnn-lstm-feature-e50` v1 output.
+- Checks: config identifies CNN-LSTM-feature seed42/50 epochs; epochs1–50 contiguous;
+  every CM is 16×16 with 9.347.679 rows; every prediction reconstructs its CM exactly;
+  all ten metrics match each CM; ZIP integrity and credential scan PASS.
+- Full backup audit after merge: single-model FL 168/168, mixed-model 45/45, and all
+  recorded centralized epochs PASS. No checkpoints included; no cleanup performed.
+- Local copy verified on ORICO at
+  `experiment-data/experiment/archives/central-cnn-lstm-feature-supplement-2026-11-20.zip`.
+  The independent audit checked SHA-256 for all 258 ZIP entries and rebuilt all 50 CMs and their metrics.
+  The normalized run is at `runs/round-metrics/legacy/cnn-lstm-feature/centralized/s42/`.
+
 ## GitHub mixed-model history supplement — 20/11/2026
 
 - Remote: `origin` → `https://github.com/odixe06/experiment.git`; branch:

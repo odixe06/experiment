@@ -6,6 +6,8 @@
 
 ## CNN–LSTM một bản tin — đã push14/11/2026
 
+Run lịch sử `qwerasdf3004/veremi-central-cnn-lstm-feature-e50/1`, seed 42, đủ E1–E50. Epoch 50 đạt accuracy 0,955612 và macro-F1 0,956818. Đã đối chiếu đủ 10 metric trong JSON và CSV với CM dựng lại từ dự đoán trên 9.347.679 bản tin tại mỗi epoch. ZIP ORICO có config, source, log, truth và prediction. Manifest ghi thiếu checkpoint. [Hồ sơ backup](../../operations/backup.md)
+
 Owner đồng ý thống nhất thông tin đầu vào: một dòng77feature, không lịch sử10bản tin. Alias mới **`cnn-lstm-feature`**, [model](../../../core/central_backbones.py): input ngoài(B,77), nội bộ77vị trí×1giá trị → Conv1d1→256→128(kernel1,Tanh) → hai LSTM hidden96 → hidden vị trí cuối → Linear96→16. **196.240tham số train/inference**, gồm Conv768+32.896, LSTM86.784+74.496, head1.552. Đây là bản chuyển thể theo ngân sách~200k; quan hệ tuần tự là thứ tự feature, không phải thời gian. Conv kernel1 không trộn vị trí; LSTM đảm nhiệm phần đó.
 
 Factory/runner/builder nhận alias mới, không nạp hoặc tạo predecessor windows. Alias `cnn-lstm` cũ giữ nguyên503.056tham số/10bản tin để đọc checkpoint lịch sử. Bản mới phải train từ đầu; strict-load weights cũ không tương thích, không dùng lại kết quả cũ làm baseline mới. Bốn cấu hình DAGSNet~310k/CNN-BiGRU~140k/BERT~80k/SAE~10k được thảo luận là đề xuất; lần sửa này chỉ đổi CNN–LSTM bằng alias mới.
