@@ -1,5 +1,19 @@
 # Git / DVC backup record
 
+## GitHub mixed-model history supplement — 20/11/2026
+
+- Remote: `origin` → `https://github.com/odixe06/experiment.git`; branch:
+  `codex/mobihet-v4-relkd`; artifact commit:
+  `7585df08fef18c53bb5eafd8aaf07bd1acca25de`.
+- Git LFS object: `artifacts/mixed-history-supplement-2026-11-20.zip`, 1.195.696 bytes;
+  SHA-256 `df8032085ba6c0465ae5a85333f0d094ee49ed29b34c4e5c1d38ae676c15e3ba`.
+- Scope: complete R1–R50 `rounds.jsonl` for Case2 V2X-HtFL seeds41/42/43 and
+  Case3 FedTGP seed41 / TinyProto seeds41/43; CSV contains 300 round rows.
+- Checks: exact final kernel/version, non-smoke history, contiguous unique rounds1–50,
+  both client/client_proto macro-F1 each round, all ten R50 metrics match final-CM audits,
+  ZIP integrity and credential scan PASS; LFS upload 100%.
+- No checkpoints included; no local cleanup requested or performed.
+
 ## GitHub single-model artifact supplement — 20/11/2026
 
 - Remote: `origin` → `https://github.com/odixe06/experiment.git`; branch:
