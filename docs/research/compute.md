@@ -85,16 +85,23 @@ Tổng FL 50 round, đơn vị: **× FedAvg cùng kịch bản** (đơn model); 
 
 Ước tính lịch sử dùng cùng panel cho từng cặp. CNN-BiGRU L4 đạt 0,917× FedAvg. Mixed case1/case2/case3 lần lượt đạt 1,879×, 2,202× và 1,874× FedProto. BERT L4 lịch sử nhân **phần train** với 5.092.288 / 3.045.792 = 1,672 khi chuyển từ 2.048 lên 4.096. Bootstrap, eval và phần round ngoài train vẫn giữ phép đo ở layout nguồn. Tỷ lệ 0,917× là ước tính theo dòng. Job BERT chi tiết đo trực tiếp 4.096 trên source native đã đóng băng.
 
-| Kịch bản | L4 (TFLOPs, 50 round) | Baseline (TFLOPs) | Tỷ lệ chi tiết | Tỷ lệ lịch sử |
+| Kịch bản | L4 (TFLOPs, ngoại suy 50 round) | Baseline (TFLOPs, ngoại suy) | Tỷ lệ chi tiết | Tỷ lệ lịch sử |
 |---|---:|---:|---:|---:|
 | DAGSNet | 3.537,92 | FedAvg 3.856,93 | 0,917× | 0,920× |
 | BERT | 10.697,68 | FedAvg 11.680,44 | 0,916× | 0,917× |
 | TabM | 29,84 | FedAvg 28,38 | 1,051× | 1,310× |
 | SAE | 10,07 | FedAvg 6,86 | 1,469× | 2,445× |
 | MLP | 13,42 | FedAvg 10,52 | 1,276× | 1,952× |
+| CNN-BiGRU | 6.438,42 | FedAvg 7.027,27 | 0,916× | 0,917× |
+| Mixed case1 | 19.863,96 | FedProto 10.563,72 | 1,880× | 1,879× |
 | Mixed case2 | 187,26 | FedProto 91,82 | 2,039× | 2,202× |
+| Mixed case3 | 12.446,72 | FedProto 6.645,45 | 1,873× | 1,874× |
 
-Hai kernel Kaggle DAGSNet và BERT hoàn thành 30 trace, đã kiểm SHA-256 và đối chiếu tổng theo scope. Tỷ lệ BERT 0,916× dùng phép đếm trực tiếp ở `group_rows=4096`.
+Đủ **114/114 hàng chi tiết** gồm 108 trace eager FL và 6 probe centralized. Hai kernel `hoangdang20t/exp-flops-v3-cnnbigru/1` và
+`hoangdang20t/exp-flops-v3-mixed13/1` bổ sung 15 trace CNN-BiGRU và 12 trace mixed. Audit đối chiếu notebook exact version,
+SHA-256 source và log, panel 200 xe, số dòng thực thi theo backbone, FLOP backward và tổng theo scope với bộ đếm coarse.
+Trace FL đo trực tiếp hai round, còn mỗi tổng 50 round trong bảng là ngoại suy. BERT chi tiết dùng phép đếm trực tiếp với yêu cầu
+`group_rows=4096`. Nhóm BERT trong mixed có giới hạn riêng 256.
 
 Synthetic tốn khoảng 3,65 TFLOPs cho mỗi backbone TabM, SAE và MLP, và 9,06 TFLOPs cho mixed case2. Với SAE, chi phí synthetic riêng đã bằng khoảng 53% tổng FedAvg. Phép nhân ma trận forward/backward của FedAvg MLP ở r2 khớp trace lịch sử, tổng 195,08 GFLOPs. Cộng lại indexing, copy, RNG, sắp xếp và công việc phần tử khác cho bốn trace L4 của TabM, SAE, MLP và mixed case2 tái tạo tổng lịch sử với sai số dưới 0,003 Tops. Một phần lớn chênh lệch xuất phát từ các thao tác này trong lấy mẫu copula/KM.
 
