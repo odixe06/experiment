@@ -16,7 +16,7 @@ Ba collector local đang chạy, dùng `nckh`, account-scoped auth và đường
 | `experiment-mixed-case3-recovery-20261120` | 17850 | `mixed-case3-watch.{log,json}` |
 | `experiment-central-bert-p2-recovery-20261120` | 17873 | `central-bert-p2-watch.{log,json}` |
 
-Script collector `runs/recovery-20261120/after-boot/collect_terminal.py`. State supervisor tương ứng nằm ở `~/.codex/long-jobs/jobs/<name>/state.json`. Nếu reboot, xác minh state và receipt trước khi khởi động lại. Kernel remote tiếp tục qua reboot. Giữ các bản sao. Ổ local còn 24 GiB sau đợt FLOP, kiểm lại trước khi kéo checkpoint lớn.
+Script collector `runs/recovery-20261120/after-boot/collect_terminal.py`. State supervisor tương ứng nằm ở `~/.codex/long-jobs/jobs/<name>/state.json`. Nếu reboot, xác minh state và receipt trước khi khởi động lại. Kernel remote tiếp tục qua reboot. Đích output của 9 kernel đang chạy đã trỏ vào ORICO, xem `experiment-data/experiment/local-artifacts/pending-collectors.json`.
 
 ## Kaggle recovery
 
@@ -79,15 +79,22 @@ Import hai commit Codex `5d2648b` và `66c1e9c` qua merge `3281ad6`. Khôi phụ
 
 ### Baseline bốn backbone
 
-Khôi phục đủ 10 metric và exact ref cho 168 cấu hình FL của TabM, SAE, MLP và CNN-BiGRU từ bản sao Kaggle. Backup gốc có 36 cấu hình TabM kiểm được bằng CM, còn 132 dòng trong CSV đang mang nhãn `marker_metrics`. ZIP Codex bổ sung CM cuối cho 132 run đó. Audit hai ZIP tính lại đủ 10 metric cho 168 run, khớp CSV, history và support từng xe/lớp. [Bảng bốn backbone](../research/backbones/four-backbone-seed-results-live.md)
+Khôi phục đủ 10 metric và exact ref cho 168 cấu hình FL của TabM, SAE, MLP và CNN-BiGRU từ bản sao Kaggle. Hai ZIP có đủ config, history và CM cuối. Audit tính lại 10 metric cho cả 168 run, khớp CSV và support từng xe/lớp. Đã nâng 132 dòng từ `marker_metrics` lên `audited`. [Bảng bốn backbone](../research/backbones/four-backbone-seed-results-live.md)
 
-Buổi tối kiểm lại cả 9 bảng. **333 dòng endpoint có đủ 10 metric**, gồm 201 dòng `audited` và 132 dòng `marker_metrics`. Audit lại 168 cấu hình bốn backbone và 45 cấu hình mixed128 (378 dòng view/backbone). Chỉ còn 9 ô endpoint thuộc mixed case1/3 L4 và centralized BERT. Receipt `runs/recovery-20261120/after-boot/research-tables-audit.json`. [Chỉ mục kết quả](../../experiments/README.md)
+**333 dòng endpoint có đủ 10 metric và nhãn `audited`**. Chín ô endpoint còn thiếu thuộc Mixed L4 case1/3 và Centralized BERT. [Chỉ mục kết quả](../../experiments/README.md)
+
+## Lịch sử từng round và epoch
+
+- `runs/round-metrics/` trỏ tới `ORICO/experiment-data/experiment/round-metrics/`. Mỗi run có đúng hai file trong `<scenario>/<method>/s<seed>/`. `metrics.csv` dùng cùng schema `step,view` và 10 metric cho mỗi bước/view. `run.json` ghi seed, đích, exact ref khi xác minh được, source/config, CM, log, checkpoint, SHA-256 và danh sách dữ liệu thiếu. `index.json` tra cả 342 run. CANPerFL có 10 epoch fine-tune và trỏ về FedAvg 50 round cùng seed.
+- **327/342 run đủ lịch sử**, **37.145 dòng bước/view** đã kiểm. Khôi phục history DAGSNet từ object DVC xác minh MD5. Kéo 550 CM của 11 run Centralized, đối chiếu lại đủ 10 metric cho từng epoch. CNN-BiGRU Centralized seed 42 dùng bảng audit 50 epoch ở độ chính xác 5 chữ số do Kaggle trả 403 với artifact gốc. [Bảng CNN-BiGRU](../../papers/mnkash-2026-cnn-bigru/results.md)
+- Sáu run Mixed128 cần quyền đọc Kaggle. Case2 V2X-HtFL cả ba seed thiếu r1–49. Case3 FedTGP s41 thiếu r42–49, TinyProto s41 thiếu r43–49, TinyProto s43 thiếu r37–49. Giữ lịch sử parent đã kiểm và CM r50. Các ref và bước thiếu nằm trong `run.json`.
+- Chín run còn lại đều `RUNNING` khi query exact ref lúc 22:17 +07. Collector tiếp tục thu output khi kernel terminal. Sau khi audit và cập nhật CSV endpoint, chạy lại `PYTHONPATH=. python runs/round-metrics/audit/audit.py` với env `nckh`, rồi `verify.py` cùng thư mục. Biên bản pull và kiểm nằm ở `runs/round-metrics/audit/`.
 
 ## Git và dữ liệu
 
 - Local main chứa merge `ee262da` (central + kết quả), `dd1dba1` (L4), `2bf7680` (Codex, backup Git LFS) và `3281ad6` (Codex, mixed128 r50). Source, docs, tests và thay đổi đã bảo toàn đều nằm trong lịch sử main. GitHub main chưa push.
 - Kiểm checksum 71 mapping artifact. `runs/worktree-consolidation/copy-map.json` cho biết vị trí gốc và đích. Collisions, biến thể cache và Git admin được giữ trong cùng thư mục. Notebooks, run cũ, checkpoints, metadata và DVC pointers đã có bản canonical.
-- Worktree `experiment-wt` đã gỡ sau khi kiểm Git và đối chiếu 1.872 file ngoài Git với bản canonical. Commit `a8cb691` và hai commit Codex tới `5cf5795` đều nằm trong `main`. Dữ liệu BERT cũ và checkpoint nặng chuyển sang ORICO theo [hồ sơ backup](backup.md).
+- Worktree `experiment-wt` đã gỡ sau khi kiểm Git và đối chiếu 1.872 file ngoài Git với bản canonical. Commit `a8cb691` và hai commit Codex tới `5cf5795` đều nằm trong `main`. Chỉ còn một checkout thật. Đã xác minh SHA-256 và chuyển khoảng 75 GB artifact, checkpoint và cache sang ORICO. [Hồ sơ backup](backup.md)
 - Backup LFS remote 903.962.154 byte có bản local `runs/worktree-consolidation/runs-no-checkpoints-2026-11-20.zip`, SHA-256 `9e5d8eb4573785f418ff710c38de0af0b238cdac0bcfd31714a871ee42f2c012`.
 - Kết quả khoa học chạy trước đây lưu trong `experiments/`. Evidence DAGSNet/BERT L4, source native và lịch LR nằm trong `runs/recovery-20261120/references/`. Đã pull đủ cả hai rank cho sáu run CNN-BiGRU và mixed pilot. Kiểm kích thước object, đọc metadata state weights-only, đối chiếu round/config và ghi SHA-256 trong `runs/recovered-checkpoints-20261120/`.
 
@@ -105,5 +112,5 @@ Kiểm local trên main buổi tối. Suite portable 46 PASS (thêm 4 subtest), 
 
 1. Khi Mixed L4 terminal, đọc receipt collector. Điền CSV cho r50 đã audit hoặc kiểm quota/slot rồi nối từ checkpoint đã commit nếu dưới r50. Case2 đã đủ ba seed.
 2. Khi BERT P2 terminal, đọc receipt và mốc epoch thật. Nếu dưới 50, triển khai P3 cùng seed, source, config và optimizer/scaler đã audit. Cập nhật CSV khi có e50.
-3. ZIP bổ sung Codex đã cung cấp CM cuối cho 132 cấu hình còn ở mức kiểm marker. Đã audit lại đủ 168 cấu hình từ hai ZIP và khớp CSV. Biên bản `runs/worktree-consolidation/single-fl-artifact-supplement-independent-audit.json`. [Backup](backup.md)
+3. Lấy `rounds.jsonl` của sáu exact ref Mixed128 còn thiếu từ owner hoặc account có quyền đọc. Đối chiếu parent/config và CM r50 rồi cập nhật kho history trên ORICO.
 4. Sinh lại chỉ mục, kiểm bảng và commit local các endpoint mới sau khi audit. Làm việc tiếp trên main canonical.

@@ -34,7 +34,7 @@ phát triển ban đầu ở `../mobihet`. Biến thể L4 đã tích hợp vào
 - Mixed128 baseline đủ 45/45 cấu hình r50. Đã đối chiếu 10 metric mỗi dòng với confusion matrix từ bản sao Kaggle. [Kết quả](docs/research/mixed/mixed128-all-results.md)
 - Centralized BERT có ba checkpoint epoch 9 đã audit. Cả ba phiên P2 vẫn chạy, log ghi commit epoch 14. Các backbone centralized khác đủ ba seed.
 - Chi phí đủ 9 kịch bản và 114/114 hàng chi tiết. Đã audit thêm 27 trace CNN-BiGRU và mixed case1/3. [Compute](docs/research/compute.md)
-- TabM/SAE/MLP/CNN-BiGRU FL baseline đều đủ 10 metric. 36 cấu hình TabM có CM audit local, 132 cấu hình có marker cuối được đối chiếu. [Bảng baseline](docs/research/backbones/four-backbone-seed-results-live.md)
+- TabM/SAE/MLP/CNN-BiGRU FL baseline đủ 10 metric cuối từ confusion matrix cho cả 168 run. Lịch sử từng round và manifest thống nhất nằm tại `runs/round-metrics/` trên ORICO. [Bàn giao](docs/operations/continue.md#lịch-sử-từng-round-và-epoch) · [Bảng baseline](docs/research/backbones/four-backbone-seed-results-live.md)
 - Kernel, kiểm chứng, bản sao artifact và việc tiếp theo nằm ở [bàn giao sống](docs/operations/continue.md).
 
 ## Cần biết → mở
