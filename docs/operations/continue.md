@@ -1,6 +1,18 @@
-# Bàn giao — experiment, 21/11/2026 (+07)
+# Bàn giao — experiment, 23/11/2026 (+07)
 
 Dùng `/home/odixe/project/experiment` trên nhánh `main`. Trạng thái phiên Claude e360305d đã nhập vào lịch sử Git và artifacts bên dưới. Protocol, seed 41/42/43, HP L4 và cosine 50 giữ nguyên. [Context](../../CONTEXT.md) · [Protocol](../research/protocol.md) · [Compute](../research/compute.md)
+
+## Ablation MobiHet L4
+
+Ngày 23/11/2026, đối chiếu **93/108** ô R50 với receipt audit theo exact version, kịch bản, arm và seed.
+15 ô còn lại thuộc 9 owner đang giữ. Trạng thái gần nhất của các ref này nằm trong `runs/ablation-l4/watch-collect.json`.
+Lỗi đọc trạng thái chưa xác định được outcome. Phiên nối Case1 A3 seed 43 đã có R50, prefix R1–R49 khớp parent.
+
+- [Thiết kế và HP](../research/mobihet-l4-ablation.md) · [Kết quả, byte và FLOP](../../experiments/ablation-l4/README.md).
+- Ledger push `runs/ablation-l4/push-ledger.jsonl`, biên audit `runs/ablation-l4/pulls/<owner>/<slug>/ablation-audit.json`.
+- Collect một pass bằng `runs/ablation-l4/watch_collect.py --once --exclude-owners <owner…>`. Dùng exact version từ ledger.
+  Với phiên nối, auditor kiểm source và lịch sử parent. Chỉ ghi dòng R50 sau khi đối chiếu đủ 50 CM.
+- Checkpoint giữ ở Kaggle, bản pull có history, CM và manifest trên ORICO. Phiên 23/11 giữ nguyên hàng đợi training.
 
 ## Cập nhật lúc 04:28 +07
 
@@ -22,11 +34,13 @@ Dùng `/home/odixe/project/experiment` trên nhánh `main`. Trạng thái phiên
 | `dinhan20t/mixl4-case1-s41-h2/1` | R49 | 1,60 h | COMPLETE, R50 audit PASS |
 | `dinhan20t/mixl4-case1-s43-h2/1` | R47 | 2,00 h | COMPLETE, R50 audit PASS |
 | `abbafan/exp-central-bert-s41-p3/1` | E17 | 5,70 h | COMPLETE, E21 audit PASS |
-| `dinhan20t/exp-central-bert-s41-p4/1` | E21 | 7,50 h | RUNNING, gắn cache NPY |
+| `dinhan20t/exp-central-bert-s41-p4/1` | E21 | 7,50 h | COMPLETE, E27 audit PASS (22/11) |
 | `chiencosieuhang/exp-central-bert-s42-p3/1` | E16 | 4,25 h | COMPLETE, E19 audit PASS |
-| `dinhan25/exp-central-bert-s42-p4/1` | E19 | 7,05 h | RUNNING, gắn cache NPY |
+| `dinhan25/exp-central-bert-s42-p4/1` | E19 | 7,05 h | COMPLETE, E24 audit PASS (22/11) |
 | `bestyorn/exp-central-bert-s43-p3/1` | E17 | 3,35 h | COMPLETE, E19 audit PASS |
-| `hoangdang20t/exp-central-bert-s43-p4/1` | E19 | 11,25 h | RUNNING, gắn cache NPY |
+| `hoangdang20t/exp-central-bert-s43-p4/1` | E19 | 11,25 h | COMPLETE, E25 audit PASS (22/11) |
+
+22/11 02:40 (phiên Claude f8c97575): collector P4 cũ chết khi reboot, receipt còn RUNNING. Pull lại `-j 64` (194/173/180 file, exit 0) rồi chạy `collect_bert_child.py --name central-bert-s4x-p4-watch --once`: PASS cả ba, E27/E24/E25, prefix khớp parent E21/E19/E19, receipt cache khớp manifest `fccc0f72…`. Seed 43 trên hoangdang20t chậm 86–98 phút/epoch (s41/s42 67–71 phút) nên 11,25 h chỉ được 6 epoch. Macro-F1 E27/E24/E25: .952154 / .950554 / .951561. **Owner 22/11: chưa push P5.** Ba owner P4 hiện chạy pilot ablation (2 slot mỗi owner); P5 cần slot trống trên owner cũ hoặc dataset checkpoint riêng như P4.
 
 Collector `experiment-continuations-2324-20261120` hoàn tất lúc 03:12 +07, exit 0, cả ba output audit PASS trên ORICO. Log và ledger ở `runs/recovery-20261120/after-boot/{continuation-2324-watch.log,continuation-2324-watch.json,continuation-launch-2324.json}`. State ở `~/.codex/long-jobs/jobs/experiment-continuations-2324-20261120/state.json`.
 
@@ -53,69 +67,6 @@ Ledger `continuation-launch-{case1-s41-h2,case1-s43-h2,bert-s41-p4,bert-s42-p4,b
 - Log Mixed ghi build NPY 193–249 giây. BERT P2 ghi 228–305 giây từ import xong tới bắt đầu train. Bốn log L4 ở repo MobiHet ghi kiểm cache 40–47 giây trên T4. Ước tính giảm khoảng 2,5–3,5 phút và 3–4,5 phút cho mỗi phiên nối tương ứng. Tính thời gian mount thực vào budget. Một log MobiHet cũ mất 208 giây để đọc và kiểm cache. Mixed H3 seed 42 có round đầu 30,2 phút và các round sau khoảng 11,7 phút. Notebook hiện tại chưa xuất Inductor tar. Chỉ xét tar cùng source/runtime/GPU khi đã đo và kiểm tương đương.
 - Mixed Case1 H2 ghi kiểm SHA-256 cache trên Kaggle **41,77 giây** ở seed 41 và **38,48 giây** ở seed 43 với cùng manifest đã pin. Receipts `runs/mixed-l4/sessions/mixl4-case1-s{41,43}-h2/npy_cache_receipt.json`.
 
-## Trạng thái kiểm ngày 20/11 lúc 20:47 +07
-
-- Đã query cả **27 exact ref** trong bàn giao. 18 COMPLETE, 9 RUNNING. Kiểm Mixed L4 trước. Listing output exact version trả 0 file cho cả chín phiên đang chạy (`after-boot/active-output-listings.json`). Hai kernel FLOP đã COMPLETE và 27 trace mới đã audit.
-- **Mixed L4** tiếp tục từ các phiên case1/case3 dưới đây. Chỉ nối khi chứng thực được biên checkpoint và file state của cả hai rank. Chỉ công bố endpoint r50 sau audit tất cả round.
-- **Centralized BERT** P2 đã nối từ epoch 9, log ba seed đã ghi tới commit epoch 14. P3 chờ output P2 đã audit. Dựng P3 bằng `scripts/build_central_backbones.py --owner <owner> --model bert --seed <seed> --slug exp-central-bert-s<seed>-p3 --parent <owner>/<P2-slug> --parent-artifacts <pull-dir> --parent-epoch <E> --max-hours <budget>`. Giữ cùng owner khi đủ quota/slot để mount parent. Kết thúc chain khi epoch 50 audit PASS.
-
-Ba collector của đợt này dùng `nckh`, account-scoped auth và đường API `www`. Từng collector tự pull/audit các phiên terminal trong nhóm, ghi receipt sau từng phiên và xếp thông báo về thread Codex khi cả nhóm kết thúc. Collector ghi artifact và receipt. Phiên Codex đọc receipt, công bố endpoint hoặc triển khai nối khi có checkpoint dưới đích.
-
-| Collector | PID | Log và receipt trong `runs/recovery-20261120/after-boot/` |
-|---|---:|---|
-| `experiment-mixed-case1-recovery-20261120` | 17827 | `mixed-case1-watch.{log,json}` |
-| `experiment-mixed-case3-recovery-20261120` | 17850 | `mixed-case3-watch.{log,json}` |
-| `experiment-central-bert-p2-recovery-20261120` | 17873 | `central-bert-p2-watch.{log,json}` |
-
-Script collector `runs/recovery-20261120/after-boot/collect_terminal.py`. State supervisor tương ứng nằm ở `~/.codex/long-jobs/jobs/<name>/state.json`. Nếu reboot, xác minh state và receipt trước khi khởi động lại. Kernel remote tiếp tục qua reboot. Đích output của 9 kernel đang chạy đã trỏ vào ORICO, xem `experiment-data/experiment/local-artifacts/pending-collectors.json`.
-
-## Kaggle recovery
-
-Quota buổi tối xác minh 31/31 account, snapshot `runs/recovery-20261120/after-boot/quota.json`. Kaggle báo reset 21/11 00:00 UTC. Đọc lại quota và slot trước khi chọn phiên nối. Ba notebook mixed trước khi tắt máy dùng source pilot và cùng target r50. Hash notebook và exact ref ở `runs/recovery-20261120/pre-shutdown-launch.json`. Evidence live và kết quả query chính xác nằm trong `runs/recovery-20261120/{all-kernels-after-boot.json,after-boot/}`.
-
-| Exact ref | Trạng thái và audit |
-|---|---|
-| `gaming3/cnnbigru-l4-s41/1` | COMPLETE, PASS r50, macro-F1 .863450 |
-| `hoangdang20t/cnnbigru-l4-s42/2` | COMPLETE, PASS r50, .863215 |
-| `bestyorn/cnnbigru-l4-s43/1` | COMPLETE, PASS r50, .861055 |
-| `abbafan/exp-central-bert-s41/2` | COMPLETE phiên 1, checkpoint epoch 9 PASS, .945419 |
-| `chiencosieuhang/exp-central-bert-s42/1` | COMPLETE phiên 1, checkpoint epoch 9 PASS, .947931 |
-| `bestyorn/exp-central-bert-s43/2` | COMPLETE phiên 1, checkpoint epoch 9 PASS, .946489 |
-| `lelovo/mixl4-case1-s42/1` | COMPLETE pilot r2 PASS, .758572 |
-| `gaming3/mixl4-case2-s42/1` | COMPLETE pilot r2 PASS, .676016 |
-| `gaming3/mixl4-case2-s41/1` | COMPLETE r50, PASS 50 round và checkpoint hai rank, .853143 |
-| `gaming3/mixl4-case2-s42-h2/1` | COMPLETE r50, PASS 50 round và checkpoint hai rank, .854014 |
-| `abbafan/mixl4-case2-s43/1` | COMPLETE r50, PASS 50 round và checkpoint hai rank, .854455 |
-| `lelovo/mixl4-case3-s42/1` | COMPLETE pilot r2 PASS, .717384 |
-| `goilaaiudi/exp-count-l4-g4096/1` | COMPLETE, 3 JSON done và 3 log khớp các job CNN-BiGRU L4, mixed L4 case1/case3 |
-| `goilaaiudi/exp-flops-v3-bert/1` | COMPLETE, pull/audit PASS 15 trace |
-| `goilaaiudi/exp-flops-v3-dagsnet/1` | COMPLETE, pull/audit PASS 15 trace |
-| `hoangdang20t/exp-flops-v3-cnnbigru/1` | COMPLETE, pull/audit PASS 15 trace |
-| `hoangdang20t/exp-flops-v3-mixed13/1` | COMPLETE, pull/audit PASS 12 trace |
-| `gaming3/exp-central-cnnbigru-s41/1` | COMPLETE, epoch 50 đã audit và ghi ở phiên Claude |
-
-CNN-BiGRU L4 đủ 10 metric r50 trong [results.csv](../../experiments/cnn-bigru/results.csv). Kiểm seed, L4 HP, source, LR, đủ 5.343 xe, CM 9.347.679 dòng, hội tụ hữu hạn và checkpoint cả hai rank. Audit chạy lại idempotent. Pilot mixed dùng CM và health riêng từng backbone, scope theo đúng assignment. Chỉ endpoint 50 vào bảng kết quả. [Chi tiết L4](../research/mobihet-l4.md)
-
-Ba BERT epoch 9 dùng source đóng băng riêng theo seed. Seed 41 và 43 có cùng hash, seed 42 có sửa thứ tự barrier/config DDP và bật find_unused cho SAE-CE. Cấu hình BERT dùng cùng HP. Đã kiểm full state của model, optimizer và AMP scaler, fingerprint data, history liên tục, prediction → CM và 10 metric. Byte nguồn, log, prediction và checkpoint ở `runs/central-20261120/pulls/` và ledger recovery.
-
-| Exact ref đang chạy | Log Kaggle lúc 20:39 +07 |
-|---|---|
-| `abbafan/exp-central-bert-s41-p2/1` | RUNNING, commit e14, đang e15 bước 5.750 / 9.122 |
-| `chiencosieuhang/exp-central-bert-s42-p2/1` | RUNNING, commit e14, đang e15 bước 750 / 9.122 |
-| `bestyorn/exp-central-bert-s43-p2/1` | RUNNING, commit e14, đang e15 bước 7.250 / 9.122 |
-| `dinhan20t/mixl4-case1-s41/1` | RUNNING, log r21 |
-| `lelovo/mixl4-case1-s42-h2/1` | RUNNING, restore r2, log r32 |
-| `dinhan20t/mixl4-case1-s43/1` | RUNNING, log r20 |
-| `lelovo/mixl4-case3-s42-h2/1` | COMPLETE r50, audit PASS cả 50 CM và checkpoint hai rank |
-| `gaming3/mixl4-case3-s41/1` | COMPLETE R50, audit PASS |
-| `goilaaiudi/mixl4-case3-s43/1` | COMPLETE R49, audit PASS và đã nối H2 |
-
-H2 mixed kiểm receipt và kích thước hai rank từ mount trước khi decode dataset. `scripts/audit_mixed_l4.py` đối chiếu source, LR, history, CSV và CM gộp/của từng backbone ở mọi round đã commit. Nó chỉ nhận `--csv` ở r50. Với phiên terminal bị ngắt trước marker cuối, `--interrupted` audit tới biên `checkpoint.json`. Nếu endpoint checkpoint dưới r50, dùng `scripts/build_mixed_l4.py --owner <owner> --case <case> --seed <seed> --session <n+1> --parent <owner>/<slug> --parent-artifacts <pull-dir> --max-hours <budget>` sau khi hai file state đã audit. Giữ source, assignment, config hash và checkpoint của parent.
-
-`experiment-mixed-l4-terminal-20261120` đã thu case2 seed 42 r50 lúc 15:12 +07. Kiểm lại source, config và lịch cosine với pilot, tính lại đủ 10 metric trên CM gộp và từng backbone ở cả 50 round, kiểm support từng xe/lớp và SHA-256 của 530.729.210 byte checkpoint hai rank. Receipt `runs/mixed-l4/sessions/mixl4-case2-s42-h2/independent-verification.json`. [results.csv](../../experiments/mixed-case2/results.csv)
-
-`experiment-mixed-l4-terminal-next-20261120` thu case2 seed 43 và `experiment-mixed-l4-shutdown-20261120` thu seed 41. Cả hai đã tính lại đủ 10 metric cho cả 50 round và kiểm hai checkpoint. Receipts nằm trong `runs/mixed-l4/sessions/mixl4-case2-s{41,43}/independent-verification.json`. Buổi tối chạy lại auditor mới trên cả ba seed, PASS 150 round và CSV khớp từng dòng. [Kết quả case2](../../experiments/mixed-case2/results.csv)
-
 ## Mixed128 baseline
 
 Import hai commit Codex `5d2648b` và `66c1e9c` qua merge `3281ad6`. Khôi phục 1.324 file mixed128 từ backup LFS đã xác minh. Audit local lại 45/45 cấu hình r50, 378 dòng theo backbone/view, đủ 10 metric mỗi dòng. Khớp config hash, assignment, seed, lịch sử r50 và support từng lớp của 5.343 xe trên 9.347.679 bản tin. 342 dòng đã có giữ nguyên. Script đối chiếu và receipt SHA-256 nằm trong `runs/recovery-20261120/{audit_mixed128_archive.py,mixed128-local-audit.json}`. [Bảng đầy đủ](../research/mixed/mixed128-all-results.md) · [CSV](../research/mixed/mixed128-all-results.csv)
@@ -138,11 +89,11 @@ Khôi phục đủ 10 metric và exact ref cho 168 cấu hình FL của TabM, SA
 
 - `runs/round-metrics/` trỏ tới `ORICO/experiment-data/experiment/round-metrics/`. Mỗi run có đúng hai file trong `<scenario>/<method>/s<seed>/`. `metrics.csv` dùng cùng schema `step,view` và 10 metric cho mỗi bước/view. `run.json` ghi seed, đích, exact ref khi xác minh được, source/config, CM, log, checkpoint, SHA-256 và danh sách dữ liệu thiếu. `index.json` tra cả 342 run. CANPerFL có 10 epoch fine-tune và trỏ về FedAvg 50 round cùng seed.
 - **339/342 run đã hoàn tất kiểm chứng**, gồm 45/45 baseline Mixed128. Chỉ mục có **40.169 dòng bước/view**. Khôi phục history DAGSNet từ object DVC xác minh MD5. Kéo 550 CM của 11 run Centralized, đối chiếu lại đủ 10 metric cho từng epoch. CNN-BiGRU Centralized seed 42 dùng bảng audit 50 epoch ở độ chính xác 5 chữ số do Kaggle trả 403 với artifact gốc. [Bảng CNN-BiGRU](../../papers/mnkash-2026-cnn-bigru/results.md)
-- Ba endpoint chờ xác minh cuối là Centralized BERT seed 41/42/43. E21/E19/E19 là các epoch BERT đã audit. Sau khi audit và cập nhật CSV endpoint, chạy lại `PYTHONPATH=. python runs/round-metrics/audit/audit.py` với env `nckh`, rồi `verify.py` cùng thư mục. Biên bản pull và kiểm nằm ở `runs/round-metrics/audit/`.
+- Ba endpoint chờ xác minh cuối là Centralized BERT seed 41/42/43. E27/E24/E25 là các epoch BERT đã audit (22/11). Sau khi audit và cập nhật CSV endpoint, chạy lại `PYTHONPATH=. python runs/round-metrics/audit/audit.py` với env `nckh`, rồi `verify.py` cùng thư mục. Biên bản pull và kiểm nằm ở `runs/round-metrics/audit/`.
 
 ## Git và dữ liệu
 
-- Local main chứa merge `ee262da` (central + kết quả), `dd1dba1` (L4), `2bf7680` (Codex, backup Git LFS) và `3281ad6` (Codex, mixed128 r50). Source, docs, tests và thay đổi đã bảo toàn đều nằm trong lịch sử main. GitHub main chưa push.
+- Local main chứa merge `ee262da` (central + kết quả), `dd1dba1` (L4), `2bf7680` (Codex, backup Git LFS) và `3281ad6` (Codex, mixed128 r50). Lịch sử main giữ source, docs, tests và dữ liệu đã ghi.
 - Kiểm checksum 71 mapping artifact. `runs/worktree-consolidation/copy-map.json` cho biết vị trí gốc và đích. Collisions, biến thể cache và Git admin được giữ trong cùng thư mục. Notebooks, run cũ, checkpoints, metadata và DVC pointers đã có bản canonical.
 - Worktree `experiment-wt` đã gỡ sau khi kiểm Git và đối chiếu 1.872 file ngoài Git với bản canonical. Commit `a8cb691` và hai commit Codex tới `5cf5795` đều nằm trong `main`. Chỉ còn một checkout thật. Đã xác minh SHA-256 và chuyển khoảng 75 GB artifact, checkpoint và cache sang ORICO. [Hồ sơ backup](backup.md)
 - Backup LFS remote 903.962.154 byte có bản local `runs/worktree-consolidation/runs-no-checkpoints-2026-11-20.zip`, SHA-256 `9e5d8eb4573785f418ff710c38de0af0b238cdac0bcfd31714a871ee42f2c012`.
@@ -162,5 +113,5 @@ Kiểm local trên main buổi tối. Suite portable 46 PASS (thêm 4 subtest), 
 
 ## Việc còn lại
 
-1. Khi phiên BERT hiện tại kết thúc, đọc receipt và mốc epoch thật. Nếu dưới 50, nối cùng seed, source, config và optimizer/scaler đã audit. Cập nhật CSV khi có E50.
-2. Sinh lại chỉ mục, kiểm bảng và commit local các endpoint mới sau khi audit. Làm việc tiếp trên main canonical.
+1. BERT tập trung P4 đã audit đến E27/E24/E25. Giữ P5 theo yêu cầu owner.
+2. Thu các ô ablation còn lại khi quyền đọc được khôi phục. Chỉ cập nhật bảng khi đủ artifact audit.

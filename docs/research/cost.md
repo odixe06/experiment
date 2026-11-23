@@ -1,8 +1,9 @@
 # Chi phí tính toán và băng thông — mọi phương pháp
 
 Đo, không ước tay: [scripts/cost.py](../../scripts/cost.py) → [cost.json](cost.json) (W = 1, 30/10/2026). Thời gian GPU thật
-mỗi round: `t_train`, `t_eval` trong `rounds.jsonl` / W&B của từng run (2×T4). Byte MobiHet: đo mỗi round (`bytes_up`,
-`bytes_down`, Q3 + LZMA2 trên mẫu 64 xe/rank).
+mỗi round: `t_train`, `t_eval` trong `rounds.jsonl` / W&B của từng run (2×T4). Byte MobiHet L4: đo mỗi round trên mọi xe
+(`bytes_up`, `bytes_down`) và bootstrap một lần (`payload_bytes.bootstrap`). Tổng theo từng run:
+[communication budget](../../artifacts/communication-budget/audit_report.md).
 
 ## Ký hiệu
 
@@ -35,13 +36,14 @@ FedAvg = 2,99 ≈ forward + backward = 3, kiểm chéo). Một epoch dữ liệu
 | TinyProto | 3,99 × F | O(4 n_k F) | 1,7 KB / 1,7 KB (prototype thưa) | O(N_p d) |
 | NILM-FL | 5,97 × F | O(6 n_k F) (2 model, KD hai chiều) | 4(P+B) / 4(P+B) | O(K P) |
 | PerFed-SKD | 4,99 × F | O(5 n_k F) | 4(P+B) / 4(P+B), chỉ xe được chọn | O(K P) |
-| MobiHet | 8,97 × F | O(9 n_k F) (private trên 1,5 dòng + proxy + teacher) | đo: ~117 KB / ~114 KB (r1, Q3 + LZMA2; dense 1,595 MB ⇒ ~14×) + bootstrap một lần 197 KB | O(K P) |
+| MobiHet L4 | 0,917× FedAvg cả run (đếm op, [compute](compute.md)); dòng thật chọn lọc + synthetic nên không quy về c_m × F | O(E_mix F + U P + E_synth (D² + D log B + C)) | đo: 133 B / 146 B (mean 50 round; class-Q uint8 + zlib lên, bảng Q 16 × 16 broadcast xuống; không gửi trọng số) + bootstrap một lần 98,9 KB / 241,7 KB | O(K C²) |
 | APFed | 5,97 × F | O(6 n_k F) (lượt học θ + train) | 4(P+B) / 4(P+B) | O(K P) |
 | V2X-HtFL | 4,11 × F (P = 461.456: + projection d×d) | O(4 n_k F + n_k d²) | 16,4 KB / 16,4 KB | O(S N_p C d + S C² d) |
 | CANPerFL | pha 1 = FedAvg × 50 round; pha 2 = 10 epoch × 2,99 × F, một lần | O(3 n_k F) mỗi round + O(30 n_k F) một lần | pha 1 = FedAvg; pha 2 = 0 | O(K P) |
 
 s_k = số bước local của xe k (⌈n_k / 64⌉). Byte = fp32 trừ khi phương pháp nén (MobiHet). Tổng băng thông của run =
-byte/xe/round × K × 50 (PerFed-SKD: × tỉ lệ xe được chọn, `selected_frac` mỗi round; MobiHet: tổng `bytes_*` đo được).
+byte/xe/round × K × 50 (PerFed-SKD: × tỉ lệ xe được chọn, `selected_frac` mỗi round; MobiHet L4: K × tổng `bytes_*` đo được
++ K × bootstrap).
 
 Lưu ý:
 - FLOPs đếm matmul/conv (quy ước chuẩn của FlopCounterMode); phép elementwise, lượng tử hóa, LZMA không tính.

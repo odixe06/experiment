@@ -4,6 +4,8 @@ Kaggle slots; FLOPs do not depend on the GPU). Same harness, panel and rows as t
 split over the two GPUs (one run_queue.py worker per GPU). Output: /kaggle/working/compute/<job>.count.{json,log}.
 
     python scripts/compute/build_kaggle_count.py --owner ACCOUNT --slug SLUG --jobs mixed-case1-,mixed-case2-fedproto [--sha SHA]
+--ablation: the jobs are run_queue.py --ablation ones (MobiHet L4 ablations, 21/11/2026); keep bert-abl jobs in a notebook
+with other jobs (the ablation module imports this repo's core/methods).
 """
 import argparse
 import ast
@@ -31,6 +33,7 @@ def main():
     ap.add_argument("--jobs", required=True, help="comma-separated run_queue.py job-name prefixes")
     ap.add_argument("--sha", default="")
     ap.add_argument("--embed", action="store_true", help="embed this worktree's source (unpushed code) instead of git clone")
+    ap.add_argument("--ablation", action="store_true", help="run_queue.py --ablation jobs")
     ap.add_argument("--fold-counts", default=os.environ.get("V4_CACHE", "cache") + "/fold_counts.npy")
     a = ap.parse_args()
     sha = a.sha or subprocess.run(["git", "-C", str(ROOT), "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
@@ -50,7 +53,7 @@ def main():
             common = {"core/__init__.py", "core/data.py", "scripts/build_l4_fl.py", "scripts/run_local_guarded.py"}
             files = [file for file in files if file.relative_to(ROOT).parts[0] in ("bert", "knowledge") or
                      file.relative_to(ROOT).as_posix() in common or file.parent == ROOT / "scripts/compute"]
-        if any("bert-mobihet_l4".startswith(prefix) for prefix in jobs):
+        if any("bert-mobihet_l4".startswith(prefix) or prefix.startswith("bert-abl") for prefix in jobs):
             frozen = ROOT / "runs/recovery-20261120/references/featurebert-l4/provenance"
             manifest = json.loads((frozen / "source_manifest.json").read_text())
             for name, digest in manifest["files"].items():
@@ -103,7 +106,8 @@ print(f"panel npy built in {{time.time() - t:.0f}}s")''',
 half = [jobs[0::2], jobs[1::2]]
 env = dict(os.environ, V4_NPY=str(npy), V4_CACHE=str(cache), PYTHONUNBUFFERED="1", OMP_NUM_THREADS="2",
            MOBIHET_RECOVERY_DIR=str(out / "recovery"))
-procs = [subprocess.Popen([sys.executable, "scripts/compute/run_queue.py", "--only", ",".join(h), "--out", str(out)], cwd=src,
+procs = [subprocess.Popen([sys.executable, "scripts/compute/run_queue.py", "--only", ",".join(h), "--out", str(out),
+                          *{["--ablation"] if a.ablation else []!r}], cwd=src,
                           env=dict(env, CUDA_VISIBLE_DEVICES=str(g)), stdout=open(out / f"worker{{g}}.log", "w"), stderr=subprocess.STDOUT)
          for g, h in enumerate(half) if h]
 rc = [p.wait() for p in procs]

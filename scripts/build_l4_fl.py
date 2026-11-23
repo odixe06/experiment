@@ -4,6 +4,9 @@ Same data, protocol (50 rounds, all 5,343 vehicles, cosine 1e-3 -> 1e-5) and emb
 (scripts/build_tabm_fl.py). L4 hp = the ../mobihet r50 chains (runs/fbl-r50/batch.json), only the seed changes.
 A run longer than one session continues from the previous session's output (--parent <owner>/<slug>): the run directory
 (state.pt, state_rank1.pt, *.jsonl, cms) is copied to /kaggle/working before run_fl.py resumes it.
+--ablation <arm> (owner 21/11/2026, docs/research/mobihet-l4-ablation.md): method mobihet_ablation with that arm's hp after
+L4_HP + seed (run directory <backbone>-abl-<arm>-s<seed>); without it the notebook is the L4 one. --stop-after 2 = pilot,
+continued by a later session with --parent (same cosine horizon 50). --npy-cache: mount the verified v4 NPY kernel output.
 """
 import argparse
 import ast
@@ -28,7 +31,8 @@ L4_HP = [
     "synth_tier_min=[4096,16384]", "synth_late_from=25", "cop_kmeans_lite=0", "km_bytes=false", "km2=true", "cop_kmeans=6",
     "cop_bins=64", "km2_frac=0.25", "km2_tau=16", "km2_bits=6", "synth_tier_rows=[[64,64],[16,16],[16,16]]",
     "real_tier_rows=[64,37,37]", "real_select=top", "compact=true"]
-MODELS = {"tabm": {"display": "TabM", "parameters": 6548, "test": "tests/test_tabm_fl.py"},
+MODELS = {"dagsnet": {"display": "DAGSNet", "parameters": 395408, "test": "tests/test_aligned_fl.py"},
+          "tabm": {"display": "TabM", "parameters": 6548, "test": "tests/test_tabm_fl.py"},
           "sae": {"display": "SAE", "parameters": 7613, "test": "tests/test_sae_fl.py"},
           "mlp": {"display": "MLP", "parameters": 7600, "test": "tests/test_dense_recurrent_fl.py"},
           "cnn-bigru-attention": {"display": "CNN-BiGRU-Attention", "parameters": 118288,
@@ -49,12 +53,16 @@ def main():
     ap.add_argument("--parent", default="", help="<owner>/<slug> of the previous session (session > 1)")
     ap.add_argument("--parent-artifacts", type=Path, help="optional frozen parent source pull")
     ap.add_argument("--max-hours", type=float, default=11.5)
+    ap.add_argument("--ablation", choices=("none", "a1", "a2", "a3", "a4"), help="L4 ablation arm (methods/mobihet_ablation.py)")
+    ap.add_argument("--stop-after", type=int, default=50)
+    ap.add_argument("--npy-cache", type=Path, help="preflight receipt for a verified full v4 NPY cache")
     args = ap.parse_args()
     if (args.session > 1) != bool(args.parent):
         ap.error("--parent is required exactly when --session > 1")
     model = MODELS[args.backbone]
     short = {"cnn-bigru-attention": "cnnbigru"}.get(args.backbone, args.backbone)
-    run = f"{short}-l4-s{args.seed}"                      # run directory: the same in every session
+    method = "mobihet_ablation" if args.ablation else "mobihet_l4"
+    run = f"{short}-abl-{args.ablation}-s{args.seed}" if args.ablation else f"{short}-l4-s{args.seed}"   # every session
     slug = run if args.session == 1 else f"{run}-h{args.session}"
     paths = sorted([*ROOT.glob("core/*.py"), *ROOT.glob("methods/*.py"), ROOT / model["test"], ROOT / "tests/test_sae_fl.py", ROOT / "tests/test_aligned_fl.py",
                     ROOT / "scripts/run_fl.py", ROOT / "scripts/run_p21_recovery.py", *ROOT.glob("knowledge/*.json")])
@@ -67,9 +75,15 @@ def main():
     if args.parent_artifacts and hashes != json.loads((args.parent_artifacts / "source_manifest.json").read_text()):
         ap.error("frozen parent source and manifest disagree")
     hp = L4_HP + [f"seed={args.seed}"]
-    manifest = {"experiment": f"single-backbone-{args.backbone}-mobihet-l4", "method": "mobihet_l4", "seed": args.seed,
+    if args.ablation:
+        import sys
+        sys.path.insert(0, str(ROOT))
+        from methods.mobihet_ablation import HP
+        hp += HP[args.ablation]
+    experiment = f"single-backbone-{args.backbone}-mobihet-l4" + (f"-ablation-{args.ablation}" if args.ablation else "")
+    manifest = {"experiment": experiment, "method": method, "ablation": args.ablation, "seed": args.seed,
                 "backbone": model["display"], "parameters": model["parameters"], "rounds": 50, "session": args.session,
-                "parent": args.parent or None, "run": run, "hp": hp, "dataset": DATASET,
+                "parent": args.parent or None, "run": run, "hp": hp, "dataset": DATASET, "stop_after": args.stop_after,
                 "client_partition": "fixed-all-5343", "protocol_revision": "dagsnet-aligned-v2",
                 "l4_source": "../mobihet runs/fbl-r50/batch.json (methods a4147a1b...)"}
 
@@ -91,16 +105,23 @@ for name, content in source.items():
 Path("/kaggle/working/source_snapshot.json").write_text(json.dumps(source))
 Path("/kaggle/working/source_manifest.json").write_text(json.dumps(hashes, indent=2))
 Path("/kaggle/working/experiment_manifest.json").write_text(json.dumps({manifest!r}, indent=2))
-for test in ({model['test']!r}, "tests/test_aligned_fl.py"):
+for test in {list(dict.fromkeys((model['test'], "tests/test_aligned_fl.py")))!r}:
     subprocess.run([sys.executable, test], cwd="/kaggle/temp/src", check=True,
                    env={{**os.environ, "PYTHONPATH": "/kaggle/temp/src", "OMP_NUM_THREADS": "2"}})
 '''
     cache = '''sys.path.insert(0, "/kaggle/temp/src")
 from core import data as D
 t = time.monotonic()
-D.build_npy(D.find_root(), "/kaggle/temp/v4npy", splits=("train", "test"))
+mounted_npy = Path("/kaggle/temp/v4npy")
+D.build_npy(D.find_root(), str(mounted_npy), splits=("train", "test"))
 print(f"NPY cache {time.monotonic()-t:.1f}s", flush=True)
-os.environ.update(V4_NPY="/kaggle/temp/v4npy", PYTHONUNBUFFERED="1", OMP_NUM_THREADS="2",
+'''
+    kernel_sources = [args.parent] if args.parent else []
+    if args.npy_cache:
+        from kaggle_npy_cache import cache_input                         # scripts/ (run as a script only)
+        cache_ref, cache = cache_input(args.npy_cache)
+        kernel_sources.append(cache_ref)
+    cache += '''os.environ.update(V4_NPY=str(mounted_npy), PYTHONUNBUFFERED="1", OMP_NUM_THREADS="2",
                   TORCHINDUCTOR_COMPILE_THREADS="2", PYTORCH_CUDA_ALLOC_CONF="expandable_segments:True",
                   WANDB_MODE="disabled", MOBIHET_RECOVERY_DIR="/kaggle/working/recovery")
 '''
@@ -121,21 +142,25 @@ if parent:
 else:
     assert not run.exists()
 '''
-    base = ["torchrun", "--standalone", "--nproc_per_node=2", "scripts/run_fl.py", "--method", "mobihet_l4",
+    base = ["torchrun", "--standalone", "--nproc_per_node=2", "scripts/run_fl.py", "--method", method,
             "--backbone", args.backbone, "--out", run_dir, "--compile", "--cache", "", "--rounds", "50", "--set", *hp]
+    if args.stop_after != 50:
+        base[-len(hp) - 1:-len(hp) - 1] = ["--stop-after", str(args.stop_after)]
     train = f'''cmd = {base!r} + ["--save-every", "5", "--max-hours", f"{{{args.max_hours}-(time.monotonic()-T0)/3600-0.4:.3f}}"]
 print(cmd, flush=True)
 subprocess.run(cmd, cwd="/kaggle/temp/src", check=True)
 rows = [json.loads(x) for x in (run / "rounds.jsonl").read_text().splitlines()]
 assert [x["round"] for x in rows] == list(range(1, rows[-1]["round"] + 1))
-status = {{"method": "mobihet_l4", "backbone": {args.backbone!r}, "seed": {args.seed}, "session": {args.session},
-          "last_round": rows[-1]["round"], "target_round": 50, "complete": rows[-1]["round"] == 50, "final": rows[-1]}}
+status = {{"method": {method!r}, "ablation": {args.ablation!r}, "backbone": {args.backbone!r}, "seed": {args.seed},
+          "session": {args.session}, "last_round": rows[-1]["round"], "target_round": 50, "stop_after": {args.stop_after},
+          "complete": rows[-1]["round"] == 50, "final": rows[-1]}}
 Path("/kaggle/working/RUN_STATUS.json").write_text(json.dumps(status, indent=2))
 print(json.dumps(status), flush=True)
 '''
     nb = nbformat.v4.new_notebook()
     nb.cells = [nbformat.v4.new_markdown_cell(
-        f"# {slug}\n\n{model['display']} single-backbone FL · MobiHet L4 · seed {args.seed} · session {args.session} · "
+        f"# {slug}\n\n{model['display']} single-backbone FL · MobiHet L4"
+        f"{' ablation ' + args.ablation if args.ablation else ''} · seed {args.seed} · session {args.session} · "
         "all 5,343 clients."), code(setup), code(embed), code(resume), code(cache), code(train)]
     nb.metadata.update({"kernelspec": {"name": "python3", "display_name": "Python 3", "language": "python"},
                         "language_info": {"name": "python", "version": "3.12"},
@@ -149,7 +174,7 @@ print(json.dumps(status), flush=True)
     meta = {"id": f"{args.owner}/{slug}", "title": slug, "code_file": notebook.name, "language": "python",
             "kernel_type": "notebook", "is_private": True, "enable_gpu": True, "enable_internet": False,
             "machine_shape": "NvidiaTeslaT4", "docker_image": IMAGE, "dataset_sources": [DATASET],
-            "kernel_sources": [args.parent] if args.parent else [], "competition_sources": []}
+            "kernel_sources": kernel_sources, "competition_sources": []}
     (out / "kernel-metadata.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
     print(notebook)
     print("source", len(source), "sha256", hashlib.sha256(notebook.read_bytes()).hexdigest())

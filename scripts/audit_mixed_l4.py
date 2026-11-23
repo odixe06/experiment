@@ -1,4 +1,6 @@
-"""Audit any committed mixed L4 session and emit a receipt for cross-session resume."""
+"""Audit any committed mixed L4 session and emit a receipt for cross-session resume.
+An L4 ablation session (manifest "ablation", scripts/run_mixed_ablation.py, 21/11/2026) is audited the same way against
+L4_HP + that arm's hp; its result rows go to experiments/ablation-l4/, not through --csv."""
 import argparse
 import ast
 import csv
@@ -17,6 +19,7 @@ sys.path.insert(0, str(ROOT))
 from core.metrics import TEN, ten
 from core.fl import cosine_lr
 from scripts.audit_l4 import append_csv_row
+from methods.mobihet_ablation import HP as ABLATION_HP
 from scripts.run_mixed_l4 import l4_hp
 
 
@@ -45,11 +48,12 @@ def main():
     assert hashes == {name: hashlib.sha256(body.encode()).hexdigest() for name, body in source.items()}
     frozen = "".join(read(args.notebook)["cells"][2]["source"]).splitlines()[0]
     assert source == ast.literal_eval(frozen.removeprefix("source = "))
-    assert manifest["method"] == "mobihet_l4" and manifest["rounds"] == 50
+    arm = manifest.get("ablation")
+    assert manifest["method"] == ("mobihet_ablation_mixed" if arm else "mobihet_l4") and manifest["rounds"] == 50
     assert manifest["dataset"] == "odixe0502/veremi-nextgen-v4-scaled-per-vehicle"
     case, seed = manifest["case"], manifest["seed"]
     assert seed in (41, 42, 43)
-    expected_run = f"mixl4-{case}-s{seed}"
+    expected_run = f"mixl4-abl-{arm}-{case}-s{seed}" if arm else f"mixl4-{case}-s{seed}"
     session = manifest["session"]
     assert manifest["run"] == expected_run
     assert slug == (expected_run if session == 1 else f"{expected_run}-h{session}")
@@ -58,7 +62,7 @@ def main():
     marker = p / "RUN_STATUS.json"
     interrupted = args.interrupted and not marker.exists()
     assert cfg["case"] == case and cfg["backend"] == "compiled" and cfg["world"] == 2
-    assert cfg["hp"] == l4_hp(seed) and cfg["test_set"] == []
+    assert cfg["hp"] == l4_hp(seed, ABLATION_HP[arm] if arm else ()) and cfg["test_set"] == []
     runtime_files = [name for name in source if name.startswith(("core/", "methods/")) and name.endswith(".py")]
     runtime_files += ["scripts/run_mixed_l4.py", "scripts/build_l4_fl.py", "scripts/run_fl.py", "scripts/run_p21_recovery.py"]
     source_digest = hashlib.sha256()
@@ -130,7 +134,7 @@ def main():
     assert expected <= inventory.keys()
     checks = {name: inventory[name] for name in sorted(expected)}
     assert all(record["torch_zip_header"] and int(record["bytes"]) > 0 for record in checks.values())
-    receipt = dict(ref=args.ref, last_round=last, config_sha256=digest,
+    receipt = dict(ref=args.ref, ablation=arm, last_round=last, config_sha256=digest,
                    checkpoint_remote=checks, scores={k: float(scores[k]) for k in TEN},
                    confusion_rounds=len(rows), client_class_support_checked=support is not None,
                    interrupted=interrupted,
@@ -141,8 +145,8 @@ def main():
     print(args.ref, "PASS", last, receipt["scores"]["f1_macro"])
 
     if args.csv:
-        if last != 50:
-            parser.error("--csv requires the committed r50 endpoint")
+        if last != 50 or arm:
+            parser.error("--csv requires the committed r50 endpoint of an L4 run")
         fields = ["mobihet_l4", str(seed), "client", "50", *(f"{scores[k]:.6f}" for k in TEN), "audited",
                   f"kaggle {args.ref} (audit_mixed_l4.py)"]
         print("appended" if append_csv_row(args.csv, fields) else "already recorded", args.csv)

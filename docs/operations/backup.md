@@ -1,5 +1,15 @@
 # Git / DVC backup record
 
+## Ablation audit — 23/11/2026
+
+- [DVC pointer](../../artifacts/ablation-audit-2026-11-23.zip.dvc), remote `onedrive` theo `.dvc/config`.
+  ZIP SHA-256 `f09a5e8ef35af365289d0fc715ec5f4c6ce7b2a0e5142840d3941469d2d458f8`.
+- 5.428 file của 131 phiên đã audit. Gồm receipt, manifest source, cấu hình, history và CM đến round đã kiểm.
+  Cây gốc nằm trên ORICO. Checkpoint giữ tại Kaggle.
+- `dvc push artifacts/ablation-audit-2026-11-23.zip.dvc` tải một object. `dvc status -c` báo đồng bộ với `onedrive`.
+  Khôi phục bằng `dvc pull artifacts/ablation-audit-2026-11-23.zip.dvc`. ZIP có manifest SHA-256 từng file.
+
+
 ## GitHub centralized CNN-LSTM-feature supplement — 20/11/2026
 
 - Remote: `origin` → `https://github.com/odixe06/experiment.git`; branch:

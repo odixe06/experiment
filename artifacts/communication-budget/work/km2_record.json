@@ -1,0 +1,32 @@
+{
+ "bins": 64,
+ "K": 6,
+ "iters": 4,
+ "frac": 0.25,
+ "tau": 16,
+ "bits": 6,
+ "mean8": false,
+ "vehicles": 5343,
+ "kept": 96,
+ "up_mean": 98942.87535092645,
+ "down_mean": 241720.36159460977,
+ "up": {
+  "counts": 64,
+  "hist": 28746.475575519373,
+  "cls": 6694.39734231705,
+  "lloyd": 4598.904360845967,
+  "final": 58839.09807224406
+ },
+ "down": {
+  "counts": 64,
+  "cdf": 59361,
+  "centres": 12794.36159460977,
+  "mixture": 169501,
+  "chol_codes": 124765
+ },
+ "broadcast_copy": 267806,
+ "final_cells_mean": 54.572337638031065,
+ "final_cells_s2_mean": 32.43421298895751,
+ "s2_row_cover": 0.9816321301471713,
+ "total_mean": 340663.2369455362
+}

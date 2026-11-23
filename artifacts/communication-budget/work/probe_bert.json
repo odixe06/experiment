@@ -1,0 +1,416 @@
+[
+ {
+  "method": "fedavg",
+  "backbone": "bert",
+  "note": "",
+  "payload_bytes": {
+   "down": 311616,
+   "up": 311616
+  },
+  "P": 77904,
+  "B": 0,
+  "d_cfg_head_hidden": 64,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     77904
+    ],
+    "dtype": "float32",
+    "nbytes": 311616,
+    "torch_save_bytes": 313193
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "fedprox",
+  "backbone": "bert",
+  "note": "",
+  "payload_bytes": {
+   "down": 311616,
+   "up": 311616
+  },
+  "P": 77904,
+  "B": 0,
+  "d_cfg_head_hidden": 64,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     77904
+    ],
+    "dtype": "float32",
+    "nbytes": 311616,
+    "torch_save_bytes": 313193
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "afpha",
+  "backbone": "bert",
+  "note": "afpha probed via inherited FedAvg layout (clients.parquet absent): v4 root (label_mapping.json + train/ + test/) not found",
+  "payload_bytes": {
+   "down": 311616,
+   "up": 311616
+  },
+  "P": 77904,
+  "B": 0,
+  "d_cfg_head_hidden": 64,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     77904
+    ],
+    "dtype": "float32",
+    "nbytes": 311616,
+    "torch_save_bytes": 313193
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "fd_ids",
+  "backbone": "bert",
+  "note": "",
+  "payload_bytes": {
+   "down": 311616,
+   "up": 311616
+  },
+  "P": 77904,
+  "B": 0,
+  "d_cfg_head_hidden": 64,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     77904
+    ],
+    "dtype": "float32",
+    "nbytes": 311616,
+    "torch_save_bytes": 313193
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "apfed",
+  "backbone": "bert",
+  "note": "",
+  "payload_bytes": {
+   "down": 311616,
+   "up": 311616
+  },
+  "P": 77904,
+  "B": 0,
+  "d_cfg_head_hidden": 64,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     77904
+    ],
+    "dtype": "float32",
+    "nbytes": 311616,
+    "torch_save_bytes": 313193
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   },
+   "classifier_only_P": null
+  }
+ },
+ {
+  "method": "lwfednids",
+  "backbone": "bert",
+  "note": "",
+  "payload_bytes": {
+   "down": 40776,
+   "up": 40776
+  },
+  "P": 10194,
+  "B": 0,
+  "d_cfg_head_hidden": 20,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     10194
+    ],
+    "dtype": "float32",
+    "nbytes": 40776,
+    "torch_save_bytes": 42345
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "perfedskd",
+  "backbone": "bert",
+  "note": "",
+  "payload_bytes": {
+   "down": 311616,
+   "up": 311616,
+   "note": "selected devices only; see selected_frac per round"
+  },
+  "P": 77904,
+  "B": 0,
+  "d_cfg_head_hidden": 64,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     77904
+    ],
+    "dtype": "float32",
+    "nbytes": 311616,
+    "torch_save_bytes": 313193
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "nilm",
+  "backbone": "bert",
+  "note": "",
+  "payload_bytes": {
+   "down": 311616,
+   "up": 311616
+  },
+  "P": 77904,
+  "B": 0,
+  "d_cfg_head_hidden": 64,
+  "tensors": {
+   "proxy_params": {
+    "shape": [
+     77904
+    ],
+    "dtype": "float32",
+    "nbytes": 311616,
+    "torch_save_bytes": 313193
+   },
+   "proxy_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "pfedes",
+  "backbone": "bert",
+  "note": "",
+  "payload_bytes": {
+   "down": 1404,
+   "up": 1404
+  },
+  "P": 77904,
+  "B": 0,
+  "d_cfg_head_hidden": 64,
+  "P_G": 351,
+  "tensors": {
+   "proxy_extractor_G": {
+    "shape": [
+     351
+    ],
+    "dtype": "float32",
+    "nbytes": 1404,
+    "torch_save_bytes": 2921
+   }
+  }
+ },
+ {
+  "method": "fedproto",
+  "backbone": "bert",
+  "note": "",
+  "payload_bytes": {
+   "up": 4160,
+   "down": 4096,
+   "note": "up = prototypes of classes present + counts"
+  },
+  "P": 77904,
+  "B": 0,
+  "d_cfg_head_hidden": 64,
+  "toy_present_pairs": 74,
+  "toy_K": 6,
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     64
+    ],
+    "dtype": "float32",
+    "nbytes": 4096,
+    "torch_save_bytes": 5673
+   }
+  }
+ },
+ {
+  "method": "fedtgp",
+  "backbone": "bert",
+  "note": "",
+  "payload_bytes": {
+   "up": 4096,
+   "down": 4096
+  },
+  "P": 77904,
+  "B": 0,
+  "d_cfg_head_hidden": 64,
+  "toy_present_pairs": 74,
+  "toy_K": 6,
+  "n_protos_uploaded": 74,
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     64
+    ],
+    "dtype": "float32",
+    "nbytes": 4096,
+    "torch_save_bytes": 5673
+   }
+  }
+ },
+ {
+  "method": "tinyproto",
+  "backbone": "bert",
+  "note": "",
+  "payload_bytes": {
+   "up": 448,
+   "down": 448,
+   "masks_once": 128
+  },
+  "P": 77904,
+  "B": 0,
+  "d_cfg_head_hidden": 64,
+  "toy_present_pairs": 74,
+  "toy_K": 6,
+  "s": 7,
+  "mask_true_per_class": [
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7
+  ],
+  "target_nonzero_per_class": [
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7
+  ],
+  "tensors": {
+   "target_dense_down": {
+    "shape": [
+     16,
+     64
+    ],
+    "dtype": "float32",
+    "nbytes": 4096,
+    "torch_save_bytes": 5673
+   },
+   "target_sparse_wire_bytes_calc": {
+    "nbytes": 448
+   },
+   "mask_bits_once": {
+    "nbytes": 128
+   }
+  }
+ },
+ {
+  "method": "v2x_htfl",
+  "backbone": "bert",
+  "note": "",
+  "payload_bytes": {
+   "up": 4160,
+   "down": 4096,
+   "note": "up = prototypes of classes present + counts"
+  },
+  "P": 82128,
+  "B": 0,
+  "d_cfg_head_hidden": 64,
+  "P_with_projection": 82128,
+  "toy_present_pairs": 74,
+  "toy_K": 6,
+  "n_protos_uploaded": 74,
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     64
+    ],
+    "dtype": "float32",
+    "nbytes": 4096,
+    "torch_save_bytes": 5673
+   }
+  }
+ }
+]

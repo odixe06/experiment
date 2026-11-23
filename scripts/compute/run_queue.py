@@ -4,6 +4,7 @@ time is hardware-specific, FLOPs are not). Panel 200, 2 rounds (round 2 = steady
 status=oom: run that job on a Kaggle T4 instead (same counter, same rows).
 
     V4_ROOT=... V4_CACHE=... python scripts/compute/run_queue.py [--only PREFIX[,PREFIX...]] [--out runs/compute-20261120]
+    --ablation: the MobiHet L4 ablation arms instead (same panel, rounds, packing; owner 21/11/2026)
     (Kaggle: scripts/compute/build_kaggle_count.py runs a job list on 2 T4, one worker per GPU)
 """
 import json
@@ -57,6 +58,30 @@ def jobs():
                                                  *(["--cache", os.environ["V4_CACHE"]] if os.environ.get("V4_CACHE") else [])], []
 
 
+def ablation_jobs():
+    """MobiHet L4 ablations (owner 21/11/2026, docs/research/mobihet-l4-ablation.md): the L4 jobs above with each arm's hp."""
+    sys.path.insert(0, str(ROOT))
+    from methods.mobihet_ablation import HP
+    from scripts.build_l4_fl import L4_HP
+    import shutil
+    bert_src = OUT / "bert-ablation-source"                           # frozen BERT L4 source + methods/mobihet_ablation.py
+    if (BERT_L4_SOURCE / "scripts/run_t3.py").is_file() and not (bert_src / "methods/mobihet_ablation.py").is_file():
+        shutil.copytree(BERT_L4_SOURCE, bert_src, dirs_exist_ok=True)
+        shutil.copyfile(ROOT / "methods/mobihet_ablation.py", bert_src / "methods/mobihet_ablation.py")
+    for arm in ("a1", "a2", "a3", "a4"):
+        sets = [*L4_HP, "seed=42", *HP[arm]]
+        if bert_src.is_dir():
+            yield f"bert-abl-{arm}", bert_src, ["scripts/run_t3.py", "--method", "mobihet_ablation", "--rounds", "50",
+                                                "--until", "2", "--compile"], [*sets, "eval_rows=8192"]
+        for scen, bb in {"dags-base": "dagsnet", **BACKBONES}.items():
+            yield f"{scen}-abl-{arm}", ROOT, ["scripts/run_fl.py", "--backbone", bb, "--method", "mobihet_ablation", "--rounds",
+                                              "50", "--stop-after", "2", "--compile"], sets
+        for case in ("case1", "case2", "case3"):
+            yield f"mixed-{case}-abl-{arm}", ROOT, ["scripts/run_mixed_ablation.py", "--ablation", arm, "--case", case, "--seed", "42",
+                                                    "--smoke-clients", "200", "--stop-after", "2", "--compile",
+                                                    *(["--cache", os.environ["V4_CACHE"]] if os.environ.get("V4_CACHE") else [])], []
+
+
 def cmd(base, out, sets):
     return [*base, "--out", str(out), *(["--set", *sets] if sets else [])]
 
@@ -98,7 +123,7 @@ def run(name, repo, base, sets):
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    for name, repo, base, sets in jobs():
+    for name, repo, base, sets in (ablation_jobs() if "--ablation" in ARGS else jobs()):
         if name.startswith(ONLY):
             print(time.strftime("%H:%M:%S"), name, run(name, repo, base, sets), flush=True)
     print("QUEUE_DONE", flush=True)

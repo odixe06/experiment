@@ -205,6 +205,38 @@ def needs_pull(local: Path, remote_size: int) -> bool:
 
 Keep a `runs/<run_name>/.pull-manifest.json` of `{filename: (size, mtime, sha256_of_first_1MB)}` so repeated pulls across a multi-attempt run stay cheap.
 
+## Batch collector
+
+Written before the batch's first push, started detached right after it (`nohup setsid … &`, so it outlives the agent
+session; a reboot still kills it: check its pid file and log at session start and restart it). The agent reads its
+state file instead of polling Kaggle itself.
+
+- **Input:** an active list the agent appends to on every push (`owner/slug`), resolved to the exact version from the
+  push ledger's last successful reply. A re-push after a cancel is a new exact ref and is picked up on the next pass.
+- **Poll:** every 20 min, read-only status of every non-final exact ref, a few threads, 3 attempts; `QUERY_ERROR` leaves
+  the ref unchanged. Log only transitions.
+- **Terminal (COMPLETE/ERROR):** pull with `pull_kernel_output.py -j 64` into an `owner/slug`-specific directory
+  (skip checkpoints unless the next session needs them locally), run the project's auditor, and record a result row only
+  for an audited endpoint at its target round. A pilot passes at its own `stop_after`; a session stopped short of its
+  target is marked `NEEDS_CONTINUATION` for the owner; a failed audit is marked `FAILED` with its log. Neither is retried.
+  At most 2 audits at once (RAM). Cancelled refs are logged, not pulled.
+- **One pull per exact ref:** an exclusive `flock` (a second instance or a manual collect exits at once), the active list
+  de-duplicated (`owner/slug` and `owner/slug/N` are one kernel), state keyed by exact ref and written atomically after
+  each collect, and a ref whose pull already holds a passing audit of that exact ref marked PASS without pulling. While it
+  runs, collect through it (`--collect <ref>`), never with a parallel hand pull.
+- **Output:** a state file (`status`, `audit`, `last_round`, endpoint metric), one log per ref, PASS refs removed from the
+  active list. Re-recording must be idempotent (one row per arm/seed/view/round; a conflicting row is an error).
+- **Hand-off to the working session:** a final endpoint (audited and recorded at the target round) ends there, with no
+  agent involvement. A ref that needs **continuation** (last committed round below the run's target: a pilot, a budget
+  stop, an ERROR with an audited prefix) or a FAILED audit is appended once to an events file (`ref`, action
+  `continue_session` / `inspect_failure`, audited round, metric). The agent session runs a waiter as its own background
+  task: it reads only that local file, exits when unacknowledged events appear (and when the collector's pid is gone),
+  and that exit wakes the agent. The agent then continues each session (or inspects the failure) under the owner's
+  current launch authorization, acknowledges the events, and re-arms the waiter. A pause the owner set ("hold
+  continuation") holds: report the events and wait.
+- **Verify before relying on it:** run its collect path once on already-audited refs (pilot, continuation, full run):
+  results files must be byte-identical afterwards. Then start it and read its first pass.
+
 ## After every pull
 
 Three things, in order:

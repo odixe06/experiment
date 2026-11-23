@@ -33,7 +33,8 @@ cut = argv.index("--")
 opts, script_argv = argv[:cut], argv[cut + 1:]
 repo = Path(opts[opts.index("--repo") + 1]).resolve()
 panel = int(opts[opts.index("--panel") + 1]) if "--panel" in opts else 0
-method = "mobihet_l4" if Path(script_argv[0]).name == "run_mixed_l4.py" else script_argv[script_argv.index("--method") + 1]
+method = {"run_mixed_l4.py": "mobihet_l4", "run_mixed_ablation.py": "mobihet_ablation_mixed"}.get(
+    Path(script_argv[0]).name) or script_argv[script_argv.index("--method") + 1]
 assert mode in ("count", "time")
 os.chdir(repo)
 sys.path.insert(0, str(repo))
@@ -267,7 +268,7 @@ if counter is not None:
 
 def import_module(name, *a, **k):
     mod = real_import(name, *a, **k)
-    if name in (f"methods.{method}", "methods.mixed", "methods.mobihet_mixed_l4") and not getattr(mod.Method, "_tc_wrapped", False):
+    if name in (f"methods.{method}", "methods.mixed", "methods.mobihet_mixed_l4", "methods.mobihet_ablation_mixed") and not getattr(mod.Method, "_tc_wrapped", False):
         init = mod.Method.__init__
 
         def __init__(self, env, *a2, **k2):
@@ -327,6 +328,8 @@ if Path(script_argv[0]).name == "run_mixed_fl.py":                    # `from me
     import_module("methods.mixed")
 if Path(script_argv[0]).name == "run_mixed_l4.py":                    # same for the mixed MobiHet L4 runner (20/11); its
     import_module("methods.mobihet_mixed_l4")                          # group threads enter this counter (Lockstep)
+if Path(script_argv[0]).name == "run_mixed_ablation.py":              # L4 ablation (21/11): mixed method of that runner
+    import_module("methods.mobihet_ablation_mixed")
 sys.argv = script_argv
 status = "error"
 try:

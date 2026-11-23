@@ -1,0 +1,770 @@
+[
+ {
+  "case": "case1",
+  "method": "fedproto",
+  "payload_bytes": {
+   "up": 8256,
+   "down": 8192,
+   "masks_once": 0,
+   "accounting": "per-client worst-case 16 present classes; fp32"
+  },
+  "d": 128,
+  "groups": {
+   "dagsnet": {
+    "P": 430368,
+    "B": 3264,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "bert": {
+    "P": 88288,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "cnn-bigru-attention": {
+    "P": 136864,
+    "B": 128,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   }
+  },
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     128
+    ],
+    "dtype": "torch.float32",
+    "nbytes": 8192
+   }
+  },
+  "n_protos_uploaded": null
+ },
+ {
+  "case": "case1",
+  "method": "fedtgp",
+  "payload_bytes": {
+   "up": 8192,
+   "down": 8192,
+   "masks_once": 0,
+   "accounting": "per-client worst-case 16 present classes; fp32"
+  },
+  "d": 128,
+  "groups": {
+   "dagsnet": {
+    "P": 430368,
+    "B": 3264,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "bert": {
+    "P": 88288,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "cnn-bigru-attention": {
+    "P": 136864,
+    "B": 128,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   }
+  },
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     128
+    ],
+    "dtype": "torch.float32",
+    "nbytes": 8192
+   }
+  },
+  "n_protos_uploaded": 74
+ },
+ {
+  "case": "case1",
+  "method": "tinyproto",
+  "payload_bytes": {
+   "up": 832,
+   "down": 832,
+   "masks_once": 256,
+   "accounting": "per-client worst-case 16 present classes; fp32"
+  },
+  "d": 128,
+  "groups": {
+   "dagsnet": {
+    "P": 430368,
+    "B": 3264,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "bert": {
+    "P": 88288,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "cnn-bigru-attention": {
+    "P": 136864,
+    "B": 128,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   }
+  },
+  "s": 13,
+  "target_nonzero_per_class": [
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13
+  ],
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     128
+    ],
+    "dtype": "torch.float32",
+    "nbytes": 8192
+   },
+   "masks_once_bits_nbytes": 256
+  },
+  "n_protos_uploaded": null
+ },
+ {
+  "case": "case1",
+  "method": "v2x_htfl",
+  "payload_bytes": {
+   "up": 8256,
+   "down": 8192,
+   "masks_once": 0,
+   "accounting": "per-client worst-case 16 present classes; fp32"
+  },
+  "d": 128,
+  "groups": {
+   "dagsnet": {
+    "P": 447008,
+    "B": 3264,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "bert": {
+    "P": 104928,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "cnn-bigru-attention": {
+    "P": 153504,
+    "B": 128,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   }
+  },
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     128
+    ],
+    "dtype": "torch.float32",
+    "nbytes": 8192
+   }
+  },
+  "n_protos_uploaded": 74
+ },
+ {
+  "case": "case1",
+  "method": "pfedes",
+  "payload_bytes": {
+   "up": 1404,
+   "down": 1404,
+   "masks_once": 0,
+   "accounting": "per-client worst-case 16 present classes; fp32"
+  },
+  "d": 128,
+  "groups": {
+   "dagsnet": {
+    "P": 395408,
+    "B": 3264,
+    "cfg_head_hidden": 256,
+    "n_clients_toy": 2
+   },
+   "bert": {
+    "P": 77904,
+    "B": 0,
+    "cfg_head_hidden": 64,
+    "n_clients_toy": 2
+   },
+   "cnn-bigru-attention": {
+    "P": 118288,
+    "B": 128,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   }
+  },
+  "tensors": {
+   "proxy": {
+    "shape": [
+     351
+    ],
+    "nbytes": 1404,
+    "P_G": 351
+   }
+  },
+  "n_protos_uploaded": null
+ },
+ {
+  "case": "case2",
+  "method": "fedproto",
+  "payload_bytes": {
+   "up": 8256,
+   "down": 8192,
+   "masks_once": 0,
+   "accounting": "per-client worst-case 16 present classes; fp32"
+  },
+  "d": 128,
+  "groups": {
+   "tabm": {
+    "P": 19028,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "sae": {
+    "P": 21709,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "mlp": {
+    "P": 13888,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   }
+  },
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     128
+    ],
+    "dtype": "torch.float32",
+    "nbytes": 8192
+   }
+  },
+  "n_protos_uploaded": null
+ },
+ {
+  "case": "case2",
+  "method": "fedtgp",
+  "payload_bytes": {
+   "up": 8192,
+   "down": 8192,
+   "masks_once": 0,
+   "accounting": "per-client worst-case 16 present classes; fp32"
+  },
+  "d": 128,
+  "groups": {
+   "tabm": {
+    "P": 19028,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "sae": {
+    "P": 21709,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "mlp": {
+    "P": 13888,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   }
+  },
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     128
+    ],
+    "dtype": "torch.float32",
+    "nbytes": 8192
+   }
+  },
+  "n_protos_uploaded": 74
+ },
+ {
+  "case": "case2",
+  "method": "tinyproto",
+  "payload_bytes": {
+   "up": 832,
+   "down": 832,
+   "masks_once": 256,
+   "accounting": "per-client worst-case 16 present classes; fp32"
+  },
+  "d": 128,
+  "groups": {
+   "tabm": {
+    "P": 19028,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "sae": {
+    "P": 21709,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "mlp": {
+    "P": 13888,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   }
+  },
+  "s": 13,
+  "target_nonzero_per_class": [
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13
+  ],
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     128
+    ],
+    "dtype": "torch.float32",
+    "nbytes": 8192
+   },
+   "masks_once_bits_nbytes": 256
+  },
+  "n_protos_uploaded": null
+ },
+ {
+  "case": "case2",
+  "method": "v2x_htfl",
+  "payload_bytes": {
+   "up": 8256,
+   "down": 8192,
+   "masks_once": 0,
+   "accounting": "per-client worst-case 16 present classes; fp32"
+  },
+  "d": 128,
+  "groups": {
+   "tabm": {
+    "P": 35668,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "sae": {
+    "P": 38349,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "mlp": {
+    "P": 30528,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   }
+  },
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     128
+    ],
+    "dtype": "torch.float32",
+    "nbytes": 8192
+   }
+  },
+  "n_protos_uploaded": 74
+ },
+ {
+  "case": "case2",
+  "method": "pfedes",
+  "payload_bytes": {
+   "up": 1404,
+   "down": 1404,
+   "masks_once": 0,
+   "accounting": "per-client worst-case 16 present classes; fp32"
+  },
+  "d": 128,
+  "groups": {
+   "tabm": {
+    "P": 6548,
+    "B": 0,
+    "cfg_head_hidden": 32,
+    "n_clients_toy": 2
+   },
+   "sae": {
+    "P": 7613,
+    "B": 0,
+    "cfg_head_hidden": 93,
+    "n_clients_toy": 2
+   },
+   "mlp": {
+    "P": 7600,
+    "B": 0,
+    "cfg_head_hidden": 32,
+    "n_clients_toy": 2
+   }
+  },
+  "tensors": {
+   "proxy": {
+    "shape": [
+     351
+    ],
+    "nbytes": 1404,
+    "P_G": 351
+   }
+  },
+  "n_protos_uploaded": null
+ },
+ {
+  "case": "case3",
+  "method": "fedproto",
+  "payload_bytes": {
+   "up": 8256,
+   "down": 8192,
+   "masks_once": 0,
+   "accounting": "per-client worst-case 16 present classes; fp32"
+  },
+  "d": 128,
+  "groups": {
+   "dagsnet": {
+    "P": 430368,
+    "B": 3264,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "bert": {
+    "P": 88288,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "cnn-bigru-attention": {
+    "P": 136864,
+    "B": 128,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "tabm": {
+    "P": 19028,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "sae": {
+    "P": 21709,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   }
+  },
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     128
+    ],
+    "dtype": "torch.float32",
+    "nbytes": 8192
+   }
+  },
+  "n_protos_uploaded": null
+ },
+ {
+  "case": "case3",
+  "method": "fedtgp",
+  "payload_bytes": {
+   "up": 8192,
+   "down": 8192,
+   "masks_once": 0,
+   "accounting": "per-client worst-case 16 present classes; fp32"
+  },
+  "d": 128,
+  "groups": {
+   "dagsnet": {
+    "P": 430368,
+    "B": 3264,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "bert": {
+    "P": 88288,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "cnn-bigru-attention": {
+    "P": 136864,
+    "B": 128,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "tabm": {
+    "P": 19028,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "sae": {
+    "P": 21709,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   }
+  },
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     128
+    ],
+    "dtype": "torch.float32",
+    "nbytes": 8192
+   }
+  },
+  "n_protos_uploaded": 115
+ },
+ {
+  "case": "case3",
+  "method": "tinyproto",
+  "payload_bytes": {
+   "up": 832,
+   "down": 832,
+   "masks_once": 256,
+   "accounting": "per-client worst-case 16 present classes; fp32"
+  },
+  "d": 128,
+  "groups": {
+   "dagsnet": {
+    "P": 430368,
+    "B": 3264,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "bert": {
+    "P": 88288,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "cnn-bigru-attention": {
+    "P": 136864,
+    "B": 128,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "tabm": {
+    "P": 19028,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "sae": {
+    "P": 21709,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   }
+  },
+  "s": 13,
+  "target_nonzero_per_class": [
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13
+  ],
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     128
+    ],
+    "dtype": "torch.float32",
+    "nbytes": 8192
+   },
+   "masks_once_bits_nbytes": 256
+  },
+  "n_protos_uploaded": null
+ },
+ {
+  "case": "case3",
+  "method": "v2x_htfl",
+  "payload_bytes": {
+   "up": 8256,
+   "down": 8192,
+   "masks_once": 0,
+   "accounting": "per-client worst-case 16 present classes; fp32"
+  },
+  "d": 128,
+  "groups": {
+   "dagsnet": {
+    "P": 447008,
+    "B": 3264,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "bert": {
+    "P": 104928,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "cnn-bigru-attention": {
+    "P": 153504,
+    "B": 128,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "tabm": {
+    "P": 35668,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "sae": {
+    "P": 38349,
+    "B": 0,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   }
+  },
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     128
+    ],
+    "dtype": "torch.float32",
+    "nbytes": 8192
+   }
+  },
+  "n_protos_uploaded": 115
+ },
+ {
+  "case": "case3",
+  "method": "pfedes",
+  "payload_bytes": {
+   "up": 1404,
+   "down": 1404,
+   "masks_once": 0,
+   "accounting": "per-client worst-case 16 present classes; fp32"
+  },
+  "d": 128,
+  "groups": {
+   "dagsnet": {
+    "P": 395408,
+    "B": 3264,
+    "cfg_head_hidden": 256,
+    "n_clients_toy": 2
+   },
+   "bert": {
+    "P": 77904,
+    "B": 0,
+    "cfg_head_hidden": 64,
+    "n_clients_toy": 2
+   },
+   "cnn-bigru-attention": {
+    "P": 118288,
+    "B": 128,
+    "cfg_head_hidden": 128,
+    "n_clients_toy": 2
+   },
+   "tabm": {
+    "P": 6548,
+    "B": 0,
+    "cfg_head_hidden": 32,
+    "n_clients_toy": 2
+   },
+   "sae": {
+    "P": 7613,
+    "B": 0,
+    "cfg_head_hidden": 93,
+    "n_clients_toy": 2
+   }
+  },
+  "tensors": {
+   "proxy": {
+    "shape": [
+     351
+    ],
+    "nbytes": 1404,
+    "P_G": 351
+   }
+  },
+  "n_protos_uploaded": null
+ },
+ {
+  "assignment_counts": {
+   "case1": {
+    "dagsnet": 1603,
+    "bert": 1603,
+    "cnn-bigru-attention": 2137
+   },
+   "case2": {
+    "tabm": 1603,
+    "sae": 1603,
+    "mlp": 2137
+   },
+   "case3": {
+    "dagsnet": 1069,
+    "bert": 1069,
+    "cnn-bigru-attention": 1069,
+    "tabm": 1068,
+    "sae": 1068
+   }
+  }
+ }
+]

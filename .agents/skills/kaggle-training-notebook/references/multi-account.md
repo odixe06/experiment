@@ -4,6 +4,12 @@ Use the existing authenticated CLI login. Read [kaggle-credentials.md](kaggle-cr
 Keep account-specific state in the calling project's operations docs; inspect current identity/quota before acting.
 MCP JSON, header synchronization and MCP reconnect are optional and are not part of this CLI workflow.
 
+## Collection-only sessions
+
+Read the project handoff for held owners and eligible versions. Build the collector scope from accepted
+`owner/slug/version` receipts, excluding held owners. Keep an inaccessible version in the ledger without
+interpreting a query error as a terminal kernel state. Run the collection-only path and leave submissions pending.
+
 ## Inspect and budget
 
 ```bash

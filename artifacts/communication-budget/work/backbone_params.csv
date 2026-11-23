@@ -1,0 +1,38 @@
+backbone,variant,n_params,n_buffers,bytes_fp32,proto_dim_d,code_ref
+dagsnet,single-FL native (FedAvg-family layout),395408,3264,1594688,256,core/dagsnet.py:11 width(1)
+dagsnet,LwFedNIDS 70% pruned (exchanged),39494,1006,162000,77,methods/lwfednids.py
+dagsnet,"V2X-HtFL local model (+d x d projection, NOT exchanged)",461456,3264,1858880,256,methods/v2x_htfl.py:48-80
+tabm,single-FL native (FedAvg-family layout),6548,0,26192,32,core/tabm.py:6
+tabm,LwFedNIDS 70% pruned (exchanged),2082,0,8328,10,methods/lwfednids.py
+tabm,"V2X-HtFL local model (+d x d projection, NOT exchanged)",7636,0,30544,32,methods/v2x_htfl.py:48-80
+sae,single-FL native (FedAvg-family layout),7613,0,30452,93,core/sae.py:25 fl_config (head_hidden=93=77+16)
+sae,LwFedNIDS 70% pruned (exchanged),3070,0,12280,82,methods/lwfednids.py
+sae,"V2X-HtFL local model (+d x d projection, NOT exchanged)",16448,0,65792,93,methods/v2x_htfl.py:48-80
+mlp,single-FL native (FedAvg-family layout),7600,0,30400,32,core/mlp.py:6
+mlp,LwFedNIDS 70% pruned (exchanged),1946,0,7784,10,methods/lwfednids.py
+mlp,"V2X-HtFL local model (+d x d projection, NOT exchanged)",8688,0,34752,32,methods/v2x_htfl.py:48-80
+cnn-bigru-attention,single-FL native (FedAvg-family layout),118288,128,473664,128,core/cnn_bigru_attention.py:9 (context = 2*gru_hidden=128)
+cnn-bigru-attention,LwFedNIDS 70% pruned (exchanged),12113,40,48612,40,methods/lwfednids.py
+cnn-bigru-attention,"V2X-HtFL local model (+d x d projection, NOT exchanged)",134928,128,540224,128,methods/v2x_htfl.py:48-80
+bert (FeatureBERT),FeatureBERT FL native,77904,0,311616,64,bert/core/bert.py:11 FULL d=64
+bert (FeatureBERT),LwFedNIDS 70% pruned,10194,0,40776,20,bert/methods/lwfednids.py
+bert (FeatureBERT),V2X-HtFL local (+projection),82128,0,328512,64,bert/methods/v2x_htfl.py
+ALL,pFedES proxy extractor G (exchanged),351,0,1404,,methods/pfedes.py:33-45; measured P_G=351
+dagsnet,"mixed MixedAdapter (projection 128 + classifier), stored",430368,3264,1734528,128,core/mixed_backbones.py:41-70; cross-check runs/mixed128-parameters.json
+bert,"mixed MixedAdapter (projection 128 + classifier), stored",88288,0,353152,128,core/mixed_backbones.py:41-70; cross-check runs/mixed128-parameters.json
+cnn-bigru-attention,"mixed MixedAdapter (projection 128 + classifier), stored",136864,128,547968,128,core/mixed_backbones.py:41-70; cross-check runs/mixed128-parameters.json
+dagsnet,"mixed V2X (+128x128 proj), stored, not exchanged",447008,3264,1801088,128,core/mixed_backbones.py:41-70; cross-check runs/mixed128-parameters.json
+bert,"mixed V2X (+128x128 proj), stored, not exchanged",104928,0,419712,128,core/mixed_backbones.py:41-70; cross-check runs/mixed128-parameters.json
+cnn-bigru-attention,"mixed V2X (+128x128 proj), stored, not exchanged",153504,128,614528,128,core/mixed_backbones.py:41-70; cross-check runs/mixed128-parameters.json
+dagsnet,"mixed native (no adapter), stored, not exchanged",395408,3264,1594688,256,core/mixed_backbones.py:41-70; cross-check runs/mixed128-parameters.json
+bert,"mixed native (no adapter), stored, not exchanged",77904,0,311616,64,core/mixed_backbones.py:41-70; cross-check runs/mixed128-parameters.json
+cnn-bigru-attention,"mixed native (no adapter), stored, not exchanged",118288,128,473664,128,core/mixed_backbones.py:41-70; cross-check runs/mixed128-parameters.json
+tabm,"mixed MixedAdapter (projection 128 + classifier), stored",19028,0,76112,128,core/mixed_backbones.py:41-70; cross-check runs/mixed128-parameters.json
+sae,"mixed MixedAdapter (projection 128 + classifier), stored",21709,0,86836,128,core/mixed_backbones.py:41-70; cross-check runs/mixed128-parameters.json
+mlp,"mixed MixedAdapter (projection 128 + classifier), stored",13888,0,55552,128,core/mixed_backbones.py:41-70; cross-check runs/mixed128-parameters.json
+tabm,"mixed V2X (+128x128 proj), stored, not exchanged",35668,0,142672,128,core/mixed_backbones.py:41-70; cross-check runs/mixed128-parameters.json
+sae,"mixed V2X (+128x128 proj), stored, not exchanged",38349,0,153396,128,core/mixed_backbones.py:41-70; cross-check runs/mixed128-parameters.json
+mlp,"mixed V2X (+128x128 proj), stored, not exchanged",30528,0,122112,128,core/mixed_backbones.py:41-70; cross-check runs/mixed128-parameters.json
+tabm,"mixed native (no adapter), stored, not exchanged",6548,0,26192,32,core/mixed_backbones.py:41-70; cross-check runs/mixed128-parameters.json
+sae,"mixed native (no adapter), stored, not exchanged",7613,0,30452,93,core/mixed_backbones.py:41-70; cross-check runs/mixed128-parameters.json
+mlp,"mixed native (no adapter), stored, not exchanged",7600,0,30400,32,core/mixed_backbones.py:41-70; cross-check runs/mixed128-parameters.json

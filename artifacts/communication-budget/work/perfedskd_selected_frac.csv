@@ -1,0 +1,15 @@
+run,rounds,mean_selected_frac,first_round_frac,min,max,sum_frac
+runs/round-metrics/evidence/dvc/fl2-perfedskd-s41/fl2-perfedskd-s41/rounds.jsonl,50,0.2850758001122965,1.0,0.2528542017593112,1.0,14.253790005614823
+runs/round-metrics/evidence/dvc/fl2-perfedskd-s43/fl2-perfedskd-s43/rounds.jsonl,50,0.2739659367396594,1.0,0.23900430469773534,1.0,13.69829683698297
+runs/round-metrics/evidence/dvc/fl2-perfedskd-r2/fl2-perfedskd-r2/rounds.jsonl,50,0.2860602657682949,1.0,0.2507954332771851,1.0,14.303013288414748
+runs/comparison-20261115/phamquang0606__tabm-fl-perfedskd-s43__v1/tabm-fl-perfedskd-s43/rounds.jsonl,50,0.44236945536215605,1.0,0.4229833426913719,1.0,22.118472768107804
+runs/comparison-20261115/hoangdv1711__tabm-fl-perfedskd-s41__v1/tabm-fl-perfedskd-s41/rounds.jsonl,50,0.4379412315178739,1.0,0.4194272880404267,1.0,21.89706157589369
+runs/comparison-20261115/hoangdv1711__tabm-fl-perfedskd-s42__v1/tabm-fl-perfedskd-s42/rounds.jsonl,50,0.44259404828747906,1.0,0.4224218603780648,1.0,22.12970241437395
+bert/runs/pulls/flb-perfedskd-p2/flb-perfedskd/rounds.jsonl,33,0.3900884192854996,1.0,0.3556054650945162,1.0,12.872917836421486
+bert/runs/pulls/flb-perfedskd-p3/flb-perfedskd/rounds.jsonl,50,0.3811379374883025,1.0,0.3556054650945162,1.0,19.056896874415123
+bert/runs/pulls/flb-perfedskd-s41-p2/flb-perfedskd-s41/rounds.jsonl,50,0.38261650758001126,1.0,0.3578513943477447,1.0,19.130825379000562
+bert/runs/pulls/flb-perfedskd-s41/flb-perfedskd-s41/rounds.jsonl,30,0.3947407823320232,1.0,0.3578513943477447,1.0,11.842223469960697
+bert/runs/pulls/flb-perfedskd-s43-p2/flb-perfedskd-s43/rounds.jsonl,50,0.3631443009545199,1.0,0.3357664233576642,1.0,18.157215047725998
+bert/runs/pulls/flb-perfedskd-s43/flb-perfedskd-s43/rounds.jsonl,30,0.3761557177615572,1.0,0.3357664233576642,1.0,11.284671532846716
+bert/runs/pulls/flb-perfedskd/flb-perfedskd/rounds.jsonl,31,0.3917999432480242,1.0,0.3556054650945162,1.0,12.145798240688752
+bert/runs/maintenance-20261116/dagsnet42/fl2-perfedskd-r2/fl2-perfedskd-r2/rounds.jsonl,50,0.2860602657682949,1.0,0.2507954332771851,1.0,14.303013288414748

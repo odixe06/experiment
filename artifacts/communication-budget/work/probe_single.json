@@ -1,0 +1,2072 @@
+[
+ {
+  "method": "fedavg",
+  "backbone": "dagsnet",
+  "note": "",
+  "payload_bytes": {
+   "down": 1594688,
+   "up": 1594688
+  },
+  "P": 395408,
+  "B": 3264,
+  "d_cfg_head_hidden": 256,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     395408
+    ],
+    "dtype": "float32",
+    "nbytes": 1581632,
+    "torch_save_bytes": 1583209
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     3264
+    ],
+    "dtype": "float32",
+    "nbytes": 13056,
+    "torch_save_bytes": 14633
+   }
+  }
+ },
+ {
+  "method": "fedprox",
+  "backbone": "dagsnet",
+  "note": "",
+  "payload_bytes": {
+   "down": 1594688,
+   "up": 1594688
+  },
+  "P": 395408,
+  "B": 3264,
+  "d_cfg_head_hidden": 256,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     395408
+    ],
+    "dtype": "float32",
+    "nbytes": 1581632,
+    "torch_save_bytes": 1583209
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     3264
+    ],
+    "dtype": "float32",
+    "nbytes": 13056,
+    "torch_save_bytes": 14633
+   }
+  }
+ },
+ {
+  "method": "afpha",
+  "backbone": "dagsnet",
+  "note": "afpha probed via inherited FedAvg layout (clients.parquet absent): v4 root (label_mapping.json + train/ + test/) not found",
+  "payload_bytes": {
+   "down": 1594688,
+   "up": 1594688
+  },
+  "P": 395408,
+  "B": 3264,
+  "d_cfg_head_hidden": 256,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     395408
+    ],
+    "dtype": "float32",
+    "nbytes": 1581632,
+    "torch_save_bytes": 1583209
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     3264
+    ],
+    "dtype": "float32",
+    "nbytes": 13056,
+    "torch_save_bytes": 14633
+   }
+  }
+ },
+ {
+  "method": "fd_ids",
+  "backbone": "dagsnet",
+  "note": "",
+  "payload_bytes": {
+   "down": 1594688,
+   "up": 1594688
+  },
+  "P": 395408,
+  "B": 3264,
+  "d_cfg_head_hidden": 256,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     395408
+    ],
+    "dtype": "float32",
+    "nbytes": 1581632,
+    "torch_save_bytes": 1583209
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     3264
+    ],
+    "dtype": "float32",
+    "nbytes": 13056,
+    "torch_save_bytes": 14633
+   }
+  }
+ },
+ {
+  "method": "apfed",
+  "backbone": "dagsnet",
+  "note": "",
+  "payload_bytes": {
+   "down": 1594688,
+   "up": 1594688
+  },
+  "P": 395408,
+  "B": 3264,
+  "d_cfg_head_hidden": 256,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     395408
+    ],
+    "dtype": "float32",
+    "nbytes": 1581632,
+    "torch_save_bytes": 1583209
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     3264
+    ],
+    "dtype": "float32",
+    "nbytes": 13056,
+    "torch_save_bytes": 14633
+   },
+   "classifier_only_P": 4112
+  }
+ },
+ {
+  "method": "lwfednids",
+  "backbone": "dagsnet",
+  "note": "",
+  "payload_bytes": {
+   "down": 162000,
+   "up": 162000
+  },
+  "P": 39494,
+  "B": 1006,
+  "d_cfg_head_hidden": 77,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     39494
+    ],
+    "dtype": "float32",
+    "nbytes": 157976,
+    "torch_save_bytes": 159529
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     1006
+    ],
+    "dtype": "float32",
+    "nbytes": 4024,
+    "torch_save_bytes": 5545
+   }
+  }
+ },
+ {
+  "method": "perfedskd",
+  "backbone": "dagsnet",
+  "note": "",
+  "payload_bytes": {
+   "down": 1594688,
+   "up": 1594688,
+   "note": "selected devices only; see selected_frac per round"
+  },
+  "P": 395408,
+  "B": 3264,
+  "d_cfg_head_hidden": 256,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     395408
+    ],
+    "dtype": "float32",
+    "nbytes": 1581632,
+    "torch_save_bytes": 1583209
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     3264
+    ],
+    "dtype": "float32",
+    "nbytes": 13056,
+    "torch_save_bytes": 14633
+   }
+  }
+ },
+ {
+  "method": "nilm",
+  "backbone": "dagsnet",
+  "note": "",
+  "payload_bytes": {
+   "down": 1594688,
+   "up": 1594688
+  },
+  "P": 395408,
+  "B": 3264,
+  "d_cfg_head_hidden": 256,
+  "tensors": {
+   "proxy_params": {
+    "shape": [
+     395408
+    ],
+    "dtype": "float32",
+    "nbytes": 1581632,
+    "torch_save_bytes": 1583209
+   },
+   "proxy_bn_buffers": {
+    "shape": [
+     3264
+    ],
+    "dtype": "float32",
+    "nbytes": 13056,
+    "torch_save_bytes": 14633
+   }
+  }
+ },
+ {
+  "method": "pfedes",
+  "backbone": "dagsnet",
+  "note": "",
+  "payload_bytes": {
+   "down": 1404,
+   "up": 1404
+  },
+  "P": 395408,
+  "B": 3264,
+  "d_cfg_head_hidden": 256,
+  "P_G": 351,
+  "tensors": {
+   "proxy_extractor_G": {
+    "shape": [
+     351
+    ],
+    "dtype": "float32",
+    "nbytes": 1404,
+    "torch_save_bytes": 2921
+   }
+  }
+ },
+ {
+  "method": "fedproto",
+  "backbone": "dagsnet",
+  "note": "",
+  "payload_bytes": {
+   "up": 16448,
+   "down": 16384,
+   "note": "up = prototypes of classes present + counts"
+  },
+  "P": 395408,
+  "B": 3264,
+  "d_cfg_head_hidden": 256,
+  "toy_present_pairs": 74,
+  "toy_K": 6,
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     256
+    ],
+    "dtype": "float32",
+    "nbytes": 16384,
+    "torch_save_bytes": 17961
+   }
+  }
+ },
+ {
+  "method": "fedtgp",
+  "backbone": "dagsnet",
+  "note": "",
+  "payload_bytes": {
+   "up": 16384,
+   "down": 16384
+  },
+  "P": 395408,
+  "B": 3264,
+  "d_cfg_head_hidden": 256,
+  "toy_present_pairs": 74,
+  "toy_K": 6,
+  "n_protos_uploaded": 74,
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     256
+    ],
+    "dtype": "float32",
+    "nbytes": 16384,
+    "torch_save_bytes": 17961
+   }
+  }
+ },
+ {
+  "method": "tinyproto",
+  "backbone": "dagsnet",
+  "note": "",
+  "payload_bytes": {
+   "up": 1664,
+   "down": 1664,
+   "masks_once": 512
+  },
+  "P": 395408,
+  "B": 3264,
+  "d_cfg_head_hidden": 256,
+  "toy_present_pairs": 74,
+  "toy_K": 6,
+  "s": 26,
+  "mask_true_per_class": [
+   26,
+   26,
+   26,
+   26,
+   26,
+   26,
+   26,
+   26,
+   26,
+   26,
+   26,
+   26,
+   26,
+   26,
+   26,
+   26
+  ],
+  "target_nonzero_per_class": [
+   22,
+   24,
+   23,
+   16,
+   19,
+   21,
+   24,
+   22,
+   19,
+   22,
+   19,
+   17,
+   23,
+   19,
+   19,
+   22
+  ],
+  "tensors": {
+   "target_dense_down": {
+    "shape": [
+     16,
+     256
+    ],
+    "dtype": "float32",
+    "nbytes": 16384,
+    "torch_save_bytes": 17961
+   },
+   "target_sparse_wire_bytes_calc": {
+    "nbytes": 1664
+   },
+   "mask_bits_once": {
+    "nbytes": 512
+   }
+  }
+ },
+ {
+  "method": "v2x_htfl",
+  "backbone": "dagsnet",
+  "note": "",
+  "payload_bytes": {
+   "up": 16448,
+   "down": 16384,
+   "note": "up = prototypes of classes present + counts"
+  },
+  "P": 461456,
+  "B": 3264,
+  "d_cfg_head_hidden": 256,
+  "P_with_projection": 461456,
+  "toy_present_pairs": 74,
+  "toy_K": 6,
+  "n_protos_uploaded": 74,
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     256
+    ],
+    "dtype": "float32",
+    "nbytes": 16384,
+    "torch_save_bytes": 17961
+   }
+  }
+ },
+ {
+  "method": "fedavg",
+  "backbone": "tabm",
+  "note": "",
+  "payload_bytes": {
+   "down": 26192,
+   "up": 26192
+  },
+  "P": 6548,
+  "B": 0,
+  "d_cfg_head_hidden": 32,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     6548
+    ],
+    "dtype": "float32",
+    "nbytes": 26192,
+    "torch_save_bytes": 27753
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "fedprox",
+  "backbone": "tabm",
+  "note": "",
+  "payload_bytes": {
+   "down": 26192,
+   "up": 26192
+  },
+  "P": 6548,
+  "B": 0,
+  "d_cfg_head_hidden": 32,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     6548
+    ],
+    "dtype": "float32",
+    "nbytes": 26192,
+    "torch_save_bytes": 27753
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "afpha",
+  "backbone": "tabm",
+  "note": "afpha probed via inherited FedAvg layout (clients.parquet absent): v4 root (label_mapping.json + train/ + test/) not found",
+  "payload_bytes": {
+   "down": 26192,
+   "up": 26192
+  },
+  "P": 6548,
+  "B": 0,
+  "d_cfg_head_hidden": 32,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     6548
+    ],
+    "dtype": "float32",
+    "nbytes": 26192,
+    "torch_save_bytes": 27753
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "fd_ids",
+  "backbone": "tabm",
+  "note": "",
+  "payload_bytes": {
+   "down": 26192,
+   "up": 26192
+  },
+  "P": 6548,
+  "B": 0,
+  "d_cfg_head_hidden": 32,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     6548
+    ],
+    "dtype": "float32",
+    "nbytes": 26192,
+    "torch_save_bytes": 27753
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "apfed",
+  "backbone": "tabm",
+  "note": "",
+  "payload_bytes": {
+   "down": 26192,
+   "up": 26192
+  },
+  "P": 6548,
+  "B": 0,
+  "d_cfg_head_hidden": 32,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     6548
+    ],
+    "dtype": "float32",
+    "nbytes": 26192,
+    "torch_save_bytes": 27753
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   },
+   "classifier_only_P": null
+  }
+ },
+ {
+  "method": "lwfednids",
+  "backbone": "tabm",
+  "note": "",
+  "payload_bytes": {
+   "down": 8328,
+   "up": 8328
+  },
+  "P": 2082,
+  "B": 0,
+  "d_cfg_head_hidden": 10,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     2082
+    ],
+    "dtype": "float32",
+    "nbytes": 8328,
+    "torch_save_bytes": 9897
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "perfedskd",
+  "backbone": "tabm",
+  "note": "",
+  "payload_bytes": {
+   "down": 26192,
+   "up": 26192,
+   "note": "selected devices only; see selected_frac per round"
+  },
+  "P": 6548,
+  "B": 0,
+  "d_cfg_head_hidden": 32,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     6548
+    ],
+    "dtype": "float32",
+    "nbytes": 26192,
+    "torch_save_bytes": 27753
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "nilm",
+  "backbone": "tabm",
+  "note": "",
+  "payload_bytes": {
+   "down": 26192,
+   "up": 26192
+  },
+  "P": 6548,
+  "B": 0,
+  "d_cfg_head_hidden": 32,
+  "tensors": {
+   "proxy_params": {
+    "shape": [
+     6548
+    ],
+    "dtype": "float32",
+    "nbytes": 26192,
+    "torch_save_bytes": 27753
+   },
+   "proxy_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "pfedes",
+  "backbone": "tabm",
+  "note": "",
+  "payload_bytes": {
+   "down": 1404,
+   "up": 1404
+  },
+  "P": 6548,
+  "B": 0,
+  "d_cfg_head_hidden": 32,
+  "P_G": 351,
+  "tensors": {
+   "proxy_extractor_G": {
+    "shape": [
+     351
+    ],
+    "dtype": "float32",
+    "nbytes": 1404,
+    "torch_save_bytes": 2921
+   }
+  }
+ },
+ {
+  "method": "fedproto",
+  "backbone": "tabm",
+  "note": "",
+  "payload_bytes": {
+   "up": 2112,
+   "down": 2048,
+   "note": "up = prototypes of classes present + counts"
+  },
+  "P": 6548,
+  "B": 0,
+  "d_cfg_head_hidden": 32,
+  "toy_present_pairs": 74,
+  "toy_K": 6,
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     32
+    ],
+    "dtype": "float32",
+    "nbytes": 2048,
+    "torch_save_bytes": 3625
+   }
+  }
+ },
+ {
+  "method": "fedtgp",
+  "backbone": "tabm",
+  "note": "",
+  "payload_bytes": {
+   "up": 2048,
+   "down": 2048
+  },
+  "P": 6548,
+  "B": 0,
+  "d_cfg_head_hidden": 32,
+  "toy_present_pairs": 74,
+  "toy_K": 6,
+  "n_protos_uploaded": 74,
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     32
+    ],
+    "dtype": "float32",
+    "nbytes": 2048,
+    "torch_save_bytes": 3625
+   }
+  }
+ },
+ {
+  "method": "tinyproto",
+  "backbone": "tabm",
+  "note": "",
+  "payload_bytes": {
+   "up": 256,
+   "down": 256,
+   "masks_once": 64
+  },
+  "P": 6548,
+  "B": 0,
+  "d_cfg_head_hidden": 32,
+  "toy_present_pairs": 74,
+  "toy_K": 6,
+  "s": 4,
+  "mask_true_per_class": [
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4
+  ],
+  "target_nonzero_per_class": [
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   3,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   3
+  ],
+  "tensors": {
+   "target_dense_down": {
+    "shape": [
+     16,
+     32
+    ],
+    "dtype": "float32",
+    "nbytes": 2048,
+    "torch_save_bytes": 3625
+   },
+   "target_sparse_wire_bytes_calc": {
+    "nbytes": 256
+   },
+   "mask_bits_once": {
+    "nbytes": 64
+   }
+  }
+ },
+ {
+  "method": "v2x_htfl",
+  "backbone": "tabm",
+  "note": "",
+  "payload_bytes": {
+   "up": 2112,
+   "down": 2048,
+   "note": "up = prototypes of classes present + counts"
+  },
+  "P": 7636,
+  "B": 0,
+  "d_cfg_head_hidden": 32,
+  "P_with_projection": 7636,
+  "toy_present_pairs": 74,
+  "toy_K": 6,
+  "n_protos_uploaded": 74,
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     32
+    ],
+    "dtype": "float32",
+    "nbytes": 2048,
+    "torch_save_bytes": 3625
+   }
+  }
+ },
+ {
+  "method": "fedavg",
+  "backbone": "sae",
+  "note": "",
+  "payload_bytes": {
+   "down": 30452,
+   "up": 30452
+  },
+  "P": 7613,
+  "B": 0,
+  "d_cfg_head_hidden": 93,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     7613
+    ],
+    "dtype": "float32",
+    "nbytes": 30452,
+    "torch_save_bytes": 31977
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "fedprox",
+  "backbone": "sae",
+  "note": "",
+  "payload_bytes": {
+   "down": 30452,
+   "up": 30452
+  },
+  "P": 7613,
+  "B": 0,
+  "d_cfg_head_hidden": 93,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     7613
+    ],
+    "dtype": "float32",
+    "nbytes": 30452,
+    "torch_save_bytes": 31977
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "afpha",
+  "backbone": "sae",
+  "note": "afpha probed via inherited FedAvg layout (clients.parquet absent): v4 root (label_mapping.json + train/ + test/) not found",
+  "payload_bytes": {
+   "down": 30452,
+   "up": 30452
+  },
+  "P": 7613,
+  "B": 0,
+  "d_cfg_head_hidden": 93,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     7613
+    ],
+    "dtype": "float32",
+    "nbytes": 30452,
+    "torch_save_bytes": 31977
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "fd_ids",
+  "backbone": "sae",
+  "note": "",
+  "payload_bytes": {
+   "down": 30452,
+   "up": 30452
+  },
+  "P": 7613,
+  "B": 0,
+  "d_cfg_head_hidden": 93,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     7613
+    ],
+    "dtype": "float32",
+    "nbytes": 30452,
+    "torch_save_bytes": 31977
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "apfed",
+  "backbone": "sae",
+  "note": "",
+  "payload_bytes": {
+   "down": 30452,
+   "up": 30452
+  },
+  "P": 7613,
+  "B": 0,
+  "d_cfg_head_hidden": 93,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     7613
+    ],
+    "dtype": "float32",
+    "nbytes": 30452,
+    "torch_save_bytes": 31977
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   },
+   "classifier_only_P": null
+  }
+ },
+ {
+  "method": "lwfednids",
+  "backbone": "sae",
+  "note": "",
+  "payload_bytes": {
+   "down": 12280,
+   "up": 12280
+  },
+  "P": 3070,
+  "B": 0,
+  "d_cfg_head_hidden": 82,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     3070
+    ],
+    "dtype": "float32",
+    "nbytes": 12280,
+    "torch_save_bytes": 13801
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "perfedskd",
+  "backbone": "sae",
+  "note": "",
+  "payload_bytes": {
+   "down": 30452,
+   "up": 30452,
+   "note": "selected devices only; see selected_frac per round"
+  },
+  "P": 7613,
+  "B": 0,
+  "d_cfg_head_hidden": 93,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     7613
+    ],
+    "dtype": "float32",
+    "nbytes": 30452,
+    "torch_save_bytes": 31977
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "nilm",
+  "backbone": "sae",
+  "note": "",
+  "payload_bytes": {
+   "down": 30452,
+   "up": 30452
+  },
+  "P": 7613,
+  "B": 0,
+  "d_cfg_head_hidden": 93,
+  "tensors": {
+   "proxy_params": {
+    "shape": [
+     7613
+    ],
+    "dtype": "float32",
+    "nbytes": 30452,
+    "torch_save_bytes": 31977
+   },
+   "proxy_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "pfedes",
+  "backbone": "sae",
+  "note": "",
+  "payload_bytes": {
+   "down": 1404,
+   "up": 1404
+  },
+  "P": 7613,
+  "B": 0,
+  "d_cfg_head_hidden": 93,
+  "P_G": 351,
+  "tensors": {
+   "proxy_extractor_G": {
+    "shape": [
+     351
+    ],
+    "dtype": "float32",
+    "nbytes": 1404,
+    "torch_save_bytes": 2921
+   }
+  }
+ },
+ {
+  "method": "fedproto",
+  "backbone": "sae",
+  "note": "",
+  "payload_bytes": {
+   "up": 6016,
+   "down": 5952,
+   "note": "up = prototypes of classes present + counts"
+  },
+  "P": 7613,
+  "B": 0,
+  "d_cfg_head_hidden": 93,
+  "toy_present_pairs": 74,
+  "toy_K": 6,
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     93
+    ],
+    "dtype": "float32",
+    "nbytes": 5952,
+    "torch_save_bytes": 7529
+   }
+  }
+ },
+ {
+  "method": "fedtgp",
+  "backbone": "sae",
+  "note": "",
+  "payload_bytes": {
+   "up": 5952,
+   "down": 5952
+  },
+  "P": 7613,
+  "B": 0,
+  "d_cfg_head_hidden": 93,
+  "toy_present_pairs": 74,
+  "toy_K": 6,
+  "n_protos_uploaded": 74,
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     93
+    ],
+    "dtype": "float32",
+    "nbytes": 5952,
+    "torch_save_bytes": 7529
+   }
+  }
+ },
+ {
+  "method": "tinyproto",
+  "backbone": "sae",
+  "note": "",
+  "payload_bytes": {
+   "up": 640,
+   "down": 640,
+   "masks_once": 186
+  },
+  "P": 7613,
+  "B": 0,
+  "d_cfg_head_hidden": 93,
+  "toy_present_pairs": 74,
+  "toy_K": 6,
+  "s": 10,
+  "mask_true_per_class": [
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   10
+  ],
+  "target_nonzero_per_class": [
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   10,
+   10
+  ],
+  "tensors": {
+   "target_dense_down": {
+    "shape": [
+     16,
+     93
+    ],
+    "dtype": "float32",
+    "nbytes": 5952,
+    "torch_save_bytes": 7529
+   },
+   "target_sparse_wire_bytes_calc": {
+    "nbytes": 640
+   },
+   "mask_bits_once": {
+    "nbytes": 186
+   }
+  }
+ },
+ {
+  "method": "v2x_htfl",
+  "backbone": "sae",
+  "note": "",
+  "payload_bytes": {
+   "up": 6016,
+   "down": 5952,
+   "note": "up = prototypes of classes present + counts"
+  },
+  "P": 16448,
+  "B": 0,
+  "d_cfg_head_hidden": 93,
+  "P_with_projection": 16448,
+  "toy_present_pairs": 74,
+  "toy_K": 6,
+  "n_protos_uploaded": 74,
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     93
+    ],
+    "dtype": "float32",
+    "nbytes": 5952,
+    "torch_save_bytes": 7529
+   }
+  }
+ },
+ {
+  "method": "fedavg",
+  "backbone": "mlp",
+  "note": "",
+  "payload_bytes": {
+   "down": 30400,
+   "up": 30400
+  },
+  "P": 7600,
+  "B": 0,
+  "d_cfg_head_hidden": 32,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     7600
+    ],
+    "dtype": "float32",
+    "nbytes": 30400,
+    "torch_save_bytes": 31977
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "fedprox",
+  "backbone": "mlp",
+  "note": "",
+  "payload_bytes": {
+   "down": 30400,
+   "up": 30400
+  },
+  "P": 7600,
+  "B": 0,
+  "d_cfg_head_hidden": 32,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     7600
+    ],
+    "dtype": "float32",
+    "nbytes": 30400,
+    "torch_save_bytes": 31977
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "afpha",
+  "backbone": "mlp",
+  "note": "afpha probed via inherited FedAvg layout (clients.parquet absent): v4 root (label_mapping.json + train/ + test/) not found",
+  "payload_bytes": {
+   "down": 30400,
+   "up": 30400
+  },
+  "P": 7600,
+  "B": 0,
+  "d_cfg_head_hidden": 32,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     7600
+    ],
+    "dtype": "float32",
+    "nbytes": 30400,
+    "torch_save_bytes": 31977
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "fd_ids",
+  "backbone": "mlp",
+  "note": "",
+  "payload_bytes": {
+   "down": 30400,
+   "up": 30400
+  },
+  "P": 7600,
+  "B": 0,
+  "d_cfg_head_hidden": 32,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     7600
+    ],
+    "dtype": "float32",
+    "nbytes": 30400,
+    "torch_save_bytes": 31977
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "apfed",
+  "backbone": "mlp",
+  "note": "",
+  "payload_bytes": {
+   "down": 30400,
+   "up": 30400
+  },
+  "P": 7600,
+  "B": 0,
+  "d_cfg_head_hidden": 32,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     7600
+    ],
+    "dtype": "float32",
+    "nbytes": 30400,
+    "torch_save_bytes": 31977
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   },
+   "classifier_only_P": null
+  }
+ },
+ {
+  "method": "lwfednids",
+  "backbone": "mlp",
+  "note": "",
+  "payload_bytes": {
+   "down": 7784,
+   "up": 7784
+  },
+  "P": 1946,
+  "B": 0,
+  "d_cfg_head_hidden": 10,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     1946
+    ],
+    "dtype": "float32",
+    "nbytes": 7784,
+    "torch_save_bytes": 9321
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "perfedskd",
+  "backbone": "mlp",
+  "note": "",
+  "payload_bytes": {
+   "down": 30400,
+   "up": 30400,
+   "note": "selected devices only; see selected_frac per round"
+  },
+  "P": 7600,
+  "B": 0,
+  "d_cfg_head_hidden": 32,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     7600
+    ],
+    "dtype": "float32",
+    "nbytes": 30400,
+    "torch_save_bytes": 31977
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "nilm",
+  "backbone": "mlp",
+  "note": "",
+  "payload_bytes": {
+   "down": 30400,
+   "up": 30400
+  },
+  "P": 7600,
+  "B": 0,
+  "d_cfg_head_hidden": 32,
+  "tensors": {
+   "proxy_params": {
+    "shape": [
+     7600
+    ],
+    "dtype": "float32",
+    "nbytes": 30400,
+    "torch_save_bytes": 31977
+   },
+   "proxy_bn_buffers": {
+    "shape": [
+     0
+    ],
+    "dtype": "float32",
+    "nbytes": 0,
+    "torch_save_bytes": 1513
+   }
+  }
+ },
+ {
+  "method": "pfedes",
+  "backbone": "mlp",
+  "note": "",
+  "payload_bytes": {
+   "down": 1404,
+   "up": 1404
+  },
+  "P": 7600,
+  "B": 0,
+  "d_cfg_head_hidden": 32,
+  "P_G": 351,
+  "tensors": {
+   "proxy_extractor_G": {
+    "shape": [
+     351
+    ],
+    "dtype": "float32",
+    "nbytes": 1404,
+    "torch_save_bytes": 2921
+   }
+  }
+ },
+ {
+  "method": "fedproto",
+  "backbone": "mlp",
+  "note": "",
+  "payload_bytes": {
+   "up": 2112,
+   "down": 2048,
+   "note": "up = prototypes of classes present + counts"
+  },
+  "P": 7600,
+  "B": 0,
+  "d_cfg_head_hidden": 32,
+  "toy_present_pairs": 74,
+  "toy_K": 6,
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     32
+    ],
+    "dtype": "float32",
+    "nbytes": 2048,
+    "torch_save_bytes": 3625
+   }
+  }
+ },
+ {
+  "method": "fedtgp",
+  "backbone": "mlp",
+  "note": "",
+  "payload_bytes": {
+   "up": 2048,
+   "down": 2048
+  },
+  "P": 7600,
+  "B": 0,
+  "d_cfg_head_hidden": 32,
+  "toy_present_pairs": 74,
+  "toy_K": 6,
+  "n_protos_uploaded": 74,
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     32
+    ],
+    "dtype": "float32",
+    "nbytes": 2048,
+    "torch_save_bytes": 3625
+   }
+  }
+ },
+ {
+  "method": "tinyproto",
+  "backbone": "mlp",
+  "note": "",
+  "payload_bytes": {
+   "up": 256,
+   "down": 256,
+   "masks_once": 64
+  },
+  "P": 7600,
+  "B": 0,
+  "d_cfg_head_hidden": 32,
+  "toy_present_pairs": 74,
+  "toy_K": 6,
+  "s": 4,
+  "mask_true_per_class": [
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4
+  ],
+  "target_nonzero_per_class": [
+   4,
+   3,
+   3,
+   4,
+   4,
+   3,
+   4,
+   2,
+   2,
+   2,
+   2,
+   3,
+   4,
+   3,
+   4,
+   2
+  ],
+  "tensors": {
+   "target_dense_down": {
+    "shape": [
+     16,
+     32
+    ],
+    "dtype": "float32",
+    "nbytes": 2048,
+    "torch_save_bytes": 3625
+   },
+   "target_sparse_wire_bytes_calc": {
+    "nbytes": 256
+   },
+   "mask_bits_once": {
+    "nbytes": 64
+   }
+  }
+ },
+ {
+  "method": "v2x_htfl",
+  "backbone": "mlp",
+  "note": "",
+  "payload_bytes": {
+   "up": 2112,
+   "down": 2048,
+   "note": "up = prototypes of classes present + counts"
+  },
+  "P": 8688,
+  "B": 0,
+  "d_cfg_head_hidden": 32,
+  "P_with_projection": 8688,
+  "toy_present_pairs": 74,
+  "toy_K": 6,
+  "n_protos_uploaded": 74,
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     32
+    ],
+    "dtype": "float32",
+    "nbytes": 2048,
+    "torch_save_bytes": 3625
+   }
+  }
+ },
+ {
+  "method": "fedavg",
+  "backbone": "cnn-bigru-attention",
+  "note": "",
+  "payload_bytes": {
+   "down": 473664,
+   "up": 473664
+  },
+  "P": 118288,
+  "B": 128,
+  "d_cfg_head_hidden": 128,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     118288
+    ],
+    "dtype": "float32",
+    "nbytes": 473152,
+    "torch_save_bytes": 474729
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     128
+    ],
+    "dtype": "float32",
+    "nbytes": 512,
+    "torch_save_bytes": 2089
+   }
+  }
+ },
+ {
+  "method": "fedprox",
+  "backbone": "cnn-bigru-attention",
+  "note": "",
+  "payload_bytes": {
+   "down": 473664,
+   "up": 473664
+  },
+  "P": 118288,
+  "B": 128,
+  "d_cfg_head_hidden": 128,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     118288
+    ],
+    "dtype": "float32",
+    "nbytes": 473152,
+    "torch_save_bytes": 474729
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     128
+    ],
+    "dtype": "float32",
+    "nbytes": 512,
+    "torch_save_bytes": 2089
+   }
+  }
+ },
+ {
+  "method": "afpha",
+  "backbone": "cnn-bigru-attention",
+  "note": "afpha probed via inherited FedAvg layout (clients.parquet absent): v4 root (label_mapping.json + train/ + test/) not found",
+  "payload_bytes": {
+   "down": 473664,
+   "up": 473664
+  },
+  "P": 118288,
+  "B": 128,
+  "d_cfg_head_hidden": 128,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     118288
+    ],
+    "dtype": "float32",
+    "nbytes": 473152,
+    "torch_save_bytes": 474729
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     128
+    ],
+    "dtype": "float32",
+    "nbytes": 512,
+    "torch_save_bytes": 2089
+   }
+  }
+ },
+ {
+  "method": "fd_ids",
+  "backbone": "cnn-bigru-attention",
+  "note": "",
+  "payload_bytes": {
+   "down": 473664,
+   "up": 473664
+  },
+  "P": 118288,
+  "B": 128,
+  "d_cfg_head_hidden": 128,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     118288
+    ],
+    "dtype": "float32",
+    "nbytes": 473152,
+    "torch_save_bytes": 474729
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     128
+    ],
+    "dtype": "float32",
+    "nbytes": 512,
+    "torch_save_bytes": 2089
+   }
+  }
+ },
+ {
+  "method": "apfed",
+  "backbone": "cnn-bigru-attention",
+  "note": "",
+  "payload_bytes": {
+   "down": 473664,
+   "up": 473664
+  },
+  "P": 118288,
+  "B": 128,
+  "d_cfg_head_hidden": 128,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     118288
+    ],
+    "dtype": "float32",
+    "nbytes": 473152,
+    "torch_save_bytes": 474729
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     128
+    ],
+    "dtype": "float32",
+    "nbytes": 512,
+    "torch_save_bytes": 2089
+   },
+   "classifier_only_P": null
+  }
+ },
+ {
+  "method": "lwfednids",
+  "backbone": "cnn-bigru-attention",
+  "note": "",
+  "payload_bytes": {
+   "down": 48612,
+   "up": 48612
+  },
+  "P": 12113,
+  "B": 40,
+  "d_cfg_head_hidden": 40,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     12113
+    ],
+    "dtype": "float32",
+    "nbytes": 48452,
+    "torch_save_bytes": 50025
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     40
+    ],
+    "dtype": "float32",
+    "nbytes": 160,
+    "torch_save_bytes": 1705
+   }
+  }
+ },
+ {
+  "method": "perfedskd",
+  "backbone": "cnn-bigru-attention",
+  "note": "",
+  "payload_bytes": {
+   "down": 473664,
+   "up": 473664,
+   "note": "selected devices only; see selected_frac per round"
+  },
+  "P": 118288,
+  "B": 128,
+  "d_cfg_head_hidden": 128,
+  "tensors": {
+   "theta_params": {
+    "shape": [
+     118288
+    ],
+    "dtype": "float32",
+    "nbytes": 473152,
+    "torch_save_bytes": 474729
+   },
+   "theta_bn_buffers": {
+    "shape": [
+     128
+    ],
+    "dtype": "float32",
+    "nbytes": 512,
+    "torch_save_bytes": 2089
+   }
+  }
+ },
+ {
+  "method": "nilm",
+  "backbone": "cnn-bigru-attention",
+  "note": "",
+  "payload_bytes": {
+   "down": 473664,
+   "up": 473664
+  },
+  "P": 118288,
+  "B": 128,
+  "d_cfg_head_hidden": 128,
+  "tensors": {
+   "proxy_params": {
+    "shape": [
+     118288
+    ],
+    "dtype": "float32",
+    "nbytes": 473152,
+    "torch_save_bytes": 474729
+   },
+   "proxy_bn_buffers": {
+    "shape": [
+     128
+    ],
+    "dtype": "float32",
+    "nbytes": 512,
+    "torch_save_bytes": 2089
+   }
+  }
+ },
+ {
+  "method": "pfedes",
+  "backbone": "cnn-bigru-attention",
+  "note": "",
+  "payload_bytes": {
+   "down": 1404,
+   "up": 1404
+  },
+  "P": 118288,
+  "B": 128,
+  "d_cfg_head_hidden": 128,
+  "P_G": 351,
+  "tensors": {
+   "proxy_extractor_G": {
+    "shape": [
+     351
+    ],
+    "dtype": "float32",
+    "nbytes": 1404,
+    "torch_save_bytes": 2921
+   }
+  }
+ },
+ {
+  "method": "fedproto",
+  "backbone": "cnn-bigru-attention",
+  "note": "",
+  "payload_bytes": {
+   "up": 8256,
+   "down": 8192,
+   "note": "up = prototypes of classes present + counts"
+  },
+  "P": 118288,
+  "B": 128,
+  "d_cfg_head_hidden": 128,
+  "toy_present_pairs": 74,
+  "toy_K": 6,
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     128
+    ],
+    "dtype": "float32",
+    "nbytes": 8192,
+    "torch_save_bytes": 9769
+   }
+  }
+ },
+ {
+  "method": "fedtgp",
+  "backbone": "cnn-bigru-attention",
+  "note": "",
+  "payload_bytes": {
+   "up": 8192,
+   "down": 8192
+  },
+  "P": 118288,
+  "B": 128,
+  "d_cfg_head_hidden": 128,
+  "toy_present_pairs": 74,
+  "toy_K": 6,
+  "n_protos_uploaded": 74,
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     128
+    ],
+    "dtype": "float32",
+    "nbytes": 8192,
+    "torch_save_bytes": 9769
+   }
+  }
+ },
+ {
+  "method": "tinyproto",
+  "backbone": "cnn-bigru-attention",
+  "note": "",
+  "payload_bytes": {
+   "up": 832,
+   "down": 832,
+   "masks_once": 256
+  },
+  "P": 118288,
+  "B": 128,
+  "d_cfg_head_hidden": 128,
+  "toy_present_pairs": 74,
+  "toy_K": 6,
+  "s": 13,
+  "mask_true_per_class": [
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13
+  ],
+  "target_nonzero_per_class": [
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13,
+   13
+  ],
+  "tensors": {
+   "target_dense_down": {
+    "shape": [
+     16,
+     128
+    ],
+    "dtype": "float32",
+    "nbytes": 8192,
+    "torch_save_bytes": 9769
+   },
+   "target_sparse_wire_bytes_calc": {
+    "nbytes": 832
+   },
+   "mask_bits_once": {
+    "nbytes": 256
+   }
+  }
+ },
+ {
+  "method": "v2x_htfl",
+  "backbone": "cnn-bigru-attention",
+  "note": "",
+  "payload_bytes": {
+   "up": 8256,
+   "down": 8192,
+   "note": "up = prototypes of classes present + counts"
+  },
+  "P": 134928,
+  "B": 128,
+  "d_cfg_head_hidden": 128,
+  "P_with_projection": 134928,
+  "toy_present_pairs": 74,
+  "toy_K": 6,
+  "n_protos_uploaded": 74,
+  "tensors": {
+   "global_proto_down": {
+    "shape": [
+     16,
+     128
+    ],
+    "dtype": "float32",
+    "nbytes": 8192,
+    "torch_save_bytes": 9769
+   }
+  }
+ }
+]

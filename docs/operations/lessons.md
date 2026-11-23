@@ -1,5 +1,6 @@
 # Bài học vận hành MobiHet
 
+- 22/11 collector nền. Một bản duy nhất (`flock`), lọc trùng ref, khóa theo exact version: chống pull hai lần vào cùng thư mục. Chờ tiến trình con bằng `pgrep -P <pid>`; `pgrep -f "a|b"` trong `until` khớp chính dòng lệnh shell đó nên treo mãi. Phiên dừng dưới đích hoặc pilot → sự kiện `handoff.jsonl`, phiên agent chờ bằng background task đọc file local (không polling Kaggle/model). Ack theo số dòng đã xử lý, không theo độ dài file lúc ack.
 - 20/11 Kaggle API có ConnectTimeout xen kẽ. Đường `www.kaggle.com/api/v1` theo từng tiến trình xác minh được roster, pull và push. Khi SaveKernel trả 400 với notebook nhúng 1,19 MB, kiểm slug chưa tồn tại rồi đóng gói source BERT gọn hơn. Phản hồi lần hai lên v1.
 
 - 20/11 `pkill -f "<chuỗi>"` trong cùng lệnh bash có chuỗi đó ⇒ khớp chính shell, giết lệnh (exit 144), phần sau không chạy.

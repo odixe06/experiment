@@ -60,7 +60,7 @@ projects). A long job started locally competes for RAM with everything else and 
 - **Kernel status:** project `watch_kaggle_batch.query` retries `QUERY_ERROR` 3× (read-only). Still `QUERY_ERROR`
   = UNKNOWN, not failed kernel, not empty slot. Check slots only for accounts you intend to push to.
 - **Mutations** (push, dataset create/version, cancel): no automatic retry. On timeout check reply/exact version first.
-- Never log tokens or child stderr; record exception class only. Waiting → local worker (`codex-long-jobs`), not model polling.
+- Never log tokens or child stderr; record exception class only. Waiting → the batch collector (step 7), not model polling.
 
 ## Route
 
@@ -127,7 +127,18 @@ projects). A long job started locally competes for RAM with everything else and 
    Plan every free slot before waiting for a quota reset, and chain short sessions on the same owner:
    [multi-account.md](references/multi-account.md), "Scheduling short quotas". Carry the compile cache into resume sessions:
    `federated-training-speed` skill, "Session startup".
-7. Pull bulk output with `scripts/pull_kernel_output.py` through `scripts/kaggle_as.py <owner>`
+7. **Every push ships with its collector** (owner 22/11). Before the batch's first push, have a
+   script ready that pulls and audits each of its kernels, and start it detached the moment the
+   batch is pushed: a background poll every **20 min** (`codex-long-jobs` cadence), exact refs
+   from the push ledger, on COMPLETE/ERROR pull + the project auditor + record only audited
+   endpoints. It is read-only on Kaggle: it never pushes or continues a session.
+   A final endpoint needs no agent: the collector pulls, audits, records, and the agent does no
+   model polling. A session that needs **continuation** (below target, pilot, early stop) or a
+   FAILED audit becomes a hand-off event sent back to the working session, whose agent then
+   continues the session; arm the session's waiter as a background task so the event wakes it.
+   Single instance, one pull per exact ref: contract in
+   [pull-outputs.md](references/pull-outputs.md), "Batch collector".
+   Pull bulk output with `scripts/pull_kernel_output.py` through `scripts/kaggle_as.py <owner>`
    (parallel, resumable, all-page listing, non-zero exit on gaps; one process per kernel, always
    `-j 64` = maximum threads, owner 20/11); account credentials stay process-scoped. Require exit 0 before artifact verification.
    For operation/recovery read [pull-outputs.md](references/pull-outputs.md),

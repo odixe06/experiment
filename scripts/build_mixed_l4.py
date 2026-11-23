@@ -4,6 +4,9 @@ Embedded source as scripts/build_l4_fl.py; data from a verified or freshly built
 experiments/mixed-model-v1. --stop-after 2 is the pilot: same run directory and cosine horizon (50), so a later session
 continues it from checkpoint r2 with --parent. A session > 1 copies the parent's run directory from /kaggle/input
 (checkpoint.json + checkpoint-rNNN + history) before run_mixed_l4.py resumes it; the config hash refuses any source change.
+--ablation <arm> (owner 21/11/2026, docs/research/mobihet-l4-ablation.md): scripts/run_mixed_ablation.py (run_mixed_l4.py with
+methods/mobihet_ablation_mixed.py and the arm's hp), run directory mixl4-abl-<arm>-<case>-s<seed>. --npy-cache also serves a
+fresh session (the receipt pins the cache manifest and every array's SHA-256).
 """
 import argparse
 import ast
@@ -38,16 +41,18 @@ def main():
     ap.add_argument("--npy-cache", type=Path, help="preflight receipt for a verified full v4 NPY cache")
     ap.add_argument("--stop-after", type=int, default=50)
     ap.add_argument("--max-hours", type=float, default=11.5)
+    ap.add_argument("--ablation", choices=("none", "a1", "a2", "a3", "a4"), help="L4 ablation arm (methods/mobihet_ablation.py)")
     args = ap.parse_args()
     if (args.session > 1) != bool(args.parent):
         ap.error("--parent is required exactly when --session > 1")
-    if args.npy_cache and not args.parent_artifacts:
+    if args.npy_cache and not (args.parent_artifacts or args.ablation):
         ap.error("--npy-cache requires audited parent artifacts")
-    run = f"mixl4-{args.case}-s{args.seed}"                         # run directory: the same in every session
+    run = (f"mixl4-abl-{args.ablation}-{args.case}-s{args.seed}" if args.ablation else
+           f"mixl4-{args.case}-s{args.seed}")                       # run directory: the same in every session
     slug = run if args.session == 1 else f"{run}-h{args.session}"
     paths = sorted([*ROOT.glob("core/*.py"), *ROOT.glob("methods/*.py"), *ROOT.glob("knowledge/*.json"),
                     *ROOT.glob("experiments/mixed-model-v1/*"), ROOT/"tests/test_mixed_l4.py",
-                    ROOT/"scripts/run_mixed_l4.py", ROOT/"scripts/build_l4_fl.py", ROOT/"scripts/run_fl.py",
+                    ROOT/"scripts/run_mixed_l4.py", ROOT/"scripts/run_mixed_ablation.py", ROOT/"scripts/build_l4_fl.py", ROOT/"scripts/run_fl.py",
                     ROOT/"scripts/run_p21_recovery.py"])
     source = {p.relative_to(ROOT).as_posix(): p.read_text(encoding="utf-8") for p in paths}
     parent_receipt = None
@@ -74,7 +79,9 @@ def main():
     frozen = args.parent_artifacts or args.source_artifacts
     if frozen and hashes != json.loads((frozen / "source_manifest.json").read_text()):
         ap.error("frozen parent source and manifest disagree")
-    manifest = {"experiment": f"mixed-{args.case}-mobihet-l4", "method": "mobihet_l4", "case": args.case, "seed": args.seed,
+    experiment = f"mixed-{args.case}-mobihet-l4" + (f"-ablation-{args.ablation}" if args.ablation else "")
+    manifest = {"experiment": experiment, "method": "mobihet_ablation_mixed" if args.ablation else "mobihet_l4",
+                "ablation": args.ablation, "case": args.case, "seed": args.seed,
                 "rounds": 50, "stop_after": args.stop_after, "session": args.session, "parent": args.parent or None,
                 "run": run, "dataset": DATASET, "client_partition": "fixed-all-5343",
                 "assignment": "experiments/mixed-model-v1", "model": "core.mixed_backbones.config(backbone) (MixedAdapter)"}
@@ -142,7 +149,8 @@ if parent:
 else:
     assert not run.exists()
 '''
-    base = ["torchrun", "--standalone", "--nproc_per_node=2", "scripts/run_mixed_l4.py", "--case", args.case,
+    runner = ["scripts/run_mixed_ablation.py", "--ablation", args.ablation] if args.ablation else ["scripts/run_mixed_l4.py"]
+    base = ["torchrun", "--standalone", "--nproc_per_node=2", *runner, "--case", args.case,
             "--seed", str(args.seed), "--out", run_dir, "--compile", "--stop-after", str(args.stop_after)]
     train = f'''cmd = {base!r} + ["--max-hours", f"{{{args.max_hours}-(time.monotonic()-T0)/3600-0.4:.3f}}"]
 print(cmd, flush=True)
@@ -150,13 +158,13 @@ subprocess.run(cmd, cwd="/kaggle/temp/src", check=True)
 status = json.loads((run / "RUN_STATUS.json").read_text())
 rows = [json.loads(x) for x in (run / "rounds.jsonl").read_text().splitlines()]
 assert [x["round"] for x in rows] == list(range(1, rows[-1]["round"] + 1)) and rows[-1]["round"] == status["last_round"]
-status.update(session={args.session}, stop_after={args.stop_after})
+status.update(session={args.session}, stop_after={args.stop_after}, ablation={args.ablation!r})
 Path("/kaggle/working/RUN_STATUS.json").write_text(json.dumps(status, indent=2))
 print(json.dumps(status), flush=True)
 '''
     nb = nbformat.v4.new_notebook()
     nb.cells = [nbformat.v4.new_markdown_cell(
-        f"# {slug}\n\nMixed {args.case} · MobiHet L4 · seed {args.seed} · session {args.session} · stop after round "
+        f"# {slug}\n\nMixed {args.case} · MobiHet L4{' ablation ' + args.ablation if args.ablation else ''} · seed {args.seed} · session {args.session} · stop after round "
         f"{args.stop_after} · all 5,343 clients."), code(setup), code(embed), code(resume), code(cache), code(train)]
     nb.metadata.update({"kernelspec": {"name": "python3", "display_name": "Python 3", "language": "python"},
                         "language_info": {"name": "python", "version": "3.12"},

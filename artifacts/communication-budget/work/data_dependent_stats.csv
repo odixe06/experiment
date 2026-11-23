@@ -1,0 +1,13 @@
+scope,group,clients,client_class_pairs,pairs_per_client_mean,dense_pairs_16_per_client,source
+all,all,5343,69993,13.09994385176867,85488,/home/odixe/project/mobihet/cache/fold_counts.npy
+case1,dagsnet,1603,20913,13.046163443543357,25648,/home/odixe/project/mobihet/cache/fold_counts.npy
+case1,bert,1603,21143,13.189644416718652,25648,/home/odixe/project/mobihet/cache/fold_counts.npy
+case1,cnn-bigru-attention,2137,27937,13.072999532054281,34192,/home/odixe/project/mobihet/cache/fold_counts.npy
+case2,tabm,1603,20900,13.038053649407361,25648,/home/odixe/project/mobihet/cache/fold_counts.npy
+case2,sae,1603,21061,13.138490330630068,25648,/home/odixe/project/mobihet/cache/fold_counts.npy
+case2,mlp,2137,28032,13.117454375292466,34192,/home/odixe/project/mobihet/cache/fold_counts.npy
+case3,dagsnet,1069,14067,13.159027128157156,17104,/home/odixe/project/mobihet/cache/fold_counts.npy
+case3,bert,1069,13818,12.926099158091674,17104,/home/odixe/project/mobihet/cache/fold_counts.npy
+case3,cnn-bigru-attention,1069,14038,13.131898971000936,17104,/home/odixe/project/mobihet/cache/fold_counts.npy
+case3,tabm,1068,13918,13.03183520599251,17088,/home/odixe/project/mobihet/cache/fold_counts.npy
+case3,sae,1068,14152,13.250936329588015,17088,/home/odixe/project/mobihet/cache/fold_counts.npy

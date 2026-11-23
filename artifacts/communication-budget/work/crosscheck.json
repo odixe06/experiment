@@ -1,0 +1,160 @@
+{
+ "config_payload_mismatch": [
+  [
+   "superseded-rerun",
+   "zip:runs-no-checkpoints-2026-11-20.zip!runs/comparison-20261115/phamquang0606__sae-fl-fedproto-s41__v1/sae-fl-fedproto-s41",
+   {
+    "up": 1088,
+    "down": 1024,
+    "note": "up = prototypes of classes present + counts"
+   },
+   5952,
+   "own"
+  ],
+  [
+   "superseded-rerun",
+   "zip:runs-no-checkpoints-2026-11-20.zip!runs/comparison-20261115/ttalgies__sae-fl-fedproto-s42__v1/sae-fl-fedproto-s42",
+   {
+    "up": 1088,
+    "down": 1024,
+    "note": "up = prototypes of classes present + counts"
+   },
+   5952,
+   "own"
+  ],
+  [
+   "superseded-rerun",
+   "zip:runs-no-checkpoints-2026-11-20.zip!runs/comparison-20261115/hoangdangnhi__sae-fl-fedproto-s43__v1/sae-fl-fedproto-s43",
+   {
+    "up": 1088,
+    "down": 1024,
+    "note": "up = prototypes of classes present + counts"
+   },
+   5952,
+   "own"
+  ],
+  [
+   "superseded-rerun",
+   "zip:runs-no-checkpoints-2026-11-20.zip!runs/comparison-20261115/nguynt298__sae-fl-fedtgp-s41__v1/sae-fl-fedtgp-s41",
+   {
+    "up": 1024,
+    "down": 1024
+   },
+   5952,
+   "own"
+  ],
+  [
+   "superseded-rerun",
+   "zip:runs-no-checkpoints-2026-11-20.zip!runs/comparison-20261115/hoangdang1711__sae-fl-fedtgp-s42__v1/sae-fl-fedtgp-s42",
+   {
+    "up": 1024,
+    "down": 1024
+   },
+   5952,
+   "own"
+  ],
+  [
+   "superseded-rerun",
+   "zip:runs-no-checkpoints-2026-11-20.zip!runs/comparison-20261115/nguynt298__sae-fl-fedtgp-s43__v1/sae-fl-fedtgp-s43",
+   {
+    "up": 1024,
+    "down": 1024
+   },
+   5952,
+   "own"
+  ],
+  [
+   "superseded-rerun",
+   "zip:runs-no-checkpoints-2026-11-20.zip!runs/comparison-20261115/qwerasdf3004__sae-fl-tinyproto-s41__v1/sae-fl-tinyproto-s41",
+   {
+    "up": 128,
+    "down": 128,
+    "masks_once": 32
+   },
+   640,
+   "own"
+  ],
+  [
+   "superseded-rerun",
+   "zip:runs-no-checkpoints-2026-11-20.zip!runs/comparison-20261115/qwerasdf3004__sae-fl-tinyproto-s42__v1/sae-fl-tinyproto-s42",
+   {
+    "up": 128,
+    "down": 128,
+    "masks_once": 32
+   },
+   640,
+   "own"
+  ],
+  [
+   "superseded-rerun",
+   "zip:runs-no-checkpoints-2026-11-20.zip!runs/comparison-20261115/dangthiet__sae-fl-tinyproto-s43__v1/sae-fl-tinyproto-s43",
+   {
+    "up": 128,
+    "down": 128,
+    "masks_once": 32
+   },
+   640,
+   "own"
+  ],
+  [
+   "superseded-rerun",
+   "zip:runs-no-checkpoints-2026-11-20.zip!runs/comparison-20261115/hoangdang1711__sae-fl-v2x-htfl-s41__v1/sae-fl-v2x-htfl-s41",
+   {
+    "up": 1088,
+    "down": 1024,
+    "note": "up = prototypes of classes present + counts"
+   },
+   5952,
+   "own"
+  ],
+  [
+   "superseded-rerun",
+   "zip:runs-no-checkpoints-2026-11-20.zip!runs/comparison-20261115/nguynt298__sae-fl-v2x-htfl-s42__v1/sae-fl-v2x-htfl-s42",
+   {
+    "up": 1088,
+    "down": 1024,
+    "note": "up = prototypes of classes present + counts"
+   },
+   5952,
+   "own"
+  ],
+  [
+   "superseded-rerun",
+   "zip:runs-no-checkpoints-2026-11-20.zip!runs/comparison-20261115/dangthiet__sae-fl-v2x-htfl-s43__v1/sae-fl-v2x-htfl-s43",
+   {
+    "up": 1088,
+    "down": 1024,
+    "note": "up = prototypes of classes present + counts"
+   },
+   5952,
+   "own"
+  ]
+ ],
+ "round_gaps": [],
+ "pilot_overlap": [
+  [
+   "pilot:dbg-case1",
+   "False"
+  ],
+  [
+   "pilot:mixl4-case1-s42",
+   true
+  ],
+  [
+   "pilot:dbg-case2",
+   "False"
+  ],
+  [
+   "pilot:mixl4-case2-s42",
+   true
+  ],
+  [
+   "pilot:dbg-case3",
+   "False"
+  ],
+  [
+   "pilot:mixl4-case3-s42",
+   true
+  ]
+ ]
+}

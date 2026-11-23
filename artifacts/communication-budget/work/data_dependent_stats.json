@@ -1,0 +1,95 @@
+{
+ "source": "/home/odixe/project/mobihet/cache/fold_counts.npy",
+ "basis": "measured (computed from per-client class counts)",
+ "rows_total": 37361273,
+ "n_clients": 5343,
+ "n_pairs": 69993,
+ "pairs_per_client_mean": 13.09994385176867,
+ "pairs_per_client_min": 2,
+ "pairs_per_client_median": 15.0,
+ "pairs_per_client_max": 16,
+ "clients_with_zero_rows": 0,
+ "holders_per_class": [
+  5343,
+  4510,
+  4604,
+  4599,
+  4520,
+  4669,
+  4465,
+  4566,
+  4545,
+  4507,
+  4546,
+  3102,
+  4042,
+  4455,
+  2935,
+  4585
+ ],
+ "classes_with_no_holder": 0,
+ "dense_pairs": 85488,
+ "cases": {
+  "case1": {
+   "dagsnet": {
+    "clients": 1603,
+    "pairs": 20913,
+    "pairs_per_client_mean": 13.046163443543357
+   },
+   "bert": {
+    "clients": 1603,
+    "pairs": 21143,
+    "pairs_per_client_mean": 13.189644416718652
+   },
+   "cnn-bigru-attention": {
+    "clients": 2137,
+    "pairs": 27937,
+    "pairs_per_client_mean": 13.072999532054281
+   }
+  },
+  "case2": {
+   "tabm": {
+    "clients": 1603,
+    "pairs": 20900,
+    "pairs_per_client_mean": 13.038053649407361
+   },
+   "sae": {
+    "clients": 1603,
+    "pairs": 21061,
+    "pairs_per_client_mean": 13.138490330630068
+   },
+   "mlp": {
+    "clients": 2137,
+    "pairs": 28032,
+    "pairs_per_client_mean": 13.117454375292466
+   }
+  },
+  "case3": {
+   "dagsnet": {
+    "clients": 1069,
+    "pairs": 14067,
+    "pairs_per_client_mean": 13.159027128157156
+   },
+   "bert": {
+    "clients": 1069,
+    "pairs": 13818,
+    "pairs_per_client_mean": 12.926099158091674
+   },
+   "cnn-bigru-attention": {
+    "clients": 1069,
+    "pairs": 14038,
+    "pairs_per_client_mean": 13.131898971000936
+   },
+   "tabm": {
+    "clients": 1068,
+    "pairs": 13918,
+    "pairs_per_client_mean": 13.03183520599251
+   },
+   "sae": {
+    "clients": 1068,
+    "pairs": 14152,
+    "pairs_per_client_mean": 13.250936329588015
+   }
+  }
+ }
+}
