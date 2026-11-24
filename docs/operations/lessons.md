@@ -168,3 +168,9 @@ Bài học ở đây là quy tắc rút ra khi chạy thí nghiệm và hạ t�
   trùng backbone, method và seed. Marker cuối có thể giữ đủ 10 metric. Ghi mức kiểm chứng marker hoặc CM vào cột `status`.
 - Khi dời checkout sang ORICO exFAT, đo riêng kích thước logic của cache DVC và artifact. Hardlink trên SSD có thể làm
   `du` báo cache nhỏ khi đo chung hai cây. Giữ metadata và symlink trên SSD, kiểm SHA-256 bản dữ liệu trên ORICO trước khi bỏ bản trùng.
+- 24/11: `setsid cmd & echo $! > pid` ghi PID của `setsid` cũ, không phải tiến trình sống khi setsid phải fork. Đọc PID thật bằng
+  `ps -eo pid,args | grep "[s]lot_queue.py"` (mẫu `[x]` để không khớp chính lệnh grep; `pgrep -f "<chuỗi>"` khớp cả lệnh shell chứa chuỗi đó).
+- 24/11: hàng đợi push gặp "Maximum batch GPU session count of 2 reached" dù batch chỉ có 1 kernel trên account (session khác không thấy
+  qua listing). Lời từ chối rõ không tạo kernel: giữ notebook chờ, thử lại lượt sau (`runs/ablation-mh/slot_queue.py`). Chỉ dừng owner khi
+  reply không rõ. Dừng hàng đợi chỉ lúc không có `push.sh`/`guarded_cli.py` con, và sửa state sau khi tiến trình đã dừng (nó ghi đè file).
+- 24/11: repo cấu hình hook Git LFS nhưng máy không có `git-lfs` ⇒ `git push` bị hook pre-push chặn dù commit không có file LFS.
