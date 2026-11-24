@@ -1,5 +1,5 @@
-"""MobiHet L4 ablation on one mixed-model case: scripts/run_mixed_l4.py unchanged, with the ablation method
-(methods/mobihet_ablation_mixed.py) and the arm's hp on top of L4_HP. Same CLI plus --ablation.
+"""MobiHet ablation on one mixed-model case: scripts/run_mixed_l4.py unchanged, with the ablation method
+(methods/mobihet_ablation_mixed.py) and the arm's hp on top of MOBIHET_HP. Same CLI plus --ablation.
 
     torchrun --standalone --nproc_per_node=2 scripts/run_mixed_ablation.py --ablation a1 --case case2 --seed 42 --out runs/x --compile
 """
@@ -16,7 +16,7 @@ from scripts import run_mixed_l4 as R
 
 def main():
     argv = sys.argv[1:]
-    assert argv.count("--ablation") == 1, "--ablation <none|a1|a2|a3|a4> is required"
+    assert argv.count("--ablation") == 1, "--ablation <none|a1|a2|a4> is required"
     i = argv.index("--ablation")
     arm = argv[i + 1]
     assert arm in ABLATION_HP, arm

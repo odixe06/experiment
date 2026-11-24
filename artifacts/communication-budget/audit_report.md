@@ -1,5 +1,10 @@
 # Audit: communication budget of executed FL runs (21/11/2026)
 
+**Update 24/11/2026:** MobiHet is now L4 without logit adjustment (method `mobihet`). The `mobihet_l4` rows below were
+replaced in the three CSVs by `mobihet` rows measured from the audited MobiHet R50 runs (`scripts/mobihet_update.py`, same
+formula); the L4 rows are archived in `../mobihet/archive/l4-la-20261124/experiment/communication-budget/`. Statements about
+`mobihet_l4` in this report describe that archived L4 set.
+
 Verdict: the 324 canonical production runs are complete; none is partial. Every run's total is calculated or measured
 from its own logs and config. None of these numbers is network traffic: they are simulated payload sizes. The
 formulas are in [method_formulas.md](method_formulas.md).

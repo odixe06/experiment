@@ -1,11 +1,14 @@
-"""MobiHet L4 ablations (methods/mobihet_ablation.py, methods/mobihet_ablation_mixed.py), CPU, 20-vehicle panel, 2 rounds.
+"""MobiHet ablations (methods/mobihet_ablation.py, methods/mobihet_ablation_mixed.py), CPU, 20-vehicle panel, 2 rounds.
+MobiHet = mobihet_l4 with MOBIHET_HP (L4 hp + la_mode=off, owner 24/11/2026).
 
-  control   ablation=none == mobihet_l4 (states incl. Q and row CE, confusion), every single-model backbone, 2 rounds
-  a1        counts-only bootstrap (64 B each way, no generator tables), Q never built, 0 B per round, one optimizer step per
-            ceil(n/64) real batch (no floor), loss and gradient = CE(z + la_shift) on real rows
-  a2        no stored row CE; same trained-row fraction as L4
-  a3        == L4 with la_shift zeroed by hand (nothing else changes); bootstrap identical to L4
-  a4        round 1 == L4 (Q unused until round 2); Q fp32 within one uint8 level of L4's, not fp16-rounded; 1024 B each way
+  mobihet   la_mode=off == L4 (la_mode=full) with la_shift zeroed by hand = the former ablation a3 (whose audited R50 runs
+            are MobiHet's rows); bootstrap tables and bytes identical to L4
+  control   ablation=none == MobiHet (states incl. Q and row CE, confusion), every single-model backbone, 2 rounds
+  a1        nothing sent (bootstrap 0 B, no generator tables), Q never built, 0 B per round, one optimizer step per
+            ceil(n/64) real batch (no floor), loss and gradient = plain CE(z) on real rows
+  a2        no stored row CE; same trained-row fraction as MobiHet
+  a4        round 1 == MobiHet (Q unused until round 2); Q fp32 within one uint8 level of MobiHet's, not fp16-rounded;
+            1024 B each way
   resume    r1 -> state -> r2 == continuous r2, every arm
   mixed     case2: none == mobihet_mixed_l4; every arm one healthy round
 
@@ -65,7 +68,7 @@ def run(M, env, rounds, seed=1):
 
 
 def pair(backbone, arm, rounds=(1, 2), patch=None):
-    """(ablation method, its infos), (L4 method, its infos) on identical envs and RNG."""
+    """(ablation method, its infos), (MobiHet method, its infos) on identical envs and RNG."""
     ea, eb = env_for(backbone, arm), env_for(backbone)
     a, b = A.Method(ea), L4(eb)
     if patch:
@@ -84,11 +87,12 @@ def test_control(backbone):
 def test_a1(backbone):
     env = env_for(backbone, "a1")
     m = A.Method(env)
-    assert m.bootstrap_bytes == {"up": 64, "down": 64}
+    assert m.bootstrap_bytes == {"up": 0, "down": 0}
     assert not any(hasattr(m, k) for k in ("cop_cdf", "cop_mu", "km_p", "mu", "_score")), "a1 built generator/selection"
     ref = L4(env_for(backbone))
     exact(ref.cnt, m.cnt, "cnt")
     exact(ref.la_shift, m.la_shift, "la_shift")
+    assert not bool(m.la_shift.any()), "a1 has a logit adjustment"
     infos = run(m, env, (1, 2))
     n = env.train.off[1:] - env.train.off[:-1]
     want = int(torch.ceil(n.float() / 64).sum())                         # one step per real batch of 64, no floor
@@ -119,7 +123,7 @@ def test_a1(backbone):
     loss.sum().backward()
     grad = (torch.softmax(z + shift[:, None], -1) - F.one_hot(y, 16)) * (mask / mask.sum(1, keepdim=True))[..., None]
     torch.testing.assert_close(z.grad, grad.detach())
-    print(f"a1 {backbone} PASS (steps {want}/round, 0 B/round, bootstrap 64+64 B, loss/grad = CE(z+LA))")
+    print(f"a1 {backbone} PASS (steps {want}/round, 0 B/round, bootstrap 0 B, loss/grad = CE(z))")
 
 
 def test_a2(backbone):
@@ -133,17 +137,23 @@ def test_a2(backbone):
     print(f"a2 {backbone} PASS (same budget/steps/bytes, no row CE)")
 
 
-def test_a3(backbone):
-    def zero(m):
-        m.la_shift = torch.zeros_like(m.la_shift)
-    (a, _), (b, _) = pair(backbone, "a3", patch=zero)
-    exact(b.state(), a.state(), f"{backbone}/state")
-    exact(b.evaluate()["private"], a.evaluate()["private"], "cms")
-    ref = L4(env_for(backbone))
+def test_mobihet_is_l4_without_la(backbone):
+    """MobiHet (la_mode=off) == L4 with la_shift zeroed by hand, i.e. the former ablation a3, over two rounds."""
+    torch.manual_seed(0)
+    el4 = fl.Env(CFG[backbone](), l4_hp(42, ["km2_frac=1.0", "eval_rows=4096", "la_mode=full"]), clients=PANEL, cache=CACHE)
+    emh = env_for(backbone)
+    assert emh.hp["la_mode"] == "off" and el4.hp["la_mode"] == "full"
+    l4, mh = L4(el4), L4(emh)
+    assert bool(l4.la_shift.abs().sum() > 0) and not bool(mh.la_shift.any())
     for k in ("cnt", "cop_cdf", "cop_mass", "cop_mu", "cop_L", "km_p", "km_mu", "km_L"):
-        exact(getattr(ref, k), getattr(a, k), k)
-    assert a.bootstrap_bytes == ref.bootstrap_bytes and bool(ref.la_shift.abs().sum() > 0)
-    print(f"a3 {backbone} PASS (== L4 with zero shift; bootstrap unchanged)")
+        exact(getattr(l4, k), getattr(mh, k), k)
+    assert mh.bootstrap_bytes == l4.bootstrap_bytes
+    l4.la_shift = torch.zeros_like(l4.la_shift)
+    ia, ib = run(mh, emh, (1, 2)), run(l4, el4, (1, 2))
+    exact(l4.state(), mh.state(), f"{backbone}/state")
+    exact(l4.evaluate()["private"], mh.evaluate()["private"], "cms")
+    assert [x["bytes_up"] for x in ia] == [x["bytes_up"] for x in ib]
+    print(f"mobihet {backbone} PASS (== L4 with zero shift = former a3; bootstrap unchanged)")
 
 
 def test_a4(backbone):
@@ -191,7 +201,7 @@ def test_mixed():
     exact(b.state(), a.state(), "mixed state")
     exact(b.evaluate()["client"], a.evaluate()["client"], "mixed cms")
     assert MX.GroupL4 is not AM.GroupAblation
-    for arm, up in (("a1", 0.0), ("a2", None), ("a3", None), ("a4", 1024.0)):
+    for arm, up in (("a1", 0.0), ("a2", None), ("a4", 1024.0)):
         env, m = build(AM.Method, arm)
         assert all(isinstance(g, AM.GroupAblation) and g.ablation == arm for g in m.groups)
         info = run(m, env, (1, 2))[-1]
@@ -201,9 +211,9 @@ def test_mixed():
         assert np.isfinite(info["train_loss"]) and (up is None or info["bytes_up"] == up), (arm, info["bytes_up"])
         assert m.evaluate()["client"].sum() == n_test
         if arm == "a1":
-            assert m.payload_bytes()["bootstrap"] == {"up": 64, "down": 64} and all(g.Q is None for g in m.groups)
+            assert m.payload_bytes()["bootstrap"] == {"up": 0, "down": 0} and all(g.Q is None for g in m.groups)
         print(f"mixed case2 {arm} PASS (2 rounds, health per backbone, bytes_up {info['bytes_up']})")
-    print("mixed case2 control PASS (== mobihet_mixed_l4, 1 round bit-exact)")
+    print("mixed case2 control PASS (== MobiHet mixed, 1 round bit-exact)")
 
 
 if __name__ == "__main__":
@@ -214,11 +224,11 @@ if __name__ == "__main__":
     for bb in ("mlp", "tabm", "sae"):
         test_a1(bb)
     test_a2("mlp")
-    test_a3("mlp")
-    test_a3("tabm")
+    test_mobihet_is_l4_without_la("mlp")
+    test_mobihet_is_l4_without_la("tabm")
     for bb in ("mlp", "tabm"):
         test_a4(bb)
-    for arm in ("a1", "a2", "a3", "a4"):
+    for arm in ("a1", "a2", "a4"):
         test_resume("mlp", arm)
     test_mixed()
     print("ALL PASS")

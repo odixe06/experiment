@@ -1,0 +1,3 @@
+arm,seed,bootstrap_up_B,bootstrap_down_B,up_50r_B,down_50r_B,total_B_per_vehicle,total_B_network,status,source
+mobihet,42,98942.9,241720.4,8182.6,9069.0,357914.8,1912339039,audited,kaggle dinhan20t/mixl4-abl-a3-case1-s42-h2/1 (former L4 ablation a3 = MobiHet; scripts/audit_ablation.py + scripts/promote_mobihet_rows.py)
+mobihet,43,98942.9,241720.4,8186.1,9061.0,357910.4,1912315176,audited,kaggle nguyenminhtran060113/mixl4-abl-a3-case1-s43-h2/1 (former L4 ablation a3 = MobiHet; scripts/audit_ablation.py + scripts/promote_mobihet_rows.py)

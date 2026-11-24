@@ -1,11 +1,14 @@
-"""Build one private 2xT4 notebook: MobiHet FB-L configuration L4 (methods/mobihet_l4.py) on one single-model backbone.
+"""Build one private 2xT4 notebook: MobiHet (methods/mobihet_l4.py, hp MOBIHET_HP) on one single-model backbone.
+
+MobiHet = FB-L configuration L4 without logit adjustment (la_mode=off; owner 24/11/2026, ../mobihet
+docs/research/screening-la.md). L4 with LA is archived in ../mobihet/archive/l4-la-20261124/.
 
 Same data, protocol (50 rounds, all 5,343 vehicles, cosine 1e-3 -> 1e-5) and embedded-source layout as the baseline builder
 (scripts/build_tabm_fl.py). L4 hp = the ../mobihet r50 chains (runs/fbl-r50/batch.json), only the seed changes.
 A run longer than one session continues from the previous session's output (--parent <owner>/<slug>): the run directory
 (state.pt, state_rank1.pt, *.jsonl, cms) is copied to /kaggle/working before run_fl.py resumes it.
---ablation <arm> (owner 21/11/2026, docs/research/mobihet-l4-ablation.md): method mobihet_ablation with that arm's hp after
-L4_HP + seed (run directory <backbone>-abl-<arm>-s<seed>); without it the notebook is the L4 one. --stop-after 2 = pilot,
+--ablation <arm> (owner 24/11/2026, docs/research/mobihet-ablation.md): method mobihet_ablation with that arm's hp after
+MOBIHET_HP + seed (run directory <backbone>-mhabl-<arm>-s<seed>); without it the notebook is MobiHet (<backbone>-mh-s<seed>). --stop-after 2 = pilot,
 continued by a later session with --parent (same cosine horizon 50). --npy-cache: mount the verified v4 NPY kernel output.
 """
 import argparse
@@ -31,6 +34,7 @@ L4_HP = [
     "synth_tier_min=[4096,16384]", "synth_late_from=25", "cop_kmeans_lite=0", "km_bytes=false", "km2=true", "cop_kmeans=6",
     "cop_bins=64", "km2_frac=0.25", "km2_tau=16", "km2_bits=6", "synth_tier_rows=[[64,64],[16,16],[16,16]]",
     "real_tier_rows=[64,37,37]", "real_select=top", "compact=true"]
+MOBIHET_HP = [*L4_HP, "la_mode=off"]                                     # MobiHet = L4 without logit adjustment (24/11)
 MODELS = {"dagsnet": {"display": "DAGSNet", "parameters": 395408, "test": "tests/test_aligned_fl.py"},
           "tabm": {"display": "TabM", "parameters": 6548, "test": "tests/test_tabm_fl.py"},
           "sae": {"display": "SAE", "parameters": 7613, "test": "tests/test_sae_fl.py"},
@@ -53,7 +57,7 @@ def main():
     ap.add_argument("--parent", default="", help="<owner>/<slug> of the previous session (session > 1)")
     ap.add_argument("--parent-artifacts", type=Path, help="optional frozen parent source pull")
     ap.add_argument("--max-hours", type=float, default=11.5)
-    ap.add_argument("--ablation", choices=("none", "a1", "a2", "a3", "a4"), help="L4 ablation arm (methods/mobihet_ablation.py)")
+    ap.add_argument("--ablation", choices=("none", "a1", "a2", "a4"), help="MobiHet ablation arm (methods/mobihet_ablation.py)")
     ap.add_argument("--stop-after", type=int, default=50)
     ap.add_argument("--npy-cache", type=Path, help="preflight receipt for a verified full v4 NPY cache")
     args = ap.parse_args()
@@ -62,7 +66,8 @@ def main():
     model = MODELS[args.backbone]
     short = {"cnn-bigru-attention": "cnnbigru"}.get(args.backbone, args.backbone)
     method = "mobihet_ablation" if args.ablation else "mobihet_l4"
-    run = f"{short}-abl-{args.ablation}-s{args.seed}" if args.ablation else f"{short}-l4-s{args.seed}"   # every session
+    run = (f"{short}-mhabl-{args.ablation}-s{args.seed}" if args.ablation not in (None, "none") else
+           f"{short}-mh-s{args.seed}")                                  # every session; arm none = MobiHet (audit_ablation)
     slug = run if args.session == 1 else f"{run}-h{args.session}"
     paths = sorted([*ROOT.glob("core/*.py"), *ROOT.glob("methods/*.py"), ROOT / model["test"], ROOT / "tests/test_sae_fl.py", ROOT / "tests/test_aligned_fl.py",
                     ROOT / "scripts/run_fl.py", ROOT / "scripts/run_p21_recovery.py", *ROOT.glob("knowledge/*.json")])
@@ -74,18 +79,18 @@ def main():
     hashes = {name: hashlib.sha256(value.encode()).hexdigest() for name, value in source.items()}
     if args.parent_artifacts and hashes != json.loads((args.parent_artifacts / "source_manifest.json").read_text()):
         ap.error("frozen parent source and manifest disagree")
-    hp = L4_HP + [f"seed={args.seed}"]
+    hp = MOBIHET_HP + [f"seed={args.seed}"]
     if args.ablation:
         import sys
         sys.path.insert(0, str(ROOT))
         from methods.mobihet_ablation import HP
         hp += HP[args.ablation]
-    experiment = f"single-backbone-{args.backbone}-mobihet-l4" + (f"-ablation-{args.ablation}" if args.ablation else "")
+    experiment = f"single-backbone-{args.backbone}-mobihet" + (f"-ablation-{args.ablation}" if args.ablation else "")
     manifest = {"experiment": experiment, "method": method, "ablation": args.ablation, "seed": args.seed,
                 "backbone": model["display"], "parameters": model["parameters"], "rounds": 50, "session": args.session,
                 "parent": args.parent or None, "run": run, "hp": hp, "dataset": DATASET, "stop_after": args.stop_after,
                 "client_partition": "fixed-all-5343", "protocol_revision": "dagsnet-aligned-v2",
-                "l4_source": "../mobihet runs/fbl-r50/batch.json (methods a4147a1b...)"}
+                "l4_source": "../mobihet runs/fbl-r50/batch.json (methods a4147a1b...)", "la_mode": "off"}
 
     setup = '''import os, subprocess, sys, time, json, hashlib, glob, shutil
 from pathlib import Path
@@ -159,7 +164,7 @@ print(json.dumps(status), flush=True)
 '''
     nb = nbformat.v4.new_notebook()
     nb.cells = [nbformat.v4.new_markdown_cell(
-        f"# {slug}\n\n{model['display']} single-backbone FL · MobiHet L4"
+        f"# {slug}\n\n{model['display']} single-backbone FL · MobiHet"
         f"{' ablation ' + args.ablation if args.ablation else ''} · seed {args.seed} · session {args.session} · "
         "all 5,343 clients."), code(setup), code(embed), code(resume), code(cache), code(train)]
     nb.metadata.update({"kernelspec": {"name": "python3", "display_name": "Python 3", "language": "python"},

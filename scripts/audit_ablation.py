@@ -1,16 +1,17 @@
-"""Audit one pulled MobiHet L4 ablation session (docs/research/mobihet-l4-ablation.md) and record it at r50.
+"""Audit one pulled MobiHet or MobiHet-ablation session (docs/research/mobihet-ablation.md) and record it at r50.
 
     python scripts/audit_ablation.py <pull dir> --notebook <executed .ipynb> --ref <owner/slug/version>
                                      [--compare <L4 run dir>] [--record]
 
 Single-backbone (scripts/build_l4_fl.py --ablation), FeatureBERT (scripts/build_bert_l4_ablation.py) and mixed
 (scripts/build_mixed_l4.py --ablation) sessions. Checks: executed source == the notebook's embedded source == its manifest;
-method, arm, seed and hp == PROTOCOL + L4_HP + seed + the arm's hp; rounds 1..last contiguous, cosine LR of 50 rounds,
+method, arm, seed and hp == PROTOCOL + MOBIHET_HP (L4, la_mode=off) + seed + the arm's hp; rounds 1..last contiguous, cosine LR of 50 rounds,
 finite loss, skipped steps < 1 % (per backbone for mixed), every client applied; every round's confusion matrices cover the
-9,347,679 test rows and their ten metrics equal the logged ones; the arm's byte contract (a1: bootstrap 64 + 64 B and 0 B per
-round, a4: 1024 B each way). --compare: rounds 1..last and their confusion matrices equal an L4 run (control arm `none`).
+9,347,679 test rows and their ten metrics equal the logged ones; the arm's byte contract (a1: 0 B bootstrap and 0 B per
+round, a4: 1024 B each way). --compare: rounds 1..last and their confusion matrices equal a MobiHet run (control arm `none`).
 Writes ablation-audit.json in the pull dir; --record (r50 only) appends results.csv and cost.csv rows in
-experiments/ablation-l4/<scenario>/ (FLOPs: scripts/compute/report_ablation.py -> compute.csv).
+experiments/ablation/<scenario>/ (arm `none` as `mobihet`, which also goes to experiments/<scenario>/results.csv;
+FLOPs: scripts/compute/report_ablation.py -> compute.csv).
 """
 import argparse
 import ast
@@ -29,7 +30,7 @@ from core.fl import cosine_lr  # noqa: E402
 from core.metrics import TEN, summary  # noqa: E402
 from methods.mobihet_ablation import HP, RAW_Q_BYTES  # noqa: E402
 from scripts.audit_l4 import append_csv_row  # noqa: E402
-from scripts.build_l4_fl import L4_HP  # noqa: E402
+from scripts.build_l4_fl import MOBIHET_HP  # noqa: E402
 
 TEST_ROWS, CLIENTS = 9347679, 5343
 SCENARIO = {"DAGSNet": "dagsnet", "TabM": "tabm", "SAE": "sae", "MLP": "mlp", "CNN-BiGRU-Attention": "cnn-bigru",
@@ -52,7 +53,7 @@ def main():
     ap.add_argument("pull", type=Path)
     ap.add_argument("--notebook", required=True, type=Path)
     ap.add_argument("--ref", required=True, help="exact owner/slug/version")
-    ap.add_argument("--compare", type=Path, help="L4 run directory of the same seed (control arm)")
+    ap.add_argument("--compare", type=Path, help="MobiHet run directory of the same seed (control arm)")
     ap.add_argument("--parent", type=Path, help="run directory of the audited parent session (session > 1): its rounds are a prefix")
     ap.add_argument("--record", action="store_true")
     a = ap.parse_args()
@@ -68,7 +69,7 @@ def main():
     chk["ablation_module"] = "methods/mobihet_ablation.py" in source
     run = p / man["run"]
     cfg = read(run / "config.json")
-    want = {k: value(v) for k, v in (s.split("=", 1) for s in L4_HP + [f"seed={seed}"] + HP[arm])}
+    want = {k: value(v) for k, v in (s.split("=", 1) for s in MOBIHET_HP + [f"seed={seed}"] + HP[arm])}
     chk["hp"] = all(cfg["hp"].get(k) == v for k, v in want.items()) and cfg["hp"]["batch"] == 64
     chk["method"] = (cfg["method"] == "mobihet_l4" and man["method"] == "mobihet_ablation_mixed") if mixed else \
         (cfg["method"] == man["method"] == "mobihet_ablation")
@@ -98,7 +99,7 @@ def main():
     boot = cfg["payload_bytes"]["bootstrap"]
     up, down = sum(r["bytes_up"] for r in rows), sum(r["bytes_down"] for r in rows)
     if arm == "a1":
-        chk["bytes_contract"] = boot == {"up": 64, "down": 64} and up == 0 and down == 0
+        chk["bytes_contract"] = boot == {"up": 0, "down": 0} and up == 0 and down == 0
     elif arm == "a4":
         chk["bytes_contract"] = all(r["bytes_up"] == RAW_Q_BYTES and r["bytes_down"] == RAW_Q_BYTES for r in rows)
     else:
@@ -138,14 +139,18 @@ def main():
     if a.record:
         if last != 50 or not chk["pass"]:
             ap.error("--record needs a passing r50 audit")
-        folder = ROOT / "experiments/ablation-l4" / scen
+        folder = ROOT / "experiments/ablation" / scen
         e = receipt["endpoint"]
         src = f"kaggle {a.ref} (scripts/audit_ablation.py: 50 CM -> 10 metrics)"
-        append_csv_row(folder / "results.csv", [arm, str(seed), view, "50", *(f"{e[k]:.6f}" for k in TEN),
+        name = "mobihet" if arm == "none" else arm
+        if arm == "none":                                                # MobiHet itself: also the scenario table row
+            append_csv_row(ROOT / "experiments" / scen / "results.csv", ["mobihet", str(seed), "client", "50",
+                                                                       *(f"{e[k]:.6f}" for k in TEN), "audited", src])
+        append_csv_row(folder / "results.csv", [name, str(seed), view, "50", *(f"{e[k]:.6f}" for k in TEN),
                                                 f"{e['client_f1_macro_mean']:.6f}", f"{e['client_f1_macro_p10']:.6f}",
                                                 json.dumps([round(v, 6) for v in receipt["f1_per_class"]]), "audited", src])
         b = receipt["bytes_per_vehicle"]
-        append_csv_row(folder / "cost.csv", [arm, str(seed), f"{b['bootstrap_up']:.1f}", f"{b['bootstrap_down']:.1f}",
+        append_csv_row(folder / "cost.csv", [name, str(seed), f"{b['bootstrap_up']:.1f}", f"{b['bootstrap_down']:.1f}",
                                              f"{b['up']:.1f}", f"{b['down']:.1f}", f"{b['total']:.1f}",
                                              f"{b['total'] * CLIENTS:.0f}", "audited", src])
         print("recorded", folder)

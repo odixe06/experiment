@@ -27,7 +27,7 @@ from core import fl, local, grouped, metrics
 from core.dagsnet import width
 from core.model_assignment import CASES, load_assignment, sha256
 from methods.mobihet_mixed_l4 import Method
-from scripts.build_l4_fl import L4_HP
+from scripts.build_l4_fl import MOBIHET_HP
 from scripts.run_fl import PROTOCOL
 
 
@@ -53,7 +53,7 @@ def l4_hp(seed, overrides=()):
         except json.JSONDecodeError:
             return v                                                     # bare string, e.g. arm=none
     hp = dict(PROTOCOL, rounds=50)
-    hp.update({k: val(v) for k, v in (s.split("=", 1) for s in L4_HP)})
+    hp.update({k: val(v) for k, v in (s.split("=", 1) for s in MOBIHET_HP)})   # MobiHet = L4, la_mode=off
     hp["seed"] = seed
     hp.update({k: val(v) for k, v in (s.split("=", 1) for s in overrides)})
     return hp

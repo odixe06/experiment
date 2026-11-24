@@ -6,15 +6,15 @@ Mỗi kịch bản: `README.md` (sinh tự động), `results.csv` (method, seed
 
 Ô = số seed (41/42/43) đã có kết quả cuối; N/A = không áp dụng.
 
-| Kịch bản | Centralized | FedAvg | FedProx | AFPHA_EDL_CMSO | FD-IDS | APFed_LDwCBN | LwFedNIDS | V2X-HtFL | CANPerFL | TinyProto | pFedES | NILM-FL | FedTGP | PerFed-SKD | FedProto | MobiHet L4 |
+| Kịch bản | Centralized | FedAvg | FedProx | AFPHA_EDL_CMSO | FD-IDS | APFed_LDwCBN | LwFedNIDS | V2X-HtFL | CANPerFL | TinyProto | pFedES | NILM-FL | FedTGP | PerFed-SKD | FedProto | MobiHet |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | [dagsnet](dagsnet/README.md) | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 |
-| [bert](bert/README.md) | 0/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 |
+| [bert](bert/README.md) | 0/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 2/3 |
 | [tabm](tabm/README.md) | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 |
 | [sae](sae/README.md) | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 |
 | [mlp](mlp/README.md) | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 |
-| [cnn-bigru](cnn-bigru/README.md) | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 |
-| [mixed-case1](mixed-case1/README.md) | N/A | N/A | N/A | N/A | N/A | N/A | N/A | 3/3 | N/A | 3/3 | 3/3 | N/A | 3/3 | N/A | 3/3 | 3/3 |
+| [cnn-bigru](cnn-bigru/README.md) | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 3/3 | 2/3 |
+| [mixed-case1](mixed-case1/README.md) | N/A | N/A | N/A | N/A | N/A | N/A | N/A | 3/3 | N/A | 3/3 | 3/3 | N/A | 3/3 | N/A | 3/3 | 2/3 |
 | [mixed-case2](mixed-case2/README.md) | N/A | N/A | N/A | N/A | N/A | N/A | N/A | 3/3 | N/A | 3/3 | 3/3 | N/A | 3/3 | N/A | 3/3 | 3/3 |
 | [mixed-case3](mixed-case3/README.md) | N/A | N/A | N/A | N/A | N/A | N/A | N/A | 3/3 | N/A | 3/3 | 3/3 | N/A | 3/3 | N/A | 3/3 | 3/3 |
 

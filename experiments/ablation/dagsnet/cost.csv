@@ -1,0 +1,4 @@
+arm,seed,bootstrap_up_B,bootstrap_down_B,up_50r_B,down_50r_B,total_B_per_vehicle,total_B_network,status,source
+mobihet,41,98942.9,241720.4,6462.5,7197.0,354322.7,1893146126,audited,kaggle heykewtiie/dagsnet-abl-a3-s41/1 (former L4 ablation a3 = MobiHet; scripts/audit_ablation.py + scripts/promote_mobihet_rows.py)
+mobihet,42,98942.9,241720.4,6452.8,7161.0,354277.1,1892902321,audited,kaggle bestyorn/dagsnet-abl-a3-s42-h2/2 (former L4 ablation a3 = MobiHet; scripts/audit_ablation.py + scripts/promote_mobihet_rows.py)
+mobihet,43,98942.9,241720.4,6438.1,7175.0,354276.3,1892898519,audited,kaggle heykewtiie/dagsnet-abl-a3-s43/1 (former L4 ablation a3 = MobiHet; scripts/audit_ablation.py + scripts/promote_mobihet_rows.py)

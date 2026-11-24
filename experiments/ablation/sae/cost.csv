@@ -1,0 +1,4 @@
+arm,seed,bootstrap_up_B,bootstrap_down_B,up_50r_B,down_50r_B,total_B_per_vehicle,total_B_network,status,source
+mobihet,41,98942.9,241720.4,10211.7,11851.0,362726.0,1938044772,audited,kaggle minhtrit06/sae-abl-a3-s41/1 (former L4 ablation a3 = MobiHet; scripts/audit_ablation.py + scripts/promote_mobihet_rows.py)
+mobihet,42,98942.9,241720.4,10243.3,11903.0,362809.5,1938491260,audited,kaggle hoangdang20t/sae-abl-a3-s42-h2/1 (former L4 ablation a3 = MobiHet; scripts/audit_ablation.py + scripts/promote_mobihet_rows.py)
+mobihet,43,98942.9,241720.4,10210.0,11854.0,362727.2,1938051614,audited,kaggle odixeuit/sae-abl-a3-s43/1 (former L4 ablation a3 = MobiHet; scripts/audit_ablation.py + scripts/promote_mobihet_rows.py)

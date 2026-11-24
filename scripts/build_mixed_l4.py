@@ -1,11 +1,11 @@
-"""Build one private 2xT4 notebook: MobiHet L4 on one mixed-model case (scripts/run_mixed_l4.py), one seed.
+"""Build one private 2xT4 notebook: MobiHet (L4 without LA, MOBIHET_HP) on one mixed-model case (scripts/run_mixed_l4.py), one seed.
 
 Embedded source as scripts/build_l4_fl.py; data from a verified or freshly built v4 NPY cache; frozen assignment
 experiments/mixed-model-v1. --stop-after 2 is the pilot: same run directory and cosine horizon (50), so a later session
 continues it from checkpoint r2 with --parent. A session > 1 copies the parent's run directory from /kaggle/input
 (checkpoint.json + checkpoint-rNNN + history) before run_mixed_l4.py resumes it; the config hash refuses any source change.
---ablation <arm> (owner 21/11/2026, docs/research/mobihet-l4-ablation.md): scripts/run_mixed_ablation.py (run_mixed_l4.py with
-methods/mobihet_ablation_mixed.py and the arm's hp), run directory mixl4-abl-<arm>-<case>-s<seed>. --npy-cache also serves a
+--ablation <arm> (owner 24/11/2026, docs/research/mobihet-ablation.md): scripts/run_mixed_ablation.py (run_mixed_l4.py with
+methods/mobihet_ablation_mixed.py and the arm's hp), run directory mixmh-abl-<arm>-<case>-s<seed>; MobiHet itself mixmh-<case>-s<seed>. --npy-cache also serves a
 fresh session (the receipt pins the cache manifest and every array's SHA-256).
 """
 import argparse
@@ -41,14 +41,12 @@ def main():
     ap.add_argument("--npy-cache", type=Path, help="preflight receipt for a verified full v4 NPY cache")
     ap.add_argument("--stop-after", type=int, default=50)
     ap.add_argument("--max-hours", type=float, default=11.5)
-    ap.add_argument("--ablation", choices=("none", "a1", "a2", "a3", "a4"), help="L4 ablation arm (methods/mobihet_ablation.py)")
+    ap.add_argument("--ablation", choices=("none", "a1", "a2", "a4"), help="MobiHet ablation arm (methods/mobihet_ablation.py)")
     args = ap.parse_args()
     if (args.session > 1) != bool(args.parent):
         ap.error("--parent is required exactly when --session > 1")
-    if args.npy_cache and not (args.parent_artifacts or args.ablation):
-        ap.error("--npy-cache requires audited parent artifacts")
-    run = (f"mixl4-abl-{args.ablation}-{args.case}-s{args.seed}" if args.ablation else
-           f"mixl4-{args.case}-s{args.seed}")                       # run directory: the same in every session
+    run = (f"mixmh-abl-{args.ablation}-{args.case}-s{args.seed}" if args.ablation not in (None, "none") else
+           f"mixmh-{args.case}-s{args.seed}")                           # arm none = MobiHet (scripts/audit_ablation.py)                       # run directory: the same in every session
     slug = run if args.session == 1 else f"{run}-h{args.session}"
     paths = sorted([*ROOT.glob("core/*.py"), *ROOT.glob("methods/*.py"), *ROOT.glob("knowledge/*.json"),
                     *ROOT.glob("experiments/mixed-model-v1/*"), ROOT/"tests/test_mixed_l4.py",
@@ -79,7 +77,7 @@ def main():
     frozen = args.parent_artifacts or args.source_artifacts
     if frozen and hashes != json.loads((frozen / "source_manifest.json").read_text()):
         ap.error("frozen parent source and manifest disagree")
-    experiment = f"mixed-{args.case}-mobihet-l4" + (f"-ablation-{args.ablation}" if args.ablation else "")
+    experiment = f"mixed-{args.case}-mobihet" + (f"-ablation-{args.ablation}" if args.ablation else "")
     manifest = {"experiment": experiment, "method": "mobihet_ablation_mixed" if args.ablation else "mobihet_l4",
                 "ablation": args.ablation, "case": args.case, "seed": args.seed,
                 "rounds": 50, "stop_after": args.stop_after, "session": args.session, "parent": args.parent or None,
@@ -164,7 +162,7 @@ print(json.dumps(status), flush=True)
 '''
     nb = nbformat.v4.new_notebook()
     nb.cells = [nbformat.v4.new_markdown_cell(
-        f"# {slug}\n\nMixed {args.case} · MobiHet L4{' ablation ' + args.ablation if args.ablation else ''} · seed {args.seed} · session {args.session} · stop after round "
+        f"# {slug}\n\nMixed {args.case} · MobiHet{' ablation ' + args.ablation if args.ablation else ''} · seed {args.seed} · session {args.session} · stop after round "
         f"{args.stop_after} · all 5,343 clients."), code(setup), code(embed), code(resume), code(cache), code(train)]
     nb.metadata.update({"kernelspec": {"name": "python3", "display_name": "Python 3", "language": "python"},
                         "language_info": {"name": "python", "version": "3.12"},

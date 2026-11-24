@@ -30,7 +30,7 @@ COMPLEXITY = {
     "fedtgp": "O((E+N)*F+U*P+E*H+S*K*C^2*H)",
     "perfedskd": "O(E*(F_train+F_teacher+C)+U*P+K_sel*P)",
     "fedproto": "O(E*(F+H)+U*P+K*C*H)",
-    "mobihet_l4": "O(E_mix*F+U*P+E_synth*(D^2+D*log B+C)+K*C^2)",
+    "mobihet": "O(E_mix*F+U*P+E_synth*(D^2+D*log B+C)+K*C^2)",
 }
 SIDES = ("client", "server", "other", "unattributed", "bootstrap", "preprocessing", "evaluation")
 CONVENTIONS = ("formula", "arithmetic_estimate", "element_work")

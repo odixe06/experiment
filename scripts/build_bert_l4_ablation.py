@@ -1,9 +1,13 @@
-"""Build one private 2xT4 notebook: MobiHet L4 ablation (methods/mobihet_ablation.py) on single-backbone FeatureBERT.
+"""Build one private 2xT4 notebook: MobiHet or a MobiHet ablation (methods/mobihet_ablation.py) on single-backbone FeatureBERT.
+
+MobiHet = L4 without logit adjustment (owner 24/11/2026): hp MOBIHET_HP (la_mode=off). The frozen L4 snapshot has no la_mode, so
+its methods/mobihet_budget.py is replaced by ../mobihet's (the frozen file plus the la_mode block only, pinned by SHA-256).
+--ablation none = MobiHet itself (run directory bert-mh-s<seed>); a1/a2/a4 = bert-mhabl-<arm>-s<seed>.
 
 The FeatureBERT L4 chain (flb-fbl-l4-top-s4x-r50, docs/research/mobihet-l4.md) ran fl_veremi_bert 49b2d88 + a 3-file overlay
 through scripts/run_t3.py; its frozen source (identical manifest in all six sessions) is embedded here with
 methods/mobihet_ablation.py added, and the command is that chain's with --method mobihet_ablation and the arm's hp after
-L4_HP + seed. Layout as scripts/build_l4_fl.py: source snapshot + manifest in the output, --stop-after 2 = pilot,
+MOBIHET_HP + seed. Layout as scripts/build_l4_fl.py: source snapshot + manifest in the output, --stop-after 2 = pilot,
 --parent <owner>/<slug> continues the run directory of an earlier session. The v4 NPY cache is built by the snapshot's own
 core/data.py, as in those notebooks (its data module differs from this repo's).
 """
@@ -19,10 +23,12 @@ import nbformat
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from methods.mobihet_ablation import HP  # noqa: E402
-from scripts.build_l4_fl import DATASET, IMAGE, L4_HP  # noqa: E402
+from scripts.build_l4_fl import DATASET, IMAGE, MOBIHET_HP  # noqa: E402
 
 SNAPSHOT = ROOT / "runs/recovery-20261120/references/bert-l4-artifacts/flb-fbl-l4-top-s41-r50/provenance"
 MANIFEST_SHA256 = "c2db040209be408e"                                    # prefix, all six flb-fbl-l4-top sessions
+BUDGET = ROOT.parent / "mobihet/methods/mobihet_budget.py"               # frozen budget + la_mode (../mobihet 24/11)
+BUDGET_SHA256 = "3c18cc34694472d5e1b46a701a2522efb5343c7db11885910e8ad51add08c795"
 
 
 def code(text):
@@ -42,7 +48,7 @@ def main():
     args = ap.parse_args()
     if (args.session > 1) != bool(args.parent):
         ap.error("--parent is required exactly when --session > 1")
-    run = f"bert-abl-{args.ablation}-s{args.seed}"                       # run directory: the same in every session
+    run = f"bert-mh-s{args.seed}" if args.ablation == "none" else f"bert-mhabl-{args.ablation}-s{args.seed}"   # every session
     slug = run if args.session == 1 else f"{run}-h{args.session}"
     raw = (SNAPSHOT / "source_manifest.json").read_bytes()
     assert hashlib.sha256(raw).hexdigest().startswith(MANIFEST_SHA256), "not the FeatureBERT L4 source"
@@ -53,15 +59,25 @@ def main():
         assert hashlib.sha256(text.encode()).hexdigest() == digest, name
         source[name] = text
     assert "methods/mobihet_ablation.py" not in source
+    budget = BUDGET.read_text(encoding="utf-8")
+    assert hashlib.sha256(budget.encode()).hexdigest() == BUDGET_SHA256, "../mobihet methods/mobihet_budget.py changed"
+    lines = budget.splitlines(keepends=True)
+    start = next(i for i, x in enumerate(lines) if x.startswith("  la_mode    "))
+    init = next(i for i, x in enumerate(lines) if "self.la_mode = hp.get" in x)
+    assert "".join(lines[:start] + lines[start + 6:init] + lines[init + 5:]) == source["methods/mobihet_budget.py"], \
+        "overlay differs from the frozen budget by more than the la_mode block"
+    source["methods/mobihet_budget.py"] = budget
     source["methods/mobihet_ablation.py"] = (ROOT / "methods/mobihet_ablation.py").read_text(encoding="utf-8")
     hashes = {name: hashlib.sha256(value.encode()).hexdigest() for name, value in source.items()}
-    hp = L4_HP + [f"seed={args.seed}"] + HP[args.ablation]
-    manifest = {"experiment": f"single-backbone-featurebert-mobihet-l4-ablation-{args.ablation}", "method": "mobihet_ablation",
+    hp = MOBIHET_HP + [f"seed={args.seed}"] + HP[args.ablation]
+    manifest = {"experiment": "single-backbone-featurebert-mobihet" + ("" if args.ablation == "none" else f"-ablation-{args.ablation}"),
+                "method": "mobihet_ablation",
                 "ablation": args.ablation, "seed": args.seed, "backbone": "FeatureBERT", "rounds": 50,
                 "stop_after": args.stop_after, "session": args.session, "parent": args.parent or None, "run": run, "hp": hp,
                 "dataset": DATASET, "client_partition": "fixed-all-5343",
                 "l4_source": {"base_sha": frozen["base_sha"], "overlay": frozen["overlay"],
-                              "manifest_sha256": hashlib.sha256(raw).hexdigest()}}
+                              "manifest_sha256": hashlib.sha256(raw).hexdigest(),
+                              "budget_overlay_sha256": BUDGET_SHA256}, "la_mode": "off"}
 
     setup = '''import os, subprocess, sys, time, json, hashlib, glob, shutil
 from pathlib import Path
@@ -138,7 +154,7 @@ print(json.dumps(status), flush=True)
 '''
     nb = nbformat.v4.new_notebook()
     nb.cells = [nbformat.v4.new_markdown_cell(
-        f"# {slug}\n\nFeatureBERT single-backbone FL · MobiHet L4 ablation {args.ablation} · seed {args.seed} · session "
+        f"# {slug}\n\nFeatureBERT single-backbone FL · MobiHet ablation {args.ablation} · seed {args.seed} · session "
         f"{args.session} · stop after round {args.stop_after} · all 5,343 clients."),
         code(setup), code(embed), code(resume), code(cache), code(train)]
     nb.metadata.update({"kernelspec": {"name": "python3", "display_name": "Python 3", "language": "python"},

@@ -13,4 +13,3 @@ nilm,done,2.42754e-05,288.776,0.000190296,3.93678,50,14438.8,2.0000,1476064,1112
 fedtgp,done,2.42271e-05,144.394,14.6478,4.3662,50,7952.08,1.1015,1476064,5562368,1476064,runs/compute-20261120/kaggle/exp-count-cnnbigru-a/compute/cnn-bigru-fedtgp.count.json
 perfedskd,done,2.42756e-05,190.681,14.639,2.18309,50,10266,1.4220,1476064,5562368,1476064,runs/compute-20261120/kaggle/exp-count-cnnbigru-b/compute/cnn-bigru-perfedskd.count.json
 fedproto,done,2.41591e-05,144.395,4.91547e-05,4.3662,50,7219.74,1.0001,1476064,5562368,1476064,runs/compute-20261120/kaggle/exp-count-cnnbigru-a/compute/cnn-bigru-fedproto.count.json
-mobihet_l4,done,0.0639457,132.467,4.84839e-05,2.18309,50,6623.42,0.9175,1476064,5092288,1437976,runs/compute-20261120/kaggle/exp-count-l4-g4096/compute/cnn-bigru-mobihet_l4.count.json

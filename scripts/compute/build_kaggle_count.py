@@ -4,7 +4,7 @@ Kaggle slots; FLOPs do not depend on the GPU). Same harness, panel and rows as t
 split over the two GPUs (one run_queue.py worker per GPU). Output: /kaggle/working/compute/<job>.count.{json,log}.
 
     python scripts/compute/build_kaggle_count.py --owner ACCOUNT --slug SLUG --jobs mixed-case1-,mixed-case2-fedproto [--sha SHA]
---ablation: the jobs are run_queue.py --ablation ones (MobiHet L4 ablations, 21/11/2026); keep bert-abl jobs in a notebook
+--ablation: the jobs are run_queue.py --ablation ones (MobiHet ablations a1/a2/a4, 24/11/2026); keep bert-mhabl jobs in a notebook
 with other jobs (the ablation module imports this repo's core/methods).
 """
 import argparse
@@ -53,7 +53,8 @@ def main():
             common = {"core/__init__.py", "core/data.py", "scripts/build_l4_fl.py", "scripts/run_local_guarded.py"}
             files = [file for file in files if file.relative_to(ROOT).parts[0] in ("bert", "knowledge") or
                      file.relative_to(ROOT).as_posix() in common or file.parent == ROOT / "scripts/compute"]
-        if any("bert-mobihet_l4".startswith(prefix) or prefix.startswith("bert-abl") for prefix in jobs):
+        bert_mh = any("bert-mobihet".startswith(prefix) or prefix.startswith("bert-mhabl") for prefix in jobs)
+        if bert_mh:
             frozen = ROOT / "runs/recovery-20261120/references/featurebert-l4/provenance"
             manifest = json.loads((frozen / "source_manifest.json").read_text())
             for name, digest in manifest["files"].items():
@@ -62,6 +63,8 @@ def main():
                     raise ValueError(f"frozen native BERT L4 source mismatch: {name}")
                 files.append(path)
         blob = {f.relative_to(ROOT).as_posix(): f.read_bytes() for f in files}
+        if bert_mh:                         # run_queue.bert_source overlays ../mobihet's budget (la_mode) on the frozen source
+            blob["../mobihet/methods/mobihet_budget.py"] = (ROOT.parent / "mobihet/methods/mobihet_budget.py").read_bytes()
         packed = base64.b64encode(zlib.compress(json.dumps({k: v.decode("utf-8") for k, v in blob.items()}, ensure_ascii=False).encode(), 9)).decode()
         src_sha = hashlib.sha256(json.dumps({k: hashlib.sha256(v).hexdigest() for k, v in blob.items()}, sort_keys=True).encode()).hexdigest()
         fetch = f'''import json as _j

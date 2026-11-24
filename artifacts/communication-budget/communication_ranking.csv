@@ -1,7 +1,7 @@
 scenario,method,backbone,n_seeds,total_incl_attributed_B_mean,total_incl_attributed_B_std,total_B_mean,total_per_client_B_mean,recurring_per_client_per_round_B_mean,basis,confidence,rank_in_scenario,x_fedavg,total_incl_attributed_GB_mean
 bert,tinyproto,bert,3,217673400.0,0.0,217673400.0,40739.921392476135,814.7984278495228,calculated (present classes only; N_p from fold_counts.npy),high,1,0.001307375789191702,0.2176734
 bert,pfedes,bert,3,750157200.0,0.0,750157200.0,140400.0,2808.0,calculated,high,2,0.004505545286506469,0.7501572
-bert,mobihet_l4,bert,3,1917236190.0,51241.584411491414,1917236190.0,358831.40370578325,363.36333520494105,measured (codec byte length per vehicle in simulation; all vehicles; not network traffic),high,3,0.011515179057101794,1.91723619
+bert,mobihet,bert,2,1915303077.0,34629.84750182998,1915303077.0,358469.6007860752,356.1272768107805,measured (codec byte length per vehicle in simulation; all vehicles; not network traffic),high,3,0.01150356851978317,1.915303077
 bert,fedtgp,bert,3,1990156800.0,0.0,1990156800.0,372479.281302639,7449.585626052779,calculated (present classes only; N_p from fold_counts.npy),high,4,0.011953150072609846,1.9901568
 bert,v2x_htfl,bert,3,1990156800.0,0.0,1990156800.0,372479.281302639,7449.585626052779,calculated (present classes only; N_p from fold_counts.npy),high,4,0.011953150072609846,1.9901568
 bert,fedproto,bert,3,2004155400.0,0.0,2004155400.0,375099.2700729927,7501.985401459854,calculated (present classes only; N_p from fold_counts.npy),high,6,0.012037227551633828,2.0041554
@@ -16,7 +16,7 @@ bert,afpha,bert,3,166497476028.0,0.0,166497476028.0,31161796.0,623232.0,"calcula
 bert,canperfl,bert,3,168161393088.0,0.0,1664964288.0,311616.0,0.0,calculated,high,15,1.01,168.161393088
 cnn-bigru,tinyproto,cnn-bigru-attention,3,404250600.0,0.0,404250600.0,75659.85401459855,1513.1970802919707,calculated (present classes only; N_p from fold_counts.npy),high,1,0.001597331737573439,0.4042506
 cnn-bigru,pfedes,cnn-bigru-attention,3,750157200.0,0.0,750157200.0,140400.0,2808.0,calculated,high,2,0.0029641264693960278,0.7501572
-cnn-bigru,mobihet_l4,cnn-bigru-attention,3,1926550091.6666667,180106.1374477098,1926550091.6666667,360574.6007236883,398.227275563042,measured (codec byte length per vehicle in simulation; all vehicles; not network traffic),high,3,0.0076124552578133095,1.9265500916666667
+cnn-bigru,mobihet,cnn-bigru-attention,2,1925259310.5,81975.59624973765,1925259310.5,360333.01712521055,393.39560359348684,measured (codec byte length per vehicle in simulation; all vehicles; not network traffic),high,3,0.007607354942009748,1.9252593105
 cnn-bigru,fedtgp,cnn-bigru-attention,3,3980313600.0,0.0,3980313600.0,744958.562605278,14899.171252105558,calculated (present classes only; N_p from fold_counts.npy),high,4,0.015727574031492324,3.9803136
 cnn-bigru,v2x_htfl,cnn-bigru-attention,3,3980313600.0,0.0,3980313600.0,744958.562605278,14899.171252105558,calculated (present classes only; N_p from fold_counts.npy),high,4,0.015727574031492324,3.9803136
 cnn-bigru,fedproto,cnn-bigru-attention,3,3994312200.0,0.0,3994312200.0,747578.5513756317,14951.571027512633,calculated (present classes only; N_p from fold_counts.npy),high,6,0.015782887265564444,3.9943122
@@ -31,7 +31,7 @@ cnn-bigru,afpha,cnn-bigru-attention,3,253079722428.0,0.0,253079722428.0,47366596
 cnn-bigru,canperfl,cnn-bigru-attention,3,255609461952.0,0.0,2530786752.0,473664.0,0.0,calculated,high,15,1.01,255.609461952
 dagsnet,pfedes,dagsnet,3,750157200.0,0.0,750157200.0,140400.0,2808.0,calculated,high,1,0.0008804230043745234,0.7501572
 dagsnet,tinyproto,dagsnet,3,808501200.0,0.0,808501200.0,151319.7080291971,3026.3941605839414,calculated (present classes only; N_p from fold_counts.npy),high,2,0.0009488985182631153,0.8085012
-dagsnet,mobihet_l4,dagsnet,3,1894585712.0,83636.95805683035,1894585712.0,354592.1227774658,278.57771663859256,measured (codec byte length per vehicle in simulation; all vehicles; not network traffic),high,3,0.002223583063128749,1.894585712
+dagsnet,mobihet,dagsnet,3,1892982322.0,141871.16202033448,1892982322.0,354292.031068688,272.5758824630357,measured (codec byte length per vehicle in simulation; all vehicles; not network traffic),high,3,0.0022217012423037487,1.892982322
 dagsnet,fedtgp,dagsnet,3,7960627200.0,0.0,7960627200.0,1489917.125210556,29798.342504211116,calculated (present classes only; N_p from fold_counts.npy),high,4,0.009343000795206058,7.9606272
 dagsnet,v2x_htfl,dagsnet,3,7960627200.0,0.0,7960627200.0,1489917.125210556,29798.342504211116,calculated (present classes only; N_p from fold_counts.npy),high,4,0.009343000795206058,7.9606272
 dagsnet,fedproto,dagsnet,3,7974625800.0,0.0,7974625800.0,1492537.1139809096,29850.742279618193,calculated (present classes only; N_p from fold_counts.npy),high,6,0.009359430270880006,7.9746258
@@ -44,30 +44,30 @@ dagsnet,fedprox,dagsnet,3,852041798400.0,0.0,852041798400.0,159468800.0,3189376.
 dagsnet,nilm,dagsnet,3,852041798400.0,0.0,852041798400.0,159468800.0,3189376.0,"calculated (tensor size fp32; P,B by instantiation)",high,9,1.0,852.0417984
 dagsnet,afpha,dagsnet,3,852042845628.0,0.0,852042845628.0,159468996.0,3189376.0,"calculated (tensor size fp32; P,B by instantiation)",high,14,1.0000012290805473,852.042845628
 dagsnet,canperfl,dagsnet,3,860562216384.0,0.0,8520417984.0,1594688.0,0.0,calculated,high,15,1.01,860.562216384
-mixed-case1,tinyproto,bert+cnn-bigru-attention+dagsnet,3,404250600.0,0.0,404250600.0,75659.85401459855,1513.1970802919707,calculated (present classes only; N_p from fold_counts.npy),high,1,,0.4042506
-mixed-case1,pfedes,bert+cnn-bigru-attention+dagsnet,3,750157200.0,0.0,750157200.0,140400.0,2808.0,calculated,high,2,,0.7501572
-mixed-case1,mobihet_l4,bert+cnn-bigru-attention+dagsnet,3,1914099910.0,46418.896507780104,1914099910.0,358244.41512259026,351.62356354108175,measured (codec byte length per vehicle in simulation; all vehicles; not network traffic),high,3,,1.91409991
-mixed-case1,fedtgp,bert+cnn-bigru-attention+dagsnet,3,3980313600.0,0.0,3980313600.0,744958.562605278,14899.171252105558,calculated (present classes only; N_p from fold_counts.npy),high,4,,3.9803136
-mixed-case1,v2x_htfl,bert+cnn-bigru-attention+dagsnet,3,3980313600.0,0.0,3980313600.0,744958.562605278,14899.171252105558,calculated (present classes only; N_p from fold_counts.npy),high,4,,3.9803136
-mixed-case1,fedproto,bert+cnn-bigru-attention+dagsnet,3,3994312200.0,0.0,3994312200.0,747578.5513756317,14951.571027512633,calculated (present classes only; N_p from fold_counts.npy),high,6,,3.9943122
-mixed-case2,tinyproto,,3,404250600.0,0.0,404250600.0,75659.85401459855,1513.1970802919707,calculated (present classes only; N_p from fold_counts.npy),high,1,,0.4042506
-mixed-case2,pfedes,,3,750157200.0,0.0,750157200.0,140400.0,2808.0,calculated,high,2,,0.7501572
-mixed-case2,mobihet_l4,mlp+sae+tabm,3,1931599123.0,310014.59006472584,1931599123.0,361519.581321355,417.60799176492606,measured (codec byte length per vehicle in simulation; all vehicles; not network traffic),high,3,,1.931599123
-mixed-case2,fedtgp,,3,3980313600.0,0.0,3980313600.0,744958.562605278,14899.171252105558,calculated (present classes only; N_p from fold_counts.npy),high,4,,3.9803136
-mixed-case2,v2x_htfl,,3,3980313600.0,0.0,3980313600.0,744958.562605278,14899.171252105558,calculated (present classes only; N_p from fold_counts.npy),high,4,,3.9803136
-mixed-case2,fedproto,,3,3994312200.0,0.0,3994312200.0,747578.5513756317,14951.571027512633,calculated (present classes only; N_p from fold_counts.npy),high,6,,3.9943122
-mixed-case3,tinyproto,,3,404250600.0,0.0,404250600.0,75659.85401459855,1513.1970802919707,calculated (present classes only; N_p from fold_counts.npy),high,1,,0.4042506
-mixed-case3,pfedes,bert+cnn-bigru-attention+dagsnet+sae+tabm,3,750157200.0,0.0,750157200.0,140400.0,2808.0,calculated,high,2,,0.7501572
-mixed-case3,mobihet_l4,bert+cnn-bigru-attention+dagsnet+sae+tabm,3,1924860837.3333333,354508.40124365647,1924860837.3333333,360258.43858007365,391.904032690748,measured (codec byte length per vehicle in simulation; all vehicles; not network traffic),high,3,,1.9248608373333334
-mixed-case3,fedtgp,,3,3980313600.0,0.0,3980313600.0,744958.562605278,14899.171252105558,calculated (present classes only; N_p from fold_counts.npy),high,4,,3.9803136
-mixed-case3,v2x_htfl,bert+cnn-bigru-attention+dagsnet+sae+tabm,3,3980313600.0,0.0,3980313600.0,744958.562605278,14899.171252105558,calculated (present classes only; N_p from fold_counts.npy),high,4,,3.9803136
-mixed-case3,fedproto,bert+cnn-bigru-attention+dagsnet+sae+tabm,3,3994312200.0,0.0,3994312200.0,747578.5513756317,14951.571027512633,calculated (present classes only; N_p from fold_counts.npy),high,6,,3.9943122
+mixed-case1,tinyproto,bert+cnn-bigru-attention+dagsnet,3,404250600.0,0.0,404250600.0,75659.85401459855,1513.1970802919707,calculated (present classes only; N_p from fold_counts.npy),high,1,nan,0.4042506
+mixed-case1,pfedes,bert+cnn-bigru-attention+dagsnet,3,750157200.0,0.0,750157200.0,140400.0,2808.0,calculated,high,2,nan,0.7501572
+mixed-case1,mobihet,bert+cnn-bigru-attention+dagsnet,2,1912327107.5,16873.689119454582,1912327107.5,357912.6160396781,344.9875818828374,measured (codec byte length per vehicle in simulation; all vehicles; not network traffic),high,3,nan,1.9123271075
+mixed-case1,fedtgp,bert+cnn-bigru-attention+dagsnet,3,3980313600.0,0.0,3980313600.0,744958.562605278,14899.171252105558,calculated (present classes only; N_p from fold_counts.npy),high,4,nan,3.9803136
+mixed-case1,v2x_htfl,bert+cnn-bigru-attention+dagsnet,3,3980313600.0,0.0,3980313600.0,744958.562605278,14899.171252105558,calculated (present classes only; N_p from fold_counts.npy),high,4,nan,3.9803136
+mixed-case1,fedproto,bert+cnn-bigru-attention+dagsnet,3,3994312200.0,0.0,3994312200.0,747578.5513756317,14951.571027512633,calculated (present classes only; N_p from fold_counts.npy),high,6,nan,3.9943122
+mixed-case2,tinyproto,,3,404250600.0,0.0,404250600.0,75659.85401459855,1513.1970802919707,calculated (present classes only; N_p from fold_counts.npy),high,1,nan,0.4042506
+mixed-case2,pfedes,,3,750157200.0,0.0,750157200.0,140400.0,2808.0,calculated,high,2,nan,0.7501572
+mixed-case2,mobihet,mlp+sae+tabm,3,1930753928.6666667,136119.2137441784,1930753928.6666667,361361.394098197,414.44424730176553,measured (codec byte length per vehicle in simulation; all vehicles; not network traffic),high,3,nan,1.9307539286666668
+mixed-case2,fedtgp,,3,3980313600.0,0.0,3980313600.0,744958.562605278,14899.171252105558,calculated (present classes only; N_p from fold_counts.npy),high,4,nan,3.9803136
+mixed-case2,v2x_htfl,,3,3980313600.0,0.0,3980313600.0,744958.562605278,14899.171252105558,calculated (present classes only; N_p from fold_counts.npy),high,4,nan,3.9803136
+mixed-case2,fedproto,,3,3994312200.0,0.0,3994312200.0,747578.5513756317,14951.571027512633,calculated (present classes only; N_p from fold_counts.npy),high,6,nan,3.9943122
+mixed-case3,tinyproto,,3,404250600.0,0.0,404250600.0,75659.85401459855,1513.1970802919707,calculated (present classes only; N_p from fold_counts.npy),high,1,nan,0.4042506
+mixed-case3,pfedes,bert+cnn-bigru-attention+dagsnet+sae+tabm,3,750157200.0,0.0,750157200.0,140400.0,2808.0,calculated,high,2,nan,0.7501572
+mixed-case3,mobihet,bert+cnn-bigru-attention+dagsnet+sae+tabm,3,1923418468.3333333,362034.89599254564,1923418468.3333333,359988.48368581943,386.50493480566473,measured (codec byte length per vehicle in simulation; all vehicles; not network traffic),high,3,nan,1.9234184683333333
+mixed-case3,fedtgp,,3,3980313600.0,0.0,3980313600.0,744958.562605278,14899.171252105558,calculated (present classes only; N_p from fold_counts.npy),high,4,nan,3.9803136
+mixed-case3,v2x_htfl,bert+cnn-bigru-attention+dagsnet+sae+tabm,3,3980313600.0,0.0,3980313600.0,744958.562605278,14899.171252105558,calculated (present classes only; N_p from fold_counts.npy),high,4,nan,3.9803136
+mixed-case3,fedproto,bert+cnn-bigru-attention+dagsnet+sae+tabm,3,3994312200.0,0.0,3994312200.0,747578.5513756317,14951.571027512633,calculated (present classes only; N_p from fold_counts.npy),high,6,nan,3.9943122
 mlp,tinyproto,mlp,3,124384800.0,0.0,124384800.0,23279.955081414937,465.5991016282987,calculated (present classes only; N_p from fold_counts.npy),high,1,0.007657879960991755,0.1243848
 mlp,pfedes,mlp,3,750157200.0,0.0,750157200.0,140400.0,2808.0,calculated,high,2,0.04618421052631579,0.7501572
 mlp,fedtgp,mlp,3,995078400.0,0.0,995078400.0,186239.6406513195,3724.7928130263895,calculated (present classes only; N_p from fold_counts.npy),high,3,0.06126303968793404,0.9950784
 mlp,v2x_htfl,mlp,3,995078400.0,0.0,995078400.0,186239.6406513195,3724.7928130263895,calculated (present classes only; N_p from fold_counts.npy),high,3,0.06126303968793404,0.9950784
 mlp,fedproto,mlp,3,1009077000.0,0.0,1009077000.0,188859.62942167322,3777.1925884334646,calculated (present classes only; N_p from fold_counts.npy),high,5,0.06212487809923461,1.009077
-mlp,mobihet_l4,mlp,3,1928286526.6666667,119909.24188874406,1928286526.6666667,360899.5932372575,404.72712583442507,measured (codec byte length per vehicle in simulation; all vehicles; not network traffic),high,6,0.11871697145962418,1.9282865266666667
+mlp,mobihet,mlp,3,1927255491.3333333,58045.14260757168,1927255491.3333333,360706.623869237,400.8677384740158,measured (codec byte length per vehicle in simulation; all vehicles; not network traffic),high,6,0.11865349469382795,1.9272554913333333
 mlp,lwfednids,mlp,3,4158991200.0,0.0,4158991200.0,778400.0,15568.0,"calculated (tensor size fp32; P,B by instantiation)",high,7,0.25605263157894737,4.1589912
 mlp,perfedskd,mlp,3,6920877628.0,17286456.86773319,6920877628.0,1295316.7935616695,25902.41587123339,calculated from logged selected_frac (selected devices only),high,8,0.42609105051370705,6.920877628
 mlp,apfed,mlp,3,16242720000.0,0.0,16242720000.0,3040000.0,60800.0,"calculated (tensor size fp32; P,B by instantiation)",high,9,1.0,16.24272
@@ -79,7 +79,7 @@ mlp,afpha,mlp,3,16243767228.0,0.0,16243767228.0,3040196.0,60800.0,"calculated (t
 mlp,canperfl,mlp,3,16405147200.0,0.0,162427200.0,30400.0,0.0,calculated,high,15,1.01,16.4051472
 sae,tinyproto,sae,3,310962000.0,0.0,310962000.0,58199.88770353734,1163.9977540707469,calculated (present classes only; N_p from fold_counts.npy),high,1,0.01911200830931871,0.310962
 sae,pfedes,sae,3,750157200.0,0.0,750157200.0,140400.0,2808.0,calculated,high,2,0.04610534611848154,0.7501572
-sae,mobihet_l4,sae,3,1938322578.6666667,603063.7145586968,1938322578.6666667,362777.94846840104,442.2942304572962,measured (codec byte length per vehicle in simulation; all vehicles; not network traffic),high,3,0.11913107463168299,1.9383225786666667
+sae,mobihet,sae,3,1938195882.0,255827.7260267151,1938195882.0,362754.2358225716,441.8199775407075,measured (codec byte length per vehicle in simulation; all vehicles; not network traffic),high,3,0.11912328773892407,1.938195882
 sae,fedtgp,sae,3,2891946600.0,0.0,2891946600.0,541258.9556428973,10825.179112857944,calculated (present classes only; N_p from fold_counts.npy),high,4,0.177741677276664,2.8919466
 sae,v2x_htfl,sae,3,2891946600.0,0.0,2891946600.0,541258.9556428973,10825.179112857944,calculated (present classes only; N_p from fold_counts.npy),high,4,0.177741677276664,2.8919466
 sae,fedproto,sae,3,2905945200.0,0.0,2905945200.0,543878.944413251,10877.57888826502,calculated (present classes only; N_p from fold_counts.npy),high,6,0.17860204400802934,2.9059452
@@ -97,7 +97,7 @@ tabm,pfedes,tabm,3,750157200.0,0.0,750157200.0,140400.0,2808.0,calculated,high,2
 tabm,fedtgp,tabm,3,995078400.0,0.0,995078400.0,186239.6406513195,3724.7928130263895,calculated (present classes only; N_p from fold_counts.npy),high,3,0.07110554392612992,0.9950784
 tabm,v2x_htfl,tabm,3,995078400.0,0.0,995078400.0,186239.6406513195,3724.7928130263895,calculated (present classes only; N_p from fold_counts.npy),high,3,0.07110554392612992,0.9950784
 tabm,fedproto,tabm,3,1009077000.0,0.0,1009077000.0,188859.62942167322,3777.1925884334646,calculated (present classes only; N_p from fold_counts.npy),high,5,0.07210584507547084,1.009077
-tabm,mobihet_l4,tabm,3,1934611640.0,276621.8732078141,1934611640.0,362083.4063260341,428.40338760995695,measured (codec byte length per vehicle in simulation; all vehicles; not network traffic),high,6,0.13824198469992138,1.93461164
+tabm,mobihet,tabm,3,1934160159.3333333,226156.64455711519,1934160159.3333333,361998.9068563229,426.713398215734,measured (codec byte length per vehicle in simulation; all vehicles; not network traffic),high,6,0.1382097231430677,1.9341601593333333
 tabm,lwfednids,tabm,3,4449650400.0,0.0,4449650400.0,832800.0,16656.0,"calculated (tensor size fp32; P,B by instantiation)",high,7,0.31795968234575445,4.4496504
 tabm,perfedskd,tabm,3,6172126886.666667,36719515.047190115,6172126886.666667,1155180.0274502465,23099.68054900493,calculated from logged selected_frac (selected devices only),high,8,0.4410430770656103,6.172126886666667
 tabm,apfed,tabm,3,13994385600.0,0.0,13994385600.0,2619200.0,52384.0,"calculated (tensor size fp32; P,B by instantiation)",high,9,1.0,13.9943856

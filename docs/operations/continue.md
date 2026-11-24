@@ -1,4 +1,26 @@
-# Bàn giao — experiment, 23/11/2026 (+07)
+# Bàn giao — experiment, 24/11/2026 (+07)
+
+## Batch MobiHet (L4 bỏ LA) + ablation A1/A2/A4 — bắt đầu 24/11 07:50
+
+Owner 24/11: MobiHet = L4 `la_mode=off` ([MobiHet](../research/mobihet.md), [ablation](../research/mobihet-ablation.md)).
+24 hàng `mobihet` đã ghi từ run A3 cũ (kiểm lại, `runs/mobihet-promote/receipt.json`). L4 + ablation L4 → `../mobihet/archive/l4-la-20261124/`.
+
+- **Lịch:** `runs/ablation-mh/plan.json` (quota `runs/ablation-mh/quota-20261124.json`; `plan.py`, margin 1 phút, run nhỏ ≤ 2 h vào
+  account ít quota). 83 notebook ≈ 371 GPU-h: 3 seed MobiHet thiếu (`bert-mh-s43`, `cnnbigru-mh-s43`, `mixmh-case1-s41`), A1/A2/A4 ×
+  9 kịch bản × 3 seed trừ 6 run chờ, 5 kernel đếm FLOP `exp-count-mh-*`. **Chờ reset 28/11:** mixed-case1 a2/a4 × 3 seed (≈ 65 h).
+- **Push:** `runs/ablation-mh/slot_queue.py` (PID trong `slot-queue.pid`, log `slot-queue.log`, state `slot-queue.json`): mỗi 300 s,
+  account < 2 kernel của batch thì push notebook kế của nó (`queue.jsonl`, `push.sh`, ledger `push-ledger.jsonl`). Push không rõ
+  ⇒ `PUSH_UNCLEAR`, dừng owner đó, kiểm tay trước khi retry.
+- **Collector:** `runs/ablation-mh/watch_collect.py` (PID `watch-collect.pid`, log `watch-collect.log`, poll 1200 s): COMPLETE/ERROR ⇒ pull
+  `-j 64` vào `runs/ablation-mh/pulls/` (ORICO) ⇒ `scripts/audit_ablation.py --record` ⇒ `experiments/ablation/<kịch bản>/` và hàng
+  `mobihet` (arm none) vào `experiments/<kịch bản>/results.csv`. Count kernel ⇒ `runs/compute-detailed-v3/kaggle/<slug>` +
+  `scripts/compute/report_ablation.py`. Dừng trước r50 / audit FAIL ⇒ `handoff.jsonl` (`wait_handoff.py`).
+- **Sau khi đủ:** `python3 artifacts/communication-budget/scripts/mobihet_update.py`, `python scripts/compute/report_detail.py`,
+  `python scripts/compute/report.py`, `python scripts/experiments_status.py`; cập nhật [compute](../research/compute.md) (bảng L4 →
+  MobiHet), [MobiHet](../research/mobihet.md). Local đếm TabM/SAE/MLP/mixed-case2 (`scripts/compute/run_queue.py --only …-mobihet`, `--ablation`).
+- Dừng: `kill -TERM -$(cat runs/ablation-mh/slot-queue.pid)` / `watch-collect.pid`. Theo dõi: `tail -f runs/ablation-mh/{slot-queue,watch-collect}.log`.
+- Việc tay: 6 account lỗi token (`chiencosieuhang`, `abbafan`, `gaming3`, `goilaaiudi`, `hoangdang20t`, `trietbackup`).
+
 
 Dùng `/home/odixe/project/experiment` trên nhánh `main`. Trạng thái phiên Claude e360305d đã nhập vào lịch sử Git và artifacts bên dưới. Protocol, seed 41/42/43, HP L4 và cosine 50 giữ nguyên. [Context](../../CONTEXT.md) · [Protocol](../research/protocol.md) · [Compute](../research/compute.md)
 
@@ -8,7 +30,7 @@ Ngày 23/11/2026, đối chiếu **93/108** ô R50 với receipt audit theo exac
 15 ô còn lại thuộc 9 owner đang giữ. Trạng thái gần nhất của các ref này nằm trong `runs/ablation-l4/watch-collect.json`.
 Lỗi đọc trạng thái chưa xác định được outcome. Phiên nối Case1 A3 seed 43 đã có R50, prefix R1–R49 khớp parent.
 
-- [Thiết kế và HP](../research/mobihet-l4-ablation.md) · [Kết quả, byte và FLOP](../../experiments/ablation-l4/README.md).
+- Thiết kế, HP, kết quả, byte và FLOP: `../mobihet/archive/l4-la-20261124/experiment/` (đã chuyển 24/11).
 - Ledger push `runs/ablation-l4/push-ledger.jsonl`, biên audit `runs/ablation-l4/pulls/<owner>/<slug>/ablation-audit.json`.
 - Collect một pass bằng `runs/ablation-l4/watch_collect.py --once --exclude-owners <owner…>`. Dùng exact version từ ledger.
   Với phiên nối, auditor kiểm source và lịch sử parent. Chỉ ghi dòng R50 sau khi đối chiếu đủ 50 CM.
@@ -115,3 +137,15 @@ Kiểm local trên main buổi tối. Suite portable 46 PASS (thêm 4 subtest), 
 
 1. BERT tập trung P4 đã audit đến E27/E24/E25. Giữ P5 theo yêu cầu owner.
 2. Thu các ô ablation còn lại khi quyền đọc được khôi phục. Chỉ cập nhật bảng khi đủ artifact audit.
+
+
+## Pull và audit 23/11 23:28 +07
+
+- `chiencosieuhang/mixl4-abl-none-case2-s42/1` pull và audit PASS R2 (đích pilot), macro-F1 0,676146.
+- `nguyenminhtran060113/exp-count-abl-dags-bert/1` pull và audit FLOP PASS.
+- Rà 39 exact version ablation/FLOP chưa audit: 2 PASS mới, 18 Kaggle xác nhận đã hủy,
+  19 lỗi truy vấn thuộc nhóm tài khoản chờ đăng nhập lại. Bốn API token riêng vẫn lưu.
+  Thử lại bảy ref có API token đều lỗi truy vấn. Receipt `runs/ablation-l4/watch-collect.json`
+  và log `runs/ablation-l4/watch-collect.log`.
+- Đã đối chiếu ledger recovery với receipt riêng của Mixed L4, BERT P2–P4 và FLOP.
+  Giữ tạm dừng push và nối phiên.

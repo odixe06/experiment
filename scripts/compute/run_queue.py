@@ -4,7 +4,9 @@ time is hardware-specific, FLOPs are not). Panel 200, 2 rounds (round 2 = steady
 status=oom: run that job on a Kaggle T4 instead (same counter, same rows).
 
     V4_ROOT=... V4_CACHE=... python scripts/compute/run_queue.py [--only PREFIX[,PREFIX...]] [--out runs/compute-20261120]
-    --ablation: the MobiHet L4 ablation arms instead (same panel, rounds, packing; owner 21/11/2026)
+    --ablation: the MobiHet ablation arms a1/a2/a4 instead (same panel, rounds, packing; owner 24/11/2026)
+MobiHet = L4 without logit adjustment (MOBIHET_HP, la_mode=off; owner 24/11/2026). The L4 jobs (mobihet_l4) are archived in
+../mobihet/archive/l4-la-20261124/; their traces stay in runs/.
     (Kaggle: scripts/compute/build_kaggle_count.py runs a job list on 2 T4, one worker per GPU)
 """
 import json
@@ -24,6 +26,19 @@ BASE = ["fedavg", "fedprox", "afpha", "fd_ids", "lwfednids", "pfedes", "fedproto
 BACKBONES = {"tabm": "tabm", "sae": "sae", "mlp": "mlp", "cnn-bigru": "cnn-bigru-attention"}
 HETERO = ["fedproto", "fedtgp", "tinyproto", "v2x_htfl", "pfedes"]
 BERT_L4_SOURCE = ROOT / "runs/recovery-20261120/references/featurebert-l4/provenance/source"
+MOBIHET_BUDGET = ROOT.parent / "mobihet/methods/mobihet_budget.py"       # frozen BERT budget + la_mode (24/11)
+
+
+def bert_source(name, ablation=False):
+    """Frozen FeatureBERT L4 source with ../mobihet's mobihet_budget.py (la_mode) and, for ablations, mobihet_ablation.py."""
+    import shutil
+    dest = OUT / name
+    if (BERT_L4_SOURCE / "scripts/run_t3.py").is_file() and not (dest / "scripts/run_t3.py").is_file():
+        shutil.copytree(BERT_L4_SOURCE, dest, dirs_exist_ok=True)
+        shutil.copyfile(MOBIHET_BUDGET, dest / "methods/mobihet_budget.py")
+        if ablation:
+            shutil.copyfile(ROOT / "methods/mobihet_ablation.py", dest / "methods/mobihet_ablation.py")
+    return dest
 
 
 def jobs():
@@ -39,45 +54,40 @@ def jobs():
         for m in HETERO:
             yield f"mixed-{case}-{m}", ROOT, ["scripts/run_mixed_fl.py", "--case", case, "--method", m, "--seed", "42",
                                               "--smoke-clients", "200", "--stop-after", "2", "--group-rows", "4096"], []
-    # MobiHet L4 uses the frozen settings from its notebook builder.
-    # same panel, 2 rounds, seed 42; L4 hp from scripts/build_l4_fl.py (group_rows 4096 is part of it)
-    l4 = []
-    if (ROOT / "scripts/build_l4_fl.py").exists():
-        sys.path.insert(0, str(ROOT))
-        from scripts.build_l4_fl import L4_HP
-        l4 = [*L4_HP, "seed=42"]
-    if (BERT_L4_SOURCE / "scripts/run_t3.py").is_file():
-        yield "bert-mobihet_l4", BERT_L4_SOURCE, ["scripts/run_t3.py", "--method", "mobihet_budget", "--rounds", "50",
-                                                "--until", "2", "--compile"], [*l4, "eval_rows=8192"]
+    # MobiHet uses the frozen settings from its notebook builder.
+    # same panel, 2 rounds, seed 42; hp MOBIHET_HP from scripts/build_l4_fl.py (group_rows 4096 is part of it)
+    sys.path.insert(0, str(ROOT))
+    from scripts.build_l4_fl import MOBIHET_HP
+    mh = [*MOBIHET_HP, "seed=42"]
+    src = bert_source("bert-mobihet-source")
+    if (src / "scripts/run_t3.py").is_file():
+        yield "bert-mobihet", src, ["scripts/run_t3.py", "--method", "mobihet_budget", "--rounds", "50",
+                                    "--until", "2", "--compile"], [*mh, "eval_rows=8192"]
     for scen, bb in {"dags-base": "dagsnet", **BACKBONES}.items():
-        yield f"{scen}-mobihet_l4", ROOT, ["scripts/run_fl.py", "--backbone", bb, "--method", "mobihet_l4", "--rounds", "50", "--stop-after", "2",
-                                           "--compile"], l4
+        yield f"{scen}-mobihet", ROOT, ["scripts/run_fl.py", "--backbone", bb, "--method", "mobihet_l4", "--rounds", "50", "--stop-after", "2",
+                                        "--compile"], mh
     for case in ("case1", "case2", "case3"):
-        yield f"mixed-{case}-mobihet_l4", ROOT, ["scripts/run_mixed_l4.py", "--case", case, "--seed", "42", "--smoke-clients",
+        yield f"mixed-{case}-mobihet", ROOT, ["scripts/run_mixed_l4.py", "--case", case, "--seed", "42", "--smoke-clients",
                                                  "200", "--stop-after", "2", "--compile",
                                                  *(["--cache", os.environ["V4_CACHE"]] if os.environ.get("V4_CACHE") else [])], []
 
 
 def ablation_jobs():
-    """MobiHet L4 ablations (owner 21/11/2026, docs/research/mobihet-l4-ablation.md): the L4 jobs above with each arm's hp."""
+    """MobiHet ablations (owner 24/11/2026, docs/research/mobihet-ablation.md): the MobiHet jobs above with each arm's hp."""
     sys.path.insert(0, str(ROOT))
     from methods.mobihet_ablation import HP
-    from scripts.build_l4_fl import L4_HP
-    import shutil
-    bert_src = OUT / "bert-ablation-source"                           # frozen BERT L4 source + methods/mobihet_ablation.py
-    if (BERT_L4_SOURCE / "scripts/run_t3.py").is_file() and not (bert_src / "methods/mobihet_ablation.py").is_file():
-        shutil.copytree(BERT_L4_SOURCE, bert_src, dirs_exist_ok=True)
-        shutil.copyfile(ROOT / "methods/mobihet_ablation.py", bert_src / "methods/mobihet_ablation.py")
-    for arm in ("a1", "a2", "a3", "a4"):
-        sets = [*L4_HP, "seed=42", *HP[arm]]
-        if bert_src.is_dir():
-            yield f"bert-abl-{arm}", bert_src, ["scripts/run_t3.py", "--method", "mobihet_ablation", "--rounds", "50",
+    from scripts.build_l4_fl import MOBIHET_HP
+    bert_src = bert_source("bert-mhabl-source", ablation=True)
+    for arm in ("a1", "a2", "a4"):
+        sets = [*MOBIHET_HP, "seed=42", *HP[arm]]
+        if (bert_src / "scripts/run_t3.py").is_file():
+            yield f"bert-mhabl-{arm}", bert_src, ["scripts/run_t3.py", "--method", "mobihet_ablation", "--rounds", "50",
                                                 "--until", "2", "--compile"], [*sets, "eval_rows=8192"]
         for scen, bb in {"dags-base": "dagsnet", **BACKBONES}.items():
-            yield f"{scen}-abl-{arm}", ROOT, ["scripts/run_fl.py", "--backbone", bb, "--method", "mobihet_ablation", "--rounds",
+            yield f"{scen}-mhabl-{arm}", ROOT, ["scripts/run_fl.py", "--backbone", bb, "--method", "mobihet_ablation", "--rounds",
                                               "50", "--stop-after", "2", "--compile"], sets
         for case in ("case1", "case2", "case3"):
-            yield f"mixed-{case}-abl-{arm}", ROOT, ["scripts/run_mixed_ablation.py", "--ablation", arm, "--case", case, "--seed", "42",
+            yield f"mixed-{case}-mhabl-{arm}", ROOT, ["scripts/run_mixed_ablation.py", "--ablation", arm, "--case", case, "--seed", "42",
                                                     "--smoke-clients", "200", "--stop-after", "2", "--compile",
                                                     *(["--cache", os.environ["V4_CACHE"]] if os.environ.get("V4_CACHE") else [])], []
 

@@ -7,7 +7,7 @@ Bản đồ tài liệu: [docs/README.md](docs/README.md). Trạng thái từng 
 
 IDS V2X 16 lớp, 77 feature/bản tin, học cộng tác: **mỗi xe nhận là một client** (5.343 client, dataset v4
 `odixe0502/veremi-nextgen-v4-scaled-per-vehicle`). Repo gom **mọi lần chạy baseline** theo kịch bản; phương pháp đề xuất MobiHet
-phát triển ban đầu ở `../mobihet`. Biến thể L4 đã tích hợp vào bảng kịch bản và runner của repo này.
+phát triển ban đầu ở `../mobihet`. MobiHet (L4 bỏ LA, 24/11) đã tích hợp vào bảng kịch bản và runner của repo này.
 
 ## Quyết định owner
 
@@ -30,8 +30,10 @@ phát triển ban đầu ở `../mobihet`. Biến thể L4 đã tích hợp vào
 
 - Repo phát triển tại `/home/odixe/project/experiment`, nhánh local `main`. FeatureBERT chạy từ `bert/`.
   Lịch sử nguồn và bổ sung artifact Codex đã nhập vào main. [Vị trí dữ liệu ORICO](docs/operations/backup.md)
-- MobiHet L4 đủ 3 seed R50 cho sáu backbone đơn và cả ba mixed case. [Kết quả L4](docs/research/mobihet-l4.md)
-- 21/11: ablation L4 (A1 bỏ synthetic, A2 chọn dòng ngẫu nhiên, A3 bỏ LA, A4 Q raw fp32) đã thu 93/108 ô R50. Các phiên thuộc owner tạm mất truy cập đang giữ. [Thiết kế](docs/research/mobihet-l4-ablation.md) · [Kết quả](experiments/ablation-l4/README.md)
+- 24/11: **MobiHet = L4 bỏ logit adjustment** (A3 cũ, `la_mode=off`), vẫn tên `mobihet`. 24/27 hàng R50 lấy từ run A3 đã
+  audit và kiểm lại từ CM/log; 3 seed còn thiếu và ablation A1/A2/A4 trên nền mới đang chạy. L4 có LA và ablation L4 chuyển sang
+  `../mobihet/archive/l4-la-20261124/`. [MobiHet](docs/research/mobihet.md) · [Ablation](docs/research/mobihet-ablation.md) ·
+  [Kết quả ablation](experiments/ablation/README.md)
 - Mixed128 baseline đủ 45/45 cấu hình r50. Đã đối chiếu 10 metric mỗi dòng với confusion matrix từ bản sao Kaggle. [Kết quả](docs/research/mixed/mixed128-all-results.md)
 - Centralized BERT đã audit tới E27/E24/E25 theo seed 41/42/43 (P4 COMPLETE 22/11). P5 chưa push theo owner. Các backbone centralized trong ma trận còn lại đủ ba seed.
 - Chi phí đủ 9 kịch bản và 114/114 hàng chi tiết. Đã audit thêm 27 trace CNN-BiGRU và mixed case1/3. [Compute](docs/research/compute.md)

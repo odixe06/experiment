@@ -27,7 +27,7 @@
 | FedTGP | client_proto | 0.71413 | 0.70963 | 0.71734 | 0.71370 ± 0.00387 |
 | PerFed-SKD |  | N/A | N/A | N/A |  |
 | FedProto | client_proto | 0.78312 | 0.78986 | 0.79201 | 0.78833 ± 0.00464 |
-| MobiHet L4 | client | 0.87462 | 0.87445 | 0.87427 | 0.87445 ± 0.00018 |
+| MobiHet | client | 0.87623 | 0.87626 | 0.87603 | 0.87617 ± 0.00012 |
 
 Không dấu = CM → 10 metric đã audit (đủ 10 cột trong [results.csv](results.csv)); ᶠ = CM cuối đã audit nhưng repo chỉ giữ macro-F1; ᵐ = marker cuối Kaggle, chưa audit CM độc lập. SD = sample SD (ddof = 1).
 

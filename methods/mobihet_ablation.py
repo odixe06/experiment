@@ -1,20 +1,23 @@
-"""MobiHet L4 ablations (owner 21/11/2026, docs/research/mobihet-l4-ablation.md). Each arm starts from full L4; hp `ablation`:
+"""MobiHet ablations (owner 24/11/2026, docs/research/mobihet-ablation.md). Each arm starts from full MobiHet = L4 without
+logit adjustment (hp la_mode=off, scripts/build_l4_fl.py MOBIHET_HP); hp `ablation`:
 
-  none  L4 unchanged (control: must reproduce the L4 run of the same seed).
-  a1    w/o synthetic data (C4 + C6). Each vehicle trains CE(z + la_shift, y) on every real row, batch 64, no step floor
+  none  MobiHet unchanged (control: must reproduce the MobiHet run of the same seed).
+  a1    w/o synthetic data (C4 + C6). Each vehicle trains plain CE(z, y) on every real row, batch 64, no step floor
         (hp synth_step_floor=0). With no synthetic row nothing reads the copula/KM generator (C1), the class-Q teacher (C2)
-        or the stored row CE (C5), so none is built or sent: the bootstrap is the class counts only (LA prior, 4C bytes each
-        way, as study_mode=real) and every round sends 0 bytes.
+        or the stored row CE (C5), and without LA nothing reads the class counts, so nothing is sent: bootstrap 0 bytes and
+        every round 0 bytes (local training only).
   a2    w/o loss-aware selection (C5): hp real_select=random only (same real/synthetic budget, losses and schedule; no code).
-  a3    w/o logit adjustment (C3): la_shift is zero after the bootstrap, so the training CE (and the stored CE that ranks
-        real rows, which is that CE) is unshifted. Counts, bootstrap bytes, Q, synthetic rows and budget unchanged.
   a4    w/o Q compression: class-Q packets raw fp32, dense 16 x 16 both ways (4 B per value, 1024 B up and 1024 B down per
         vehicle per round). The vehicle's per-class mean is not quantised (no uint8, no fp16 cast, no bitmask, no zlib), the
         server's Q is not cast either; rows are renormalised as both L4 decoders do. Count-weighted aggregation, KD
         schedule and bootstrap codec unchanged.
 
+The former a3 (w/o logit adjustment) is MobiHet itself since 24/11. The L4-based ablations (LA on) are archived in
+../mobihet/archive/l4-la-20261124/.
+
 Works in this repo (methods.mobihet_l4: DAGSNet, TabM, SAE, MLP, CNN-BiGRU, mixed adapters) and in the frozen FeatureBERT
-harness (no mobihet_l4 there: its L4 ran methods.mobihet_budget, which mobihet_l4 equals off TabM/SAE).
+harness (no mobihet_l4 there: its L4 ran methods.mobihet_budget, which mobihet_l4 equals off TabM/SAE; the notebook
+overlays ../mobihet's mobihet_budget.py with la_mode).
 """
 import torch
 
@@ -25,9 +28,9 @@ try:
 except ModuleNotFoundError:                                              # FeatureBERT harness (fl_veremi_bert 49b2d88)
     from methods.mobihet_budget import Method as L4
 
-ARMS = ("none", "a1", "a2", "a3", "a4")
-HP = {"none": ["ablation=none"], "a1": ["ablation=a1", "synth_step_floor=0"],          # added after the 44 L4 hp + seed
-      "a2": ["ablation=a2", "real_select=random"], "a3": ["ablation=a3"], "a4": ["ablation=a4"]}
+ARMS = ("none", "a1", "a2", "a4")
+HP = {"none": ["ablation=none"], "a1": ["ablation=a1", "synth_step_floor=0"],          # added after MOBIHET_HP + seed
+      "a2": ["ablation=a2", "real_select=random"], "a4": ["ablation=a4"]}
 RAW_Q_BYTES = 16 * 16 * 4
 
 
@@ -40,13 +43,12 @@ class Ablation:
         assert self.ablation in ARMS, self.ablation
         assert (hp.get("real_select") == "random") == (self.ablation == "a2"), "a2 is exactly real_select=random"
         assert (hp.get("synth_step_floor") == 0) == (self.ablation == "a1"), "a1 is exactly synth_step_floor=0"
+        assert hp.get("la_mode") == "off", "ablations start from MobiHet (la_mode=off)"
         super().__init__(env)
         if self.ablation == "a1":
             self.select = "random"                                       # no stored row CE: nothing ranks real rows
             for k in ("_score", "_sgen"):
                 self.__dict__.pop(k, None)
-        elif self.ablation == "a3":
-            self.la_shift = torch.zeros_like(self.la_shift)
         elif self.ablation == "a4":
             assert self.q_bits == 8 and self.q_codec == "mean_fp16" and self.q_agg == "count" and self.kd_bins == 1
 
@@ -57,16 +59,14 @@ class Ablation:
         cnt = torch.zeros(env.K, C, device=env.dev)
         client = torch.repeat_interleave(torch.arange(env.K, device=env.dev), env.train.off[1:] - env.train.off[:-1])
         cnt.index_put_((client, env.train.Y.long()), torch.ones(len(client), device=env.dev), accumulate=True)
-        self.cnt = cnt
-        tot = env.allreduce(cnt.sum(0).double())
-        log_pk = ((cnt + 1) / (cnt.sum(1, keepdim=True) + C)).log()       # as mobihet.Method._bootstrap
-        log_pg = ((tot + 1) / (tot.sum() + C)).log().float()
-        self.la_shift = log_pk - log_pg
+        self.cnt = cnt                                                   # local only: no LA, so no global count is needed
+        self.la_shift = torch.zeros(env.K, C, device=env.dev)
         self.labels = torch.arange(self.aux, device=env.dev) % C
-        self.bootstrap_bytes = {"up": 4 * C, "down": 4 * C}
+        self.bootstrap_bytes = {"up": 0, "down": 0}
 
     def _loss_real(self, ctx):
-        """a1: CE(z + la_shift) over the step's real rows (TabM: per member, averaged), as L4's real-row term."""
+        """a1: CE(z + la_shift) over the step's real rows (TabM: per member, averaged), as MobiHet's real-row term
+        (la_shift = 0 under la_mode=off, so plain CE)."""
         cfg = self.env.cfg
         z, new_b = grouped.TRAIN(ctx.P, ctx.B, ctx.x, cfg, mask=ctx.mask, train=True)
         shift = self._shift[:, None, None, :] if z.dim() == 4 else self._shift[:, None, :]

@@ -23,11 +23,9 @@ T = 1e12
 
 
 def scen_method(name):
-    if name == "dags-mh-l4":                                          # MobiHet L4 DAGSNet (../mobihet, group_rows 4096 = FedAvg row)
-        return "dagsnet", "mobihet_l4"
-    if name == "bert-mh-l4":                                          # FeatureBERT L4, counted at 2048 and scaled to the time run's
-        return "bert", "mobihet_l4"                                   # executed rows like bert-fedavg (= the 4096 FedAvg total)
-    if name.startswith("bert-mh") or name.startswith("dags-mh") or name == "dags-fedavg" or name.endswith("-init"):
+    # MobiHet (24/11/2026) = L4 without LA: traces <prefix>-mobihet. The L4 traces (dags-mh-l4, bert-mh-l4, *-mobihet_l4) are
+    # archived (../mobihet/archive/l4-la-20261124/) and skipped here.
+    if name.endswith("-mobihet_l4") or name.startswith("bert-mh") or name.startswith("dags-mh") or name == "dags-fedavg" or name.endswith("-init"):
         return None, None
     m = re.match(r"(dags-base|bert|tabm|sae|mlp|cnn-bigru|mixed-case[123])-(.+)$", name)
     if not m:

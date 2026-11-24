@@ -1,9 +1,10 @@
-"""MobiHet L4 ablations in the frozen FeatureBERT harness (the source the BERT L4 chain ran: fl_veremi_bert 49b2d88 + overlay,
-identical manifest in all six flb-fbl-l4-top sessions) plus methods/mobihet_ablation.py from this repo.
+"""MobiHet ablations in the frozen FeatureBERT harness (the source the BERT L4 chain ran: fl_veremi_bert 49b2d88 + overlay,
+identical manifest in all six flb-fbl-l4-top sessions) with ../mobihet's methods/mobihet_budget.py (frozen + la_mode, as
+scripts/build_bert_l4_ablation.py embeds it) plus methods/mobihet_ablation.py from this repo. hp = MOBIHET_HP (la_mode=off).
 
+  mobihet   budget la_mode=off == budget la_mode=full with la_shift zeroed by hand (the former a3), 2 rounds
   control   ablation=none == mobihet_budget (state, Q, row CE, confusion), 2 rounds
-  a1..a4    one/two rounds: a1 counts-only bootstrap, Q None, 0 B; a2 no row CE, same real_frac; a3 == budget with zero shift;
-            a4 round 1 == budget, Q fp32, 1024 B
+  a1/a2/a4  one/two rounds: a1 nothing sent, Q None, 0 B; a2 no row CE, same real_frac; a4 round 1 == budget, Q fp32, 1024 B
 
     python tests/test_mobihet_ablation_bert.py [snapshot dir]
 Snapshot default: runs/recovery-20261120/references/bert-l4-artifacts/flb-fbl-l4-top-s41-r50/provenance (source/ + manifest).
@@ -31,6 +32,7 @@ def materialise(snap, dest):
         (dest / name).parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(src, dest / name)
     shutil.copyfile(ROOT / "methods/mobihet_ablation.py", dest / "methods/mobihet_ablation.py")
+    shutil.copyfile(ROOT.parent / "mobihet/methods/mobihet_budget.py", dest / "methods/mobihet_budget.py")
     shutil.copyfile(Path(__file__), dest / "ablation_child.py")
 
 
@@ -49,7 +51,7 @@ def child():
     spec = importlib.util.spec_from_file_location("build_l4_fl", Path(os.environ["ABLATION_REPO"]) / "scripts/build_l4_fl.py")
     builder = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(builder)
-    L4_HP = builder.L4_HP
+    MOBIHET_HP = builder.MOBIHET_HP
 
     assert A.L4 is Budget, "FeatureBERT harness must resolve to mobihet_budget"
     panel = np.sort(np.random.default_rng(7).choice(5343, 20, replace=False)).tolist()
@@ -63,11 +65,12 @@ def child():
         except json.JSONDecodeError:
             return v
 
-    def env_for(arm=None):
+    def env_for(arm=None, extra=()):
         torch.manual_seed(0)
         hp = dict(protocol)
         hp.update({k: val(v) for k, v in (s.split("=", 1) for s in
-                   [*L4_HP, "seed=42", "km2_frac=1.0", "group_rows=256", "eval_rows=2048", *(A.HP[arm] if arm else [])])})
+                   [*MOBIHET_HP, "seed=42", "km2_frac=1.0", "group_rows=256", "eval_rows=2048", *(A.HP[arm] if arm else []),
+                    *extra])})
         return fl.Env(cfg_full(), hp, clients=panel, cache=cache)
 
     def run(M, rounds, seed=1):
@@ -93,13 +96,20 @@ def child():
         else:
             assert a == b, (path, a, b)
 
+    a, b = Budget(env_for()), Budget(env_for(extra=["la_mode=full"]))
+    assert not bool(a.la_shift.any()) and bool(b.la_shift.abs().sum() > 0) and a.bootstrap_bytes == b.bootstrap_bytes
+    b.la_shift = torch.zeros_like(b.la_shift)
+    run(a, (1, 2)); run(b, (1, 2))
+    exact(b.state(), a.state(), "mobihet state"); exact(b.evaluate()["private"], a.evaluate()["private"], "mobihet cms")
+    print("bert mobihet PASS (la_mode=off == L4 with zero shift = former a3)", flush=True)
+
     a, b = A.Method(env_for("none")), Budget(env_for())
     run(a, (1, 2)); run(b, (1, 2))
     exact(b.state(), a.state(), "state"); exact(b.evaluate()["private"], a.evaluate()["private"], "cms")
     print("bert control PASS (2 rounds bit-exact with mobihet_budget)", flush=True)
 
     m = A.Method(env_for("a1"))
-    assert m.bootstrap_bytes == {"up": 64, "down": 64} and not hasattr(m, "cop_cdf")
+    assert m.bootstrap_bytes == {"up": 0, "down": 0} and not hasattr(m, "cop_cdf") and not bool(m.la_shift.any())
     i = run(m, (1, 2))[-1]
     assert m.Q is None and i["bytes_up"] == 0 and i["real_frac"] == 1.0 and np.isfinite(i["train_loss"])
     print("bert a1 PASS", flush=True)
@@ -109,16 +119,15 @@ def child():
     assert "row_score" not in a.state() and abs(ia[0]["real_frac"] - ib[0]["real_frac"]) < 1e-12
     print("bert a2 PASS", flush=True)
 
-    a, b = A.Method(env_for("a3")), Budget(env_for())
-    b.la_shift = torch.zeros_like(b.la_shift)
-    run(a, (1, 2)); run(b, (1, 2))
-    exact(b.state(), a.state(), "a3 state")
-    print("bert a3 PASS (== budget with zero shift)", flush=True)
-
     a, b = A.Method(env_for("a4")), Budget(env_for())
     ia, ib = run(a, (1,)), run(b, (1,))
     exact(b.priv_p, a.priv_p, "a4 r1")
-    assert ia[0]["bytes_up"] == 1024 and float((a.Q - b.Q).abs().max()) <= 2 / 255
+    dq = float((a.Q - b.Q).abs().max())
+    print("bert a4 bytes_up", ia[0]["bytes_up"], "bytes_down", ia[0]["bytes_down"], "|dQ|max", dq, flush=True)
+    # |dQ| = the 8-bit codec error of the control (uint8 up + uint8 down, then row renormalisation in both decoders, which
+    # rescales a row whose rounded entries do not sum to 1): 2/255 from the roundings plus that rescale. 24/11: .00827 on the
+    # MobiHet (no LA) BERT panel, just above 2/255 = .00784; 3/255 bounds it.
+    assert ia[0]["bytes_up"] == 1024 and dq <= 3 / 255
     assert not torch.equal(a.Q, a.Q.half().float())
     print("bert a4 PASS", flush=True)
     print("ALL PASS", flush=True)

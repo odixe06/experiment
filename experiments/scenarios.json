@@ -1,10 +1,10 @@
 {
  "methods": ["centralized", "fedavg", "fedprox", "afpha", "fd_ids", "apfed", "lwfednids", "v2x_htfl", "canperfl", "tinyproto",
-             "pfedes", "nilm", "fedtgp", "perfedskd", "fedproto", "mobihet_l4"],
+             "pfedes", "nilm", "fedtgp", "perfedskd", "fedproto", "mobihet"],
  "names": {"centralized": "Centralized", "fedavg": "FedAvg", "fedprox": "FedProx", "afpha": "AFPHA_EDL_CMSO", "fd_ids": "FD-IDS",
            "apfed": "APFed_LDwCBN", "lwfednids": "LwFedNIDS", "v2x_htfl": "V2X-HtFL", "canperfl": "CANPerFL",
            "tinyproto": "TinyProto", "pfedes": "pFedES", "nilm": "NILM-FL", "fedtgp": "FedTGP", "perfedskd": "PerFed-SKD",
-           "fedproto": "FedProto", "mobihet_l4": "MobiHet L4"},
+           "fedproto": "FedProto", "mobihet": "MobiHet"},
  "seeds": [41, 42, 43],
  "scenarios": {
   "dagsnet": {"title": "DAGSNet — một model cho mọi xe",
@@ -47,5 +47,5 @@
                   "docs": ["../../docs/research/mixed/mixed-model-cases.md", "../../docs/research/mixed/mixed128-all-results.md"],
                   "na": "Chỉ phương pháp dị thể (trao đổi prototype/proxy) chạy được khi xe dùng kiến trúc khác nhau. Các phương pháp gộp θ và centralized: N/A (owner 20/11)."}
  },
- "hetero": ["fedproto", "fedtgp", "tinyproto", "v2x_htfl", "pfedes", "mobihet_l4"]
+ "hetero": ["fedproto", "fedtgp", "tinyproto", "v2x_htfl", "pfedes", "mobihet"]
 }

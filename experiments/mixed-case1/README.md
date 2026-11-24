@@ -27,9 +27,13 @@
 | FedTGP | client_proto | 0.83459 | 0.83296 | 0.83413 | 0.83389 ± 0.00084 |
 | PerFed-SKD |  | N/A | N/A | N/A |  |
 | FedProto | client_proto | 0.84434 | 0.84180 | 0.84298 | 0.84304 ± 0.00127 |
-| MobiHet L4 | client | 0.89490 | 0.89502 | 0.89460 | 0.89484 ± 0.00021 |
+| MobiHet | client | thiếu | 0.89514 | 0.89494 | 0.89504 ± 0.00014 |
 
 Không dấu = CM → 10 metric đã audit (đủ 10 cột trong [results.csv](results.csv)); ᶠ = CM cuối đã audit nhưng repo chỉ giữ macro-F1; ᵐ = marker cuối Kaggle, chưa audit CM độc lập. SD = sample SD (ddof = 1).
+
+## Còn thiếu
+
+- MobiHet seed 41: missing
 
 ## Compute
 

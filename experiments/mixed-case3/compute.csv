@@ -4,4 +4,3 @@ tinyproto,done,2.837e-05,136.37,6.78724,2.65982,50,7157.87,,1476064,14150912,147
 pfedes,done,2.45069e-05,360.848,0.000189455,1.31588,50,18042.4,,1476064,28301824,2952128,runs/compute-20261120/kaggle/exp-count-mixed-g4096/compute/mixed-case3-pfedes.count.json
 fedtgp,done,2.84369e-05,136.37,6.796,2.65982,50,7158.31,,1476064,14150912,1476064,runs/compute-20261120/kaggle/exp-count-mixed-g4096/compute/mixed-case3-fedtgp.count.json
 fedproto,done,2.83667e-05,136.372,0.000181173,2.65982,50,6818.63,,1476064,14150912,1476064,runs/compute-20261120/kaggle/exp-count-mixed-g4096/compute/mixed-case3-fedproto.count.json
-mobihet_l4,done,0.0650062,255.521,0.000184346,1.3299,50,12776.1,,1476064,27892980,1437976,runs/compute-20261120/kaggle/exp-count-l4-g4096/compute/mixed-case3-mobihet_l4.count.json

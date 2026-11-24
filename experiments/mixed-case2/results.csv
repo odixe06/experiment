@@ -14,6 +14,6 @@ fedtgp,43,client_proto,50,0.746700,0.655420,0.746700,0.760810,0.687170,0.746700,
 fedproto,41,client_proto,50,0.804800,0.760610,0.804800,0.826060,0.754530,0.804800,0.804800,0.751110,0.804800,0.813210,audited,docs/research/mixed/mixed128-all-results.csv
 fedproto,42,client_proto,50,0.808810,0.765220,0.808810,0.833470,0.770510,0.808810,0.808810,0.761960,0.808810,0.818140,audited,docs/research/mixed/mixed128-all-results.csv
 fedproto,43,client_proto,50,0.809230,0.763150,0.809230,0.830900,0.761570,0.809230,0.809230,0.756320,0.809230,0.817780,audited,docs/research/mixed/mixed128-all-results.csv
-mobihet_l4,42,client,50,0.900552,0.904284,0.900552,0.891391,0.838426,0.900552,0.900552,0.854014,0.900552,0.883327,audited,kaggle gaming3/mixl4-case2-s42-h2/1 (audit_mixed_l4.py)
-mobihet_l4,43,client,50,0.900878,0.903682,0.900878,0.891264,0.839202,0.900878,0.900878,0.854455,0.900878,0.883662,audited,kaggle abbafan/mixl4-case2-s43/1 (audit_mixed_l4.py)
-mobihet_l4,41,client,50,0.900297,0.903350,0.900297,0.890756,0.837385,0.900297,0.900297,0.853143,0.900297,0.883153,audited,kaggle gaming3/mixl4-case2-s41/1 (audit_mixed_l4.py)
+mobihet,41,client,50,0.900674,0.901294,0.900674,0.891441,0.843122,0.900674,0.900674,0.857307,0.900674,0.884127,audited,kaggle minhtran0601/mixl4-abl-a3-case2-s41/2 (former L4 ablation a3 = MobiHet; scripts/audit_ablation.py + scripts/promote_mobihet_rows.py)
+mobihet,42,client,50,0.900927,0.901649,0.900927,0.891769,0.844186,0.900927,0.900927,0.858225,0.900927,0.884400,audited,kaggle chuchimnon/mixl4-abl-a3-case2-s42-h2/1 (former L4 ablation a3 = MobiHet; scripts/audit_ablation.py + scripts/promote_mobihet_rows.py)
+mobihet,43,client,50,0.901310,0.901643,0.901310,0.891877,0.845014,0.901310,0.901310,0.858681,0.901310,0.884726,audited,kaggle minhtran0601/mixl4-abl-a3-case2-s43/1 (former L4 ablation a3 = MobiHet; scripts/audit_ablation.py + scripts/promote_mobihet_rows.py)

@@ -83,6 +83,11 @@ Tổng FL 50 round, đơn vị: **× FedAvg cùng kịch bản** (đơn model); 
 
 ## MobiHet L4 và độ nhạy theo backbone
 
+**24/11/2026:** MobiHet = L4 bỏ LA. Các số L4 dưới đây là lịch sử; hàng `mobihet_l4` đã rời `experiments/*/compute*.csv`
+(archive `../mobihet/archive/l4-la-20261124/`). Trace MobiHet (`<prefix>-mobihet`, ablation `<prefix>-mhabl-a*`) đang đếm lại:
+Kaggle `exp-count-mh-*` cho DAGSNet/BERT/CNN-BiGRU/mixed case1/3, local cho TabM/SAE/MLP/mixed case2. Bỏ LA không đổi shape
+tensor nào, nên kỳ vọng đếm op trùng L4; số chính thức là trace mới.
+
 Ước tính lịch sử dùng cùng panel cho từng cặp. CNN-BiGRU L4 đạt 0,917× FedAvg. Mixed case1/case2/case3 lần lượt đạt 1,879×, 2,202× và 1,874× FedProto. BERT L4 lịch sử nhân **phần train** với 5.092.288 / 3.045.792 = 1,672 khi chuyển từ 2.048 lên 4.096. Bootstrap, eval và phần round ngoài train vẫn giữ phép đo ở layout nguồn. Tỷ lệ 0,917× là ước tính theo dòng. Job BERT chi tiết đo trực tiếp 4.096 trên source native đã đóng băng.
 
 | Kịch bản | L4 (TFLOPs, ngoại suy 50 round) | Baseline (TFLOPs, ngoại suy) | Tỷ lệ chi tiết | Tỷ lệ lịch sử |
