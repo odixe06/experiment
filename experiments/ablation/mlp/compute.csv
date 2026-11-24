@@ -1,0 +1,5 @@
+arm,client_tops,server_tops,bootstrap_tops,other_tops,unattributed_tops,total_tops,x_mobihet,rounds,panel,trace_sha256,source
+mobihet,9.7114925,1.736e-07,0.060271835,3.6511355,2.661745e-05,13.422927,1.0000,50,200,441c1dc7a3b108c615d91423a56c37450d0e1fe93e5cb1f068eedca8bae978ed,runs/compute-detailed-v3/mlp-mobihet.count.json
+a1,10.522693,0,6e-10,0,8.085e-08,10.522693,0.7839,50,200,1d50684ea6fa13fb214c9f396a306a76788d21485587db3e36777da2cc28d2be,runs/compute-detailed-v3/mlp-mhabl-a1.count.json
+a2,9.7114881,1.736e-07,0.060271835,3.6511355,2.661745e-05,13.422922,1.0000,50,200,4e64f029b167c00981e04d9998a538ff70292cf0c044a6d39226f6b8b745e11c,runs/compute-detailed-v3/mlp-mhabl-a2.count.json
+a4,9.7114925,1.736e-07,0.060271835,3.6511355,5.75895e-06,13.422906,1.0000,50,200,747111e31a31a5ad8155adc8ed6c4071bd9f39a16d3dc0eed043ece169f43544,runs/compute-detailed-v3/mlp-mhabl-a4.count.json

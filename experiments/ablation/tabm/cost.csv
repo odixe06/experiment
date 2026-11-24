@@ -2,3 +2,4 @@ arm,seed,bootstrap_up_B,bootstrap_down_B,up_50r_B,down_50r_B,total_B_per_vehicle
 mobihet,41,98942.9,241720.4,10026.2,11358.0,362047.5,1934419638,audited,kaggle lelovo/tabm-abl-a3-s41/1 (former L4 ablation a3 = MobiHet; scripts/audit_ablation.py + scripts/promote_mobihet_rows.py)
 mobihet,42,98942.9,241720.4,9997.6,11309.0,361969.9,1934004926,audited,kaggle goilaaiudi/tabm-abl-a3-s42-h2/1 (former L4 ablation a3 = MobiHet; scripts/audit_ablation.py + scripts/promote_mobihet_rows.py)
 mobihet,43,98942.9,241720.4,10014.2,11302.0,361979.4,1934055914,audited,kaggle nguyetquedo/tabm-abl-a3-s43/1 (former L4 ablation a3 = MobiHet; scripts/audit_ablation.py + scripts/promote_mobihet_rows.py)
+a1,43,0.0,0.0,0.0,0.0,0.0,0,audited,kaggle odixe0502/tabm-mhabl-a1-s43/1 (scripts/audit_ablation.py: 50 CM -> 10 metrics)

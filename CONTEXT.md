@@ -26,7 +26,7 @@ phát triển ban đầu ở `../mobihet`. MobiHet (L4 bỏ LA, 24/11) đã tíc
   - Compute: **chỉ FLOP** (đếm op), bỏ GPU-time vì khác phần cứng; job không vừa GPU local thì đếm trên Kaggle.
 - Task < 1 h chạy local (RTX 3050 4 GB, env conda `nckh`); task dài chạy Kaggle (account ở `~/.kaggle/accounts`, quota live).
 
-## Trạng thái — 23/11/2026 (+07)
+## Trạng thái — 24/11/2026 08:15 (+07)
 
 - Repo phát triển tại `/home/odixe/project/experiment`, nhánh local `main`. FeatureBERT chạy từ `bert/`.
   Lịch sử nguồn và bổ sung artifact Codex đã nhập vào main. [Vị trí dữ liệu ORICO](docs/operations/backup.md)
