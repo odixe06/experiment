@@ -79,14 +79,16 @@ Quota reset lúc 07:00 ngày 28/11. Kaggle MCP xem skill `kaggle-mcp`.
 ## Rerun 27/11 — checkpoint mất
 
 **Ablation chỉ còn A1, A2, A4. Logit adjustment đã bỏ.** Từ 24/11, nhánh A3 cũ (bỏ LA) chính là MobiHet.
-Kernel `*-abl-a3-*` (pipeline `runs/ablation-l4`) là run MobiHet của ma trận chính, không phải dòng ablation.
+Kernel `*-abl-a3-*` là run **MobiHet** của ma trận chính. Slug cũ còn giữ vì notebook build từ thư mục `runs/ablation-l4`
+(tên cũ), và kernel đã push thì không đổi slug được. Phương pháp vẫn là MobiHet, không còn L4.
 
 - Lượt 2 lúc 18:40 push 9 rerun MobiHet:
   - `gialut/bert-mh-s43` (pipeline `runs/ablation-mh`);
   - `hunhtnduytn`/`lcsinh`/`levanloc1806` cho `tabm-abl-a3-s41/42/43`, `nlphk252`/`ohkazu` cho `sae-abl-a3-s42/43`,
     `sunny0703`/`sunny070306` cho `mlp-abl-a3-s41/43`, `tuntrnhvminh/dagsnet-abl-a3-s42`.
-  Byte notebook khớp ledger của run gốc. Ngoại lệ: budget `dagsnet-abl-a3-s42` nâng từ 2.0 lên 11.5. Không ảnh hưởng gì vì đây là pilot dừng ở R2.
-- **Seed 42 của TabM, SAE và DAGSNet là pilot 2 round**, phải nối `-h2` trên cùng owner. `lcsinh/tabm-abl-a3-s42/1` đã PASS r2.
+  Byte notebook khớp ledger của run gốc. Ngoại lệ: budget `dagsnet-abl-a3-s42` nâng từ 2.0 lên 11.5. Không ảnh hưởng gì vì phiên 1 vẫn dừng ở R2.
+- **MobiHet seed 42 của TabM, SAE và DAGSNet chạy 2 phiên.** Phiên 1 dừng ở R2 (`--stop-after 2`), phiên 2 (`-h2`) chạy tiếp tới R50 trên cùng owner.
+  `lcsinh/tabm-abl-a3-s42/1` đã PASS R2.
   Phiên nối nằm trong `runs/ablation-mh/rerun-continue.txt`. Khi push, dispatcher thay `<owner cũ>/<slug>` bằng owner mới,
   cả trong notebook lẫn `kernel_sources`.
 - Audit A3 dùng source cũ: worktree `runs/ablation-l4/legacy-audit-803a84f` (commit `803a84f^`), truyền qua
@@ -99,8 +101,9 @@ Kernel `*-abl-a3-*` (pipeline `runs/ablation-l4`) là run MobiHet của ma trậ
   - ưu tiên phiên nối có parent đã PASS;
   - sau đó lấy 18 mục trong `rerun-pending.txt` (2 ablation thiếu, 2 mixed-case3 MobiHet, 14 ô ablation A1/A2/A4);
   - chỉ push lên account trong `rerun-accounts.txt` còn dưới 2 phiên và đủ quota.
-  5 account đang chạy run 10k được để dành cho phiên nối 10k.
-- Run chưa tới R50 (ngoài pilot) sẽ được collector ghi vào handoff. Phiên nối thêm vào `rerun-continue.txt`.
+  Không giữ slot trước. Nếu kernel của một owner xong mà còn chờ phiên nối (MobiHet `-h2` hoặc run 10k), dispatcher bỏ qua owner đó.
+  Nhờ vậy phiên nối lấy đúng slot vừa trống.
+- Run chưa tới R50 (ngoài phiên 1 của s42) sẽ được collector ghi vào handoff. Phiên nối thêm vào `rerun-continue.txt`.
 - **DAGSNet s42 FedAvg/FedProx/FedProto chưa rerun.** Bản gốc lấy từ pipeline cũ `bert/runs/maintenance-20261116/dagsnet42/fl2-*`,
   repo không còn notebook của pipeline này nên phải dựng lại.
 
