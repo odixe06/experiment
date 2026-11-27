@@ -1,0 +1,6 @@
+outs:
+- md5: 91d6b26a2cfcc7ecbd33b9998c90b718.dir
+  size: 73223137350
+  nfiles: 336
+  hash: md5
+  path: cnn-bigru-attention

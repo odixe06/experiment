@@ -1,0 +1,6 @@
+outs:
+- md5: dd1d0fa364f3ab87fa47f83f4457d427.dir
+  size: 6176816194
+  nfiles: 150
+  hash: md5
+  path: case2
