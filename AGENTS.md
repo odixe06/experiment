@@ -95,3 +95,5 @@ Trước khi làm, gọi skill khớp với việc; nhiều việc khớp nhiề
 | sắp xếp CONTEXT/docs/knowledge, quyết định đặt thông tin ở đâu | `context-hub` |
 | nắm toàn bộ context đầu phiên / sau compact, ghi bàn giao sống, snapshot mốc, dời tài liệu + kiểm link | `project-context` |
 | backup Git, restore, dọn ổ (chỉ khi owner yêu cầu) | `repo-backup` |
+
+- **Kaggle kernel push** — use the shared `kaggle-push` skill and its guarded local entry points for kernel writes.

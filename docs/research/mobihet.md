@@ -25,17 +25,17 @@ engine `compact=true`. Loss dòng thật là CE thường `CE(z, y)`.
 
 24 hàng là run A3 R50 đã audit. `scripts/promote_mobihet_rows.py` kiểm lại từng run trước khi ghi: receipt audit PASS r50,
 10 metric tính lại từ CM r50 khớp bảng, byte tính lại từ `config.json` + `rounds.jsonl` khớp bảng. Receipt
-`runs/mobihet-promote/receipt.json`. Ba seed còn thiếu chạy mới trong batch 24/11 ([bàn giao](../operations/continue.md)).
+`runs/mobihet-promote/receipt.json`. Batch 24/11 bổ sung BERT seed 43 và CNN-BiGRU seed 43. Mixed case1 seed 41 đã audit R50, macro-F1 0,895531 ([bàn giao](../operations/continue.md)).
 
 | kịch bản | seed | Macro-F1 mean ± SD | Δ vs L4 cùng seed (số seed dương) | byte/xe (KB) | hạng byte |
 |---|---|---:|---:|---:|---:|
 | dagsnet | 3/3 | 0.90572 ± 0.00016 | +0.00021 (3/3) | 354.3 | 3/15 |
-| bert | 2/3 | 0.91281 ± 0.00065 | +0.00023 (2/2) | 358.5 | 3/15 |
+| bert | 3/3 | 0.91281 ± 0.00046 | +0.00021 (3/3) | 358.5 | 3/15 |
 | tabm | 3/3 | 0.83734 ± 0.00385 | +0.00462 (3/3) | 362.0 | 6/15 |
 | sae | 3/3 | 0.72812 ± 0.00707 | +0.00865 (3/3) | 362.8 | 3/15 |
 | mlp | 3/3 | 0.87592 ± 0.00107 | +0.00311 (3/3) | 360.7 | 6/15 |
-| cnn-bigru | 2/3 | 0.86478 ± 0.00030 | +0.00145 (2/2) | 360.3 | 3/15 |
-| mixed-case1 | 2/3 | 0.89504 ± 0.00014 | +0.00023 (2/2) | 357.9 | 3/6 |
+| cnn-bigru | 3/3 | 0.86405 ± 0.00129 | +0.00147 (3/3) | 360.3 | 3/15 |
+| mixed-case1 | 3/3 | 0.89520 ± 0.00030 | +0.00023 (2/2) | 357.9 | 3/6 |
 | mixed-case2 | 3/3 | 0.85807 ± 0.00070 | +0.00420 (3/3) | 361.4 | 3/6 |
 | mixed-case3 | 3/3 | 0.87617 ± 0.00012 | +0.00173 (3/3) | 360.0 | 3/6 |
 

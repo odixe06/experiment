@@ -5,9 +5,11 @@ Lịch sử các lô/cleanup/hash: [snapshot](../../archive/bert/operations-2026
 
 ## Đích
 
-- Git `https://github.com/odixe06/fl_veremi_bert.git`, branch `main`.
-- DVC default `onedrive`: `/home/odixe/Cloud/OneDrive/NCKH/veremi_build/fl_veremi_bert/dvc-storage`.
-- Git bundle: `/home/odixe/Cloud/OneDrive/NCKH/veremi_build/fl_veremi_bert/fl_veremi_bert.bundle`.
+- Git `https://github.com/odixe06/experiment.git`, branch `main`.
+- DVC default `onedrive`: `/home/odixe/Cloud/OneDrive/NCKH/veremi_build/experiment/dvc-storage`.
+- Git bundle BERT lịch sử: `/home/odixe/Cloud/OneDrive/NCKH/veremi_build/experiment/bert/fl_veremi_bert.bundle`.
+- DVC dùng cấu hình cha của repo `experiment`. Các pointer nằm dưới `experiment/bert/artifacts/`.
+- Cache đang dùng là `experiment/.dvc/cache`. Cache BERT cũ trên ORICO đã xóa ngày 26/11 sau khi xác minh đủ 9.207 blob trong kho chung.
 - OneDrive là rclone mount; kiểm mount thật trước ghi. Google Drive không dùng làm upload fallback.
 
 ## Artifact và trạng thái đã kiểm
@@ -17,7 +19,8 @@ Lịch sử các lô/cleanup/hash: [snapshot](../../archive/bert/operations-2026
 - `artifacts/research-evidence-20261116.dvc`: audit/report/source receipts đã đóng tại thời điểm backup.
 - Output/receipt pFedES41p4 mới đang collect/audit; **chưa xác minh backup cho phần mới**.
 
-Lần xác minh filesystem remote gần nhất:16/11/2026,16:57:46VN, push-j16 + status-c in sync cho các target trong
+Ngày 26/11 đã đối chiếu 9.207 blob BERT trong kho chung và thử `dvc fetch` từ `experiment/bert`.
+Lần xác minh trước khi gộp ngày 16/11/2026 lúc 16:57:46 +07 dùng `dvc status -c` cho các target trong
 [receipt reboot](../../archive/bert/operations-20261116/receipts/backup-reboot-20261116.json).
 Đó là snapshot, không chứng minh output mới đã backup hoặc cloud upload đã hoàn tất.
 VFSdirty có thể còn trênlocal; không xóa cache/artifact hoặc restart mount khỏe để ép sync.
@@ -25,7 +28,8 @@ VFSdirty có thể còn trênlocal; không xóa cache/artifact hoặc restart mo
 ## Restore / cập nhật
 
 ```bash
-dvc pull PATH/TO/RUN.dvc
+cd /home/odixe/project/experiment/bert
+dvc pull artifacts/t3-pulls.dvc
 ```
 
 Kiểmdisk và manifest trước restore. Workspace partial/thiếu model không `dvc add` đè manifest đầy đủ;

@@ -22,6 +22,7 @@ Mọi tài liệu của repo nằm dưới `docs/` (trừ hub `CONTEXT.md`, `LES
 | FeatureBERT | [bert/](bert/README.md): [results](bert/research/results.md), [comparison](bert/research/comparison.md), [protocol](bert/research/protocol.md), [cost](bert/research/cost.md), [v2-parity](bert/research/v2-parity.md) |
 | TabM / SAE / MLP / CNN-BiGRU | [research/backbones/](research/backbones/): [bảng 4 backbone](research/backbones/four-backbone-seed-results-live.md), [audit code](research/backbones/four-backbone-code-alignment-audit-20261116.md), [centralized](research/backbones/central-backbones.md), [TabM](research/backbones/tabm-single-model-baselines.md), [SAE](research/backbones/sae-single-model-baselines.md), [CNN-BiGRU FL](research/backbones/dense-recurrent-fl.md) |
 | Mixed case 1–3 | [research/mixed/](research/mixed/): [thiết kế](research/mixed/mixed-model-cases.md), [kết quả](research/mixed/mixed128-all-results.md) |
+| MobiHet trên 9 kịch bản | [Phương pháp và kết quả R50](research/mobihet.md), [thiết kế ablation](research/mobihet-ablation.md), [kết quả ablation](../experiments/ablation/README.md) |
 
 ## Vận hành
 
@@ -31,9 +32,12 @@ Mọi tài liệu của repo nằm dưới `docs/` (trừ hub `CONTEXT.md`, `LES
 | [operations/lessons.md](operations/lessons.md) | bài học vận hành (Kaggle, notebook, Git/DVC) |
 | [operations/kaggle.md](operations/kaggle.md), [operations/notebook-errors.md](operations/notebook-errors.md) | account, quota, sổ lỗi kernel |
 | [operations/backup.md](operations/backup.md) | Git/DVC backup |
+| [operations/checkpoint-coverage.csv](operations/checkpoint-coverage.csv) | phủ checkpoint từng run chính thức (DVC / chỉ Kaggle / mất account / thiếu), sinh bằng `runs/checkpoint-coverage-20261127/run.sh` |
+| [operations/checkpoint-request-codex.csv](operations/checkpoint-request-codex.csv) | checkpoint baseline còn nằm trên account Kaggle nhánh codex, cần pull + đẩy DVC |
+| [operations/checkpoint-runs.csv](operations/checkpoint-runs.csv), [operations/checkpoint-files.csv](operations/checkpoint-files.csv) | tra checkpoint theo exact ref và từng file (MD5, pointer) |
 | [operations/notion-results.md](operations/notion-results.md) | báo cáo Notion |
 | [bert/operations/](bert/operations/README.md) | vận hành riêng phần FeatureBERT (trước khi gộp repo) |
 
 ## Lưu trữ
 
-[archive/](archive/): bàn giao/CONTEXT cũ trước khi gộp repo 20/11/2026 và archive của fl_veremi_bert. Không đọc mặc định.
+[archive/](archive/) giữ các mốc bàn giao, CONTEXT cũ và lịch sử FeatureBERT.

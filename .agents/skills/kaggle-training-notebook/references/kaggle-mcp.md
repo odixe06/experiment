@@ -96,10 +96,10 @@ Do not loop, reveal credentials, or claim that a local config edit changed the c
 Prefer the Kaggle CLI in the project conda environment for notebook pushes:
 
 ```bash
-conda run -n nckh kaggle kernels push -p papers/<slug>/notebook/
+~/.local/bin/kaggle kernels push -p papers/<slug>/notebook/
 ```
 
-This reads the notebook and `kernel-metadata.json` from disk byte-for-byte. Use MCP `save_notebook` only when the task specifically benefits from it and the full notebook text is available. Either path is an external write that starts a run; require authorization from the user's current request.
+This reads the notebook and `kernel-metadata.json` from disk byte-for-byte. Use the guarded CLI for kernel writes so they share the local cooldown. A push requires authorization from the current request.
 
 Metadata that must be set every time:
 
@@ -185,7 +185,7 @@ session for a run longer than the 12 h cap), install the CLI instead and push fr
 where the body is read from disk: byte-exact and free.
 
 ```bash
-conda run -n nckh kaggle kernels push -p papers/<slug>/notebook/
+~/.local/bin/kaggle kernels push -p papers/<slug>/notebook/
 ```
 
 CLI auth is `conda run -n nckh kaggle auth login` (OAuth, no token to mint or paste). Keep using the MCP server for

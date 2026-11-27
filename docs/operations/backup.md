@@ -1,5 +1,92 @@
 # Git / DVC backup record
 
+## Dữ liệu local theo kịch bản — 27/11/2026
+
+ORICO `experiment-data/experiment/` sắp theo cùng trục với `experiments/<kịch bản>`. BERT và DAGSNet đều là kịch bản của repo này:
+
+```
+<kịch bản>/<phương pháp>/s<seed>/<phiên>/        dagsnet bert tabm sae mlp cnn-bigru mixed-case1..3
+ablation/<kịch bản>/<arm>/s<seed>/<owner>__<slug>/
+bert/_dvc/                                         thư mục DVC nguyên khối: baseline-pulls, t3-pulls, research-evidence-20261116
+_shared/                                           round-metrics, archives, git, staging, compute, bản ghi batch (ablation-mh, ablation-l4, central-20261120, bert)
+_archive/                                          phương pháp đã loại hoặc thử nghiệm: L4 có LA (ablation-l4-la, l4-la), bert/t3 và artifact fbl/lite2, dev
+```
+
+- `<phiên>` giữ nguyên tên thư mục pull, ví dụ `flb-afpha-s41-p2` hoặc `exp-central-bert-s41-p4`. Evidence Kaggle có dạng
+  `<owner>__<slug>__v<N>`. MobiHet (A3 cũ) nằm ở `<kịch bản>/mobihet/`, nên không lẫn với ablation.
+- Ổ exFAT không có symlink. Vì vậy đường dẫn cũ trên SSD giữ dạng link: `bert/runs/pulls/<run>`, `bert/artifacts/<x>`,
+  `runs/ablation-{mh,l4}/pulls/<owner>/<slug>`, `runs/round-metrics`, `runs/central-20261120/pulls/<run>`. Pointer DVC và hash không đổi.
+- Mọi đơn vị đều dời bằng `rename` trên cùng ổ. Mỗi đơn vị được đếm số file và byte trước và sau khi dời.
+  Journal ghi tại `runs/orico-reorg-20261127/moves.jsonl`, plan tại `plan.tsv`, script là `plan.py`, `apply.py` và `verify.py`.
+  `run.json`/`index.json` của round-metrics, `checkpoint-runs.csv` và `checkpoint-files.csv` đã đổi sang đường mới.
+  `audit.py` của round-metrics tra evidence qua journal.
+- Collector mới vẫn pull vào `runs/ablation-mh/pulls/<owner>/<slug>` trên SSD. Sau audit, chạy
+  `python3 runs/orico-reorg-20261127/apply.py file-new` để đưa run vào cây kịch bản rồi để lại link. Làm bước này trước backup checkpoint,
+  vì `backup.py` yêu cầu bundle nằm trên ORICO.
+- Kết quả: đã dời 389/389 đơn vị (76.795 file, 312.656.653.995 byte), không còn symlink SSD nào gãy. Số file và byte từng đơn vị khớp
+  trước và sau. Chênh lệch duy nhất là `_shared/round-metrics`, cùng 1.047 file nhưng +7.217 byte vì đã ghi lại đường dẫn trong `run.json`.
+  974/974 file có hash trong round-metrics khớp SHA-256. Kiểm SHA-256 toàn bộ checkpoint theo `checkpoint-index.json` (`verify.py bundles`) bị dừng giữa chừng vì tắt máy ngày 27/11. Chạy lại phiên sau.
+- Các mục cũ bên dưới ghi đường dẫn ORICO trước ngày 27/11. Tra đường mới bằng `moves.jsonl`.
+- Backup checkpoint chạy song song từ 27/11. `BACKUP_JOBS` (mặc định 3) đặt số bundle được pull và đẩy cùng lúc, mỗi bundle chạy
+  `rclone --transfers 16`. Chỉ luồng chính ghi `backup-results.json`. Chỗ trống staging trên ORICO tính theo kích thước bundle × JOBS.
+  Đã thử 2 bundle đã có trên DVC: pointer trùng byte, `rclone check` đạt. Bundle mixed chỉ có 2 file lớn, nên tốc độ tăng
+  chủ yếu nhờ chạy nhiều bundle cùng lúc.
+
+## Checkpoint MobiHet — 25/11/2026
+
+- Dọn 1.653 file tạm DVC ngày 25/11 (38,668 GiB) vào thùng rác OneDrive. Từng file khớp kích thước và checksum OneDrive với blob ở đường dẫn DVC chuẩn. Hai manifest lịch sử ngoài danh mục checkpoint đã có mục thiếu trước đợt dọn.
+- BERT dùng chung remote và cấu hình DVC của repo cha. Đã đối chiếu cả 9.207 blob nguồn và thử fetch từ thư mục con. Git bundle BERT nằm ở `experiment/bert` trên OneDrive. Cache đang dùng là `experiment/.dvc/cache` trên SSD.
+- Ngày 26/11, thư mục OneDrive của repo đổi từ `fl_dagsnet_veremi_v2` thành `experiment`. Remote `onedrive` trỏ tới `NCKH/veremi_build/experiment/dvc-storage`.
+- Đích DVC `onedrive` theo `.dvc/config`. Checkpoint local nằm dưới `pulls/<owner>/<slug>/checkpoints/vN/`
+  trên ORICO, giữ nguyên đường dẫn output Kaggle. DVC pointer theo cùng owner/slug/version ở `artifacts/mobihet-checkpoints-2026-11-25/`.
+- Ngày 26/11 đã xác minh **52/52 phiên, 1.854 checkpoint** trên OneDrive, 157.189.865.329 byte gồm metadata.
+  Mọi directory manifest khớp MD5 và mọi object khớp kích thước gốc. Phục hồi 5 object 0 byte từ bản gốc
+  rồi so MD5 đọc từ cloud hoặc QuickXor do OneDrive trả. Object 0 byte giữ tại `repair-quarantine/2026-11-25/`.
+- `checkpoint-index.json` giữ exact ref, byte và SHA-256 từng file. `inventory.json`, `backup-results.json`
+  và `cloud-audit-final.json` trong `runs/ablation-mh/checkpoint-backup-20261125/` giữ phạm vi, receipt và kết quả kiểm.
+- [Tra checkpoint theo run](checkpoint-runs.csv) · [Danh sách file và MD5](checkpoint-files.csv).
+  Ref mới dùng `owner/slug/version`. Danh mục DVC lịch sử DAGSNet/BERT gồm 158 phiên và 6.341 checkpoint.
+- Ngoài batch, 8.886 đường dẫn local đã khớp DVC BERT. Đã bổ sung 1.944 đường dẫn thuộc 960 object,
+  89.526.542.825 byte (83,4 GiB) trên cùng OneDrive. Rclone báo 960 object khớp, 0 sai lệch.
+  MD5 directory manifest `56f074897cac6505d0238598e38b98c2.dir` khớp bytes đọc từ OneDrive.
+  [DVC pointer bổ sung](../../artifacts/checkpoints-local-2026-11-26.dvc) · [Bàn giao](continue.md)
+- Khôi phục MobiHet/DAGSNet bằng `dvc pull <dvc_pointer>` từ repo gốc. Với `dvc_project=bert`, chạy
+  `cd bert` rồi `dvc pull artifacts/<bundle>.dvc`. Cột `checkpoint` là đường dẫn bên trong bundle.
+- Bundle bổ sung giữ đường dẫn tương đối dưới `checkout/` và `orico/`. Hai thư mục tương ứng repo và
+  `ORICO/experiment-data/` tại lần backup. Biên nhận nằm tại `runs/ablation-mh/checkpoint-backup-20261125/local-supplement-receipt.json`.
+
+### Dọn L4 lịch sử trên ORICO — 26/11/2026
+
+- Đã xóa đúng 12 checkpoint của sáu run L4 có logit adjustment trong `experiment-data/experiment/recovered-checkpoints-20261120/`, thu hồi 15,3 GiB. Giữ log và metadata run, cùng checkpoint của phương án chính thức A3 (`la_mode=off`).
+- Đã đối chiếu đường dẫn và MD5 checkpoint với manifest của bundle bổ sung trên OneDrive. Lưu pointer và manifest trên SSD tại `runs/orico-l4-cleanup-20261126/` và trên ORICO tại `experiment-data/experiment/archives/checkpoints-local-2026-11-26/`. Biên nhận xóa là `runs/orico-l4-cleanup-20261126/local-delete.json`.
+
+### Dọn cache BERT và bản staging trùng trên ORICO — 26/11/2026
+
+- Đã xóa cache BERT cũ ở `experiment-data/fl_veremi_bert/dvc-cache/` sau khi kiểm tra lại đủ 9.207 blob trong kho chung theo kích thước và checksum OneDrive. Khôi phục theo [tài liệu BERT](../bert/operations/backup.md).
+- Đã xóa 65 file trong `checkpoint-dvc-resume-xktq98dq/objects/` và `checkpoint-dvc-stage-ykg_7ia0/objects/` sau khi đối chiếu kích thước và QuickXor với blob trong kho chung. Giữ 66 file staging còn lại để kiểm tra tiếp.
+- Ổ ORICO thu hồi 28,5 GiB. Danh sách file và biên nhận tại `runs/orico-verified-cache-cleanup-20261126/`.
+
+### Gom blob từ kho mobihet trước khi xóa — 26/11/2026
+
+- Owner chỉ giữ DVC cho `experiment` và `experiment_10k_clients`. Kho `veremi_build/mobihet/dvc-storage` và `veremi_build/fl_dagsnet_veremi/dvc-storage` đã xóa. Kho `mobihet-features` chỉ còn v4-scaled*.
+- Trước khi xóa, đã quét 133 pointer của repo, gồm cả pointer bị gitignore dưới `runs/`. Hai pointer `runs/recovery-20261120/references/dagsnet-l4/mh-fbl-l4-top-s4{1,2}-r50.dvc` chỉ có object trong kho mobihet. Đã copy 155 object (29 MB) sang `experiment/dvc-storage` và vào `.dvc/cache`. MD5 khớp, `rclone check --download` báo 155/155 khớp.
+- 27/11: owner xác nhận L4 không còn là phương pháp chính thức. Đã xóa hai pointer trên cùng 155 object chỉ thuộc chúng, cả trên remote (vào thùng rác OneDrive) lẫn trong `.dvc/cache`. 29 object dùng chung với pointer khác được giữ. Thư mục dữ liệu local `runs/recovery-20261120/references/dagsnet-l4/` (~130 MB, gitignore) vẫn còn.
+- Quét lại sau cùng: 131 pointer, 17.046 object, thiếu 0 trên remote `onedrive`. `experiment_10k_clients`: 6 pointer, 245 object, thiếu 0.
+
+### Đổi tên pointer A3 cũ thành MobiHet — 27/11/2026
+
+- A3 cũ (L4 bỏ LA) là MobiHet chính thức nên không còn là ablation. Đã đổi tên 14 thư mục pointer dưới `artifacts/mobihet-checkpoints-2026-11-25/<owner>/`:
+  `<model>-abl-a3-<seed>` → `<model>-mh-<seed>` và `mixl4-abl-a3-<case>-<seed>` → `mixmh-<case>-<seed>`. Hash và object không đổi.
+- Trong `checkpoint-runs.csv` và `checkpoint-files.csv` chỉ sửa cột `dvc_pointer` (14 run, 428 file). Cột `run` vẫn giữ ref Kaggle gốc (ví dụ `accanniez/cnnbigru-abl-a3-s41/1`), vì slug Kaggle không đổi tên được. Bảng kết quả `experiments/*/results.csv` đã ghi `method=mobihet` cho các run này.
+- Biên nhận cũ dưới `runs/` vẫn dùng tên cũ.
+
+### Dọn và cấu trúc lại ORICO — 27/11/2026
+
+- Đã xóa `checkpoint-dvc-resume-xktq98dq/` và `checkpoint-dvc-stage-ykg_7ia0/` (14,5 GB). Có 65/66 object khớp MD5 và kích thước với remote `onedrive`, gồm 34 file `.tmp` đã tính MD5 nội dung. File còn lại là `.tmp` 3.943.985.152 byte, bản upload bị cắt dở và không khớp object nào.
+- Đã xóa `local-artifacts/runs/mixed-l4/` và `runs/mixed-l4/` local, tức mixed L4 **có LA** (`la_mode` mặc định `full`), thu hồi khoảng 42 GB checkpoint. Kết quả (config, CM, metrics, log; 1.608 file, 278 MB) đã chuyển sang `../mobihet/archive/l4-la-20261124/experiment/mixed-l4/`, kèm ZIP đã xác minh trên OneDrive. [Archive L4-LA](../../../mobihet/archive/l4-la-20261124/README.md)
+- BERT thuộc repo này nên `experiment-data/fl_veremi_bert/{runs,artifacts}` đã đổi tên thành `experiment-data/experiment/bert/{runs,artifacts}` (cùng ổ, không chép lại). 13 symlink dưới `bert/runs/` và `bert/artifacts/` đã trỏ sang vị trí mới, không còn link gãy. Các mục cũ ở trên ghi đường dẫn trước khi đổi tên.
+- Giữ nguyên `ablation-l4/` (A3 = MobiHet, 45,4 GB checkpoint, 21 run chỉ có trên ORICO; A1/A2/A4 không có checkpoint), `ablation-mh/`, `bert/` và `transfer_learning_c/` (vrepair). ORICO còn trống 124 GB.
+
 ## Ablation audit — 23/11/2026
 
 - [DVC pointer](../../artifacts/ablation-audit-2026-11-23.zip.dvc), remote `onedrive` theo `.dvc/config`.
@@ -51,7 +138,7 @@
 - Đã gỡ Git worktree `experiment-wt` sau khi đối chiếu 1.872 file ngoài Git. Bundle BERT, patch local,
   metadata checkout và biên bản lưu dưới `runs/worktree-consolidation/orico-20261120/`.
   Snapshot chứa bản sửa và script T3/Lite2 cũ, theo quyết định loại chúng khỏi code chạy chính.
-- Mount ORICO tại `/run/media/odixe/ORICO`. Đích dữ liệu BERT là `experiment-data/fl_veremi_bert/{runs,artifacts,dvc-cache}`.
+- Ngày 20/11, đích dữ liệu BERT trên ORICO là `experiment-data/fl_veremi_bert/{runs,artifacts,dvc-cache}`. Cache riêng đã dọn ngày 26/11.
   Dữ liệu checkpoint DAGSNet và Mixed lịch sử chuyển vào `experiment-data/experiment/recovered-checkpoints-20261120`.
   Symlink local trong `bert/` và `runs/` giữ nguyên đường dẫn dùng bởi script. Bốn cây BERT `runs/` đã có trên ORICO được giữ nguyên.
 - Tiến độ copy và SHA-256 lưu trong `runs/worktree-consolidation/orico-20261120/`. File `consolidated.json` xác nhận đã đổi symlink

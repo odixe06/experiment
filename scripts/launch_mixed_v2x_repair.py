@@ -31,7 +31,7 @@ for seed,owner in ((42,'huygia1611'),(41,'hiulhuy'),(43,'honghunhnh')):
         numerical_fix='SAE local training fp32; other backbone AMP unchanged',fresh_start=True)
     ledger.append(row);path.write_text(json.dumps(ledger,indent=2))
     try:
-        reply=snap['api'].kernels_push(row['directory'],timeout='37800')
+        reply=d.guarded_push(owner, snap['api'], row['directory'],timeout='37800')
         if not d.accepted(reply,row['ref']):raise RuntimeError('Push requires review')
         row.update(version=d.confirm_submission(snap['api'],row['ref'],Path(row['directory'])),state='submitted')
         row['status']=snap['api'].kernels_status(row['ref']).status.name

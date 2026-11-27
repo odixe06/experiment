@@ -1,5 +1,16 @@
 # Bài học vận hành MobiHet
 
+- 27/11 mất account Kaggle kéo theo mất checkpoint. Collector ablation cố ý bỏ `state*.pt` và `models/` khi pull, còn backup DVC chạy theo đợt. Vì vậy 25 ô MobiHet/ablation đã audit PASS mất checkpoint, nằm trên 15 account không còn truy cập. Trong đó 11 account bị gỡ ngày 25/11, `bestyorn` và `sampanh` không có credential, `nocknnock` và `shippertocdo` mất quyền ngày 27/11. Kết quả vẫn còn vì CM và metrics đã pull. Sau mỗi audit PASS, pull checkpoint và đẩy DVC ngay, đừng đợi đợt backup sau. Dùng `checkpoint-backup-20261125/inventory.py` rồi `direct-backup.py`.
+- 27/11 trước khi tin `runs/round-metrics/index.json` để biết phủ checkpoint, đối chiếu với `experiments/*/results.csv`. Index vẫn ghi `mobihet_l4` (L4 có LA, đã loại) và trỏ checkpoint `runs/mixed-l4/` đã xóa. Pointer DVC còn có thể chỉ chứa metrics, không có `.pt` (`runs/pulls/fl2-{fedavg,fedprox,fedproto}.dvc`). Vì vậy phải liệt kê `.pt` trong manifest `.dir`, đừng chỉ dựa vào việc pointer tồn tại.
+
+- 25/11 DVC OneDrive: upload rclone bị ngắt để lại object 0 byte dưới tên MD5 hợp lệ. Kiểm kích thước toàn bộ object theo manifest và index gốc, kể cả bundle đã có receipt. Xác minh MD5 bản gốc trước khi chuyển object lỗi vào quarantine. Đọc lại object đã phục hồi từ cloud và so MD5.
+- 26/11 OneDrive trả `activityLimitReached` với `Retry-After` tới 55 giây. Tái dùng snapshot kích thước và kiểm trực tiếp các object vừa ghi. Giãn nhịp khi Graph giới hạn truy cập, tránh chạy lại listing đệ quy giữa các đợt ghi cùng kho.
+- 26/11 kiểm checksum OneDrive: rclone 1.60 ở máy trả SHA1 trống. Bản 1.76 chạy riêng so QuickXor local với `lsjson --stat --hash` trên OneDrive. Dùng đường dẫn đã resolve khi `hashsum` gặp file staging qua symlink. [Rclone OneDrive](https://rclone.org/onedrive/)
+- 25/11 backup checkpoint: size từ `kernels files` có thể là của mô tả file (~900 B), đồng thời mất đường dẫn run.
+  Lấy đường dẫn qua output listing với exact version, đo byte từ `Content-Range` hoặc `Content-Length` của URL output trước khi chọn dung lượng.
+  Không lưu signed URL vào biên bản. Giữ checkpoint dưới thư mục run có version riêng.
+- 25/11: controller có thể báo job collector đã khởi động trước khi worker ghi PID. Kiểm PID collector sống trước khi mở waiter.
+  Waiter thoát 3 với `WATCHER_NOT_RUNNING` ở bước này là lỗi thứ tự startup. Kiểm collector, receipt và số dòng ack trước khi mở lại waiter.
 - 22/11 collector nền. Một bản duy nhất (`flock`), lọc trùng ref, khóa theo exact version: chống pull hai lần vào cùng thư mục. Chờ tiến trình con bằng `pgrep -P <pid>`; `pgrep -f "a|b"` trong `until` khớp chính dòng lệnh shell đó nên treo mãi. Phiên dừng dưới đích hoặc pilot → sự kiện `handoff.jsonl`, phiên agent chờ bằng background task đọc file local (không polling Kaggle/model). Ack theo số dòng đã xử lý, không theo độ dài file lúc ack.
 - 20/11 Kaggle API có ConnectTimeout xen kẽ. Đường `www.kaggle.com/api/v1` theo từng tiến trình xác minh được roster, pull và push. Khi SaveKernel trả 400 với notebook nhúng 1,19 MB, kiểm slug chưa tồn tại rồi đóng gói source BERT gọn hơn. Phản hồi lần hai lên v1.
 
@@ -137,6 +148,8 @@ Bài học ở đây là quy tắc rút ra khi chạy thí nghiệm và hạ t�
   kiểm SHA256, ghi `provenance/source_manifest.json` và source vào output. Audit phải kiểm **base + overlay**, không chỉ Git HEAD.
 - 30/10: Notion connector đã tạo page + upload PDF local được. `replace_content` cần `new_str`, không phải `content`;
   giữ `<page url="...">` của mọi page con. Đọc lại kiểm bảng liên tục + 10 metric + PDF, xem [quy trình](notion-results.md).
+- 26/11: Kaggle CLI `kernels list --mine --csv` có thể exit 0 và in đúng `Not found` khi tài khoản chưa có kernel. Dispatcher chỉ coi đây là danh sách rỗng sau khi chạy dưới credential đã xác minh và ledger không có phiên đã nhận của owner. Lỗi API hoặc stdout rỗng vẫn là unknown.
+
 # 16/11/2026 — ledger/push aligned-v2
 
 - Parent private thiếu quota không có nghĩa phải đợi reset. Có thể chạy trên account khác của owner bằng

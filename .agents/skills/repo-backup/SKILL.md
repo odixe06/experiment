@@ -36,8 +36,8 @@ Use authorization already given in the session. Backup, Git push, and deletion m
   what changed, failed or looks suspect; an old PASS is still not proof for new files before deletion.
 - Run a long `dvc push` once, in the background, and wait for its exit. Do not poll progress or scan/hash the remote while it
   runs; a quiet log is not a stall (local-filesystem transfers can be serial even with `-j`).
-- After the push, one `dvc status -c <targets>` is the verification. List or hash remote objects by hand only when it reports a
-  problem or a cleanup needs object-level checks.
+- After a native push, verify once with `dvc status -c <targets>`. For direct rclone transfers, follow the cloud
+  object verification in the throughput reference.
 
 ## 1. Read the backup record and inspect the delta
 
@@ -72,6 +72,10 @@ For a legacy Google Drive for Desktop source or explicitly selected remote:
 - **Do not wait for the cloud upload.** Drive for Desktop caches written files locally and uploads them gradually. The requirement is that every selected object has reached the mounted drive (verified push); cloud upload progress is not a gate for finishing the backup or for an authorized cleanup.
 
 ## 3. Add and push the selected artifacts
+
+For bulk uploads, use [DVC upload throughput](references/dvc-transfer.md) to choose the fastest verified path
+for the configured backend. Prefer direct rclone to the same cloud path for large OneDrive mount transfers
+when the selected DVC objects are cached and the mapping is confirmed. Tune concurrency from measured new bytes.
 
 For a new repository, initialize DVC and configure its remote:
 

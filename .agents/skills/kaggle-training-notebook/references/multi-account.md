@@ -34,7 +34,8 @@ high-quota account is free capacity, and a run does not need its whole budget in
   caps of both sessions stay under `gpu_left`.
 - A session that reaches its cap with state saved ends COMPLETE. Set its cap from the account's quota today, then let a worker push
   `<slug>-c2` on the same owner once `gpu_left` covers the rounds left (rounds x measured round time + setup, x 1.15).
-  Same-owner resume mounts the previous output, so no intermediate dataset is needed.
+  Before dispatch, require a passing checkpoint audit and the 15-minute wait after completion in
+  [the continuation rule](../SKILL.md#shared-kernel-push-limit). Same-owner resume mounts the previous output, so no intermediate dataset is needed.
 - Cross-account chains need a private dataset for the state (8.5 GB here) and are worth it only when the same owner cannot resume soon.
 - Each extra session repeats startup; see the federated-training-speed skill, "Session startup".
 - Keep full state on the Kaggle output rather than pulling it by default, and never delete those kernel versions: pull it on demand

@@ -52,6 +52,13 @@ def main():
         env["KAGGLE_API_TOKEN"] = str(tokf)
     else:
         sys.exit(f"no saved credential for {user} under {acc}")
+    if args[0] == "kaggle" and args[1:3] == ["kernels", "push"]:
+        args[0] = str(Path.home() / ".local/bin/kaggle")
+        env["KAGGLE_PUSH_EXPECTED_ACCOUNT"] = user
+        os.execve(args[0], args, env)
+    if len(args) >= 4 and Path(args[1]).name == "kaggle_cli_bounded.py" and args[2:4] == ["kernels", "push"]:
+        env["KAGGLE_PUSH_EXPECTED_ACCOUNT"] = user
+        os.execvpe(args[0], args, env)
     sys.exit(subprocess.run(args, env=env).returncode)
 
 

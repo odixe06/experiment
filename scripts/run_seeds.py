@@ -39,13 +39,15 @@ def sh(args, **kw):
 
 
 def quota():
-    out = sh([PY, str(SK / "kaggle_account.py"), "quota"])
-    q = {}
-    for line in out.splitlines():
-        p = line.split()
-        if len(p) >= 2 and p[1].endswith("h") and p[0] != "account":
-            q[p[0]] = float(p[1][:-1])
-    return q
+    report = OUT / "quota-report.json"
+    result = subprocess.run([PY, str(SK / "kaggle_quota.py"), "--out", str(report)], cwd=ROOT)
+    if result.returncode not in (0, 3):
+        result.check_returncode()
+    return {
+        account: row["gpu_left"]
+        for account, row in json.loads(report.read_text())["accounts"].items()
+        if row["status"] == "OK"
+    }
 
 
 def plan():

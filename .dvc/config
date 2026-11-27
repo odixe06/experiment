@@ -3,4 +3,4 @@
 [cache]
     type = "hardlink,copy"
 ['remote "onedrive"']
-    url = /home/odixe/Cloud/OneDrive/NCKH/veremi_build/fl_dagsnet_veremi_v2/dvc-storage
+    url = /home/odixe/Cloud/OneDrive/NCKH/veremi_build/experiment/dvc-storage

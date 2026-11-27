@@ -62,7 +62,7 @@ def main():
                                  session_budget_hours=args.session_hours)
                     ledger.append(entry); path.write_text(json.dumps(ledger,indent=2))
                     try:
-                        reply = snap['api'].kernels_push(entry['directory'],timeout='37800')
+                        reply = d.guarded_push(owner, snap['api'], entry['directory'],timeout='37800')
                         if not d.accepted(reply,entry['ref']): raise RuntimeError('Push rejected')
                         entry.update(version=d.confirm_submission(snap['api'],entry['ref'],Path(entry['directory'])),state='submitted')
                         entry['status']=d.read_call(lambda:snap['api'].kernels_status(entry['ref'])).status.name

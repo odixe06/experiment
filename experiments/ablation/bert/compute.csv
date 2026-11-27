@@ -1,0 +1,5 @@
+arm,client_tops,server_tops,bootstrap_tops,other_tops,unattributed_tops,total_tops,x_mobihet,rounds,panel,trace_sha256,source
+mobihet,10693.963,0,0.060271835,3.6511355,2.681745e-05,10697.675,1.0000,50,200,b97e35a840f69e186c697c8f7a1038c011f29fe60929a79eb513e5b0fc51c153,runs/compute-detailed-v3/kaggle/exp-count-mh-main1/compute/bert-mobihet.count.json
+a1,11680.438,0,6e-10,0,8.085e-08,11680.438,1.0919,50,200,71d9d3f990a422c911d29e5717521e37dba935be72a210ce208eb05653c65d71,runs/compute-detailed-v3/kaggle/exp-count-mh-abl1/compute/bert-mhabl-a1.count.json
+a2,10693.963,0,0.060271835,3.6511355,2.681745e-05,10697.675,1.0000,50,200,2e75b547bbfd2f729f470160821e8ed39511042dc85a69ee6326fc56dd084628,runs/compute-detailed-v3/kaggle/exp-count-mh-abl1/compute/bert-mhabl-a2.count.json
+a4,10693.963,0,0.060271835,3.6511355,5.93255e-06,10697.675,1.0000,50,200,39c16b5d7ed6210cdb95f0eb69b9b2d9ab39946ea112acf626c172fa63856ad5,runs/compute-detailed-v3/kaggle/exp-count-mh-abl1/compute/bert-mhabl-a4.count.json

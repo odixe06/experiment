@@ -12,8 +12,20 @@ streams/resumes downloads; the helper still traverses all pages automatically an
 checks missing files. Verify expected artifacts after either path.
 `kernels push --no-run` saves a version without execution; it does not cancel a worker.
 
-Read repository-root `knowledge/local-env.md` for the measured local hardware/runtime. Short tasks run locally; multi-hour tasks run on Kaggle. The current checkout is `/home/odixe/project/mobihet`; use `nckh`.
+Read repository-root `knowledge/local-env.md` for the measured local hardware/runtime. Short tasks run locally; multi-hour tasks run on Kaggle. Use the repository that owns the experiment. This project uses the `nckh` environment.
 Choose an account by live quota and available GPU session slots, not a fixed default. Use process-scoped credentials and leave the global login unchanged. Read `references/kaggle-credentials.md` before using token-only accounts; Quota/health/plan support token-only accounts; global OAuth switches still require snapshots. Environment setup does not authorize a new GPU launch.
+
+## Shared kernel push limit
+
+When planning a launch wave, diagnosing QUEUED, or saving a kernel version, read [kaggle-push](~/.agents/skills/kaggle-push/SKILL.md).
+Use the guarded local CLI or SDK entry point for every kernel write. Pushes for each account share a
+120-second cooldown across projects. Other accounts and read operations can proceed during the wait.
+
+For a completed kernel that needs a continuation, start pulling and auditing as soon as its exact
+version reaches `COMPLETE`. Push the continuation only after the checkpoint passes audit and at least
+**15 minutes (900 seconds)** have elapsed since the predecessor completed. Use the Kaggle completion
+time or, if unavailable, the first verified `COMPLETE` observation. Record it with the exact ref and
+follow the shared rule for manual and automated pushes.
 
 ## Paths
 
@@ -124,7 +136,8 @@ projects). A long job started locally competes for RAM with everything else and 
    reserved time, including all planned simultaneous runs. After an authorized global switch, verify the new CLI identity with SDK introspection. An account with quota
    is not an account with GPUs -- zero-GPU allocation has been account-scoped here before, and
    only a run proves it. Script creation does not itself authorize launching runs.
-   Plan every free slot before waiting for a quota reset, and chain short sessions on the same owner:
+   Plan launch waves using [kaggle-push](~/.agents/skills/kaggle-push/SKILL.md), including the first-slot
+   preference and queue diagnostics. Chain short sessions on the same owner using
    [multi-account.md](references/multi-account.md), "Scheduling short quotas". Carry the compile cache into resume sessions:
    `federated-training-speed` skill, "Session startup".
 7. **Every push ships with its collector** (owner 22/11). Before the batch's first push, have a

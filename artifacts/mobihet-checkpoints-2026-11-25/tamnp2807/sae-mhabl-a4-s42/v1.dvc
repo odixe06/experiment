@@ -1,0 +1,6 @@
+outs:
+- md5: cb819d4eed872c7dd2d8d070026deada.dir
+  size: 317688969
+  nfiles: 60
+  hash: md5
+  path: v1

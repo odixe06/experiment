@@ -1,0 +1,5 @@
+arm,client_tops,server_tops,bootstrap_tops,other_tops,unattributed_tops,total_tops,x_mobihet,rounds,panel,trace_sha256,source
+mobihet,3534.2124,1.736e-07,0.060271835,3.6511355,2.661745e-05,3537.9239,1.0000,50,200,0e0ff9eeab79b40a6a4a7250d7c453fe504a1794706de8d1638c33f095e76bed,runs/compute-detailed-v3/kaggle/exp-count-mh-main1/compute/dags-base-mobihet.count.json
+a1,3856.9223,0,6e-10,0,8.085e-08,3856.9223,1.0902,50,200,13bcce7dcabd963bbf030a7fc9d977cd4e35ee05eb7f946e126845f01721219b,runs/compute-detailed-v3/kaggle/exp-count-mh-abl1/compute/dags-base-mhabl-a1.count.json
+a2,3534.2124,1.736e-07,0.060271835,3.6511355,2.661745e-05,3537.9239,1.0000,50,200,922336ea30022e5786f9f8aaf54cfc27433501fbc68204bd1523178f625bfd55,runs/compute-detailed-v3/kaggle/exp-count-mh-abl1/compute/dags-base-mhabl-a2.count.json
+a4,3534.2124,1.736e-07,0.060271835,3.6511355,5.75895e-06,3537.9238,1.0000,50,200,653b9e18648eb1b4474ee4914640ca353c9a92753ffa48f8883d8fd0641e1358,runs/compute-detailed-v3/kaggle/exp-count-mh-abl1/compute/dags-base-mhabl-a4.count.json

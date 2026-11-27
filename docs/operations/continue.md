@@ -1,87 +1,90 @@
-# Bàn giao — experiment, 24/11/2026 08:15 (+07)
+# Bàn giao — experiment, 27/11/2026 (+07)
 
-Snapshot trước compact: [continue-20261124-before-compact](../archive/continue-20261124-before-compact.md).
+[CONTEXT](../../CONTEXT.md) · [Snapshot 26/11 trước khi mất account](../archive/continue-20261126-before-account-loss.md)
 
-## Batch MobiHet (L4 bỏ LA) + ablation A1/A2/A4 — bắt đầu 24/11 07:50
+## Tiếp tục thí nghiệm
 
-Owner 24/11: MobiHet = L4 `la_mode=off` ([MobiHet](../research/mobihet.md), [ablation](../research/mobihet-ablation.md)).
-24 hàng `mobihet` đã ghi từ run A3 cũ (kiểm lại, `runs/mobihet-promote/receipt.json`). L4 + ablation L4 → `../mobihet/archive/l4-la-20261124/`.
+1. Owner mất quyền **`cacaosua`, `preyta`, `nocknnock`, `shippertocdo`** ngày 27/11. Sáu phiên dưới đây coi như mất, không collect:
+   `cacaosua/mixmh-abl-a1-case3-s42/1`, `cacaosua/mixmh-abl-a2-case1-s41/1`, `preyta/mixmh-abl-a1-case1-s42/1`,
+   `preyta/mixmh-abl-a1-case1-s43/1`, `nocknnock/mlp-mhabl-a4-s42/1`, `shippertocdo/cnnbigru-mhabl-a1-s42/1`.
+   Collector, dispatcher và waiter của 26/11 đã dừng khi máy tắt. Chưa mở lại.
+2. Đã collect `tamnp2807`: cả 7 kernel ablation của account này đều audit PASS R50. Lượt cuối là `tamnp2807/mlp-mhabl-a4-s43/1`,
+   macro-F1 0,876583. Ngày 27/11 collect thêm `chuchuotdaubep/mlp-mhabl-a1-s42/1`, macro-F1 0,848535, PASS đủ 50 CM.
+   **Ablation 69/81.** [Kết quả](../../experiments/ablation/README.md) · [Trạng thái audit](../../runs/ablation-mh/watch-collect.json)
+3. **Push sau khi quota reset 07:00 ngày 28/11 (+07), owner tự chọn account.** Còn 12 notebook. Chín notebook đang gán cho account
+   đã mất quyền, nên cần sửa `id` trong `notebooks/<slug>/kernel-metadata.json` cùng bản `private_push/` trước khi push.
+   Account mới cũng phải đọc được `odixe0502/mobihet-v4npy-cache`. Giữ nguyên byte notebook.
 
-- **Lịch:** `runs/ablation-mh/plan.json` (quota `runs/ablation-mh/quota-20261124.json`; `plan.py`, margin 1 phút, run nhỏ ≤ 2 h vào
-  account ít quota). 83 notebook ≈ 371 GPU-h: 3 seed MobiHet thiếu (`bert-mh-s43`, `cnnbigru-mh-s43`, `mixmh-case1-s41`), A1/A2/A4 ×
-  9 kịch bản × 3 seed trừ 6 run chờ, 5 kernel đếm FLOP `exp-count-mh-*`. **Chờ reset 28/11:** mixed-case1 a2/a4 × 3 seed (≈ 65 h).
-- **Push:** `runs/ablation-mh/slot_queue.py` (PID trong `slot-queue.pid`, log `slot-queue.log`, state `slot-queue.json`): mỗi 300 s,
-  account < 2 kernel của batch thì push notebook kế của nó (`queue.jsonl`, `push.sh`, ledger `push-ledger.jsonl`). Push không rõ
-  ⇒ `PUSH_UNCLEAR`, dừng owner đó, kiểm tay trước khi retry.
-- **Collector:** `runs/ablation-mh/watch_collect.py` (PID `watch-collect.pid`, log `watch-collect.log`, poll 1200 s): COMPLETE/ERROR ⇒ pull
-  `-j 64` vào `runs/ablation-mh/pulls/` (ORICO) ⇒ `scripts/audit_ablation.py --record` ⇒ `experiments/ablation/<kịch bản>/` và hàng
-  `mobihet` (arm none) vào `experiments/<kịch bản>/results.csv`. Count kernel ⇒ `runs/compute-detailed-v3/kaggle/<slug>` +
-  `scripts/compute/report_ablation.py`. Dừng trước r50 / audit FAIL ⇒ `handoff.jsonl` (`wait_handoff.py`).
-- **Sau khi đủ:** `python3 artifacts/communication-budget/scripts/mobihet_update.py`, `python scripts/compute/report_detail.py`,
-  `python scripts/compute/report.py`, `python scripts/experiments_status.py`; cập nhật [compute](../research/compute.md) (bảng L4 →
-  MobiHet), [MobiHet](../research/mobihet.md). Local đếm TabM/SAE/MLP/mixed-case2 (`scripts/compute/run_queue.py --only …-mobihet`, `--ablation`).
-- Dừng: `kill -TERM -$(cat runs/ablation-mh/slot-queue.pid)` / `watch-collect.pid`. Theo dõi: `tail -f runs/ablation-mh/{slot-queue,watch-collect}.log`.
-- **Đang chạy (08:15):** `slot_queue.py` PID 40092 (35/83 đã push; 14 lần "Maximum batch GPU session count" = slot do session
-  khác giữ, notebook vẫn chờ và tự thử lại), `watch_collect.py` PID 36765. Cả hai thuộc phiên Claude `5d348b9f`. Máy tắt ⇒ chạy lại
-  hai lệnh `setsid python3 runs/ablation-mh/{slot_queue,watch_collect}.py > /dev/null 2>&1 < /dev/null &` (đọc lại state, không push
-  trùng), rồi ghi PID thật (`ps -eo pid,args | grep "[s]lot_queue.py"`).
-- Đếm FLOP local (24/11 08:00, `runs/compute-detailed-v3/*-mobihet.count.json`, `*-mhabl-a*.count.json`): TabM/SAE/MLP/mixed-case2
-  xong phần MobiHet; ablation đang chạy (`runs/ablation-mh/count-local-{main,abl}.log`). Chưa chạy report vào bảng.
-- Việc tay: 6 account lỗi token (`chiencosieuhang`, `abbafan`, `gaming3`, `goilaaiudi`, `hoangdang20t`, `trietbackup`).
-  Commit `803a84f`, `288628e` có trailer `Co-Authored-By:` (trái quy tắc owner 30/10); sửa cần force-push: owner quyết.
-- Git: `main` = `288628e` đã push GitHub (24/11). Hook Git LFS đã gỡ khỏi `.git/hooks` (owner 24/11: DVC thay LFS; bản cũ ở
-  `.git/lfs-hooks-removed-20261124/`). `.gitattributes` vẫn khai báo `artifacts/*.zip` LFS cho các ZIP lịch sử.
+   | notebook | owner trong queue | giờ ước tính |
+   |---|---|---:|
+   | `cnnbigru-mhabl-a1-s42` | shippertocdo (mất) | 2,7 h phiên 1, cần nối (s41 đo 4,29 h) |
+   | `cnnbigru-mhabl-a1-s43` | nocknnock (mất) | 4,6 |
+   | `mlp-mhabl-a4-s42` | nocknnock (mất) | 1,15 |
+   | `mixmh-abl-a1-case1-s42`, `-s43` | preyta (mất) | 9,3 mỗi run |
+   | `mixmh-abl-a1-case3-s42` | cacaosua (mất) | 7,0 |
+   | `mixmh-abl-a2-case1-s41` | cacaosua (mất) | 10,7 |
+   | `mixmh-abl-a2-case1-s42` | telannass | 10,7 |
+   | `mixmh-abl-a2-case1-s43` | minhtriethihi | 10,7 |
+   | `mixmh-abl-a4-case1-s41` | cacaosua (mất) | 11,0 |
+   | `mixmh-abl-a4-case1-s42` | preyta (mất) | 11,0 |
+   | `mixmh-abl-a4-case1-s43` | yellowbalm | 11,0 |
 
-Dùng `/home/odixe/project/experiment` trên nhánh `main`. Trạng thái phiên Claude e360305d đã nhập vào lịch sử Git và artifacts bên dưới. Protocol, seed 41/42/43, HP L4 và cosine 50 giữ nguyên. [Context](../../CONTEXT.md) · [Protocol](../research/protocol.md) · [Compute](../research/compute.md)
+   Hàng đợi: `runs/ablation-mh/queue.jsonl`. Mỗi push phải đi cùng collector (`runs/ablation-mh/watch_collect.py`). Sau audit PASS,
+   pull checkpoint và đẩy DVC ngay (xem mục dưới).
+4. MobiHet đối chứng đủ **27/27**. Centralized BERT đã audit P4 E27/E24/E25, còn thiếu ba endpoint. P5 chờ owner quyết.
+   [Ma trận chính](../../experiments/README.md)
 
-## Mixed128 baseline
+## Checkpoint — kiểm kê 27/11
 
-Import hai commit Codex `5d2648b` và `66c1e9c` qua merge `3281ad6`. Khôi phục 1.324 file mixed128 từ backup LFS đã xác minh. Audit local lại 45/45 cấu hình r50, 378 dòng theo backbone/view, đủ 10 metric mỗi dòng. Khớp config hash, assignment, seed, lịch sử r50 và support từng lớp của 5.343 xe trên 9.347.679 bản tin. 342 dòng đã có giữ nguyên. Script đối chiếu và receipt SHA-256 nằm trong `runs/recovery-20261120/{audit_mixed128_archive.py,mixed128-local-audit.json}`. [Bảng đầy đủ](../research/mixed/mixed128-all-results.md) · [CSV](../research/mixed/mixed128-all-results.csv)
+Bảng phủ từng run chính thức: [checkpoint-coverage.csv](checkpoint-coverage.csv). Sinh lại bằng
+`runs/checkpoint-coverage-20261127/run.sh` (cần mount ORICO).
 
-| Kết quả mới | Exact ref | Macro-F1 r50 |
-|---|---|---:|
-| Case 1 V2X-HtFL seed 41 | `sonlebaodac/mix128-case1-v2x-htfl-s41-a2-r10-r44/1` | .84538 |
-| Case 1 V2X-HtFL seed 42 | `minhgia2026/mix128-case1-v2x-htfl-s42-a2-r04-r05-r06-r07-r42/1` | .84564 |
-| Case 1 V2X-HtFL seed 43 | `nguyntngquckhnh/mix128-case1-v2x-htfl-s43-a2-r08-r44/1` | .84411 |
-| Case 3 pFedES seed 41 | `nguynkhacao/mix128-case3-pfedes-s41-a1-r06-r16-r17-r18/1` | .80720 |
-| Case 3 pFedES seed 43 | `nguynkhacao/mix128-case3-pfedes-s43-a1-r06-r08-r09-r10-r43/1` | .80866 |
+- 27/11 đã pull và đẩy **19 bundle** MobiHet/ablation hoàn tất sau batch 26/11 (19,4 GB) lên DVC `onedrive` bằng
+  `checkpoint-backup-20261125/direct-backup.py`. Kết quả 19/19 `DVC_VERIFIED` (rclone check), tổng **71 bundle**.
+  Pointer nằm ở `artifacts/mobihet-checkpoints-2026-11-25/<owner>/<slug>/v1.dvc`. Đã thêm 19 run vào
+  [checkpoint-runs.csv](checkpoint-runs.csv) và [checkpoint-files.csv](checkpoint-files.csv).
+- Kiểm remote: cả 127 pointer (tracked và trước đây untracked) có manifest trên OneDrive, đủ `nfiles`, mẫu 300/29.033 object không thiếu.
 
-### Baseline bốn backbone
+- **Ma trận chính, 342 run** (15 phương pháp + centralized × 3 seed × 6 kịch bản, cộng 6 phương pháp × 3 seed × 3 mixed):
+  - Có trên DVC: 114 run, gồm DAGSNet 44/48, BERT 47/48 (thiếu MobiHet s43) và centralized của bốn backbone.
+    MobiHet có 16/27 trên DVC, tính cả `trietbackup/mixmh-case1-s41/1` đẩy ngày 27/11.
+  - **Chỉ còn trên Kaggle nhánh codex: 209 run, khoảng 186 GB.** Gồm FL baseline của TabM, SAE, MLP và CNN-BiGRU (42 run mỗi
+    backbone), cùng 41 run mixed baseline. Repo này không có credential của 26 account đó.
+    Danh sách exact ref, file và byte: [checkpoint-request-codex.csv](checkpoint-request-codex.csv) (214 dòng).
+  - Thiếu hẳn 8 run. DAGSNet seed 42 FedAvg, FedProx, FedProto chỉ có metrics và CM trong `runs/pulls/fl2-*.dvc`.
+    Mixed case1 V2X-HtFL 3 seed và mixed case3 pFedES seed 41/43 chưa có receipt kiểm kê checkpoint. Năm run mixed này
+    và CNN-BiGRU centralized s42 đã nằm trong danh sách yêu cầu.
+  - Mất account: 11 run MobiHet. Chi tiết theo exact ref nằm trong CSV, gồm `anhtruong1909`, `lelovo`, `bestyorn` và 6 account khác.
+- **Ablation, 69 ô**: 55 ô có trên DVC (37 ô từ batch 26/11 và 18 ô đẩy ngày 27/11), 14 ô mất account.
+- Không có dấu hiệu xóa nhầm. 14 bundle A3 = MobiHet trên ORICO `ablation-l4/pulls/` khớp đúng 14 pointer đã đổi tên.
+  Checkpoint L4 có LA xóa ngày 26–27/11 là có chủ đích. 53 pointer DVC trước đây chưa có trong Git, nay đã commit.
 
-Khôi phục đủ 10 metric và exact ref cho 168 cấu hình FL của TabM, SAE, MLP và CNN-BiGRU từ bản sao Kaggle. Hai ZIP có đủ config, history và CM cuối. Audit tính lại 10 metric cho cả 168 run, khớp CSV và support từng xe/lớp. Đã nâng 132 dòng từ `marker_metrics` lên `audited`. [Bảng bốn backbone](../research/backbones/four-backbone-seed-results-live.md)
+## Dữ liệu local theo kịch bản
 
-**339 dòng endpoint có đủ 10 metric và nhãn `audited`**. Ba ô endpoint còn thiếu thuộc Centralized BERT. [Chỉ mục kết quả](../../experiments/README.md)
+Ngày 27/11, dữ liệu ORICO đã sắp lại thành `experiment-data/experiment/<kịch bản>/<phương pháp>/s<seed>/` và `ablation/<kịch bản>/<arm>/s<seed>/`.
+Đã dời 389 đơn vị (76.795 file, 312,7 GB) bằng rename. Số file và byte từng đơn vị khớp trước và sau, 974/974 file round-metrics khớp SHA-256.
+Đường dẫn SSD cũ giữ dạng link. Sau mỗi lần collector pull, chạy `python3 runs/orico-reorg-20261127/apply.py file-new`.
+[Layout và quy trình](backup.md#dữ-liệu-local-theo-kịch-bản--27112026)
 
 ## Lịch sử từng round và epoch
 
-- `runs/round-metrics/` trỏ tới `ORICO/experiment-data/experiment/round-metrics/`. Mỗi run có đúng hai file trong `<scenario>/<method>/s<seed>/`. `metrics.csv` dùng cùng schema `step,view` và 10 metric cho mỗi bước/view. `run.json` ghi seed, đích, exact ref khi xác minh được, source/config, CM, log, checkpoint, SHA-256 và danh sách dữ liệu thiếu. `index.json` tra cả 342 run. CANPerFL có 10 epoch fine-tune và trỏ về FedAvg 50 round cùng seed.
-- **339/342 run đã hoàn tất kiểm chứng**, gồm 45/45 baseline Mixed128. Chỉ mục có **40.169 dòng bước/view**. Khôi phục history DAGSNet từ object DVC xác minh MD5. Kéo 550 CM của 11 run Centralized, đối chiếu lại đủ 10 metric cho từng epoch. CNN-BiGRU Centralized seed 42 dùng bảng audit 50 epoch ở độ chính xác 5 chữ số do Kaggle trả 403 với artifact gốc. [Bảng CNN-BiGRU](../../papers/mnkash-2026-cnn-bigru/results.md)
-- Ba endpoint chờ xác minh cuối là Centralized BERT seed 41/42/43. E27/E24/E25 là các epoch BERT đã audit (22/11). Sau khi audit và cập nhật CSV endpoint, chạy lại `PYTHONPATH=. python runs/round-metrics/audit/audit.py` với env `nckh`, rồi `verify.py` cùng thư mục. Biên bản pull và kiểm nằm ở `runs/round-metrics/audit/`.
+`runs/round-metrics/` trỏ tới `ORICO/experiment-data/experiment/_shared/round-metrics/`. Mỗi run có `metrics.csv` và `run.json`
+trong `<scenario>/<method>/s<seed>/`. `index.json` tra 342 run. **Còn cũ**: vẫn ghi `mobihet_l4` (L4 có LA) thay cho
+`mobihet`, nên trường `checkpoint` của 27 run đó trỏ vào thư mục đã xóa. Dựng lại bằng `PYTHONPATH=. python runs/round-metrics/audit/audit.py`
+(env `nckh`), rồi chạy `verify.py` cùng thư mục.
 
-## Git và dữ liệu
+## Dừng phiên 27/11 (tắt máy)
 
-- Local main chứa merge `ee262da` (central + kết quả), `dd1dba1` (L4), `2bf7680` (Codex, backup Git LFS) và `3281ad6` (Codex, mixed128 r50). Lịch sử main giữ source, docs, tests và dữ liệu đã ghi.
-- Kiểm checksum 71 mapping artifact. `runs/worktree-consolidation/copy-map.json` cho biết vị trí gốc và đích. Collisions, biến thể cache và Git admin được giữ trong cùng thư mục. Notebooks, run cũ, checkpoints, metadata và DVC pointers đã có bản canonical.
-- Worktree `experiment-wt` đã gỡ sau khi kiểm Git và đối chiếu 1.872 file ngoài Git với bản canonical. Commit `a8cb691` và hai commit Codex tới `5cf5795` đều nằm trong `main`. Chỉ còn một checkout thật. Đã xác minh SHA-256 và chuyển khoảng 75 GB artifact, checkpoint và cache sang ORICO. [Hồ sơ backup](backup.md)
-- Backup LFS remote 903.962.154 byte có bản local `runs/worktree-consolidation/runs-no-checkpoints-2026-11-20.zip`, SHA-256 `9e5d8eb4573785f418ff710c38de0af0b238cdac0bcfd31714a871ee42f2c012`.
-- Kết quả khoa học chạy trước đây lưu trong `experiments/`. Evidence DAGSNet/BERT L4, source native và lịch LR nằm trong `runs/recovery-20261120/references/`. Đã pull đủ cả hai rank cho sáu run CNN-BiGRU và mixed pilot. Kiểm kích thước object, đọc metadata state weights-only, đối chiếu round/config và ghi SHA-256 trong `runs/recovered-checkpoints-20261120/`.
+- Không còn job nền nào chạy. DVC upload đã xong 19/19. Collector, dispatcher và waiter chưa mở lại.
+- **Việc đầu phiên sau:** gắn ORICO và OneDrive, rồi chạy `python3 runs/orico-reorg-20261127/verify.py bundles`.
+  Lệnh này băm khoảng 200 GB checkpoint theo `checkpoint-index.json` và bị dừng giữa chừng lúc tắt máy. Phải thấy `fail 0`.
 
-Kiểm local trên main buổi tối. Suite portable 46 PASS (thêm 4 subtest), FeatureBERT 39 PASS và 1 skip. Dense recurrent CLI PASS 28 method smokes và 26 kiểm tra resume CM. Compute CPU/CUDA 3 PASS. Mixed L4 CLI CPU PASS lockstep, pooling, assignment, identity và resume r1→r2. Auditor chấp nhận biên commit khi thiếu marker cuối và bắt được tamper metric r1. Test NPY đối chiếu parquet thiếu shard v4 local. Link check giữ nguyên 142 lỗi link đã có từ trước. Log kiểm thử ở `runs/recovery-20261120/after-boot/`.
+## Việc tay
 
-21/11 chạy lại portable 45 PASS và 1 skip (thêm 4 subtest), BERT 39 PASS và 1 skip, dense recurrent CLI PASS 28 smoke và 26 resume CM. Mixed L4 CLI CPU PASS từ cache panel trên ORICO. Gate NPY PASS trên fixture mmap, từ chối file sai SHA và sai identity. Notebook BERT P4 kiểm import E19 và SHA của toàn bộ cây parent khi mô phỏng mount local.
-
-## Compute
-
-Đủ 9 bảng lịch sử và 9 bảng `compute-detail.csv`. Cả **114/114 hàng** có SHA-256 khớp trace. BERT lịch sử ước tính scaling 2.048 → 4.096, trace mới đếm trực tiếp. Tổng FL 50 round ngoại suy từ hai round eager trên panel 200 xe. Mixed dùng FedProto cùng case. [Quy ước, số liệu và cách tái lập](../research/compute.md)
-
-- `experiment-flops-small-20261120` PASS lúc 14:39 +07. Đủ trace cho TabM, SAE, MLP (16 hàng mỗi backbone) và mixed case2 (6 hàng). Kiểm lại SHA-256 của 57 trace đã công bố. Sinh lại cả 9 bảng và `activity.csv` cho kết quả khớp từng byte. Log và receipt nằm trong `runs/compute-detailed-v3/{local-matrix.log,local-matrix-verification.json}`.
-- Hai kernel của `hoangdang20t` bổ sung đủ 27 trace. Audit SHA-256 notebook exact version, manifest source, log, panel, backward, packing và reconciliation coarse/detail. Receipt độc lập `runs/recovery-20261120/after-boot/flop-independent.json`. Receipt thu bốn kernel `runs/compute-detailed-v3/kaggle/collection.json`.
-- CSV detailed chỉ xếp hạng hàng có trace đã kiểm. Trace baseline cũ, phép đo seed 42, hai round mới và extrapolation 50 đều có nhãn riêng.
-
-## Việc còn lại
-
-1. Batch MobiHet (mục đầu): collector tự thu; xử lý sự kiện `handoff.jsonl`; push 6 run mixed-case1 a2/a4 sau reset 28/11
-   (thêm vào `runs/ablation-mh/queue.jsonl` theo quota mới); khi đủ, chạy các lệnh "Sau khi đủ" và backup DVC pull mới.
-2. BERT tập trung P4 đã audit đến E27/E24/E25. Giữ P5 theo yêu cầu owner.
-3. Ablation L4 cũ: không thu tiếp (archive `../mobihet/archive/l4-la-20261124/`). Lịch sử đến 23/11: [snapshot](../archive/continue-20261124-before-compact.md).
-
+- Gửi [checkpoint-request-codex.csv](checkpoint-request-codex.csv) cho người giữ nhánh codex. Nhờ họ pull exact ref, đẩy lên remote
+  `onedrive` của repo (`NCKH/veremi_build/experiment/dvc-storage`) và commit pointer. Gợi ý layout:
+  `artifacts/baseline-checkpoints/<owner>/<slug>/v<N>.dvc`.
+- Kiểm xem còn đăng nhập được 15 account mất quyền để cứu 25 checkpoint MobiHet/ablation không (danh sách `LOST_ACCESS` trong CSV).
+  Nếu không cứu được, kết quả vẫn dùng được nhờ CM và metrics, nhưng không còn weights.
+- 28/11 07:00: chọn account và push 12 notebook ở mục 3.
+- Trailer `Co-Authored-By` ở `803a84f`, `288628e` vẫn chờ owner quyết.

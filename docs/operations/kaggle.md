@@ -28,10 +28,12 @@ Dùng env `nckh` và `kaggle_as.py <owner> -- …` để giữ credential trong 
 Credential và snapshot nằm dưới `~/.kaggle/accounts/`. Giữ token và email trong kho cục bộ.
 Xác minh quyền truy cập cho đúng owner và đúng version trước khi tải output riêng tư.
 
-Ngày 23/11/2026, owner yêu cầu chỉ pull và audit. Giữ nguyên các phiên của 11 owner tạm mất truy cập.
-Danh sách vận hành nằm ở `exclude_accounts` trong scheduler VRepair trên máy này.
-`sampanh` và `noopthinh` đã có snapshot cục bộ, chưa dùng trong lượt thu này.
-Xem [bàn giao](continue.md) để chạy collector theo exact version.
+Ngày 25/11/2026, owner yêu cầu gỡ tài khoản còn `UNVERIFIED` sau kiểm lại quota khỏi cấu hình, danh sách vận hành
+và credential local. Dùng exact version để đối chiếu artifact đã audit và xác nhận phiên cần chạy lại.
+Xem [bàn giao](continue.md) cho trạng thái batch và bằng chứng.
+
+Ngày 27/11/2026, owner mất quyền `cacaosua`, `preyta`, `nocknnock`, `shippertocdo`. Đã gỡ thông tin đăng nhập cục bộ của bốn tài khoản. Sáu phiên đã nhận trên bốn account này coi như mất. Các notebook gán cho chúng phải đổi owner trước khi push.
+Checkpoint chưa backup của chúng cũng mất. [Phủ checkpoint](checkpoint-coverage.csv)
 
 ## Quy tắc
 

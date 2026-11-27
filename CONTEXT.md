@@ -26,19 +26,23 @@ phát triển ban đầu ở `../mobihet`. MobiHet (L4 bỏ LA, 24/11) đã tíc
   - Compute: **chỉ FLOP** (đếm op), bỏ GPU-time vì khác phần cứng; job không vừa GPU local thì đếm trên Kaggle.
 - Task < 1 h chạy local (RTX 3050 4 GB, env conda `nckh`); task dài chạy Kaggle (account ở `~/.kaggle/accounts`, quota live).
 
-## Trạng thái — 24/11/2026 08:15 (+07)
+## Trạng thái — 27/11/2026 (+07)
 
 - Repo phát triển tại `/home/odixe/project/experiment`, nhánh local `main`. FeatureBERT chạy từ `bert/`.
-  Lịch sử nguồn và bổ sung artifact Codex đã nhập vào main. [Vị trí dữ liệu ORICO](docs/operations/backup.md)
-- 24/11: **MobiHet = L4 bỏ logit adjustment** (A3 cũ, `la_mode=off`), vẫn tên `mobihet`. 24/27 hàng R50 lấy từ run A3 đã
-  audit và kiểm lại từ CM/log; 3 seed còn thiếu và ablation A1/A2/A4 trên nền mới đang chạy. L4 có LA và ablation L4 chuyển sang
+  Mọi nhánh remote (gồm `codex/mobihet-v4-relkd` của dangvanhoang1711) đã nằm trong `main`, không còn commit chưa gộp. [Vị trí dữ liệu ORICO](docs/operations/backup.md)
+- **MobiHet = L4 bỏ logit adjustment** (A3 cũ, `la_mode=off`). Đã audit đủ 27/27 hàng R50. L4 có LA và ablation L4 nằm ở
   `../mobihet/archive/l4-la-20261124/`. [MobiHet](docs/research/mobihet.md) · [Ablation](docs/research/mobihet-ablation.md) ·
   [Kết quả ablation](experiments/ablation/README.md)
 - Mixed128 baseline đủ 45/45 cấu hình r50. Đã đối chiếu 10 metric mỗi dòng với confusion matrix từ bản sao Kaggle. [Kết quả](docs/research/mixed/mixed128-all-results.md)
 - Centralized BERT đã audit tới E27/E24/E25 theo seed 41/42/43 (P4 COMPLETE 22/11). P5 chưa push theo owner. Các backbone centralized trong ma trận còn lại đủ ba seed.
-- Chi phí đủ 9 kịch bản và 114/114 hàng chi tiết. Đã audit thêm 27 trace CNN-BiGRU và mixed case1/3. [Compute](docs/research/compute.md)
-- TabM/SAE/MLP/CNN-BiGRU FL baseline đủ 10 metric cuối từ confusion matrix cho cả 168 run. Lịch sử từng round và manifest thống nhất nằm tại `runs/round-metrics/` trên ORICO. [Bàn giao](docs/operations/continue.md#lịch-sử-từng-round-và-epoch) · [Bảng baseline](docs/research/backbones/four-backbone-seed-results-live.md)
-- Kernel, kiểm chứng, bản sao artifact và việc tiếp theo nằm ở [bàn giao sống](docs/operations/continue.md).
+- Chi phí đủ 9 kịch bản và 114/114 hàng chi tiết. [Compute](docs/research/compute.md)
+- TabM/SAE/MLP/CNN-BiGRU FL baseline đủ 10 metric cuối từ confusion matrix cho cả 168 run. [Bảng baseline](docs/research/backbones/four-backbone-seed-results-live.md)
+- **Ablation 69/81** ô R50 đã audit. 27/11 owner mất quyền `cacaosua`, `preyta`, `nocknnock`, `shippertocdo` nên sáu phiên đang chạy
+  coi như mất. 12 notebook còn lại push sau 07:00 ngày 28/11. Chín trong số đó phải đổi owner. Collector/dispatcher chưa chạy lại.
+  [Bàn giao](docs/operations/continue.md)
+- **Checkpoint** (kiểm kê 27/11): ma trận chính có 114/342 run trên DVC, ablation 55/69. 209 run baseline chỉ còn trên account Kaggle nhánh codex (~186 GB),
+  cần người giữ nhánh đó pull và đẩy DVC. 25 ô MobiHet/ablation mất checkpoint theo account. [Phủ checkpoint](docs/operations/checkpoint-coverage.csv) ·
+  [Yêu cầu codex](docs/operations/checkpoint-request-codex.csv) · [Checkpoint theo run](docs/operations/checkpoint-runs.csv)
 
 ## Cần biết → mở
 

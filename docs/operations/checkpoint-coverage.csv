@@ -1,0 +1,412 @@
+table,scenario,method,seed,status,owner,source
+ablation,bert,a1,41,DVC,chuchuotdaubep,artifacts/mobihet-checkpoints-2026-11-25/chuchuotdaubep/bert-mhabl-a1-s41/v1.dvc
+ablation,bert,a1,42,DVC,khunglongtrex,artifacts/mobihet-checkpoints-2026-11-25/khunglongtrex/bert-mhabl-a1-s42/v1.dvc
+ablation,bert,a1,43,DVC,shippertocdo,artifacts/mobihet-checkpoints-2026-11-25/shippertocdo/bert-mhabl-a1-s43/v1.dvc
+ablation,bert,a2,41,LOST_ACCESS,soundcore50i,soundcore50i/bert-mhabl-a2-s41/1 (retired 25/11)
+ablation,bert,a2,42,DVC,telannass,artifacts/mobihet-checkpoints-2026-11-25/telannass/bert-mhabl-a2-s42/v1.dvc
+ablation,bert,a2,43,LOST_ACCESS,truantfu,truantfu/bert-mhabl-a2-s43/1 (retired 25/11)
+ablation,bert,a4,41,DVC,yellowbalm,artifacts/mobihet-checkpoints-2026-11-25/yellowbalm/bert-mhabl-a4-s41/v1.dvc
+ablation,bert,a4,42,DVC,nocknnock,artifacts/mobihet-checkpoints-2026-11-25/nocknnock/bert-mhabl-a4-s42/v1.dvc
+ablation,bert,a4,43,DVC,chuchuotdaubep,artifacts/mobihet-checkpoints-2026-11-25/chuchuotdaubep/bert-mhabl-a4-s43/v1.dvc
+ablation,cnn-bigru,a1,41,LOST_ACCESS,noopthinh,noopthinh/cnnbigru-mhabl-a1-s41/1 (retired 25/11)
+ablation,cnn-bigru,a2,41,DVC,khunglongtrex,artifacts/mobihet-checkpoints-2026-11-25/khunglongtrex/cnnbigru-mhabl-a2-s41/v1.dvc
+ablation,cnn-bigru,a2,42,DVC,chuchuotdaubep,artifacts/mobihet-checkpoints-2026-11-25/chuchuotdaubep/cnnbigru-mhabl-a2-s42/v1.dvc
+ablation,cnn-bigru,a2,43,DVC,telannass,artifacts/mobihet-checkpoints-2026-11-25/telannass/cnnbigru-mhabl-a2-s43/v1.dvc
+ablation,cnn-bigru,a4,41,DVC,yellowbalm,artifacts/mobihet-checkpoints-2026-11-25/yellowbalm/cnnbigru-mhabl-a4-s41/v1.dvc
+ablation,cnn-bigru,a4,42,LOST_ACCESS,sampanh,sampanh/cnnbigru-mhabl-a4-s42/1 (không có credential)
+ablation,cnn-bigru,a4,43,LOST_ACCESS,sampanh,sampanh/cnnbigru-mhabl-a4-s43/1 (không có credential)
+ablation,dagsnet,a1,41,LOST_ACCESS,aligatorr,aligatorr/dagsnet-mhabl-a1-s41/1 (retired 25/11)
+ablation,dagsnet,a1,42,DVC,chuchuotdaubep,artifacts/mobihet-checkpoints-2026-11-25/chuchuotdaubep/dagsnet-mhabl-a1-s42/v1.dvc
+ablation,dagsnet,a1,43,DVC,khunglongtrex,artifacts/mobihet-checkpoints-2026-11-25/khunglongtrex/dagsnet-mhabl-a1-s43/v1.dvc
+ablation,dagsnet,a2,41,DVC,shippertocdo,artifacts/mobihet-checkpoints-2026-11-25/shippertocdo/dagsnet-mhabl-a2-s41/v1.dvc
+ablation,dagsnet,a2,42,LOST_ACCESS,soundcore50i,soundcore50i/dagsnet-mhabl-a2-s42/1 (retired 25/11)
+ablation,dagsnet,a2,43,DVC,telannass,artifacts/mobihet-checkpoints-2026-11-25/telannass/dagsnet-mhabl-a2-s43/v1.dvc
+ablation,dagsnet,a4,41,LOST_ACCESS,truantfu,truantfu/dagsnet-mhabl-a4-s41/1 (retired 25/11)
+ablation,dagsnet,a4,42,DVC,yellowbalm,artifacts/mobihet-checkpoints-2026-11-25/yellowbalm/dagsnet-mhabl-a4-s42/v1.dvc
+ablation,dagsnet,a4,43,DVC,nocknnock,artifacts/mobihet-checkpoints-2026-11-25/nocknnock/dagsnet-mhabl-a4-s43/v1.dvc
+ablation,mixed-case1,a1,41,DVC,tamnp2807,artifacts/mobihet-checkpoints-2026-11-25/tamnp2807/mixmh-abl-a1-case1-s41/v1.dvc
+ablation,mixed-case2,a1,41,DVC,odixe0502,artifacts/mobihet-checkpoints-2026-11-25/odixe0502/mixmh-abl-a1-case2-s41/v1.dvc
+ablation,mixed-case2,a1,42,DVC,heykewtiie,artifacts/mobihet-checkpoints-2026-11-25/heykewtiie/mixmh-abl-a1-case2-s42/v1.dvc
+ablation,mixed-case2,a1,43,DVC,dinhan20t,artifacts/mobihet-checkpoints-2026-11-25/dinhan20t/mixmh-abl-a1-case2-s43/v1.dvc
+ablation,mixed-case2,a2,41,DVC,tamnp2807,artifacts/mobihet-checkpoints-2026-11-25/tamnp2807/mixmh-abl-a2-case2-s41/v1.dvc
+ablation,mixed-case2,a2,42,LOST_ACCESS,shippertocdo,shippertocdo/mixmh-abl-a2-case2-s42/1 (mất quyền 27/11)
+ablation,mixed-case2,a2,43,DVC,yellowbalm,artifacts/mobihet-checkpoints-2026-11-25/yellowbalm/mixmh-abl-a2-case2-s43/v1.dvc
+ablation,mixed-case2,a4,41,DVC,khunglongtrex,artifacts/mobihet-checkpoints-2026-11-25/khunglongtrex/mixmh-abl-a4-case2-s41/v1.dvc
+ablation,mixed-case2,a4,42,DVC,khunglongtrex,artifacts/mobihet-checkpoints-2026-11-25/khunglongtrex/mixmh-abl-a4-case2-s42/v1.dvc
+ablation,mixed-case2,a4,43,DVC,emtrangtri,artifacts/mobihet-checkpoints-2026-11-25/emtrangtri/mixmh-abl-a4-case2-s43/v1.dvc
+ablation,mixed-case3,a1,41,DVC,chuchimnon,artifacts/mobihet-checkpoints-2026-11-25/chuchimnon/mixmh-abl-a1-case3-s41/v1.dvc
+ablation,mixed-case3,a1,43,DVC,yellowbalm,artifacts/mobihet-checkpoints-2026-11-25/yellowbalm/mixmh-abl-a1-case3-s43/v1.dvc
+ablation,mixed-case3,a2,41,DVC,shippertocdo,artifacts/mobihet-checkpoints-2026-11-25/shippertocdo/mixmh-abl-a2-case3-s41/v1.dvc
+ablation,mixed-case3,a2,42,DVC,minhtriethihi,artifacts/mobihet-checkpoints-2026-11-25/minhtriethihi/mixmh-abl-a2-case3-s42/v1.dvc
+ablation,mixed-case3,a2,43,DVC,telannass,artifacts/mobihet-checkpoints-2026-11-25/telannass/mixmh-abl-a2-case3-s43/v1.dvc
+ablation,mixed-case3,a4,41,DVC,emtrangtri,artifacts/mobihet-checkpoints-2026-11-25/emtrangtri/mixmh-abl-a4-case3-s41/v1.dvc
+ablation,mixed-case3,a4,42,DVC,tamnp2807,artifacts/mobihet-checkpoints-2026-11-25/tamnp2807/mixmh-abl-a4-case3-s42/v1.dvc
+ablation,mixed-case3,a4,43,DVC,tamnp2807,artifacts/mobihet-checkpoints-2026-11-25/tamnp2807/mixmh-abl-a4-case3-s43/v1.dvc
+ablation,mlp,a1,41,DVC,chuchimnon,artifacts/mobihet-checkpoints-2026-11-25/chuchimnon/mlp-mhabl-a1-s41/v1.dvc
+ablation,mlp,a1,42,DVC,chuchuotdaubep,artifacts/mobihet-checkpoints-2026-11-25/chuchuotdaubep/mlp-mhabl-a1-s42/v1.dvc
+ablation,mlp,a1,43,DVC,heykewtiie,artifacts/mobihet-checkpoints-2026-11-25/heykewtiie/mlp-mhabl-a1-s43/v1.dvc
+ablation,mlp,a2,41,DVC,khunglongtrex,artifacts/mobihet-checkpoints-2026-11-25/khunglongtrex/mlp-mhabl-a2-s41/v1.dvc
+ablation,mlp,a2,42,DVC,chuchuotdaubep,artifacts/mobihet-checkpoints-2026-11-25/chuchuotdaubep/mlp-mhabl-a2-s42/v1.dvc
+ablation,mlp,a2,43,DVC,tamnp2807,artifacts/mobihet-checkpoints-2026-11-25/tamnp2807/mlp-mhabl-a2-s43/v1.dvc
+ablation,mlp,a4,41,DVC,trietbackup,artifacts/mobihet-checkpoints-2026-11-25/trietbackup/mlp-mhabl-a4-s41/v1.dvc
+ablation,mlp,a4,43,DVC,tamnp2807,artifacts/mobihet-checkpoints-2026-11-25/tamnp2807/mlp-mhabl-a4-s43/v1.dvc
+ablation,sae,a1,41,DVC,emtrangtri,artifacts/mobihet-checkpoints-2026-11-25/emtrangtri/sae-mhabl-a1-s41/v1.dvc
+ablation,sae,a1,42,DVC,emtrangtri,artifacts/mobihet-checkpoints-2026-11-25/emtrangtri/sae-mhabl-a1-s42/v1.dvc
+ablation,sae,a1,43,LOST_ACCESS,sampanh,sampanh/sae-mhabl-a1-s43/1 (không có credential)
+ablation,sae,a2,41,LOST_ACCESS,sampanh,sampanh/sae-mhabl-a2-s41/1 (không có credential)
+ablation,sae,a2,42,DVC,nocknnock,artifacts/mobihet-checkpoints-2026-11-25/nocknnock/sae-mhabl-a2-s42/v1.dvc
+ablation,sae,a2,43,LOST_ACCESS,nocknnock,nocknnock/sae-mhabl-a2-s43/1 (mất quyền 27/11)
+ablation,sae,a4,41,LOST_ACCESS,nocknnock,nocknnock/sae-mhabl-a4-s41/1 (mất quyền 27/11)
+ablation,sae,a4,42,DVC,tamnp2807,artifacts/mobihet-checkpoints-2026-11-25/tamnp2807/sae-mhabl-a4-s42/v1.dvc
+ablation,sae,a4,43,DVC,chuchimnon,artifacts/mobihet-checkpoints-2026-11-25/chuchimnon/sae-mhabl-a4-s43/v1.dvc
+ablation,tabm,a1,41,DVC,yellowbalm,artifacts/mobihet-checkpoints-2026-11-25/yellowbalm/tabm-mhabl-a1-s41/v1.dvc
+ablation,tabm,a1,42,DVC,dinhan20t,artifacts/mobihet-checkpoints-2026-11-25/dinhan20t/tabm-mhabl-a1-s42/v1.dvc
+ablation,tabm,a1,43,DVC,odixe0502,artifacts/mobihet-checkpoints-2026-11-25/odixe0502/tabm-mhabl-a1-s43/v1.dvc
+ablation,tabm,a2,41,DVC,heykewtiie,artifacts/mobihet-checkpoints-2026-11-25/heykewtiie/tabm-mhabl-a2-s41/v1.dvc
+ablation,tabm,a2,42,LOST_ACCESS,shippertocdo,shippertocdo/tabm-mhabl-a2-s42/1 (mất quyền 27/11)
+ablation,tabm,a2,43,DVC,emtrangtri,artifacts/mobihet-checkpoints-2026-11-25/emtrangtri/tabm-mhabl-a2-s43/v1.dvc
+ablation,tabm,a4,41,DVC,trietbackup,artifacts/mobihet-checkpoints-2026-11-25/trietbackup/tabm-mhabl-a4-s41/v1.dvc
+ablation,tabm,a4,42,DVC,trietbackup,artifacts/mobihet-checkpoints-2026-11-25/trietbackup/tabm-mhabl-a4-s42/v1.dvc
+ablation,tabm,a4,43,DVC,emtrangtri,artifacts/mobihet-checkpoints-2026-11-25/emtrangtri/tabm-mhabl-a4-s43/v1.dvc
+main,bert,afpha,41,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,afpha,42,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,afpha,43,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,apfed,41,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,apfed,42,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,apfed,43,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,canperfl,41,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,canperfl,42,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,canperfl,43,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,centralized,41,DVC,,DVC:artifacts/checkpoints-local-2026-11-26.dvc (orico/experiment/local-artifacts/runs/central-20261120/pulls/exp-central-bert-s41-p2..p4)
+main,bert,centralized,42,DVC,,DVC:artifacts/checkpoints-local-2026-11-26.dvc (orico/experiment/local-artifacts/runs/central-20261120/pulls/exp-central-bert-s42-p2..p4)
+main,bert,centralized,43,DVC,,DVC:artifacts/checkpoints-local-2026-11-26.dvc (orico/experiment/local-artifacts/runs/central-20261120/pulls/exp-central-bert-s43-p2..p4)
+main,bert,fd_ids,41,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,fd_ids,42,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,fd_ids,43,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,fedavg,41,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,fedavg,42,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,fedavg,43,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,fedproto,41,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,fedproto,42,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,fedproto,43,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,fedprox,41,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,fedprox,42,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,fedprox,43,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,fedtgp,41,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,fedtgp,42,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,fedtgp,43,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,lwfednids,41,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,lwfednids,42,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,lwfednids,43,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,mobihet,41,DVC,takids1909,artifacts/mobihet-checkpoints-2026-11-25/takids1909/bert-mh-s41/v1.dvc
+main,bert,mobihet,42,DVC,annhannh331,artifacts/mobihet-checkpoints-2026-11-25/annhannh331/bert-mh-s42-h2/v1.dvc
+main,bert,mobihet,43,LOST_ACCESS,aligatorr,aligatorr/bert-mh-s43/1 (retired 25/11)
+main,bert,nilm,41,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,nilm,42,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,nilm,43,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,perfedskd,41,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,perfedskd,42,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,perfedskd,43,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,pfedes,41,DVC,,DVC:artifacts/checkpoints-local-2026-11-26.dvc ; DVC:artifacts/checkpoints-local-2026-11-26.dvc ; DVC:artifacts/checkpoints-local-2026-11-26.dvc
+main,bert,pfedes,42,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,pfedes,43,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,tinyproto,41,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,tinyproto,42,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,tinyproto,43,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,v2x_htfl,41,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,v2x_htfl,42,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,bert,v2x_htfl,43,DVC,,DVC:bert/artifacts/baseline-pulls.dvc
+main,cnn-bigru,afpha,41,KAGGLE_ONLY,hoangdangnhi,KAGGLE_ONLY:hoangdangnhi/cnn-bigru-attention-fl-afpha-s41-a2/1
+main,cnn-bigru,afpha,42,KAGGLE_ONLY,huygia1611,KAGGLE_ONLY:huygia1611/cnn-bigru-attention-fl-afpha-s42-a2/1
+main,cnn-bigru,afpha,43,KAGGLE_ONLY,ttalgies,KAGGLE_ONLY:ttalgies/cnn-bigru-attention-fl-afpha-s43-a2/1
+main,cnn-bigru,apfed,41,KAGGLE_ONLY,minhiw,KAGGLE_ONLY:minhiw/cnn-bigru-attention-fl-apfed-s41-a2-r2/1
+main,cnn-bigru,apfed,42,KAGGLE_ONLY,phamquang0606,KAGGLE_ONLY:phamquang0606/cnn-bigru-attention-fl-apfed-s42-a2-r2/1
+main,cnn-bigru,apfed,43,KAGGLE_ONLY,dangthiet,KAGGLE_ONLY:dangthiet/cnn-bigru-attention-fl-apfed-s43-a2-r2/1
+main,cnn-bigru,canperfl,41,KAGGLE_ONLY,kinhongkhctrung,KAGGLE_ONLY:kinhongkhctrung/cnn-bigru-attention-fl-canperfl-s41-a2/1
+main,cnn-bigru,canperfl,42,KAGGLE_ONLY,minhiw,KAGGLE_ONLY:minhiw/cnn-bigru-attention-fl-canperfl-s42-a2/1
+main,cnn-bigru,canperfl,43,KAGGLE_ONLY,phamquang0606,KAGGLE_ONLY:phamquang0606/cnn-bigru-attention-fl-canperfl-s43-a2/1
+main,cnn-bigru,centralized,41,DVC,,DVC:artifacts/checkpoints-local-2026-11-26.dvc ; DVC:artifacts/checkpoints-local-2026-11-26.dvc
+main,cnn-bigru,centralized,42,KAGGLE_ONLY,qwerasdf3004,KAGGLE_ONLY:qwerasdf3004/veremi-central-cnn-bigru-attention-e50/1 (chưa kiểm kê)
+main,cnn-bigru,centralized,43,DVC,,DVC:artifacts/checkpoints-local-2026-11-26.dvc ; DVC:artifacts/checkpoints-local-2026-11-26.dvc
+main,cnn-bigru,fd_ids,41,KAGGLE_ONLY,hoangdv1711,KAGGLE_ONLY:hoangdv1711/cnn-bigru-attention-fl-fd-ids-s41-a2/1
+main,cnn-bigru,fd_ids,42,KAGGLE_ONLY,hunhthanhhong,KAGGLE_ONLY:hunhthanhhong/cnn-bigru-attention-fl-fd-ids-s42-a2/1
+main,cnn-bigru,fd_ids,43,KAGGLE_ONLY,huynhkyy,KAGGLE_ONLY:huynhkyy/cnn-bigru-attention-fl-fd-ids-s43-a2/1
+main,cnn-bigru,fedavg,41,KAGGLE_ONLY,kinhongkhctrung,KAGGLE_ONLY:kinhongkhctrung/cnn-bigru-attention-fl-fedavg-s41-a2/1
+main,cnn-bigru,fedavg,42,KAGGLE_ONLY,minhiw,KAGGLE_ONLY:minhiw/cnn-bigru-attention-fl-fedavg-s42-a2/1
+main,cnn-bigru,fedavg,43,KAGGLE_ONLY,phamquang0606,KAGGLE_ONLY:phamquang0606/cnn-bigru-attention-fl-fedavg-s43-a2/1
+main,cnn-bigru,fedproto,41,KAGGLE_ONLY,hoangdang1711,KAGGLE_ONLY:hoangdang1711/cnn-bigru-attention-fl-fedproto-s41-a2/1
+main,cnn-bigru,fedproto,42,KAGGLE_ONLY,voxuandatapply,KAGGLE_ONLY:voxuandatapply/cnn-bigru-attention-fl-fedproto-s42-a2/1
+main,cnn-bigru,fedproto,43,KAGGLE_ONLY,buidinh0303,KAGGLE_ONLY:buidinh0303/cnn-bigru-attention-fl-fedproto-s43-a2/1
+main,cnn-bigru,fedprox,41,KAGGLE_ONLY,dangthiet,KAGGLE_ONLY:dangthiet/cnn-bigru-attention-fl-fedprox-s41-a2/1
+main,cnn-bigru,fedprox,42,KAGGLE_ONLY,hoangdang1711,KAGGLE_ONLY:hoangdang1711/cnn-bigru-attention-fl-fedprox-s42-a2/1
+main,cnn-bigru,fedprox,43,KAGGLE_ONLY,kinhongkhctrung,KAGGLE_ONLY:kinhongkhctrung/cnn-bigru-attention-fl-fedprox-s43-a2/1
+main,cnn-bigru,fedtgp,41,KAGGLE_ONLY,hibwyli,KAGGLE_ONLY:hibwyli/cnn-bigru-attention-fl-fedtgp-s41-a2/1
+main,cnn-bigru,fedtgp,42,KAGGLE_ONLY,nguynt298,KAGGLE_ONLY:nguynt298/cnn-bigru-attention-fl-fedtgp-s42-a2/1
+main,cnn-bigru,fedtgp,43,KAGGLE_ONLY,ttalgies,KAGGLE_ONLY:ttalgies/cnn-bigru-attention-fl-fedtgp-s43-a2/1
+main,cnn-bigru,lwfednids,41,KAGGLE_ONLY,anduyvo06,KAGGLE_ONLY:anduyvo06/cnn-bigru-attention-fl-lwfednids-s41-a2/1
+main,cnn-bigru,lwfednids,42,KAGGLE_ONLY,hiulhuy,KAGGLE_ONLY:hiulhuy/cnn-bigru-attention-fl-lwfednids-s42-a2/1
+main,cnn-bigru,lwfednids,43,KAGGLE_ONLY,iamabighotdog,KAGGLE_ONLY:iamabighotdog/cnn-bigru-attention-fl-lwfednids-s43-a2/2
+main,cnn-bigru,mobihet,41,DVC,accanniez,artifacts/mobihet-checkpoints-2026-11-25/accanniez/cnnbigru-mh-s41/v1.dvc
+main,cnn-bigru,mobihet,42,DVC,annhtnt,artifacts/mobihet-checkpoints-2026-11-25/annhtnt/cnnbigru-mh-s42-h2/v1.dvc
+main,cnn-bigru,mobihet,43,DVC,khunglongtrex,artifacts/mobihet-checkpoints-2026-11-25/khunglongtrex/cnnbigru-mh-s43/v1.dvc
+main,cnn-bigru,nilm,41,KAGGLE_ONLY,iamabighotdog,KAGGLE_ONLY:iamabighotdog/cnn-bigru-attention-fl-nilm-s41-a2-r2/1
+main,cnn-bigru,nilm,42,KAGGLE_ONLY,hoangdv1711,KAGGLE_ONLY:hoangdv1711/cnn-bigru-attention-fl-nilm-s42-a2-r2/1
+main,cnn-bigru,nilm,43,KAGGLE_ONLY,huygia1611,KAGGLE_ONLY:huygia1611/cnn-bigru-attention-fl-nilm-s43-a2-r2-alt/1
+main,cnn-bigru,perfedskd,41,KAGGLE_ONLY,minhiw,KAGGLE_ONLY:minhiw/cnn-bigru-attention-fl-perfedskd-s41-a2-r2/1
+main,cnn-bigru,perfedskd,42,KAGGLE_ONLY,kinhongkhctrung,KAGGLE_ONLY:kinhongkhctrung/cnn-bigru-attention-fl-perfedskd-s42-a2/1
+main,cnn-bigru,perfedskd,43,KAGGLE_ONLY,honghunhnh,KAGGLE_ONLY:honghunhnh/cnn-bigru-attention-fl-perfedskd-s43-a2/1
+main,cnn-bigru,pfedes,41,KAGGLE_ONLY,hunhthanhhong,KAGGLE_ONLY:hunhthanhhong/cnn-bigru-attention-fl-pfedes-s41-a2-r2/1
+main,cnn-bigru,pfedes,42,KAGGLE_ONLY,huynhkyy,KAGGLE_ONLY:huynhkyy/cnn-bigru-attention-fl-pfedes-s42-a2-r2/1
+main,cnn-bigru,pfedes,43,KAGGLE_ONLY,hiulhuy,KAGGLE_ONLY:hiulhuy/cnn-bigru-attention-fl-pfedes-s43-a2-r2/1
+main,cnn-bigru,tinyproto,41,KAGGLE_ONLY,buidinh0303,KAGGLE_ONLY:buidinh0303/cnn-bigru-attention-fl-tinyproto-s41-a2/1
+main,cnn-bigru,tinyproto,42,KAGGLE_ONLY,hibwyli,KAGGLE_ONLY:hibwyli/cnn-bigru-attention-fl-tinyproto-s42-a2/1
+main,cnn-bigru,tinyproto,43,KAGGLE_ONLY,hoangdangnhi,KAGGLE_ONLY:hoangdangnhi/cnn-bigru-attention-fl-tinyproto-s43-a2/1
+main,cnn-bigru,v2x_htfl,41,KAGGLE_ONLY,hoangdang1711,KAGGLE_ONLY:hoangdang1711/cnn-bigru-attention-fl-v2x-htfl-s41-a2/1
+main,cnn-bigru,v2x_htfl,42,KAGGLE_ONLY,honghunhnh,KAGGLE_ONLY:honghunhnh/cnn-bigru-attention-fl-v2x-htfl-s42-a2/1
+main,cnn-bigru,v2x_htfl,43,KAGGLE_ONLY,hoangdang1711,KAGGLE_ONLY:hoangdang1711/cnn-bigru-attention-fl-v2x-htfl-s43-a2/1
+main,dagsnet,afpha,41,DVC,,DVC:runs/pulls/fl2-afpha-s41.dvc
+main,dagsnet,afpha,42,DVC,,DVC:runs/pulls/fl2-afpha-r2.dvc
+main,dagsnet,afpha,43,DVC,,DVC:runs/pulls/fl2-afpha-s43.dvc
+main,dagsnet,apfed,41,DVC,,DVC:runs/pulls/fl2-apfed-s41.dvc
+main,dagsnet,apfed,42,DVC,,DVC:runs/pulls/fl2-apfed-r2.dvc
+main,dagsnet,apfed,43,DVC,,DVC:runs/pulls/fl2-apfed-s43.dvc
+main,dagsnet,canperfl,41,DVC,,DVC:runs/pulls/fl2-canperfl-s41.dvc
+main,dagsnet,canperfl,42,DVC,,DVC:runs/pulls/fl2-canperfl.dvc
+main,dagsnet,canperfl,43,DVC,,DVC:runs/pulls/fl2-canperfl-s43.dvc
+main,dagsnet,centralized,41,DVC,,DVC:artifacts/checkpoints-local-2026-11-26.dvc
+main,dagsnet,centralized,42,DVC,,DVC:runs/pulls/fl2-central-w1.dvc (fl2-central-w1/model.pt)
+main,dagsnet,centralized,43,DVC,,DVC:artifacts/checkpoints-local-2026-11-26.dvc
+main,dagsnet,fd_ids,41,DVC,,DVC:runs/pulls/fl2-fd-ids-s41.dvc
+main,dagsnet,fd_ids,42,DVC,,DVC:runs/pulls/fl2-fd-ids-r2.dvc
+main,dagsnet,fd_ids,43,DVC,,DVC:runs/pulls/fl2-fd-ids-s43.dvc
+main,dagsnet,fedavg,41,DVC,,DVC:runs/pulls/fl2-fedavg-s41.dvc
+main,dagsnet,fedavg,42,MISSING,,"runs/pulls/fl2-fedavg.dvc chỉ có metrics/CM, không có .pt"
+main,dagsnet,fedavg,43,DVC,,DVC:runs/pulls/fl2-fedavg-s43.dvc
+main,dagsnet,fedproto,41,DVC,,DVC:runs/pulls/fl2-fedproto-s41.dvc
+main,dagsnet,fedproto,42,MISSING,,"runs/pulls/fl2-fedproto.dvc chỉ có metrics/CM, không có .pt"
+main,dagsnet,fedproto,43,DVC,,DVC:runs/pulls/fl2-fedproto-s43.dvc
+main,dagsnet,fedprox,41,DVC,,DVC:runs/pulls/fl2-fedprox-s41.dvc
+main,dagsnet,fedprox,42,MISSING,,"runs/pulls/fl2-fedprox.dvc chỉ có metrics/CM, không có .pt"
+main,dagsnet,fedprox,43,DVC,,DVC:runs/pulls/fl2-fedprox-s43.dvc
+main,dagsnet,fedtgp,41,DVC,,DVC:runs/pulls/fl2-fedtgp-s41.dvc
+main,dagsnet,fedtgp,42,DVC,,DVC:runs/pulls/fl2-fedtgp-r2.dvc
+main,dagsnet,fedtgp,43,DVC,,DVC:runs/pulls/fl2-fedtgp-s43.dvc
+main,dagsnet,lwfednids,41,DVC,,DVC:runs/pulls/fl2-lwfednids-s41.dvc
+main,dagsnet,lwfednids,42,DVC,,DVC:runs/pulls/fl2-lwfednids-r2.dvc
+main,dagsnet,lwfednids,43,DVC,,DVC:runs/pulls/fl2-lwfednids-s43.dvc
+main,dagsnet,mobihet,41,DVC,heykewtiie,artifacts/mobihet-checkpoints-2026-11-25/heykewtiie/dagsnet-mh-s41/v1.dvc
+main,dagsnet,mobihet,42,LOST_ACCESS,bestyorn,bestyorn/dagsnet-abl-a3-s42-h2/2 (không có credential)
+main,dagsnet,mobihet,43,DVC,heykewtiie,artifacts/mobihet-checkpoints-2026-11-25/heykewtiie/dagsnet-mh-s43/v1.dvc
+main,dagsnet,nilm,41,DVC,,DVC:runs/pulls/fl2-nilm-s41-p2.dvc
+main,dagsnet,nilm,42,DVC,,DVC:runs/pulls/fl2-nilm-r2.dvc
+main,dagsnet,nilm,43,DVC,,DVC:runs/pulls/fl2-nilm-s43-p2.dvc
+main,dagsnet,perfedskd,41,DVC,,DVC:runs/pulls/fl2-perfedskd-s41.dvc
+main,dagsnet,perfedskd,42,DVC,,DVC:runs/pulls/fl2-perfedskd-r2.dvc
+main,dagsnet,perfedskd,43,DVC,,DVC:runs/pulls/fl2-perfedskd-s43.dvc
+main,dagsnet,pfedes,41,DVC,,DVC:runs/pulls/fl2-pfedes-s41.dvc
+main,dagsnet,pfedes,42,DVC,,DVC:runs/pulls/fl2-pfedes-r2.dvc
+main,dagsnet,pfedes,43,DVC,,DVC:runs/pulls/fl2-pfedes-s43.dvc
+main,dagsnet,tinyproto,41,DVC,,DVC:runs/pulls/fl2-tinyproto-s41.dvc
+main,dagsnet,tinyproto,42,DVC,,DVC:runs/pulls/fl2-tinyproto-r4.dvc
+main,dagsnet,tinyproto,43,DVC,,DVC:runs/pulls/fl2-tinyproto-s43.dvc
+main,dagsnet,v2x_htfl,41,DVC,,DVC:runs/pulls/fl2-v2x-htfl-s41.dvc
+main,dagsnet,v2x_htfl,42,DVC,,DVC:runs/pulls/fl2-v2x-htfl-r2.dvc
+main,dagsnet,v2x_htfl,43,DVC,,DVC:runs/pulls/fl2-v2x-htfl-s43.dvc
+main,mixed-case1,fedproto,41,KAGGLE_ONLY,hiulhuy,KAGGLE_ONLY:hiulhuy/mix128-case1-fedproto-s41-a1/1 ; LOCAL_ONLY:runs/mixed128-progress/mix128-case1-fedproto-s41-a1/mix128-case1-fedproto-s41-a1/checkpoint.json
+main,mixed-case1,fedproto,42,KAGGLE_ONLY,haivohoanggg,KAGGLE_ONLY:haivohoanggg/mix128-case1-fedproto-s42-a1/1 ; LOCAL_ONLY:runs/mixed128-progress/mix128-case1-fedproto-s42-a1/mix128-case1-fedproto-s42-a1/checkpoint.json
+main,mixed-case1,fedproto,43,KAGGLE_ONLY,nguynt298,KAGGLE_ONLY:nguynt298/mix128-case1-fedproto-s43-a1/1 ; LOCAL_ONLY:runs/mixed128-progress/mix128-case1-fedproto-s43-a1/mix128-case1-fedproto-s43-a1/checkpoint.json
+main,mixed-case1,fedtgp,41,KAGGLE_ONLY,hunhthanhhong,KAGGLE_ONLY:hunhthanhhong/mix128-case1-fedtgp-s41-a1-r42/1 ; LOCAL_ONLY:runs/mixed128-progress/mix128-case1-fedtgp-s41-a1-r42/mix128-case1-fedtgp-s41-a1/checkpoint.json
+main,mixed-case1,fedtgp,42,KAGGLE_ONLY,kinhongkhctrung,KAGGLE_ONLY:kinhongkhctrung/mix128-case1-fedtgp-s42-a1-r44-r49/1 ; LOCAL_ONLY:runs/mixed128-progress/mix128-case1-fedtgp-s42-a1-r44-r49/mix128-case1-fedtgp-s42-a1/checkpoint.json
+main,mixed-case1,fedtgp,43,KAGGLE_ONLY,ttalgies,KAGGLE_ONLY:ttalgies/mix128-case1-fedtgp-s43-a1-r42/1 ; LOCAL_ONLY:runs/mixed128-progress/mix128-case1-fedtgp-s43-a1-r42/mix128-case1-fedtgp-s43-a1/checkpoint.json
+main,mixed-case1,mobihet,41,DVC,trietbackup,artifacts/mobihet-checkpoints-2026-11-25/trietbackup/mixmh-case1-s41/v1.dvc
+main,mixed-case1,mobihet,42,DVC,dinhan20t,artifacts/mobihet-checkpoints-2026-11-25/dinhan20t/mixmh-case1-s42-h2/v1.dvc
+main,mixed-case1,mobihet,43,DVC,nguyenminhtran060113,artifacts/mobihet-checkpoints-2026-11-25/nguyenminhtran060113/mixmh-case1-s43-h2/v1.dvc
+main,mixed-case1,pfedes,41,KAGGLE_ONLY,voxuandatapply,KAGGLE_ONLY:voxuandatapply/mix128-case1-pfedes-s41-a1-r25/1 ; LOCAL_ONLY:runs/mixed128-progress/mix128-case1-pfedes-s41-a1-r25/mix128-case1-pfedes-s41-a1/checkpoint.json
+main,mixed-case1,pfedes,42,KAGGLE_ONLY,haivohoanggg,KAGGLE_ONLY:haivohoanggg/mix128-case1-pfedes-s42-a1-r24-r47-r48-r49/1 ; LOCAL_ONLY:runs/mixed128-progress/mix128-case1-pfedes-s42-a1-r24-r47-r48-r49/mix128-case1-pfedes-s42-a1/checkpoint.json
+main,mixed-case1,pfedes,43,KAGGLE_ONLY,hoangdang1711,KAGGLE_ONLY:hoangdang1711/mix128-case1-pfedes-s43-a1-r24-r47-r48-r49/1 ; LOCAL_ONLY:runs/mixed128-progress/mix128-case1-pfedes-s43-a1-r24-r47-r48-r49/mix128-case1-pfedes-s43-a1/checkpoint.json
+main,mixed-case1,tinyproto,41,KAGGLE_ONLY,qwerasdf3004,KAGGLE_ONLY:qwerasdf3004/mix128-case1-tinyproto-s41-a1-r44/1 ; LOCAL_ONLY:runs/mixed128-progress/mix128-case1-tinyproto-s41-a1-r44/mix128-case1-tinyproto-s41-a1/checkpoint.json
+main,mixed-case1,tinyproto,42,KAGGLE_ONLY,nguynt298,KAGGLE_ONLY:nguynt298/mix128-case1-tinyproto-s42-a1-r42/1 ; LOCAL_ONLY:runs/mixed128-progress/mix128-case1-tinyproto-s42-a1-r42/mix128-case1-tinyproto-s42-a1/checkpoint.json
+main,mixed-case1,tinyproto,43,KAGGLE_ONLY,hibwyli,KAGGLE_ONLY:hibwyli/mix128-case1-tinyproto-s43-a1-r43/1 ; LOCAL_ONLY:runs/mixed128-progress/mix128-case1-tinyproto-s43-a1-r43/mix128-case1-tinyproto-s43-a1/checkpoint.json
+main,mixed-case1,v2x_htfl,41,MISSING,,LOCAL_ONLY:runs/mixed128-progress/mix128-case1-v2x-htfl-s41-a2-r10-r44/mix128-case1-v2x-htfl-s41-a2/checkpoint.json
+main,mixed-case1,v2x_htfl,42,MISSING,,LOCAL_ONLY:runs/mixed128-progress/mix128-case1-v2x-htfl-s42-a2-r04-r05-r06-r07-r42/mix128-case1-v2x-htfl-s42-a2/checkpoint.json
+main,mixed-case1,v2x_htfl,43,MISSING,,LOCAL_ONLY:runs/mixed128-progress/mix128-case1-v2x-htfl-s43-a2-r08-r44/mix128-case1-v2x-htfl-s43-a2/checkpoint.json
+main,mixed-case2,fedproto,41,KAGGLE_ONLY,hiulhuy,KAGGLE_ONLY:hiulhuy/mix128-case2-fedproto-s41-a1/1
+main,mixed-case2,fedproto,42,KAGGLE_ONLY,haivohoanggg,KAGGLE_ONLY:haivohoanggg/mix128-case2-fedproto-s42-a1/1
+main,mixed-case2,fedproto,43,KAGGLE_ONLY,hunhthanhhong,KAGGLE_ONLY:hunhthanhhong/mix128-case2-fedproto-s43-a1/1
+main,mixed-case2,fedtgp,41,KAGGLE_ONLY,iamabighotdog,KAGGLE_ONLY:iamabighotdog/mix128-case2-fedtgp-s41-a1/1
+main,mixed-case2,fedtgp,42,KAGGLE_ONLY,anduyvo06,KAGGLE_ONLY:anduyvo06/mix128-case2-fedtgp-s42-a1/1
+main,mixed-case2,fedtgp,43,KAGGLE_ONLY,huynhkyy,KAGGLE_ONLY:huynhkyy/mix128-case2-fedtgp-s43-a1/1
+main,mixed-case2,mobihet,41,DVC,minhtran0601,artifacts/mobihet-checkpoints-2026-11-25/minhtran0601/mixmh-case2-s41/v2.dvc
+main,mixed-case2,mobihet,42,DVC,chuchimnon,artifacts/mobihet-checkpoints-2026-11-25/chuchimnon/mixmh-case2-s42-h2/v1.dvc
+main,mixed-case2,mobihet,43,DVC,minhtran0601,artifacts/mobihet-checkpoints-2026-11-25/minhtran0601/mixmh-case2-s43/v1.dvc
+main,mixed-case2,pfedes,41,KAGGLE_ONLY,nguynt298,KAGGLE_ONLY:nguynt298/mix128-case2-pfedes-s41-a1/1
+main,mixed-case2,pfedes,42,KAGGLE_ONLY,buidinh0303,KAGGLE_ONLY:buidinh0303/mix128-case2-pfedes-s42-a1/1
+main,mixed-case2,pfedes,43,KAGGLE_ONLY,hoangdangnhi,KAGGLE_ONLY:hoangdangnhi/mix128-case2-pfedes-s43-a1/1
+main,mixed-case2,tinyproto,41,KAGGLE_ONLY,honghunhnh,KAGGLE_ONLY:honghunhnh/mix128-case2-tinyproto-s41-a1/1
+main,mixed-case2,tinyproto,42,KAGGLE_ONLY,huygia1611,KAGGLE_ONLY:huygia1611/mix128-case2-tinyproto-s42-a1/1
+main,mixed-case2,tinyproto,43,KAGGLE_ONLY,kinhongkhctrung,KAGGLE_ONLY:kinhongkhctrung/mix128-case2-tinyproto-s43-a1/1
+main,mixed-case2,v2x_htfl,41,KAGGLE_ONLY,hiulhuy,KAGGLE_ONLY:hiulhuy/mix128-case2-v2x-htfl-s41-a2/1
+main,mixed-case2,v2x_htfl,42,KAGGLE_ONLY,huygia1611,KAGGLE_ONLY:huygia1611/mix128-case2-v2x-htfl-s42-a2/1
+main,mixed-case2,v2x_htfl,43,KAGGLE_ONLY,honghunhnh,KAGGLE_ONLY:honghunhnh/mix128-case2-v2x-htfl-s43-a2/1
+main,mixed-case3,fedproto,41,KAGGLE_ONLY,dangthiet,KAGGLE_ONLY:dangthiet/mix128-case3-fedproto-s41-a1-r15/1 ; LOCAL_ONLY:runs/mixed128-progress/mix128-case3-fedproto-s41-a1-r15/mix128-case3-fedproto-s41-a1/checkpoint.json
+main,mixed-case3,fedproto,42,KAGGLE_ONLY,ttalgies,KAGGLE_ONLY:ttalgies/mix128-case3-fedproto-s42-a1/1 ; LOCAL_ONLY:runs/mixed128-progress/mix128-case3-fedproto-s42-a1/mix128-case3-fedproto-s42-a1/checkpoint.json
+main,mixed-case3,fedproto,43,KAGGLE_ONLY,hiulhuy,KAGGLE_ONLY:hiulhuy/mix128-case3-fedproto-s43-a1-r13/1 ; LOCAL_ONLY:runs/mixed128-progress/mix128-case3-fedproto-s43-a1-r13/mix128-case3-fedproto-s43-a1/checkpoint.json
+main,mixed-case3,fedtgp,41,KAGGLE_ONLY,sonlebaodac,KAGGLE_ONLY:sonlebaodac/mix128-case3-fedtgp-s41-a1-r12-r38-r41/1
+main,mixed-case3,fedtgp,42,KAGGLE_ONLY,hoangdangnhi,KAGGLE_ONLY:hoangdangnhi/mix128-case3-fedtgp-s42-a1/1 ; LOCAL_ONLY:runs/mixed128-progress/mix128-case3-fedtgp-s42-a1/mix128-case3-fedtgp-s42-a1/checkpoint.json
+main,mixed-case3,fedtgp,43,KAGGLE_ONLY,nguynkhacao,KAGGLE_ONLY:nguynkhacao/mix128-case3-fedtgp-s43-a1-r12-r35-r38-r39/1 ; LOCAL_ONLY:runs/mixed128-progress/mix128-case3-fedtgp-s43-a1-r12-r35-r38-r39/mix128-case3-fedtgp-s43-a1/checkpoint.json
+main,mixed-case3,mobihet,41,LOST_ACCESS,bestyorn,bestyorn/mixl4-abl-a3-case3-s41/1 (không có credential)
+main,mixed-case3,mobihet,42,DVC,dinhan25,artifacts/mobihet-checkpoints-2026-11-25/dinhan25/mixmh-case3-s42-h2/v1.dvc
+main,mixed-case3,mobihet,43,LOST_ACCESS,chiencosieuhang,chiencosieuhang/mixl4-abl-a3-case3-s43/1 (retired 25/11)
+main,mixed-case3,pfedes,41,MISSING,,LOCAL_ONLY:runs/mixed128-progress/mix128-case3-pfedes-s41-a1-r06-r16-r17-r18/mix128-case3-pfedes-s41-a1/checkpoint.json
+main,mixed-case3,pfedes,42,KAGGLE_ONLY,nguynkhacao,KAGGLE_ONLY:nguynkhacao/mix128-case3-pfedes-s42-a1-r13-r38-r39-r40-r41/1 ; LOCAL_ONLY:runs/mixed128-progress/mix128-case3-pfedes-s42-a1-r13-r38-r39-r40-r41/mix128-case3-pfedes-s42-a1/checkpoint.json
+main,mixed-case3,pfedes,43,MISSING,,LOCAL_ONLY:runs/mixed128-progress/mix128-case3-pfedes-s43-a1-r06-r08-r09-r10-r43/mix128-case3-pfedes-s43-a1/checkpoint.json
+main,mixed-case3,tinyproto,41,KAGGLE_ONLY,nghuay,KAGGLE_ONLY:nghuay/mix128-case3-tinyproto-s41-a1-r12-r39-r40-r42/1
+main,mixed-case3,tinyproto,42,KAGGLE_ONLY,qwerasdf3004,KAGGLE_ONLY:qwerasdf3004/mix128-case3-tinyproto-s42-a1/1 ; LOCAL_ONLY:runs/mixed128-progress/mix128-case3-tinyproto-s42-a1/mix128-case3-tinyproto-s42-a1/checkpoint.json
+main,mixed-case3,tinyproto,43,KAGGLE_ONLY,nguynkhacao,KAGGLE_ONLY:nguynkhacao/mix128-case3-tinyproto-s43-a1-r12-r31-r34-r35-r36/1
+main,mixed-case3,v2x_htfl,41,KAGGLE_ONLY,nguyntngquckhnh,KAGGLE_ONLY:nguyntngquckhnh/mix128-case3-v2x-htfl-s41-a2-r09/1 ; LOCAL_ONLY:runs/mixed128-progress/mix128-case3-v2x-htfl-s41-a2-r09/mix128-case3-v2x-htfl-s41-a2/checkpoint.json
+main,mixed-case3,v2x_htfl,42,KAGGLE_ONLY,minhgia2026,KAGGLE_ONLY:minhgia2026/mix128-case3-v2x-htfl-s42-a2-r06/1 ; LOCAL_ONLY:runs/mixed128-progress/mix128-case3-v2x-htfl-s42-a2-r06/mix128-case3-v2x-htfl-s42-a2/checkpoint.json
+main,mixed-case3,v2x_htfl,43,KAGGLE_ONLY,nguyntngquckhnh,KAGGLE_ONLY:nguyntngquckhnh/mix128-case3-v2x-htfl-s43-a2-r03/1 ; LOCAL_ONLY:runs/mixed128-progress/mix128-case3-v2x-htfl-s43-a2-r03/mix128-case3-v2x-htfl-s43-a2/checkpoint.json
+main,mlp,afpha,41,KAGGLE_ONLY,voxuandatapply,KAGGLE_ONLY:voxuandatapply/mlp-fl-afpha-s41-a2/1
+main,mlp,afpha,42,KAGGLE_ONLY,hunhthanhhong,KAGGLE_ONLY:hunhthanhhong/mlp-fl-afpha-s42-a2/1
+main,mlp,afpha,43,KAGGLE_ONLY,nguynt298,KAGGLE_ONLY:nguynt298/mlp-fl-afpha-s43-a2/1
+main,mlp,apfed,41,KAGGLE_ONLY,nguynt298,KAGGLE_ONLY:nguynt298/mlp-fl-apfed-s41-a2/1
+main,mlp,apfed,42,KAGGLE_ONLY,hoangdangnhi,KAGGLE_ONLY:hoangdangnhi/mlp-fl-apfed-s42-a2/1
+main,mlp,apfed,43,KAGGLE_ONLY,ttalgies,KAGGLE_ONLY:ttalgies/mlp-fl-apfed-s43-a2/1
+main,mlp,canperfl,41,KAGGLE_ONLY,hibwyli,KAGGLE_ONLY:hibwyli/mlp-fl-canperfl-s41-a2/2
+main,mlp,canperfl,42,KAGGLE_ONLY,nguynt298,KAGGLE_ONLY:nguynt298/mlp-fl-canperfl-s42-a2/1
+main,mlp,canperfl,43,KAGGLE_ONLY,hoangdangnhi,KAGGLE_ONLY:hoangdangnhi/mlp-fl-canperfl-s43-a2/1
+main,mlp,centralized,41,DVC,,DVC:artifacts/checkpoints-local-2026-11-26.dvc ; DVC:artifacts/checkpoints-local-2026-11-26.dvc
+main,mlp,centralized,42,DVC,,DVC:artifacts/checkpoints-local-2026-11-26.dvc ; DVC:artifacts/checkpoints-local-2026-11-26.dvc
+main,mlp,centralized,43,DVC,,DVC:artifacts/checkpoints-local-2026-11-26.dvc ; DVC:artifacts/checkpoints-local-2026-11-26.dvc
+main,mlp,fd_ids,41,KAGGLE_ONLY,ttalgies,KAGGLE_ONLY:ttalgies/mlp-fl-fd-ids-s41-a2/1
+main,mlp,fd_ids,42,KAGGLE_ONLY,qwerasdf3004,KAGGLE_ONLY:qwerasdf3004/mlp-fl-fd-ids-s42-a2/1
+main,mlp,fd_ids,43,KAGGLE_ONLY,huygia1611,KAGGLE_ONLY:huygia1611/mlp-fl-fd-ids-s43-a2/1
+main,mlp,fedavg,41,KAGGLE_ONLY,hibwyli,KAGGLE_ONLY:hibwyli/mlp-fl-fedavg-s41-a2/1
+main,mlp,fedavg,42,KAGGLE_ONLY,nguynt298,KAGGLE_ONLY:nguynt298/mlp-fl-fedavg-s42-a2/1
+main,mlp,fedavg,43,KAGGLE_ONLY,hoangdangnhi,KAGGLE_ONLY:hoangdangnhi/mlp-fl-fedavg-s43-a2/1
+main,mlp,fedproto,41,KAGGLE_ONLY,hoangdv1711,KAGGLE_ONLY:hoangdv1711/mlp-fl-fedproto-s41-a2/1
+main,mlp,fedproto,42,KAGGLE_ONLY,qwerasdf3004,KAGGLE_ONLY:qwerasdf3004/mlp-fl-fedproto-s42-a2/1
+main,mlp,fedproto,43,KAGGLE_ONLY,voxuandatapply,KAGGLE_ONLY:voxuandatapply/mlp-fl-fedproto-s43-a2/1
+main,mlp,fedprox,41,KAGGLE_ONLY,ttalgies,KAGGLE_ONLY:ttalgies/mlp-fl-fedprox-s41-a2/1
+main,mlp,fedprox,42,KAGGLE_ONLY,hoangdv1711,KAGGLE_ONLY:hoangdv1711/mlp-fl-fedprox-s42-a2/1
+main,mlp,fedprox,43,KAGGLE_ONLY,hibwyli,KAGGLE_ONLY:hibwyli/mlp-fl-fedprox-s43-a2/1
+main,mlp,fedtgp,41,KAGGLE_ONLY,huynhkyy,KAGGLE_ONLY:huynhkyy/mlp-fl-fedtgp-s41-a2/1
+main,mlp,fedtgp,42,KAGGLE_ONLY,voxuandatapply,KAGGLE_ONLY:voxuandatapply/mlp-fl-fedtgp-s42-a2/1
+main,mlp,fedtgp,43,KAGGLE_ONLY,hoangdangnhi,KAGGLE_ONLY:hoangdangnhi/mlp-fl-fedtgp-s43-a2/1
+main,mlp,lwfednids,41,KAGGLE_ONLY,qwerasdf3004,KAGGLE_ONLY:qwerasdf3004/mlp-fl-lwfednids-s41-a2/1
+main,mlp,lwfednids,42,KAGGLE_ONLY,anduyvo06,KAGGLE_ONLY:anduyvo06/mlp-fl-lwfednids-s42-a2/1
+main,mlp,lwfednids,43,KAGGLE_ONLY,honghunhnh,KAGGLE_ONLY:honghunhnh/mlp-fl-lwfednids-s43-a2/1
+main,mlp,mobihet,41,LOST_ACCESS,anhtruong1909,anhtruong1909/mlp-abl-a3-s41/1 (retired 25/11)
+main,mlp,mobihet,42,DVC,nguyenminhtran060113,artifacts/mobihet-checkpoints-2026-11-25/nguyenminhtran060113/mlp-mh-s42-h2/v1.dvc
+main,mlp,mobihet,43,LOST_ACCESS,anhtruong1909,anhtruong1909/mlp-abl-a3-s43/1 (retired 25/11)
+main,mlp,nilm,41,KAGGLE_ONLY,honghunhnh,KAGGLE_ONLY:honghunhnh/mlp-fl-nilm-s41-a2/1
+main,mlp,nilm,42,KAGGLE_ONLY,kinhongkhctrung,KAGGLE_ONLY:kinhongkhctrung/mlp-fl-nilm-s42-a2/1
+main,mlp,nilm,43,KAGGLE_ONLY,nguynt298,KAGGLE_ONLY:nguynt298/mlp-fl-nilm-s43-a2/1
+main,mlp,perfedskd,41,KAGGLE_ONLY,dangthiet,KAGGLE_ONLY:dangthiet/mlp-fl-perfedskd-s41-a2/1
+main,mlp,perfedskd,42,KAGGLE_ONLY,hoangdang1711,KAGGLE_ONLY:hoangdang1711/mlp-fl-perfedskd-s42-a2/1
+main,mlp,perfedskd,43,KAGGLE_ONLY,qwerasdf3004,KAGGLE_ONLY:qwerasdf3004/mlp-fl-perfedskd-s43-a2/1
+main,mlp,pfedes,41,KAGGLE_ONLY,anduyvo06,KAGGLE_ONLY:anduyvo06/mlp-fl-pfedes-s41-a2/1
+main,mlp,pfedes,42,KAGGLE_ONLY,huygia1611,KAGGLE_ONLY:huygia1611/mlp-fl-pfedes-s42-a2/1
+main,mlp,pfedes,43,KAGGLE_ONLY,voxuandatapply,KAGGLE_ONLY:voxuandatapply/mlp-fl-pfedes-s43-a2/1
+main,mlp,tinyproto,41,KAGGLE_ONLY,hoangdv1711,KAGGLE_ONLY:hoangdv1711/mlp-fl-tinyproto-s41-a2/1
+main,mlp,tinyproto,42,KAGGLE_ONLY,huynhkyy,KAGGLE_ONLY:huynhkyy/mlp-fl-tinyproto-s42-a2/1
+main,mlp,tinyproto,43,KAGGLE_ONLY,nguynt298,KAGGLE_ONLY:nguynt298/mlp-fl-tinyproto-s43-a2/1
+main,mlp,v2x_htfl,41,KAGGLE_ONLY,voxuandatapply,KAGGLE_ONLY:voxuandatapply/mlp-fl-v2x-htfl-s41-fp32proj-a4/1
+main,mlp,v2x_htfl,42,KAGGLE_ONLY,hibwyli,KAGGLE_ONLY:hibwyli/mlp-fl-v2x-htfl-s42-fp32proj-a4/1
+main,mlp,v2x_htfl,43,KAGGLE_ONLY,huygia1611,KAGGLE_ONLY:huygia1611/mlp-fl-v2x-htfl-s43-fp32proj-a4/1
+main,sae,afpha,41,KAGGLE_ONLY,hoangdang1711,KAGGLE_ONLY:hoangdang1711/sae-fl-afpha-s41-a2/1
+main,sae,afpha,42,KAGGLE_ONLY,nguynt298,KAGGLE_ONLY:nguynt298/sae-fl-afpha-s42-a2/1
+main,sae,afpha,43,KAGGLE_ONLY,dangthiet,KAGGLE_ONLY:dangthiet/sae-fl-afpha-s43-a2/1
+main,sae,apfed,41,KAGGLE_ONLY,dangthiet,KAGGLE_ONLY:dangthiet/sae-fl-apfed-s41-a2/1
+main,sae,apfed,42,KAGGLE_ONLY,hoangdv1711,KAGGLE_ONLY:hoangdv1711/sae-fl-apfed-s42-a2/1
+main,sae,apfed,43,KAGGLE_ONLY,minhiw,KAGGLE_ONLY:minhiw/sae-fl-apfed-s43-a2/1
+main,sae,canperfl,41,KAGGLE_ONLY,minhiw,KAGGLE_ONLY:minhiw/sae-fl-canperfl-s41-a2/1
+main,sae,canperfl,42,KAGGLE_ONLY,hoangdangnhi,KAGGLE_ONLY:hoangdangnhi/sae-fl-canperfl-s42-a2/1
+main,sae,canperfl,43,KAGGLE_ONLY,phamquang0606,KAGGLE_ONLY:phamquang0606/sae-fl-canperfl-s43-a2/1
+main,sae,centralized,41,DVC,,DVC:artifacts/checkpoints-local-2026-11-26.dvc ; DVC:artifacts/checkpoints-local-2026-11-26.dvc
+main,sae,centralized,42,DVC,,DVC:artifacts/checkpoints-local-2026-11-26.dvc ; DVC:artifacts/checkpoints-local-2026-11-26.dvc
+main,sae,centralized,43,DVC,,DVC:artifacts/checkpoints-local-2026-11-26.dvc ; DVC:artifacts/checkpoints-local-2026-11-26.dvc
+main,sae,fd_ids,41,KAGGLE_ONLY,hoangdangnhi,KAGGLE_ONLY:hoangdangnhi/sae-fl-fd-ids-s41-a2/1
+main,sae,fd_ids,42,KAGGLE_ONLY,phamquang0606,KAGGLE_ONLY:phamquang0606/sae-fl-fd-ids-s42-a2/1
+main,sae,fd_ids,43,KAGGLE_ONLY,ttalgies,KAGGLE_ONLY:ttalgies/sae-fl-fd-ids-s43-a2/1
+main,sae,fedavg,41,KAGGLE_ONLY,minhiw,KAGGLE_ONLY:minhiw/sae-fl-fedavg-s41-a2/1
+main,sae,fedavg,42,KAGGLE_ONLY,hoangdangnhi,KAGGLE_ONLY:hoangdangnhi/sae-fl-fedavg-s42-a2/1
+main,sae,fedavg,43,KAGGLE_ONLY,phamquang0606,KAGGLE_ONLY:phamquang0606/sae-fl-fedavg-s43-a2/1
+main,sae,fedproto,41,KAGGLE_ONLY,hoangdangnhi,KAGGLE_ONLY:hoangdangnhi/sae-fl-fedproto-s41-a2/1
+main,sae,fedproto,42,KAGGLE_ONLY,phamquang0606,KAGGLE_ONLY:phamquang0606/sae-fl-fedproto-s42-a2/1
+main,sae,fedproto,43,KAGGLE_ONLY,ttalgies,KAGGLE_ONLY:ttalgies/sae-fl-fedproto-s43-a2/1
+main,sae,fedprox,41,KAGGLE_ONLY,ttalgies,KAGGLE_ONLY:ttalgies/sae-fl-fedprox-s41-a2/1
+main,sae,fedprox,42,KAGGLE_ONLY,hoangdang1711,KAGGLE_ONLY:hoangdang1711/sae-fl-fedprox-s42-a2/1
+main,sae,fedprox,43,KAGGLE_ONLY,nguynt298,KAGGLE_ONLY:nguynt298/sae-fl-fedprox-s43-a2/1
+main,sae,fedtgp,41,KAGGLE_ONLY,hoangdang1711,KAGGLE_ONLY:hoangdang1711/sae-fl-fedtgp-s41-a2/1
+main,sae,fedtgp,42,KAGGLE_ONLY,qwerasdf3004,KAGGLE_ONLY:qwerasdf3004/sae-fl-fedtgp-s42-a2/1
+main,sae,fedtgp,43,KAGGLE_ONLY,nguynt298,KAGGLE_ONLY:nguynt298/sae-fl-fedtgp-s43-a2/1
+main,sae,lwfednids,41,KAGGLE_ONLY,hoangdv1711,KAGGLE_ONLY:hoangdv1711/sae-fl-lwfednids-s41-a2/1
+main,sae,lwfednids,42,KAGGLE_ONLY,minhiw,KAGGLE_ONLY:minhiw/sae-fl-lwfednids-s42-a2/1
+main,sae,lwfednids,43,KAGGLE_ONLY,hoangdangnhi,KAGGLE_ONLY:hoangdangnhi/sae-fl-lwfednids-s43-a2/1
+main,sae,mobihet,41,DVC,minhtrit06,artifacts/mobihet-checkpoints-2026-11-25/minhtrit06/sae-mh-s41/v1.dvc
+main,sae,mobihet,42,LOST_ACCESS,hoangdang20t,hoangdang20t/sae-abl-a3-s42-h2/1 (retired 25/11)
+main,sae,mobihet,43,LOST_ACCESS,odixeuit,odixeuit/sae-abl-a3-s43/1 (retired 25/11)
+main,sae,nilm,41,KAGGLE_ONLY,qwerasdf3004,KAGGLE_ONLY:qwerasdf3004/sae-fl-nilm-s41-a2/1
+main,sae,nilm,42,KAGGLE_ONLY,nguynt298,KAGGLE_ONLY:nguynt298/sae-fl-nilm-s42-a2/1
+main,sae,nilm,43,KAGGLE_ONLY,dangthiet,KAGGLE_ONLY:dangthiet/sae-fl-nilm-s43-a2/1
+main,sae,perfedskd,41,KAGGLE_ONLY,minhiw,KAGGLE_ONLY:minhiw/sae-fl-perfedskd-s41-a2/1
+main,sae,perfedskd,42,KAGGLE_ONLY,hoangdv1711,KAGGLE_ONLY:hoangdv1711/sae-fl-perfedskd-s42-a2/1
+main,sae,perfedskd,43,KAGGLE_ONLY,hoangdangnhi,KAGGLE_ONLY:hoangdangnhi/sae-fl-perfedskd-s43-a2/1
+main,sae,pfedes,41,KAGGLE_ONLY,phamquang0606,KAGGLE_ONLY:phamquang0606/sae-fl-pfedes-s41-a2/1
+main,sae,pfedes,42,KAGGLE_ONLY,ttalgies,KAGGLE_ONLY:ttalgies/sae-fl-pfedes-s42-a2/1
+main,sae,pfedes,43,KAGGLE_ONLY,hoangdang1711,KAGGLE_ONLY:hoangdang1711/sae-fl-pfedes-s43-a2/1
+main,sae,tinyproto,41,KAGGLE_ONLY,dangthiet,KAGGLE_ONLY:dangthiet/sae-fl-tinyproto-s41-a2/1
+main,sae,tinyproto,42,KAGGLE_ONLY,hoangdv1711,KAGGLE_ONLY:hoangdv1711/sae-fl-tinyproto-s42-a2/1
+main,sae,tinyproto,43,KAGGLE_ONLY,minhiw,KAGGLE_ONLY:minhiw/sae-fl-tinyproto-s43-a2/1
+main,sae,v2x_htfl,41,KAGGLE_ONLY,nguynt298,KAGGLE_ONLY:nguynt298/sae-fl-v2x-htfl-s41-a2/1
+main,sae,v2x_htfl,42,KAGGLE_ONLY,dangthiet,KAGGLE_ONLY:dangthiet/sae-fl-v2x-htfl-s42-a2/1
+main,sae,v2x_htfl,43,KAGGLE_ONLY,hoangdv1711,KAGGLE_ONLY:hoangdv1711/sae-fl-v2x-htfl-s43-a2/1
+main,tabm,afpha,41,KAGGLE_ONLY,hoangdv1711,KAGGLE_ONLY:hoangdv1711/tabm-fl-afpha-s41/2
+main,tabm,afpha,42,KAGGLE_ONLY,hoangdv1711,KAGGLE_ONLY:hoangdv1711/tabm-fl-afpha-s42/2
+main,tabm,afpha,43,KAGGLE_ONLY,minhiw,KAGGLE_ONLY:minhiw/tabm-fl-afpha-s43/2
+main,tabm,apfed,41,KAGGLE_ONLY,ttalgies,KAGGLE_ONLY:ttalgies/tabm-fl-apfed-s41/2
+main,tabm,apfed,42,KAGGLE_ONLY,ttalgies,KAGGLE_ONLY:ttalgies/tabm-fl-apfed-s42/2
+main,tabm,apfed,43,KAGGLE_ONLY,qwerasdf3004,KAGGLE_ONLY:qwerasdf3004/tabm-fl-apfed-s43/2
+main,tabm,canperfl,41,KAGGLE_ONLY,dangthiet,KAGGLE_ONLY:dangthiet/tabm-fl-canperfl-s41/1
+main,tabm,canperfl,42,KAGGLE_ONLY,dangthiet,KAGGLE_ONLY:dangthiet/tabm-fl-canperfl-s42/1
+main,tabm,canperfl,43,KAGGLE_ONLY,hoangdang1711,KAGGLE_ONLY:hoangdang1711/tabm-fl-canperfl-s43/1
+main,tabm,centralized,41,DVC,,DVC:artifacts/checkpoints-local-2026-11-26.dvc ; DVC:artifacts/checkpoints-local-2026-11-26.dvc
+main,tabm,centralized,42,DVC,,DVC:artifacts/checkpoints-local-2026-11-26.dvc ; DVC:artifacts/checkpoints-local-2026-11-26.dvc
+main,tabm,centralized,43,DVC,,DVC:artifacts/checkpoints-local-2026-11-26.dvc ; DVC:artifacts/checkpoints-local-2026-11-26.dvc
+main,tabm,fd_ids,41,KAGGLE_ONLY,minhiw,KAGGLE_ONLY:minhiw/tabm-fl-fd-ids-s41/2
+main,tabm,fd_ids,42,KAGGLE_ONLY,phamquang0606,KAGGLE_ONLY:phamquang0606/tabm-fl-fd-ids-s42/2
+main,tabm,fd_ids,43,KAGGLE_ONLY,phamquang0606,KAGGLE_ONLY:phamquang0606/tabm-fl-fd-ids-s43/2
+main,tabm,fedavg,41,KAGGLE_ONLY,dangthiet,KAGGLE_ONLY:dangthiet/tabm-fl-fedavg-s41-probe/3
+main,tabm,fedavg,42,KAGGLE_ONLY,dangthiet,KAGGLE_ONLY:dangthiet/tabm-fl-fedavg-s42/2
+main,tabm,fedavg,43,KAGGLE_ONLY,hoangdang1711,KAGGLE_ONLY:hoangdang1711/tabm-fl-fedavg-s43/2
+main,tabm,fedproto,41,KAGGLE_ONLY,hoangdangnhi,KAGGLE_ONLY:hoangdangnhi/tabm-fl-fedproto-s41/1
+main,tabm,fedproto,42,KAGGLE_ONLY,phamquang0606,KAGGLE_ONLY:phamquang0606/tabm-fl-fedproto-s42/1
+main,tabm,fedproto,43,KAGGLE_ONLY,minhiw,KAGGLE_ONLY:minhiw/tabm-fl-fedproto-s43/1
+main,tabm,fedprox,41,KAGGLE_ONLY,hoangdang1711,KAGGLE_ONLY:hoangdang1711/tabm-fl-fedprox-s41/2
+main,tabm,fedprox,42,KAGGLE_ONLY,hoangdangnhi,KAGGLE_ONLY:hoangdangnhi/tabm-fl-fedprox-s42/3
+main,tabm,fedprox,43,KAGGLE_ONLY,hoangdangnhi,KAGGLE_ONLY:hoangdangnhi/tabm-fl-fedprox-s43/3
+main,tabm,fedtgp,41,KAGGLE_ONLY,ttalgies,KAGGLE_ONLY:ttalgies/tabm-fl-fedtgp-s41/1
+main,tabm,fedtgp,42,KAGGLE_ONLY,ttalgies,KAGGLE_ONLY:ttalgies/tabm-fl-fedtgp-s42/1
+main,tabm,fedtgp,43,KAGGLE_ONLY,qwerasdf3004,KAGGLE_ONLY:qwerasdf3004/tabm-fl-fedtgp-s43/1
+main,tabm,lwfednids,41,KAGGLE_ONLY,dangthiet,KAGGLE_ONLY:dangthiet/tabm-fl-lwfednids-s41/1
+main,tabm,lwfednids,42,KAGGLE_ONLY,dangthiet,KAGGLE_ONLY:dangthiet/tabm-fl-lwfednids-s42/1
+main,tabm,lwfednids,43,KAGGLE_ONLY,hoangdang1711,KAGGLE_ONLY:hoangdang1711/tabm-fl-lwfednids-s43/1
+main,tabm,mobihet,41,LOST_ACCESS,lelovo,lelovo/tabm-abl-a3-s41/1 (retired 25/11)
+main,tabm,mobihet,42,LOST_ACCESS,goilaaiudi,goilaaiudi/tabm-abl-a3-s42-h2/1 (retired 25/11)
+main,tabm,mobihet,43,LOST_ACCESS,nguyetquedo,nguyetquedo/tabm-abl-a3-s43/1 (retired 25/11)
+main,tabm,nilm,41,KAGGLE_ONLY,minhiw,KAGGLE_ONLY:minhiw/tabm-fl-nilm-s41/1
+main,tabm,nilm,42,KAGGLE_ONLY,phamquang0606,KAGGLE_ONLY:phamquang0606/tabm-fl-nilm-s42/1
+main,tabm,nilm,43,KAGGLE_ONLY,phamquang0606,KAGGLE_ONLY:phamquang0606/tabm-fl-nilm-s43/1
+main,tabm,perfedskd,41,KAGGLE_ONLY,hoangdv1711,KAGGLE_ONLY:hoangdv1711/tabm-fl-perfedskd-s41/1
+main,tabm,perfedskd,42,KAGGLE_ONLY,hoangdv1711,KAGGLE_ONLY:hoangdv1711/tabm-fl-perfedskd-s42/1
+main,tabm,perfedskd,43,KAGGLE_ONLY,phamquang0606,KAGGLE_ONLY:phamquang0606/tabm-fl-perfedskd-s43/1
+main,tabm,pfedes,41,KAGGLE_ONLY,hoangdv1711,KAGGLE_ONLY:hoangdv1711/tabm-fl-pfedes-s41/1
+main,tabm,pfedes,42,KAGGLE_ONLY,hoangdv1711,KAGGLE_ONLY:hoangdv1711/tabm-fl-pfedes-s42/1
+main,tabm,pfedes,43,KAGGLE_ONLY,minhiw,KAGGLE_ONLY:minhiw/tabm-fl-pfedes-s43/1
+main,tabm,tinyproto,41,KAGGLE_ONLY,nguynt298,KAGGLE_ONLY:nguynt298/tabm-fl-tinyproto-s41-a2/1
+main,tabm,tinyproto,42,KAGGLE_ONLY,dangthiet,KAGGLE_ONLY:dangthiet/tabm-fl-tinyproto-s42-a2/1
+main,tabm,tinyproto,43,KAGGLE_ONLY,hoangdv1711,KAGGLE_ONLY:hoangdv1711/tabm-fl-tinyproto-s43-a2/1
+main,tabm,v2x_htfl,41,KAGGLE_ONLY,buidinh0303,KAGGLE_ONLY:buidinh0303/tabm-fl-v2x-htfl-s41-fp32proj-a4/1
+main,tabm,v2x_htfl,42,KAGGLE_ONLY,haivohoanggg,KAGGLE_ONLY:haivohoanggg/tabm-fl-v2x-htfl-s42-fp32proj-a4/1
+main,tabm,v2x_htfl,43,KAGGLE_ONLY,anduyvo06,KAGGLE_ONLY:anduyvo06/tabm-fl-v2x-htfl-s43-fp32proj-a4/1

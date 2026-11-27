@@ -11,6 +11,8 @@ import sys
 import threading
 import time
 
+import runpy
+
 import requests
 from kaggle.api.kaggle_api_extended import KaggleApi
 from kagglesdk.kernels.types.kernels_api_service import (
@@ -45,6 +47,11 @@ def make_api(token):
     api = KaggleApi()
     api.build_kaggle_client = lambda: KaggleApi.build_kaggle_client_with_params(args=[], api_token=token)
     return api
+
+
+def guarded_push(owner, api, *args, **kwargs):
+    guard = Path.home() / ".agents/skills/kaggle-push/scripts/push_guard.py"
+    return runpy.run_path(str(guard))["guarded_push"](owner, api, *args, **kwargs)
 
 
 def quota(api):
@@ -295,7 +302,7 @@ def main():
         job.update(state='reserved', ref=ref)
         save(state, commit=True)  # Durable intent BEFORE network write, including lost-response cases.
         try:
-            response = snap['api'].kernels_push(str(folder), timeout='28800')
+            response = guarded_push(owner, snap['api'], str(folder), timeout='28800')
         except Exception as exc:
             job.update(state='review', reason='ambiguous push: ' + type(exc).__name__)
             snap['active'] = 2

@@ -1,0 +1,5 @@
+arm,client_tops,server_tops,bootstrap_tops,other_tops,unattributed_tops,total_tops,x_mobihet,rounds,panel,trace_sha256,source
+mobihet,19857.565,2.28e-07,0.060706966,6.3260254,0.0043385249,19863.956,1.0000,50,200,0d62f1f8180e62aa7c908b831b6eb42c61372112040ceada55243df41d1e2225,runs/compute-detailed-v3/kaggle/exp-count-mh-main2/compute/mixed-case1-mobihet.count.json
+a1,10563.238,0,1.8e-09,0,0.0043116642,10563.242,0.5318,50,200,afcaf39634dad649b751c38cd25c5aac453b41e697ba0d013d23117455529b92,runs/compute-detailed-v3/kaggle/exp-count-mh-abl2/compute/mixed-case1-mhabl-a1.count.json
+a2,19857.565,2.28e-07,0.060706966,6.3260254,0.0043385249,19863.956,1.0000,50,200,e75509f7ed86e477bfdfa8253645034febd863c2678bcf64d8a1a87d3483d3fe,runs/compute-detailed-v3/kaggle/exp-count-mh-abl2/compute/mixed-case1-mhabl-a2.count.json
+a4,19857.565,2.28e-07,0.060706966,6.3260253,0.0043175892,19863.956,1.0000,50,200,59886852292d3a2aa1c4180a48518271e031018cafead2d5d0ed29b41abdbaaf,runs/compute-detailed-v3/kaggle/exp-count-mh-abl2/compute/mixed-case1-mhabl-a4.count.json

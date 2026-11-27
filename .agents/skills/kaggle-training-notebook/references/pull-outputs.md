@@ -207,6 +207,9 @@ Keep a `runs/<run_name>/.pull-manifest.json` of `{filename: (size, mtime, sha256
 
 ## Batch collector
 
+Pull and audit as soon as completion is verified. If the run needs a continuation, record the predecessor's
+completion time with its exact ref for [the 15-minute wait before push](../SKILL.md#shared-kernel-push-limit).
+
 Written before the batch's first push, started detached right after it (`nohup setsid … &`, so it outlives the agent
 session; a reboot still kills it: check its pid file and log at session start and restart it). The agent reads its
 state file instead of polling Kaggle itself.

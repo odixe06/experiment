@@ -1,4 +1,7 @@
 """Kaggle CLI entry point with finite network timeouts; use through kaggle_as.py."""
+import os
+from pathlib import Path
+import runpy
 import sys
 
 import requests
@@ -19,7 +22,10 @@ def send(self, req, **kwargs):
 
 
 requests.Session.request, requests.Session.send = request, send
-from kaggle.cli import main  # noqa: E402
+from kaggle.cli import api, main  # noqa: E402
 
 sys.argv[0] = "kaggle"
+if sys.argv[1:3] == ["kernels", "push"]:
+    guard = Path.home() / ".agents/skills/kaggle-push/scripts/push_guard.py"
+    runpy.run_path(str(guard))["guard_cli"](api, os.environ.get("KAGGLE_PUSH_EXPECTED_ACCOUNT"))
 main()

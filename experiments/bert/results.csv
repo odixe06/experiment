@@ -43,3 +43,4 @@ fedproto,42,client_proto,50,0.895685,0.886033,0.895685,0.899407,0.885784,0.89568
 fedproto,43,client_proto,50,0.896023,0.887155,0.896023,0.899740,0.887519,0.896023,0.896023,0.886923,0.896023,0.897592,audited,bert/runs/batch-s43/audit/flb-fedproto-s43.json
 mobihet,41,client,50,0.925180,0.925881,0.925180,0.918115,0.908151,0.925180,0.925180,0.913266,0.925180,0.918083,audited,kaggle takids1909/bert-abl-a3-s41/1 (former L4 ablation a3 = MobiHet; scripts/audit_ablation.py + scripts/promote_mobihet_rows.py)
 mobihet,42,client,50,0.924740,0.925353,0.924740,0.917599,0.907022,0.924740,0.924740,0.912346,0.924740,0.917520,audited,kaggle annhannh331/bert-abl-a3-s42-h2/1 (former L4 ablation a3 = MobiHet; scripts/audit_ablation.py + scripts/promote_mobihet_rows.py)
+mobihet,43,client,50,0.924899,0.925193,0.924899,0.917752,0.907949,0.924899,0.924899,0.912805,0.924899,0.917703,audited,kaggle aligatorr/bert-mh-s43/1 (scripts/audit_ablation.py: 50 CM -> 10 metrics)

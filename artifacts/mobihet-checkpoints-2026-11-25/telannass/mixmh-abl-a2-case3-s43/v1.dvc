@@ -1,0 +1,6 @@
+outs:
+- md5: 53c1164d900568db88e5dde2559149db.dir
+  size: 3009637206
+  nfiles: 12
+  hash: md5
+  path: v1

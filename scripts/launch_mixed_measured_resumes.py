@@ -31,7 +31,7 @@ def main():
             r.update(state='reserved',time=datetime.now(timezone.utc).isoformat(),minimum_train_hours=need(j))
             ledger.append(r);path.write_text(json.dumps(ledger,indent=2))
             try:
-                reply=s['api'].kernels_push(r['directory'],timeout=str(int(r['session_budget_hours']*3600)))
+                reply=d.guarded_push(owner, s['api'], r['directory'],timeout=str(int(r['session_budget_hours']*3600)))
                 assert d.accepted(reply,r['ref'])
                 r.update(version=d.confirm_submission(s['api'],r['ref'],Path(r['directory'])),state='submitted')
                 r['status']=d.read_call(lambda:s['api'].kernels_status(r['ref'])).status.name

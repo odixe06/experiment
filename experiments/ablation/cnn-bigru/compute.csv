@@ -1,0 +1,5 @@
+arm,client_tops,server_tops,bootstrap_tops,other_tops,unattributed_tops,total_tops,x_mobihet,rounds,panel,trace_sha256,source
+mobihet,6434.7113,1.736e-07,0.060271835,3.6511355,2.661745e-05,6438.4227,1.0000,50,200,99ec35b60d53ea7fb5acf5bea9b179bee31590ad187c5282b9c8ded6cb643acd,runs/compute-detailed-v3/kaggle/exp-count-mh-main1/compute/cnn-bigru-mobihet.count.json
+a1,7027.2703,0,6e-10,0,8.085e-08,7027.2703,1.0915,50,200,824f080956276f66e3a9481488ad35d702fd0c83b07c5d308cd6008b775ca830,runs/compute-detailed-v3/kaggle/exp-count-mh-abl2/compute/cnn-bigru-mhabl-a1.count.json
+a2,6434.7113,1.736e-07,0.060271835,3.6511355,2.661745e-05,6438.4227,1.0000,50,200,7e35ed9fa41b6e10a58280317b25d589fbd0c3271b502f4d784ee48ce0cac71c,runs/compute-detailed-v3/kaggle/exp-count-mh-abl2/compute/cnn-bigru-mhabl-a2.count.json
+a4,6434.7113,1.736e-07,0.060271835,3.6511355,5.75895e-06,6438.4227,1.0000,50,200,357922c1592660af48418e201bc731d33ca706a357813f46c316118cde0990e3,runs/compute-detailed-v3/kaggle/exp-count-mh-abl2/compute/cnn-bigru-mhabl-a4.count.json
