@@ -62,7 +62,7 @@ Bảng phủ từng run chính thức: [checkpoint-coverage.csv](checkpoint-cove
 ## Dữ liệu local theo kịch bản
 
 Ngày 27/11, dữ liệu ORICO đã sắp lại thành `experiment-data/experiment/<kịch bản>/<phương pháp>/s<seed>/` và `ablation/<kịch bản>/<arm>/s<seed>/`.
-Đã dời 389 đơn vị (76.795 file, 312,7 GB) bằng rename. Số file và byte từng đơn vị khớp trước và sau, 974/974 file round-metrics khớp SHA-256.
+Đã dời 389 đơn vị (76.795 file, 312,7 GB) bằng rename. Số file và byte từng đơn vị khớp trước và sau, 974/974 file round-metrics và 3.028/3.028 file checkpoint (71 bundle) khớp SHA-256.
 Đường dẫn SSD cũ giữ dạng link. Sau mỗi lần collector pull, chạy `python3 runs/orico-reorg-20261127/apply.py file-new`.
 [Layout và quy trình](backup.md#dữ-liệu-local-theo-kịch-bản--27112026)
 
@@ -73,11 +73,10 @@ trong `<scenario>/<method>/s<seed>/`. `index.json` tra 342 run. **Còn cũ**: v�
 `mobihet`, nên trường `checkpoint` của 27 run đó trỏ vào thư mục đã xóa. Dựng lại bằng `PYTHONPATH=. python runs/round-metrics/audit/audit.py`
 (env `nckh`), rồi chạy `verify.py` cùng thư mục.
 
-## Dừng phiên 27/11 (tắt máy)
+## Kiểm sau khởi động 27/11
 
-- Không còn job nền nào chạy. DVC upload đã xong 19/19. Collector, dispatcher và waiter chưa mở lại.
-- **Việc đầu phiên sau:** gắn ORICO và OneDrive, rồi chạy `python3 runs/orico-reorg-20261127/verify.py bundles`.
-  Lệnh này băm khoảng 200 GB checkpoint theo `checkpoint-index.json` và bị dừng giữa chừng lúc tắt máy. Phải thấy `fail 0`.
+- Journal vẫn khớp sau khi khởi động lại máy, không còn link SSD nào gãy. `verify.py bundles` cho 3.028/3.028 file của 71 bundle khớp SHA-256, 0 lỗi.
+- Không còn job nền nào chạy. Collector, dispatcher và waiter chưa mở lại, đợi lượt push ngày 28/11.
 
 ## Việc tay
 

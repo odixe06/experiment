@@ -25,7 +25,7 @@ _archive/                                          phương pháp đã loại ho
   vì `backup.py` yêu cầu bundle nằm trên ORICO.
 - Kết quả: đã dời 389/389 đơn vị (76.795 file, 312.656.653.995 byte), không còn symlink SSD nào gãy. Số file và byte từng đơn vị khớp
   trước và sau. Chênh lệch duy nhất là `_shared/round-metrics`, cùng 1.047 file nhưng +7.217 byte vì đã ghi lại đường dẫn trong `run.json`.
-  974/974 file có hash trong round-metrics khớp SHA-256. Kiểm SHA-256 toàn bộ checkpoint theo `checkpoint-index.json` (`verify.py bundles`) bị dừng giữa chừng vì tắt máy ngày 27/11. Chạy lại phiên sau.
+  974/974 file có hash trong round-metrics khớp SHA-256. Đã chạy lại `verify.py bundles` sau khi khởi động máy ngày 27/11: 3.028/3.028 file của 71 bundle khớp SHA-256 và kích thước trong `checkpoint-index.json`, 0 lỗi.
 - Các mục cũ bên dưới ghi đường dẫn ORICO trước ngày 27/11. Tra đường mới bằng `moves.jsonl`.
 - Backup checkpoint chạy song song từ 27/11. `BACKUP_JOBS` (mặc định 3) đặt số bundle được pull và đẩy cùng lúc, mỗi bundle chạy
   `rclone --transfers 16`. Chỉ luồng chính ghi `backup-results.json`. Chỗ trống staging trên ORICO tính theo kích thước bundle × JOBS.
