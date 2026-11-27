@@ -78,32 +78,31 @@ Quota reset lúc 07:00 ngày 28/11. Kaggle MCP xem skill `kaggle-mcp`.
 
 ## Rerun 27/11 — checkpoint mất
 
-**Ablation chỉ còn A1, A2, A4. Logit adjustment đã bỏ.** Từ 24/11, nhánh A3 cũ (bỏ LA) chính là MobiHet.
-Kernel `*-abl-a3-*` là run **MobiHet** của ma trận chính. Slug cũ còn giữ vì notebook build từ thư mục `runs/ablation-l4`
-(tên cũ), và kernel đã push thì không đổi slug được. Phương pháp vẫn là MobiHet, không còn L4.
+**Phương pháp chỉ có MobiHet. Ablation chỉ gồm A1, A2, A4.** Không dùng tên A3/L4 cho kết quả, bảng hay tài liệu.
+Notebook MobiHet mới build bằng `--ablation none`, slug `<backbone>-mh-s<seed>` / `mixmh-<case>-s<seed>`.
 
-- Lượt 2 lúc 18:40 push 9 rerun MobiHet:
-  - `gialut/bert-mh-s43` (pipeline `runs/ablation-mh`);
-  - `hunhtnduytn`/`lcsinh`/`levanloc1806` cho `tabm-abl-a3-s41/42/43`, `nlphk252`/`ohkazu` cho `sae-abl-a3-s42/43`,
-    `sunny0703`/`sunny070306` cho `mlp-abl-a3-s41/43`, `tuntrnhvminh/dagsnet-abl-a3-s42`.
-  Byte notebook khớp ledger của run gốc. Ngoại lệ: budget `dagsnet-abl-a3-s42` nâng từ 2.0 lên 11.5. Không ảnh hưởng gì vì phiên 1 vẫn dừng ở R2.
-- **MobiHet seed 42 của TabM, SAE và DAGSNet chạy 2 phiên.** Phiên 1 dừng ở R2 (`--stop-after 2`), phiên 2 (`-h2`) chạy tiếp tới R50 trên cùng owner.
-  `lcsinh/tabm-abl-a3-s42/1` đã PASS R2.
-  Phiên nối nằm trong `runs/ablation-mh/rerun-continue.txt`. Khi push, dispatcher thay `<owner cũ>/<slug>` bằng owner mới,
-  cả trong notebook lẫn `kernel_sources`.
-- Audit A3 dùng source cũ: worktree `runs/ablation-l4/legacy-audit-803a84f` (commit `803a84f^`), truyền qua
-  `ABLATION_AUDIT` cho `runs/ablation-l4/collect.sh`. Audit hiện hành không còn arm `a3`.
-- Collector `runs/ablation-l4/watch_collect.py` chạy với `ABLATION_NO_RECORD=1` và `ABLATION_AUDIT=…legacy…`: chỉ pull và audit,
-  không ghi `results.csv`. Sau khi PASS R50, thay dòng `mobihet` của ma trận chính bằng tay và archive dòng cũ kèm exact ref.
-  `gialut/bert-mh-s43` đi qua collector ablation-mh, nên sẽ có thêm dòng `mobihet` mới: xóa dòng cũ và archive nó.
-- Dispatcher `runs/ablation-mh/rerun_dispatch.py` chạy nền (pid `rerun-dispatch.pid`, log `rerun-dispatch.log`). Collector pull và
-  audit khi kernel xong. Dispatcher đợi 15 phút kể từ lúc thấy phiên kết thúc, rồi push mục kế tiếp:
-  - ưu tiên phiên nối có parent đã PASS;
-  - sau đó lấy 18 mục trong `rerun-pending.txt` (2 ablation thiếu, 2 mixed-case3 MobiHet, 14 ô ablation A1/A2/A4);
-  - chỉ push lên account trong `rerun-accounts.txt` còn dưới 2 phiên và đủ quota.
-  Không giữ slot trước. Nếu kernel của một owner xong mà còn chờ phiên nối (MobiHet `-h2` hoặc run 10k), dispatcher bỏ qua owner đó.
-  Nhờ vậy phiên nối lấy đúng slot vừa trống.
-- Run chưa tới R50 (ngoài phiên 1 của s42) sẽ được collector ghi vào handoff. Phiên nối thêm vào `rerun-continue.txt`.
+| ô MobiHet | exact ref đang chạy (push 27/11) |
+|---|---|
+| bert s43 | `gialut/bert-mh-s43/1` |
+| tabm s41 / s42 / s43 | `hunhtnduytn/tabm-abl-a3-s41/1`, `lcsinh/tabm-abl-a3-s42/1` (+ phiên 2), `levanloc1806/tabm-abl-a3-s43/1` |
+| sae s42 / s43 | `nlphk252/sae-abl-a3-s42/1` (+ phiên 2), `ohkazu/sae-abl-a3-s43/1` |
+| mlp s41 / s43 | `sunny0703/mlp-abl-a3-s41/1`, `sunny070306/mlp-abl-a3-s43/1` |
+| dagsnet s42 | `tuntrnhvminh/dagsnet-abl-a3-s42/1` (+ phiên 2) |
+| mixed-case3 s41 / s43 | trong hàng đợi, notebook `mixmh-case3-s41/43` |
+
+- 8 kernel có slug `*-abl-a3-*` push trước khi đổi tên. Kaggle không đổi tên được kernel đã push, nên owner chọn giữ chúng chạy.
+  Slug cũ chỉ còn trong exact ref. Kết quả ghi là `mobihet`. Chúng chạy source MobiHet cũ, bit-exact với `ablation=none`.
+  Vì vậy phải audit bằng worktree `runs/ablation-l4/legacy-audit-803a84f` (commit `803a84f^`), truyền qua `ABLATION_AUDIT` cho
+  `runs/ablation-l4/collect.sh`, vì audit hiện hành chỉ nhận `none/a1/a2/a4`.
+- Seed 42 của 3 kernel đó chạy 2 phiên: phiên 1 dừng ở R2, phiên 2 (`-h2`, cùng owner) chạy tới R50.
+  Danh sách nằm ở `runs/ablation-mh/rerun-continue.txt`. `lcsinh/tabm-abl-a3-s42/1` đã PASS R2.
+- Collector `runs/ablation-l4/watch_collect.py` (biến môi trường `ABLATION_NO_RECORD=1`) chỉ pull và audit. Sau khi PASS R50, thay dòng
+  `mobihet` của ô đó bằng tay và archive dòng cũ kèm exact ref. `bert-mh-s43` và `mixmh-case3-*` đi qua collector ablation-mh, nên sẽ tự ghi thêm
+  dòng `mobihet`: khi đó xóa dòng cũ và archive nó.
+- Dispatcher `runs/ablation-mh/rerun_dispatch.py` chạy nền (log `rerun-dispatch.log`). Khi kernel xong, collector pull và audit.
+  Dispatcher đợi 15 phút rồi push phiên nối hoặc mục kế tiếp trong `rerun-pending.txt`
+  (2 ablation thiếu, 2 mixed-case3 MobiHet, 14 ô ablation A1/A2/A4), lên account trong `rerun-accounts.txt`.
+  Không giữ slot trước. Owner nào còn chờ phiên nối (MobiHet hoặc 10k) thì dispatcher để slot trống đó cho phiên nối.
 - **DAGSNet s42 FedAvg/FedProx/FedProto chưa rerun.** Bản gốc lấy từ pipeline cũ `bert/runs/maintenance-20261116/dagsnet42/fl2-*`,
   repo không còn notebook của pipeline này nên phải dựng lại.
 

@@ -37,7 +37,7 @@ phát triển ban đầu ở `../mobihet`. MobiHet (L4 bỏ LA, 24/11) đã tíc
 - Centralized BERT đã audit tới E27/E24/E25 theo seed 41/42/43 (P4 COMPLETE 22/11). P5 chưa push theo owner. Các backbone centralized trong ma trận còn lại đủ ba seed.
 - Chi phí đủ 9 kịch bản và 114/114 hàng chi tiết. [Compute](docs/research/compute.md)
 - TabM/SAE/MLP/CNN-BiGRU FL baseline đủ 10 metric cuối từ confusion matrix cho cả 168 run. [Bảng baseline](docs/research/backbones/four-backbone-seed-results-live.md)
-- **Ablation 69/81** ô R50 đã audit. Ablation chỉ gồm A1, A2, A4, không còn logit adjustment. Kernel `*-abl-a3-*` là run MobiHet, không phải arm ablation.
+- **Ablation 69/81** ô R50 đã audit. Phương pháp chỉ có MobiHet. Ablation chỉ gồm A1, A2, A4, không còn logit adjustment.
   Ngày 27/11 đã push lại 12 ô còn thiếu lên account mới đã xác nhận 2×T4. Collector và `rerun_dispatch.py` chạy nền:
   khi kernel xong thì pull và audit, đợi 15 phút rồi push run kế tiếp. [Bàn giao](docs/operations/continue.md)
 - **Rerun checkpoint mất** (owner 27/11): 25 ô MobiHet/ablation chạy lại, kết quả mới thay số cũ. 9 rerun MobiHet đang chạy, 18 mục chờ slot.
