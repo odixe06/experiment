@@ -42,8 +42,8 @@ Bảng phủ từng run chính thức: [checkpoint-coverage.csv](checkpoint-cove
     và CNN-BiGRU centralized s42 đã nằm trong danh sách yêu cầu.
   - Mất account: 11 run MobiHet. Chi tiết theo exact ref nằm trong CSV, gồm `anhtruong1909`, `lelovo`, `bestyorn` và 6 account khác.
 - **Ablation, 69 ô**: 55 ô có trên DVC (37 ô từ batch 26/11 và 18 ô đẩy ngày 27/11), 14 ô mất account.
-- Không có dấu hiệu xóa nhầm. 14 bundle A3 = MobiHet trên ORICO `ablation-l4/pulls/` khớp đúng 14 pointer đã đổi tên.
-  Checkpoint L4 có LA xóa ngày 26–27/11 là có chủ đích. 53 pointer DVC trước đây chưa có trong Git, nay đã commit.
+- Không có dấu hiệu xóa nhầm. 14 bundle MobiHet trên ORICO `ablation-l4/pulls/` khớp đúng 14 pointer đã đổi tên.
+  Checkpoint của bản có logit adjustment (đã bỏ) xóa ngày 26–27/11 là có chủ đích. 53 pointer DVC trước đây chưa có trong Git, nay đã commit.
 
 ## Dữ liệu local theo kịch bản
 
@@ -55,7 +55,7 @@ Ngày 27/11, dữ liệu ORICO đã sắp lại thành `experiment-data/experime
 ## Lịch sử từng round và epoch
 
 `runs/round-metrics/` trỏ tới `ORICO/experiment-data/experiment/_shared/round-metrics/`. Mỗi run có `metrics.csv` và `run.json`
-trong `<scenario>/<method>/s<seed>/`. `index.json` tra 342 run. **Còn cũ**: vẫn ghi `mobihet_l4` (L4 có LA) thay cho
+trong `<scenario>/<method>/s<seed>/`. `index.json` tra 342 run. **Còn cũ**: vẫn ghi khóa cũ `mobihet_l4` (bản có logit adjustment, đã bỏ) thay cho
 `mobihet`, nên trường `checkpoint` của 27 run đó trỏ vào thư mục đã xóa. Dựng lại bằng `PYTHONPATH=. python runs/round-metrics/audit/audit.py`
 (env `nckh`), rồi chạy `verify.py` cùng thư mục.
 
