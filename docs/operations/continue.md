@@ -106,6 +106,25 @@ Notebook MobiHet mới build bằng `--ablation none`, slug `<backbone>-mh-s<see
 - **DAGSNet s42 FedAvg/FedProx/FedProto chưa rerun.** Bản gốc lấy từ pipeline cũ `bert/runs/maintenance-20261116/dagsnet42/fl2-*`,
   repo không còn notebook của pipeline này nên phải dựng lại.
 
+## Sau khi collector hoàn thành — sửa index và tên
+
+Điều kiện bắt đầu: `runs/ablation-mh/active.txt` và `runs/ablation-l4/active.txt` đều rỗng, `rerun-pending.txt` và `rerun-continue.txt` cũng rỗng,
+và `rerun_dispatch.py` đã ghi `DONE`. Làm theo thứ tự sau:
+
+1. **results.csv**: với mỗi ô trong bảng rerun ở trên, chỉ giữ dòng `mobihet` của exact ref mới (cả `experiments/<kịch bản>/results.csv` và
+   `experiments/ablation/<kịch bản>/results.csv`). Chuyển dòng cũ vào archive kèm exact ref cũ. Các ô ablation A1/A2/A4 rerun cũng làm như vậy.
+   Cuối cùng chạy `python scripts/experiments_status.py` và `--check`.
+2. **Dời output vào layout kịch bản**: `python3 runs/orico-reorg-20261127/apply.py file-new`. Đặt output của kernel slug cũ
+   `*-abl-a3-*` vào `<kịch bản>/mobihet/s<seed>/`, không đặt dưới tên A3/L4.
+3. **Backup checkpoint** của các run mới (`checkpoint-backup-20261125/backup.py`, `BACKUP_JOBS`), rồi sinh lại
+   `checkpoint-coverage.csv` (`runs/checkpoint-coverage-20261127/run.sh`) và cập nhật `checkpoint-runs.csv`, `checkpoint-files.csv`.
+4. **Dựng lại round-metrics index**: `PYTHONPATH=. python runs/round-metrics/audit/audit.py` (env `nckh`), rồi `verify.py` cùng thư mục.
+   Đổi khóa cũ `mobihet_l4` thành `mobihet`, và trỏ trường `checkpoint` của 27 run MobiHet vào bundle mới hoặc bundle còn trên DVC.
+5. **Bỏ tên cũ ở local**: sau khi bước 2–4 đã xong và đã kiểm:
+   - gỡ worktree audit cũ bằng `git worktree remove runs/ablation-l4/legacy-audit-803a84f`;
+   - bỏ `ABLATION_AUDIT` và `ABLATION_NO_RECORD` khỏi cách chạy collector;
+   - tìm lại mọi chỗ trong tài liệu còn ghi `abl-a3` hoặc `mobihet_l4`, chỉ giữ lại trong exact ref.
+
 ## Việc tay
 
 - Gửi [checkpoint-request-codex.csv](checkpoint-request-codex.csv) cho người giữ nhánh codex. Nhờ họ pull exact ref, đẩy lên remote
