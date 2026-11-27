@@ -3,6 +3,8 @@
 Credentials live outside Git in `~/.kaggle/` (directory 0700, credential files 0600).
 
 - `accounts/<username>.mcp-token`: owner-supplied KGAT API token, also usable by the CLI/SDK.
+- `accounts-veremi/<username>.mcp-token`: KGAT tokens scoped to the experiment and 10k repos (27/11/2026). `kaggle_as.py`,
+  `kaggle_account.py` and the kaggle-mcp scripts read them; other projects' helpers do not.
 - `accounts/<username>.credentials.json`: optional OAuth snapshot created after browser login.
 - `credentials.json`: active CLI OAuth login; do not replace it with a KGAT token.
 - `account-roster.json`: private username/email mapping; never copy email/token values into skills or docs.
@@ -25,10 +27,9 @@ and call `security.oauth_client.introspect_token` with an `IntrospectTokenReques
 Suppress credential values and exception bodies; report only account, state and error class.
 Quota/public metadata alone is not unique identity proof.
 
-CLI is the configured channel for this checkout. Kaggle MCP, a Codex header helper,
-`sync_kaggle_mcp.py`, `probe_kaggle_mcp.py` and Claude SessionStart hooks are not installed here;
-do not run missing helpers or claim reconnect/authentication from historical notes.
-If MCP is explicitly configured later, verify it independently using an account-scoped native read.
+CLI is the default channel. Kaggle MCP is configured through the `kaggle-mcp` skill: `.mcp.json` calls its
+header helper (token from `~/.kaggle/mcp-active`), and `kaggle_mcp.py` reads per account. Verify MCP with an
+account-scoped native read.
 
 Read [multi-account.md](multi-account.md) for account-scoped CLI operation. Current project/account policy
 and local setup take precedence over dated observations in that reference.

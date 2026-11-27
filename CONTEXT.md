@@ -37,9 +37,12 @@ phát triển ban đầu ở `../mobihet`. MobiHet (L4 bỏ LA, 24/11) đã tíc
 - Centralized BERT đã audit tới E27/E24/E25 theo seed 41/42/43 (P4 COMPLETE 22/11). P5 chưa push theo owner. Các backbone centralized trong ma trận còn lại đủ ba seed.
 - Chi phí đủ 9 kịch bản và 114/114 hàng chi tiết. [Compute](docs/research/compute.md)
 - TabM/SAE/MLP/CNN-BiGRU FL baseline đủ 10 metric cuối từ confusion matrix cho cả 168 run. [Bảng baseline](docs/research/backbones/four-backbone-seed-results-live.md)
-- **Ablation 69/81** ô R50 đã audit. 27/11 owner mất quyền `cacaosua`, `preyta`, `nocknnock`, `shippertocdo` nên sáu phiên đang chạy
-  coi như mất. 12 notebook còn lại push sau 07:00 ngày 28/11. Chín trong số đó phải đổi owner. Collector/dispatcher chưa chạy lại.
-  [Bàn giao](docs/operations/continue.md)
+- **Ablation 69/81** ô R50 đã audit. Ablation chỉ gồm A1, A2, A4, không còn logit adjustment. Kernel `*-abl-a3-*` là run MobiHet, không phải arm ablation.
+  Ngày 27/11 đã push lại 12 ô còn thiếu lên account mới đã xác nhận 2×T4. Collector và `rerun_dispatch.py` chạy nền:
+  khi kernel xong thì pull và audit, đợi 15 phút rồi push run kế tiếp. [Bàn giao](docs/operations/continue.md)
+- **Rerun checkpoint mất** (owner 27/11): 25 ô MobiHet/ablation chạy lại, kết quả mới thay số cũ. 9 rerun MobiHet đang chạy, 18 mục chờ slot.
+  DAGSNet s42 FedAvg/FedProx/FedProto chưa có notebook. Token KGAT của 2 repo nằm ở `~/.kaggle/accounts-veremi/`, không dùng toàn cục.
+  Kaggle MCP: skill `kaggle-mcp`.
 - **Checkpoint** (kiểm kê 27/11): ma trận chính có 114/342 run trên DVC, ablation 55/69. 209 run baseline chỉ còn trên account Kaggle nhánh codex (~186 GB),
   cần người giữ nhánh đó pull và đẩy DVC. 25 ô MobiHet/ablation mất checkpoint theo account. [Phủ checkpoint](docs/operations/checkpoint-coverage.csv) ·
   [Yêu cầu codex](docs/operations/checkpoint-request-codex.csv) · [Checkpoint theo run](docs/operations/checkpoint-runs.csv)

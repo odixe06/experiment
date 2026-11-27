@@ -55,6 +55,8 @@ except ImportError:  # Windows host
 
 ACCOUNTS = Path.home() / ".kaggle" / "accounts"
 LIVE = Path.home() / ".kaggle" / "credentials.json"
+# 27/11/2026: KGAT tokens of this project live in ~/.kaggle/accounts-veremi (read only by the experiment and 10k repos).
+SCOPED = Path.home() / ".kaggle" / "accounts-veremi"
 KAGGLE_SESSION_HOURS = 12.0     # service cap per GPU session, 2026-09-08
 _lock_depth = 0
 
@@ -110,7 +112,8 @@ def creds_path(user: str) -> Path:
 
 
 def token_path(user: str) -> Path:
-    return ACCOUNTS / f"{user}.mcp-token"
+    scoped = SCOPED / f"{user}.mcp-token"
+    return scoped if scoped.is_file() else ACCOUNTS / f"{user}.mcp-token"
 
 
 def active_user() -> str | None:
@@ -121,11 +124,10 @@ def active_user() -> str | None:
 
 
 def known_users() -> list[str]:
-    if not ACCOUNTS.is_dir():
-        return []
     return sorted({p.name.removesuffix(suffix)
+                   for d in (ACCOUNTS, SCOPED) if d.is_dir()
                    for suffix in (".credentials.json", ".mcp-token")
-                   for p in ACCOUNTS.glob(f"*{suffix}") if p.is_file()})
+                   for p in d.glob(f"*{suffix}") if p.is_file()})
 
 
 def cmd_list(args: argparse.Namespace) -> int:

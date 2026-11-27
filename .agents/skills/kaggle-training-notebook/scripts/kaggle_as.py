@@ -27,6 +27,8 @@ def main():
     user, args = sys.argv[1], sys.argv[3:]
     acc = Path.home() / ".kaggle" / "accounts"
     snap, tokf = acc / f"{user}.credentials.json", acc / f"{user}.mcp-token"
+    if not tokf.is_file():                 # project-scoped KGAT tokens (experiment + 10k repos only)
+        tokf = Path.home() / ".kaggle" / "accounts-veremi" / f"{user}.mcp-token"
     env = dict(os.environ)
     if snap.is_file():
         from kagglesdk.kaggle_client import KaggleClient

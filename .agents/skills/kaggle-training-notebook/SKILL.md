@@ -80,7 +80,7 @@ projects). A long job started locally competes for RAM with everything else and 
    use `kaggle_as.py <owner> -- <command>` for another saved account, preserving the global login.
    Read [saved credentials](references/kaggle-credentials.md), then query owner-scoped quota/slots.
    CLI operations require no MCP JSON, MCP server, header synchronization or client reconnect.
-   If the owner explicitly requests MCP later, read [kaggle-mcp.md](references/kaggle-mcp.md) for that optional setup.
+   For Kaggle MCP (native `mcp__kaggle__*` tools, per-account MCP reads, MCP writes behind the push guard) use the `kaggle-mcp` skill.
    Never print tokens or request another login merely because an optional MCP connection is absent.
 2. Extract the method and unresolved choices into `papers/<slug>/paper.md` and `rebuild.md`;
    see [paper-dossier.md](references/paper-dossier.md). Do not invent missing equations,

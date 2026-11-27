@@ -187,3 +187,12 @@ Bài học ở đây là quy tắc rút ra khi chạy thí nghiệm và hạ t�
   qua listing). Lời từ chối rõ không tạo kernel: giữ notebook chờ, thử lại lượt sau (`runs/ablation-mh/slot_queue.py`). Chỉ dừng owner khi
   reply không rõ. Dừng hàng đợi chỉ lúc không có `push.sh`/`guarded_cli.py` con, và sửa state sau khi tiến trình đã dừng (nó ghi đè file).
 - 24/11: repo cấu hình hook Git LFS nhưng máy không có `git-lfs` ⇒ `git push` bị hook pre-push chặn dù commit không có file LFS.
+
+- **27/11/2026 — `.claude/skills` của repo này là symlink tới `.agents/skills`; ở repo 10k thì là hai thư mục riêng.** Một vòng sync
+  kiểu `rm -rf <đích>; cp -r <nguồn> <đích>` đã xóa chính skill nguồn vì đích và nguồn trùng nhau. Trước khi sync, so `realpath` của nguồn
+  và đích, và chỉ copy vào đích chưa tồn tại hoặc dùng `diff`/`cp` từng file, không `rm` đích.
+- **27/11/2026 — account mới có quota 30 h vẫn có thể không có GPU.** 6/20 account nhận kernel với 0 hoặc 1 GPU, assert 2×T4 lỗi sau 20 s.
+  Trước khi giao run dài, cần một kernel đã qua assert trên account đó, hoặc probe một cell in `torch.cuda.device_count()` (tốn khoảng 20 s).
+- **27/11/2026 — kernel `*-s42` của nhánh A3 cũ là pilot 2 round (`--stop-after 2`), nối bằng `-h2` cùng owner.** Khi chạy lại trên owner
+  khác, phải đổi parent trong `kernel_sources` và trong manifest nhúng trong notebook. Audit hiện hành đã bỏ arm `a3`: dùng worktree
+  `803a84f^` để audit.

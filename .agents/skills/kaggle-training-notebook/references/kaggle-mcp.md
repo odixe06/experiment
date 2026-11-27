@@ -1,3 +1,5 @@
+> Codex-host notes. For Claude Code and the current setup, use the `kaggle-mcp` skill first.
+
 # Kaggle MCP in Codex: configure, verify, operate
 
 ## Codex connection contract

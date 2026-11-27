@@ -90,6 +90,7 @@ Trước khi làm, gọi skill khớp với việc; nhiều việc khớp nhiề
 |---|---|
 | bắt đầu phiên / sau tóm tắt, collect + audit kết quả, khóa cổng, cập nhật results/bàn giao | `federated-experiment-workflow` |
 | sinh notebook, upload dataset nguồn/checkpoint, quota, push kernel, nối tiếp session, pull output | `kaggle-training-notebook` |
+| Kaggle MCP (`mcp__kaggle__*`), đọc status/output/quota qua MCP theo account, đổi account MCP, push qua MCP | `kaggle-mcp` |
 | theo dõi run đang chạy, health, tiến độ W&B | `wandb-training-monitor` |
 | tối ưu tốc độ code train (workers, compile, host sync, benchmark), test tương đương | `federated-training-speed` |
 | sắp xếp CONTEXT/docs/knowledge, quyết định đặt thông tin ở đâu | `context-hub` |

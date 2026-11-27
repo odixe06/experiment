@@ -1,0 +1,7 @@
+interface:
+  display_name: "Kaggle MCP"
+  short_description: "Kaggle MCP reads per account; MCP writes through the shared push guard"
+  default_prompt: "Use $kaggle-mcp to read Kaggle kernel status, output or quota over MCP for the right owner, and route any MCP notebook write through scripts/kaggle_mcp.py --write."
+
+policy:
+  allow_implicit_invocation: true

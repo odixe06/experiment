@@ -46,4 +46,7 @@ Checkpoint chưa backup của chúng cũng mất. [Phủ checkpoint](checkpoint-
 - `QUEUED` = chờ GPU, không phải lỗi. `RUNNING`/`COMPLETE`/W&B finished không chứng minh đã train: phải có log/heartbeat và audit artifact.
   Log live: `kaggle kernels logs --follow` (SSE) giới hạn ~35 s; `kernels logs` thường rỗng khi đang chạy.
 - Dừng session chỉ làm được trên web (owner bấm **Stop session**); API không hủy được.
-- Kaggle native MCP chưa cấu hình; CLI có xác thực là kênh chính.
+- Kaggle MCP (27/11/2026): skill `kaggle-mcp`. `.mcp.json` không chứa token, header lấy theo `~/.kaggle/mcp-active`; đổi account rồi `/mcp`.
+  MCP dùng để đọc. Push vẫn đi guarded CLI. Ghi qua MCP chỉ bằng `kaggle_mcp.py --write`, dùng chung khóa 120 s/account; tool ghi native bị chặn.
+  Token KGAT chạy CLI không cần đăng nhập trình duyệt. Token của owner cấp ngày 27/11 nằm ở `~/.kaggle/accounts-veremi/`, chỉ repo experiment
+  và repo 10k dùng. Chỉ dùng account đã chạy qua assert 2×T4.
