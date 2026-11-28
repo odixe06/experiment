@@ -1,0 +1,6 @@
+outs:
+- md5: eb306b9dd47d62c3ce04d1c647c1987a.dir
+  size: 8563381653
+  nfiles: 58
+  hash: md5
+  path: dagsnet-fedproto-s42
