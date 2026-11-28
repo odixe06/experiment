@@ -20,12 +20,12 @@ collector BERT P5 (`runs/recovery-20261120/after-boot/central-bert-p5-watch.log`
 
 | ô | exact ref | ghi chú |
 |---|---|---|
-| ablation DAGSNet A2 s42 | `datninhz/dagsnet-mhabl-a2-s42/1` | thay `soundcore50i` |
-| ablation DAGSNet A4 s41 | `nlphk252/dagsnet-mhabl-a4-s41/1` | thay `truantfu` |
-| ablation mixed-case1 A2 s41 | `hunhtnduytn/mixmh-abl-a2-case1-s41-h2/1` | nối từ R48 của `…-s41/1` (push tay 07:09) |
-| ablation mixed-case1 A4 s41 | `levanloc1806/mixmh-abl-a4-case1-s41-h2/1` | nối từ R48 của `…-s41/1` (push tay 07:09) |
+| ablation DAGSNet A4 s41 | `nlphk252/dagsnet-mhabl-a4-s41/1` | thay `truantfu` (dòng cũ còn đến khi bản thay PASS) |
 
-- Ablation **79/81** ô R50; hai ô thiếu là hai phiên nối ở trên. MobiHet đủ **27/27** dòng; cả 11 ô MobiHet rerun 27/11 đã PASS R50,
+- Ablation **81/81** ô R50 (A1/A2/A4 mỗi arm 27). 08:14: `hunhtnduytn/mixmh-abl-a2-case1-s41-h2/1` (macro 0,895455) và
+  `levanloc1806/mixmh-abl-a4-case1-s41-h2/1` (0,895569) PASS R50, đủ hai shard `checkpoint-r050/state_rank{0,1}.pt` trên Kaggle,
+  chưa có trong `backup-targets-20261128.json` → sau driver hiện tại chạy `backup.py only <ref>` cho hai ref này.
+  `datninhz/dagsnet-mhabl-a2-s42/1` PASS 07:13. MobiHet đủ **27/27** dòng; cả 11 ô MobiHet rerun 27/11 đã PASS R50,
   đủ hai shard và đã thay dòng. Dispatcher 5k đã thoát `DONE: nothing pending` (03:47).
 - Collector ablation-mh chạy độc lập (`setsid`, pid trong `runs/ablation-mh/watch-collect.pid`). Collector legacy
   (codex-long-jobs `experiment-5k-legacy-collector-20261127`) không còn ref nào, có thể dừng.

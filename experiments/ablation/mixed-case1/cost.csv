@@ -9,3 +9,5 @@ a2,42,98942.9,241720.4,8120.9,8897.0,357681.1,1911090092,audited,kaggle lcsinh/m
 a2,43,98942.9,241720.4,8123.2,8893.0,357679.5,1911081377,audited,kaggle datle211206/mixmh-abl-a2-case1-s43/1 (scripts/audit_ablation.py: 50 CM -> 10 metrics)
 a4,42,98942.9,241720.4,51200.0,51200.0,443063.2,2367286875,audited,kaggle datninhz/mixmh-abl-a4-case1-s42/1 (scripts/audit_ablation.py: 50 CM -> 10 metrics)
 a4,43,98942.9,241720.4,51200.0,51200.0,443063.2,2367286875,audited,kaggle fuocs2k6/mixmh-abl-a4-case1-s43/1 (scripts/audit_ablation.py: 50 CM -> 10 metrics)
+a4,41,98942.9,241720.4,51200.0,51200.0,443063.2,2367286875,audited,kaggle levanloc1806/mixmh-abl-a4-case1-s41-h2/1 (scripts/audit_ablation.py: 50 CM -> 10 metrics)
+a2,41,98942.9,241720.4,8122.9,8900.0,357686.2,1911117258,audited,kaggle hunhtnduytn/mixmh-abl-a2-case1-s41-h2/1 (scripts/audit_ablation.py: 50 CM -> 10 metrics)
