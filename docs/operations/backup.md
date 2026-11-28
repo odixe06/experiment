@@ -1,27 +1,27 @@
 # Git / DVC backup record
 
-## Backup 28/11/2026 (đang chạy)
+## Backup 28/11/2026 (đang chạy, nền)
 
-- Git: `main` push `1cc630f..aa9048f` lên GitHub (rebase lên commit pointer của teammate `1cc630f`, không trailer). Bundle chưa làm lại.
-- DVC (remote mặc định `onedrive` = `/home/odixe/Cloud/OneDrive/NCKH/veremi_build/experiment/dvc-storage`):
-  7 pointer `artifacts/5k-final-checkpoints/*.dvc`: `dvc status -c` = 1.611 `deleted` (có trên remote, không có cache local), 0 `new`/`missing`.
-- Checkpoint R50 của 34 rerun 27–28/11 (85,0 GiB): `runs/ablation-mh/checkpoint-backup-20261125/backup-20261128.py run` chạy nền
-  (log `backup-20261128.log`, danh sách `backup-targets-20261128.json`). Mỗi ref: pull hai shard vào ORICO, `dvc add --to-remote`,
-  `dvc status -c`, pointer `artifacts/mobihet-checkpoints-2026-11-25/<owner>/<slug>/v1.dvc`. Trước đó phải chạy
-  `apply.py file-new` (backup.py chỉ nhận bundle trên ORICO; 28/11 đã dời 43 thư mục).
-  10:05: 6/34 DVC_VERIFIED, pointer đã commit (datle211206 cnnbigru-a1-s42, dagsnet-a1-s41, mixmh-a2-case1-s43; datninhz
-  cnnbigru-a1-s43, dagsnet-a2-s42; fuocs2k6 tabm-a2-s42). `datninhz/mixmh-abl-a4-case1-s42/1` DVC_BLOCKED (check_space ROOT).
-  Cache rclone `~/.cache/rclone/vfs/onedrive` lên 54 GiB (ổ gốc còn 16 GB): 26,7 GiB là 95 file `.tmp` DVC để sót trong
-  `dvc-storage/files/md5/`, trùng MD5 + kích thước với object chính thức; owner cho xóa (12:1x, log
-  `runs/ablation-mh/checkpoint-backup-20261125/tmp-purge-20261128.log`) → cache 20 GiB. Upload thực ~0,4 MB/s.
-  Driver chạy lại 12:18 cùng `upload_watchdog.sh` (owner cho phép): mỗi 5 phút xóa `.tmp` trùng (cũ > 10 phút), dừng
-  driver + `dvc add` khi cache ≥ 25 GiB, chạy lại khi < 15 GiB. Log `upload-watchdog.log`; trên mount còn ~217 `.tmp` đã lên
-  cloud, chưa kiểm hash (không xóa). Thêm sau: 3 ref PASS sau khi driver nạp danh sách
-  (`hunhtnduytn/mixmh-abl-a2-case1-s41-h2/1`, `levanloc1806/mixmh-abl-a4-case1-s41-h2/1`, `nlphk252/dagsnet-mhabl-a4-s41/1`;
-  mục 35–37 của danh sách) → chạy `backup-20261128.py size` rồi `run` lần nữa (ref đã VERIFIED được bỏ qua).
-  ORICO trống 53 GB: các ref cuối có thể bị `check_space` chặn.
-- Khi xong: `git add artifacts/mobihet-checkpoints-2026-11-25/**/*.dvc`, commit, push, tạo lại bundle; FedProto DAGSNet s42 rerun
-  (ORICO `dagsnet/fedproto/s42/tuntrnhvminh__fl2-fedproto-s42-checkpoint__v1`, 8,5 GB) cần `dvc add --to-remote` riêng.
+- Git: `main` đã push đến commit pointer mới nhất (không trailer). Bundle Git làm lại khi chuỗi DVC xong.
+- DVC remote mặc định `onedrive` = `/home/odixe/Cloud/OneDrive/NCKH/veremi_build/experiment/dvc-storage`.
+  7 pointer `artifacts/5k-final-checkpoints/*.dvc`: `dvc status -c` = 1.611 `deleted`, 0 `new`/`missing`.
+- **rclone v1.60.1 → v1.76.0 (owner cập nhật 12:3x, mount restart):** bản cũ lỗi `Unauthenticated` khi upload multipart
+  OneDrive và upload lại từ đầu (~0,5 MB/s); bản mới ~29 MB/s. Cache rclone giữ file chưa upload qua restart.
+- Checkpoint R50 rerun 27–28/11: `runs/ablation-mh/checkpoint-backup-20261125/backup-20261128.py run` (34 mục đầu của
+  `backup-targets-20261128.json`), pointer `artifacts/mobihet-checkpoints-2026-11-25/<owner>/<slug>/v1.dvc`; 13:05 đã có 11/34 (1 DVC_BLOCKED, thử lại ở lần 2).
+  `finish-5k-20261128.sh` (nền, log `finish-5k-20261128.log`) chờ driver xong → `size` + `run` lần 2 (mục 35–37:
+  `hunhtnduytn/mixmh-abl-a2-case1-s41-h2/1`, `levanloc1806/mixmh-abl-a4-case1-s41-h2/1`, `nlphk252/dagsnet-mhabl-a4-s41/1`)
+  → FedProto DAGSNet s42 rerun `dvc add --to-remote … -o artifacts/5k-final-checkpoints/dagsnet-fedproto-s42` → dedupe `.tmp`
+  → `touch 5k-backup-done` (chuỗi 10k chờ file này). **Khi xong:** commit các pointer mới, push, làm lại bundle Git.
+- `.tmp` thừa: `dvc add --to-remote` qua mount rclone để lại `.<uuid>.tmp` trùng object (95 file 26,7 GiB đã xóa 12:1x).
+  `upload_watchdog.sh` (owner cho phép) mỗi 5 phút xóa `.tmp` > 10 phút trùng MD5 + kích thước, dừng driver + `dvc add`
+  khi cache ≥ 25 GiB, chạy lại < 15 GiB. Log `tmp-purge-20261128.log`, `upload-watchdog.log`. Trên cloud còn ~217 `.tmp` cũ, chưa kiểm.
+- **Đã xóa bản ORICO của 80 bundle 5k (203,7 GiB, owner 28/11)** để có chỗ cho 5k còn lại và checkpoint 10k:
+  `purge_verified_orico.py --delete` chỉ xóa khi pointer đã commit (tìm theo md5 nếu tên đổi abl-a3 → mh), `.dir` và mọi object
+  có trên cloud (`rclone lsjson`, không qua mount) cùng kích thước file local. Danh sách `purge-orico-20261128.log`
+  (ref, đường dẫn, byte, pointer). Khôi phục: `dvc pull <pointer>`. ORICO còn trống 242 GB.
+  Hệ quả: `verify.py bundles` / `checkpoint-index.json` không còn thấy các bundle này trên ORICO; độ phủ checkpoint phải dựa
+  vào pointer DVC (`runs/checkpoint-coverage-20261127/run.sh` cần đọc pointer thay vì bundle).
 
 ## Dữ liệu local theo kịch bản — 27/11/2026
 

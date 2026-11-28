@@ -216,3 +216,7 @@ Bài học ở đây là quy tắc rút ra khi chạy thí nghiệm và hạ t�
   Phần lớn là file `.tmp` thừa: `dvc_objects` `put_file` chép vào `.<uuid>.tmp` rồi `os.replace`; trên mount này tên `.tmp` xuất hiện lại
   sau khi upload, rclone upload cả hai bản. Kiểm MD5 + kích thước với object `md5/xx/yyyy` rồi mới xóa (owner 28/11 cho phép,
   `upload_watchdog.sh`). Backup lớn về sau: đẩy thẳng bằng `rclone` lên cloud thay cho `dvc add --to-remote` qua mount.
+- **28/11/2026 — rclone v1.60.1 (gói distro) upload OneDrive ~0,5 MB/s vì upload multipart liên tục lỗi `Unauthenticated` rồi làm
+  lại từ đầu (`journalctl --user -u rclone-onedrive.service`); v1.76.0 (`rclone.org/install.sh`) đạt ~29 MB/s.** Thêm luồng
+  song song trên bản cũ không giúp — đừng kết luận băng thông mạng thấp trước khi kiểm log lỗi và phiên bản rclone.
+  Sau khi cập nhật binary phải `systemctl --user restart rclone-onedrive.service` (tiến trình mount cũ vẫn chạy bản cũ).

@@ -4,15 +4,11 @@
 
 ## Tiếp tục thí nghiệm — chốt 28/11 07:15
 
-**Đang làm 28/11 ~08:20 (phiên Claude): owner yêu cầu cập nhật tài liệu rồi push GitHub + DVC cả hai repo.**
-1. 5k Git: local `main` ahead 5 / behind 1 (`origin/main@1cc630f` = 7 pointer `artifacts/5k-final-checkpoints/*.dvc`,
-   trùng byte bản untracked local). Kế hoạch: commit thay đổi (không trailer `Co-Authored-By`), xóa 7 bản untracked trùng,
-   `git rebase origin/main`, push, bundle.
-2. 5k DVC: 34 checkpoint R50 của rerun 27–28/11 chưa có DVC, danh sách `runs/ablation-mh/checkpoint-backup-20261125/backup-targets-20261128.json`.
-   Driver `backup-20261128.py size` (đo HEAD) rồi `run` (`backup.py only <ref>` từng ref → `artifacts/mobihet-checkpoints-2026-11-25/…`).
-   `inventory.query` chỉ tìm credential ở `~/.kaggle/accounts`; driver xét thêm `accounts-veremi`. ORICO trống 87 GB, OneDrive 153 GB.
-   FedProto DAGSNet s42 rerun (8,5 GB, đã trên ORICO `dagsnet/fedproto/s42/tuntrnhvminh__fl2-fedproto-s42-checkpoint__v1`) cần `dvc add` riêng.
-3. 10k: commit nhánh `mixedcase` (code MobiHet chính thức, xóa L4, reports sync, docs), push, DVC status.
+**Đang làm 28/11 13:05 (phiên Claude): backup checkpoint DVC hai repo, 5k trước** — trạng thái và cách chạy tiếp ở
+[backup.md](backup.md#backup-28112026-đang-chạy-nền). Chuỗi nền: driver `backup-20261128.py run` (pid 101795) → `finish-5k-20261128.sh`
+(lần 2 + FedProto + `5k-backup-done`) và `upload_watchdog.sh`, đều trong `runs/ablation-mh/checkpoint-backup-20261125/`;
+chuỗi 10k `run-endpoints-20261128.sh` chờ `5k-backup-done`. Khi xong: commit pointer, push, làm lại bundle Git hai repo.
+Bản ORICO của 80 bundle 5k đã xóa (chỉ còn trên DVC): bước dựng độ phủ checkpoint/`verify.py bundles` phải dựa vào pointer.
 Tiến trình nền độc lập: collector ablation-mh (pid trong `watch-collect.pid`), loop 10k (`runs/mixed-10k/mobihet-20261128/loop.pid` ở repo 10k),
 collector BERT P5 (`runs/recovery-20261120/after-boot/central-bert-p5-watch.log`).
 
