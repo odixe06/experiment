@@ -1,5 +1,25 @@
 # Git / DVC backup record
 
+## Backup 28/11/2026 (đang chạy)
+
+- Git: `main` push `1cc630f..aa9048f` lên GitHub (rebase lên commit pointer của teammate `1cc630f`, không trailer). Bundle chưa làm lại.
+- DVC (remote mặc định `onedrive` = `/home/odixe/Cloud/OneDrive/NCKH/veremi_build/experiment/dvc-storage`):
+  7 pointer `artifacts/5k-final-checkpoints/*.dvc`: `dvc status -c` = 1.611 `deleted` (có trên remote, không có cache local), 0 `new`/`missing`.
+- Checkpoint R50 của 34 rerun 27–28/11 (85,0 GiB): `runs/ablation-mh/checkpoint-backup-20261125/backup-20261128.py run` chạy nền
+  (log `backup-20261128.log`, danh sách `backup-targets-20261128.json`). Mỗi ref: pull hai shard vào ORICO, `dvc add --to-remote`,
+  `dvc status -c`, pointer `artifacts/mobihet-checkpoints-2026-11-25/<owner>/<slug>/v1.dvc`. Trước đó phải chạy
+  `apply.py file-new` (backup.py chỉ nhận bundle trên ORICO; 28/11 đã dời 43 thư mục).
+  10:05: 6/34 DVC_VERIFIED, pointer đã commit (datle211206 cnnbigru-a1-s42, dagsnet-a1-s41, mixmh-a2-case1-s43; datninhz
+  cnnbigru-a1-s43, dagsnet-a2-s42; fuocs2k6 tabm-a2-s42). `datninhz/mixmh-abl-a4-case1-s42/1` DVC_BLOCKED (check_space ROOT).
+  **Driver đang tạm dừng** (`kill -STOP` pid 101795 và con `backup.py only fuocs2k6/mixmh-abl-a1-case1-s42/1` pid 116368):
+  cache rclone `~/.cache/rclone/vfs/onedrive` giữ 54 GiB object chưa upload, ổ gốc còn 16–17 GB, upload ~1 MB/s.
+  Chạy tiếp bằng `kill -CONT 116368 101795` khi cache < 15 GiB. Thêm sau: 3 ref PASS sau khi driver nạp danh sách
+  (`hunhtnduytn/mixmh-abl-a2-case1-s41-h2/1`, `levanloc1806/mixmh-abl-a4-case1-s41-h2/1`, `nlphk252/dagsnet-mhabl-a4-s41/1`;
+  mục 35–37 của danh sách) → chạy `backup-20261128.py size` rồi `run` lần nữa (ref đã VERIFIED được bỏ qua).
+  ORICO trống 53 GB: các ref cuối có thể bị `check_space` chặn.
+- Khi xong: `git add artifacts/mobihet-checkpoints-2026-11-25/**/*.dvc`, commit, push, tạo lại bundle; FedProto DAGSNet s42 rerun
+  (ORICO `dagsnet/fedproto/s42/tuntrnhvminh__fl2-fedproto-s42-checkpoint__v1`, 8,5 GB) cần `dvc add --to-remote` riêng.
+
 ## Dữ liệu local theo kịch bản — 27/11/2026
 
 ORICO `experiment-data/experiment/` sắp theo cùng trục với `experiments/<kịch bản>`. BERT và DAGSNet đều là kịch bản của repo này:

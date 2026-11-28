@@ -209,3 +209,7 @@ Bài học ở đây là quy tắc rút ra khi chạy thí nghiệm và hạ t�
 - **28/11/2026 — worker 10k (`kaggle_mixed_10k.py run`) giữ `worker.lock` độc quyền:** collect-loop và worker không chạy song song; một loop
   (`runs/mixed-10k/mobihet-20261128/loop.sh`) chạy tuần tự collect → auto-continue → dispatch. Builder 10k từ chối phiên nối khi `source_hashes`
   khác parent, nên không sửa `core/`, `methods/`, `scripts/run_mixed_fl.py`, `scripts/compute/` khi còn run cần nối.
+- **28/11/2026 — `dvc add --to-remote` vào mount rclone OneDrive (`--vfs-cache-mode=full`) giữ mọi object chưa upload trong
+  `~/.cache/rclone/vfs/onedrive` trên SSD.** `--vfs-cache-max-size=10G` chỉ dọn file đã upload; backup 5k ghi nhanh hơn tốc độ upload,
+  cache lên 54 GiB, ổ gốc còn 16 GB và `backup.py` báo `DVC_BLOCKED RuntimeError` (check_space ROOT). Theo dõi `du ~/.cache/rclone`
+  khi backup lớn; tạm dừng driver (`kill -STOP`, sau đó `kill -CONT`) tới khi cache rút. Không xóa cache này (file chưa lên cloud).
