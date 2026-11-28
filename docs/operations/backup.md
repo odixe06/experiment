@@ -11,9 +11,12 @@
   `apply.py file-new` (backup.py chỉ nhận bundle trên ORICO; 28/11 đã dời 43 thư mục).
   10:05: 6/34 DVC_VERIFIED, pointer đã commit (datle211206 cnnbigru-a1-s42, dagsnet-a1-s41, mixmh-a2-case1-s43; datninhz
   cnnbigru-a1-s43, dagsnet-a2-s42; fuocs2k6 tabm-a2-s42). `datninhz/mixmh-abl-a4-case1-s42/1` DVC_BLOCKED (check_space ROOT).
-  **Driver đang tạm dừng** (`kill -STOP` pid 101795 và con `backup.py only fuocs2k6/mixmh-abl-a1-case1-s42/1` pid 116368):
-  cache rclone `~/.cache/rclone/vfs/onedrive` giữ 54 GiB object chưa upload, ổ gốc còn 16–17 GB, upload ~1 MB/s.
-  Chạy tiếp bằng `kill -CONT 116368 101795` khi cache < 15 GiB. Thêm sau: 3 ref PASS sau khi driver nạp danh sách
+  Cache rclone `~/.cache/rclone/vfs/onedrive` lên 54 GiB (ổ gốc còn 16 GB): 26,7 GiB là 95 file `.tmp` DVC để sót trong
+  `dvc-storage/files/md5/`, trùng MD5 + kích thước với object chính thức; owner cho xóa (12:1x, log
+  `runs/ablation-mh/checkpoint-backup-20261125/tmp-purge-20261128.log`) → cache 20 GiB. Upload thực ~0,4 MB/s.
+  Driver chạy lại 12:18 cùng `upload_watchdog.sh` (owner cho phép): mỗi 5 phút xóa `.tmp` trùng (cũ > 10 phút), dừng
+  driver + `dvc add` khi cache ≥ 25 GiB, chạy lại khi < 15 GiB. Log `upload-watchdog.log`; trên mount còn ~217 `.tmp` đã lên
+  cloud, chưa kiểm hash (không xóa). Thêm sau: 3 ref PASS sau khi driver nạp danh sách
   (`hunhtnduytn/mixmh-abl-a2-case1-s41-h2/1`, `levanloc1806/mixmh-abl-a4-case1-s41-h2/1`, `nlphk252/dagsnet-mhabl-a4-s41/1`;
   mục 35–37 của danh sách) → chạy `backup-20261128.py size` rồi `run` lần nữa (ref đã VERIFIED được bỏ qua).
   ORICO trống 53 GB: các ref cuối có thể bị `check_space` chặn.

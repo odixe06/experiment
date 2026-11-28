@@ -213,3 +213,6 @@ Bài học ở đây là quy tắc rút ra khi chạy thí nghiệm và hạ t�
   `~/.cache/rclone/vfs/onedrive` trên SSD.** `--vfs-cache-max-size=10G` chỉ dọn file đã upload; backup 5k ghi nhanh hơn tốc độ upload,
   cache lên 54 GiB, ổ gốc còn 16 GB và `backup.py` báo `DVC_BLOCKED RuntimeError` (check_space ROOT). Theo dõi `du ~/.cache/rclone`
   khi backup lớn; tạm dừng driver (`kill -STOP`, sau đó `kill -CONT`) tới khi cache rút. Không xóa cache này (file chưa lên cloud).
+  Phần lớn là file `.tmp` thừa: `dvc_objects` `put_file` chép vào `.<uuid>.tmp` rồi `os.replace`; trên mount này tên `.tmp` xuất hiện lại
+  sau khi upload, rclone upload cả hai bản. Kiểm MD5 + kích thước với object `md5/xx/yyyy` rồi mới xóa (owner 28/11 cho phép,
+  `upload_watchdog.sh`). Backup lớn về sau: đẩy thẳng bằng `rclone` lên cloud thay cho `dvc add --to-remote` qua mount.
