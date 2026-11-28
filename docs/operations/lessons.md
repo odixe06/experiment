@@ -220,3 +220,6 @@ Bài học ở đây là quy tắc rút ra khi chạy thí nghiệm và hạ t�
   lại từ đầu (`journalctl --user -u rclone-onedrive.service`); v1.76.0 (`rclone.org/install.sh`) đạt ~29 MB/s.** Thêm luồng
   song song trên bản cũ không giúp — đừng kết luận băng thông mạng thấp trước khi kiểm log lỗi và phiên bản rclone.
   Sau khi cập nhật binary phải `systemctl --user restart rclone-onedrive.service` (tiến trình mount cũ vẫn chạy bản cũ).
+- **28/11/2026 — dọn `.tmp` DVC trên mount rclone phải xét cả cloud, không chỉ cache.** `.tmp` đã upload rời cache vẫn nằm trên OneDrive
+  (1.186 file 45 GiB sau một ngày backup). Kiểm không cần tải: `rclone lsjson -R --hash --hash-type QuickXorHash` rồi so (kích thước,
+  QuickXorHash) với object chính thức; quota OneDrive (`rclone about`) cập nhật chậm vài phút sau khi xóa.

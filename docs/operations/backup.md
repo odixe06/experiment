@@ -16,6 +16,14 @@
 - `.tmp` thừa: `dvc add --to-remote` qua mount rclone để lại `.<uuid>.tmp` trùng object (95 file 26,7 GiB đã xóa 12:1x).
   `upload_watchdog.sh` (owner cho phép) mỗi 5 phút xóa `.tmp` > 10 phút trùng MD5 + kích thước, dừng driver + `dvc add`
   khi cache ≥ 25 GiB, chạy lại < 15 GiB. Log `tmp-purge-20261128.log`, `upload-watchdog.log`. Trên cloud còn ~217 `.tmp` cũ, chưa kiểm.
+- 15:1x: 37/37 mục đầu DVC_VERIFIED trừ `nlphk252/dagsnet-mhabl-a4-s41/1` (đang thử lại, `retry3-20261128.sh`); FedProto DAGSNet s42
+  `artifacts/5k-final-checkpoints/dagsnet-fedproto-s42.dvc` (58/58 object). Owner 28/11 "lưu nhiều checkpoint nhất có thể": thêm 14 phiên
+  cha của các phiên nối (mục 38–51; R2 sớm ×9, mixed R48 ×2, R49, R29, cnnbigru R23) → `parents-5k-20261128.sh` (size → `apply.py file-new`
+  → run + watchdog) → `5k-backup-done`. Bundle single-backbone đã có model mọi round; phiên cha chỉ thêm state cuối.
+- **`.tmp` thừa trên cloud:** watchdog chỉ thấy `.tmp` còn trong cache rclone; `.tmp` đã upload bị bỏ sót → 1.186 file 45,2 GiB, OneDrive
+  còn 16 GiB. 1.152 file (44,0 GiB) có QuickXorHash + kích thước trùng object chính thức → `rclone delete --files-from` (danh sách
+  `runs/ablation-mh/checkpoint-backup-20261125/cloud-tmp-dups-20261128.tsv`: tmp, byte, hash, object). Giữ 34 `.tmp` không trùng (1,17 GiB).
+  Quota cập nhật chậm (16 → 48 GiB sau vài phút); nếu không về ~60 GiB thì kiểm thùng rác OneDrive (web).
 - **Đã xóa bản ORICO của 80 bundle 5k (203,7 GiB, owner 28/11)** để có chỗ cho 5k còn lại và checkpoint 10k:
   `purge_verified_orico.py --delete` chỉ xóa khi pointer đã commit (tìm theo md5 nếu tên đổi abl-a3 → mh), `.dir` và mọi object
   có trên cloud (`rclone lsjson`, không qua mount) cùng kích thước file local. Danh sách `purge-orico-20261128.log`
