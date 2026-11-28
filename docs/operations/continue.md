@@ -4,11 +4,17 @@
 
 ## Tiếp tục thí nghiệm — chốt 28/11 07:15
 
-**Đang làm 28/11 13:05 (phiên Claude): backup checkpoint DVC hai repo, 5k trước** — trạng thái và cách chạy tiếp ở
-[backup.md](backup.md#backup-28112026-đang-chạy-nền). Chuỗi nền: driver `backup-20261128.py run` (pid 101795) → `finish-5k-20261128.sh`
-(lần 2 + FedProto + `5k-backup-done`) và `upload_watchdog.sh`, đều trong `runs/ablation-mh/checkpoint-backup-20261125/`;
-chuỗi 10k `run-endpoints-20261128.sh` chờ `5k-backup-done`. Khi xong: commit pointer, push, làm lại bundle Git hai repo.
-Bản ORICO của 80 bundle 5k đã xóa (chỉ còn trên DVC): bước dựng độ phủ checkpoint/`verify.py bundles` phải dựa vào pointer.
+**Bàn giao 28/11 18:50 (phiên Claude).** Backup DVC 5k **xong**: 37 rerun + FedProto DAGSNet s42 + 9/14 phiên cha trên OneDrive
+(pointer đã commit); 5 phiên cha chỉ trên ORICO vì OneDrive hết chỗ ([backup.md](backup.md#backup-28112026-đang-chạy-nền)).
+Object 0 byte đã sửa, `.tmp` cloud đã dọn, OneDrive trống 16,8 GiB. Chạy nền (setsid):
+- 10k `run-lineages-20261128.sh` → `backup_lineages_20261128.py` (pid 189692, log `experiment_10k_clients/runs/mixed-10k/checkpoint-backup/endpoints-20261128.log`):
+  mọi chuỗi mixed 10k → ORICO (`LOCAL_COPY` 22 lúc 18:50). ORICO còn 51 GB: chuỗi nào không đủ chỗ ghi `NO_SPACE`, chạy lại sau.
+- `purge_verified_orico.py --delete` (18:50, out `purge-orico-20261128-2.out`): xóa bản ORICO của phiên cha đã lên DVC.
+- BERT P6 collector `central-bert-p6-watch` (pid 212726); 10k loop `loop.sh` (pid 92194); collector ablation-mh (pid 92195, hết ref).
+**Tiếp:** (1) BERT P6 xong → P7 tới E50 (quota ~8 h/account sau P6: hỏi owner đổi account hay chờ 05/12). (2) MobiHet 10k case1
+h2 PASS → `sync_mixed_10k_reports.py --write`, chạy lại `backup_lineages_20261128.py` cho 3 chuỗi case1, rồi sửa probe FLOP case3
+(owner đồng ý: count mode ghi health, không fail gate AMP) và push lại. (3) Bundle Git hai repo làm lại khi các chuỗi xong.
+(4) Độ phủ checkpoint/round-metrics index: dựa vào pointer DVC (bundle ORICO đã xóa).
 Tiến trình nền độc lập: collector ablation-mh (pid trong `watch-collect.pid`), loop 10k (`runs/mixed-10k/mobihet-20261128/loop.pid` ở repo 10k),
 collector BERT P5 (`runs/recovery-20261120/after-boot/central-bert-p5-watch.log`).
 
