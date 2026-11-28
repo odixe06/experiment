@@ -30,6 +30,22 @@ from core.fl import cosine_lr  # noqa: E402
 from core.metrics import TEN, summary  # noqa: E402
 from methods.mobihet_ablation import HP, RAW_Q_BYTES  # noqa: E402
 from scripts.audit_l4 import append_csv_row  # noqa: E402
+import fcntl  # noqa: E402
+
+
+def drop_other_rows(path, name, seed, ref):
+    """--record (owner 28/11/2026): a passing R50 rerun replaces the cell; rows of this name/seed from another exact ref are dropped."""
+    with Path(path).open("r+", newline="") as stream:
+        fcntl.flock(stream, fcntl.LOCK_EX)
+        rows = list(csv.reader(stream))
+        keep = [r for r in rows if r[:2] != [name, str(seed)] or f"kaggle {ref} " in r[-1]]
+        for r in rows:
+            if r not in keep:
+                print("replaced", path, r[:2], r[-1])
+        if keep != rows:
+            stream.seek(0)
+            stream.truncate()
+            csv.writer(stream, lineterminator="\n").writerows(keep)
 from scripts.build_l4_fl import MOBIHET_HP  # noqa: E402
 
 TEST_ROWS, CLIENTS = 9347679, 5343
@@ -143,6 +159,11 @@ def main():
         e = receipt["endpoint"]
         src = f"kaggle {a.ref} (scripts/audit_ablation.py: 50 CM -> 10 metrics)"
         name = "mobihet" if arm == "none" else arm
+        targets = [folder / "results.csv", folder / "cost.csv"]             # owner 28/11: a passing rerun replaces the cell
+        if arm == "none":
+            targets.append(ROOT / "experiments" / scen / "results.csv")
+        for path in targets:
+            drop_other_rows(path, name, seed, a.ref)
         if arm == "none":                                                # MobiHet itself: also the scenario table row
             append_csv_row(ROOT / "experiments" / scen / "results.csv", ["mobihet", str(seed), "client", "50",
                                                                        *(f"{e[k]:.6f}" for k in TEN), "audited", src])

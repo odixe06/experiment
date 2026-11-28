@@ -32,6 +32,23 @@ _archive/                                          phương pháp đã loại ho
   Đã thử 2 bundle đã có trên DVC: pointer trùng byte, `rclone check` đạt. Bundle mixed chỉ có 2 file lớn, nên tốc độ tăng
   chủ yếu nhờ chạy nhiều bundle cùng lúc.
 
+## Checkpoint baseline 5k — 27/11/2026
+
+Commit `1cc630f` trên `origin/main` chứa 7 pointer theo backbone. Nhánh Codex cũ đã nằm trong lịch sử
+checkout hiện tại. Giữ nguyên pointer và nội dung DVC đã đẩy, ánh xạ `case1..3` thành `mixed-case1..3`
+và `cnn-bigru-attention` thành `cnn-bigru` trong registry. Mỗi ô tra theo kịch bản, phương pháp, seed và exact ref.
+Mỗi shard có đường dẫn bên trong bundle, kích thước và MD5. [Phủ theo ô](checkpoint-coverage.csv) ·
+[Danh mục file](checkpoint-files.csv)
+
+- Kiểm MD5 7 directory manifest, đối chiếu tồn tại/kích thước của toàn bộ 1.813 mục với kho OneDrive và kiểm
+  MD5 của 213 file `checkpoint-source.json`. Exact ref, endpoint và kích thước hai shard của mỗi run khớp.
+  Backup có tổng 205.765.586.145 byte. Hai shard mẫu MLP AFPHA s41 đọc trực tiếp từ OneDrive và khớp MD5, SHA-256.
+  Cả 426 shard của batch nằm trên DVC và không có trong cache DVC local.
+- Các bundle giữ cấu trúc nội bộ `<method>/seed<N>/`. Tra pointer và entry từ registry trước khi khôi phục.
+  Cả 168 ô FL của bốn backbone đơn và 45 ô mixed đã có đủ shard. CNN-BiGRU tập trung s42 cần checkpoint E50 riêng.
+- Archive ORICO có 2 checkpoint gốc R50 đã audit lại của DAGSNet FedAvg và FedProx s42. Giữ bản này tới khi có backup
+  đã xác minh. Chỉ dọn payload local của run có backup DVC đủ và đã xác minh. Những file audit nhỏ dùng cho lần đối soát sau.
+
 ## Checkpoint MobiHet — 25/11/2026
 
 - Dọn 1.653 file tạm DVC ngày 25/11 (38,668 GiB) vào thùng rác OneDrive. Từng file khớp kích thước và checksum OneDrive với blob ở đường dẫn DVC chuẩn. Hai manifest lịch sử ngoài danh mục checkpoint đã có mục thiếu trước đợt dọn.

@@ -1,5 +1,7 @@
 # Bài học vận hành MobiHet
 
+- 27/11: khi Kaggle hủy giữa phiên, mốc metric đã audit có thể mới hơn mốc checkpoint. CNN-BiGRU A4 s42 audit R23 nhưng cả hai shard full state ở R20. Đọc round và đối chiếu config trong từng shard, rồi dựng prefix lịch sử tới round checkpoint trước khi nối.
+
 - 27/11 mất account Kaggle kéo theo mất checkpoint. Collector ablation cố ý bỏ `state*.pt` và `models/` khi pull, còn backup DVC chạy theo đợt. Vì vậy 25 ô MobiHet/ablation đã audit PASS mất checkpoint, nằm trên 15 account không còn truy cập. Trong đó 11 account bị gỡ ngày 25/11, `bestyorn` và `sampanh` không có credential, `nocknnock` và `shippertocdo` mất quyền ngày 27/11. Kết quả vẫn còn vì CM và metrics đã pull. Sau mỗi audit PASS, pull checkpoint và đẩy DVC ngay, đừng đợi đợt backup sau. Dùng `checkpoint-backup-20261125/inventory.py` rồi `direct-backup.py`.
 - 27/11 trước khi tin `runs/round-metrics/index.json` để biết phủ checkpoint, đối chiếu với `experiments/*/results.csv`. Index vẫn ghi `mobihet_l4` (L4 có LA, đã loại) và trỏ checkpoint `runs/mixed-l4/` đã xóa. Pointer DVC còn có thể chỉ chứa metrics, không có `.pt` (`runs/pulls/fl2-{fedavg,fedprox,fedproto}.dvc`). Vì vậy phải liệt kê `.pt` trong manifest `.dir`, đừng chỉ dựa vào việc pointer tồn tại.
 
@@ -196,3 +198,14 @@ Bài học ở đây là quy tắc rút ra khi chạy thí nghiệm và hạ t�
 - **27/11/2026 — MobiHet seed 42 (slug cũ `*-abl-a3-s42`) chạy 2 phiên: phiên 1 dừng ở R2 (`--stop-after 2`), phiên 2 là `-h2` cùng owner.** Khi chạy lại trên owner
   khác, phải đổi parent trong `kernel_sources` và trong manifest nhúng trong notebook. Audit hiện hành đã bỏ arm `a3`: dùng worktree
   `803a84f^` để audit.
+- **28/11/2026 — `watch_collect.py` (ablation-mh) gọi thẳng `scripts/audit_ablation.py --record`, không qua `collect.sh`.**
+  Muốn đổi cách ghi của collector đang chạy thì sửa `audit_ablation.py` (được nạp lại mỗi lần collect); sửa `collect.sh` không có tác dụng.
+  Collector giữ state trong RAM và ghi đè `watch-collect.json` mỗi vòng: sửa state bằng tay chỉ khi collector đã dừng.
+- **28/11/2026 — `rerun_dispatch.py` chỉ nối parent có `audit == PASS`; collector ablation-mh ghi run dừng trước R50 là `NEEDS_CONTINUATION`.**
+  Phiên nối mixed phải build tay (`scripts/build_mixed_l4.py --session N+1 --parent … --npy-cache …`) và push bằng `push.sh` sau ≥ 15 phút.
+- **28/11/2026 — `handoff.ack` là con trỏ số dòng của `handoff.jsonl`, không phải log.** Chỉ đổi bằng `wait_handoff.py --ack N`.
+- **28/11/2026 — tiến trình chạy làm background task của phiên agent sẽ chết khi phiên dừng.** Collector/loop cần sống qua phiên phải chạy
+  `setsid nohup … &`; kiểm `ps` trước khi bật để không chạy trùng (mỗi collector giữ flock riêng).
+- **28/11/2026 — worker 10k (`kaggle_mixed_10k.py run`) giữ `worker.lock` độc quyền:** collect-loop và worker không chạy song song; một loop
+  (`runs/mixed-10k/mobihet-20261128/loop.sh`) chạy tuần tự collect → auto-continue → dispatch. Builder 10k từ chối phiên nối khi `source_hashes`
+  khác parent, nên không sửa `core/`, `methods/`, `scripts/run_mixed_fl.py`, `scripts/compute/` khi còn run cần nối.

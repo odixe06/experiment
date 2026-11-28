@@ -26,26 +26,17 @@ phát triển ban đầu ở `../mobihet`. MobiHet (L4 bỏ LA, 24/11) đã tíc
   - Compute: **chỉ FLOP** (đếm op), bỏ GPU-time vì khác phần cứng; job không vừa GPU local thì đếm trên Kaggle.
 - Task < 1 h chạy local (RTX 3050 4 GB, env conda `nckh`); task dài chạy Kaggle (account ở `~/.kaggle/accounts`, quota live).
 
-## Trạng thái — 27/11/2026 (+07)
+## Trạng thái — 28/11/2026 07:40 (+07)
 
-- Repo phát triển tại `/home/odixe/project/experiment`, nhánh local `main`. FeatureBERT chạy từ `bert/`.
-  Mọi nhánh remote (gồm `codex/mobihet-v4-relkd` của dangvanhoang1711) đã nằm trong `main`, không còn commit chưa gộp. [Vị trí dữ liệu ORICO](docs/operations/backup.md)
-- **MobiHet = L4 bỏ logit adjustment** (A3 cũ, `la_mode=off`). Đã audit đủ 27/27 hàng R50. L4 có LA và ablation L4 nằm ở
-  `../mobihet/archive/l4-la-20261124/`. [MobiHet](docs/research/mobihet.md) · [Ablation](docs/research/mobihet-ablation.md) ·
+- Repo phát triển tại `/home/odixe/project/experiment`, nhánh local `main`. FeatureBERT chạy từ `bert/`. [Vị trí dữ liệu ORICO](docs/operations/backup.md)
+- **MobiHet = L4 bỏ logit adjustment** (`la_mode=off`). Đủ 27/27 hàng R50; 11 ô rerun 27/11 (checkpoint mất) đã PASS, đủ hai shard,
+  dòng cũ đã xóa (owner 28/11: phiên thiếu checkpoint bỏ hẳn). [MobiHet](docs/research/mobihet.md) · [Ablation](docs/research/mobihet-ablation.md) ·
   [Kết quả ablation](experiments/ablation/README.md)
-- Mixed128 baseline đủ 45/45 cấu hình r50. Đã đối chiếu 10 metric mỗi dòng với confusion matrix từ bản sao Kaggle. [Kết quả](docs/research/mixed/mixed128-all-results.md)
-- Centralized BERT đã audit tới E27/E24/E25 theo seed 41/42/43 (P4 COMPLETE 22/11). P5 chưa push theo owner. Các backbone centralized trong ma trận còn lại đủ ba seed.
-- Chi phí đủ 9 kịch bản và 114/114 hàng chi tiết. [Compute](docs/research/compute.md)
-- TabM/SAE/MLP/CNN-BiGRU FL baseline đủ 10 metric cuối từ confusion matrix cho cả 168 run. [Bảng baseline](docs/research/backbones/four-backbone-seed-results-live.md)
-- **Ablation 69/81** ô R50 đã audit. Phương pháp chỉ có MobiHet. Ablation chỉ gồm A1, A2, A4, không còn logit adjustment.
-  Ngày 27/11 đã push lại 12 ô còn thiếu lên account mới đã xác nhận 2×T4. Collector và `rerun_dispatch.py` chạy nền:
-  khi kernel xong thì pull và audit, đợi 15 phút rồi push run kế tiếp. [Bàn giao](docs/operations/continue.md)
-- **Rerun checkpoint mất** (owner 27/11): 25 ô MobiHet/ablation chạy lại, kết quả mới thay số cũ. 9 rerun MobiHet đang chạy, 18 mục chờ slot.
-  DAGSNet s42 FedAvg/FedProx/FedProto chưa có notebook. Token KGAT của 2 repo nằm ở `~/.kaggle/accounts-veremi/`, không dùng toàn cục.
-  Kaggle MCP: skill `kaggle-mcp`.
-- **Checkpoint** (kiểm kê 27/11): ma trận chính có 114/342 run trên DVC, ablation 55/69. 209 run baseline chỉ còn trên account Kaggle nhánh codex (~186 GB),
-  cần người giữ nhánh đó pull và đẩy DVC. 25 ô MobiHet/ablation mất checkpoint theo account. [Phủ checkpoint](docs/operations/checkpoint-coverage.csv) ·
-  [Yêu cầu codex](docs/operations/checkpoint-request-codex.csv) · [Checkpoint theo run](docs/operations/checkpoint-runs.csv)
+- **Ablation 79/81** ô R50; hai ô mixed-case1 A2/A4 s41 đang chạy phiên nối từ R48. Thêm DAGSNet A2 s42 / A4 s41 đang chạy lại để có checkpoint.
+- Centralized BERT P5 đang chạy (từ E27/E24/E25), cần thêm phiên tới E50. Các backbone centralized khác đủ ba seed.
+- Mixed128 baseline đủ 45/45 r50; TabM/SAE/MLP/CNN-BiGRU FL baseline đủ 10 metric. Compute và byte đủ cho mọi ô có kết quả.
+- Checkpoint coverage, round-metrics index và backup DVC làm sau khi các run trên xong. [Bàn giao](docs/operations/continue.md)
+- Repo 10k dùng chung 13 account; MobiHet chính thức (bỏ LA) đang chạy ở đó.
 
 ## Cần biết → mở
 

@@ -1,7 +1,5 @@
 arm,seed,bootstrap_up_B,bootstrap_down_B,up_50r_B,down_50r_B,total_B_per_vehicle,total_B_network,status,source
-mobihet,41,98942.9,241720.4,9495.7,10560.0,360719.0,1927321544,audited,kaggle anhtruong1909/mlp-abl-a3-s41/1 (former L4 ablation a3 = MobiHet; scripts/audit_ablation.py + scripts/promote_mobihet_rows.py)
 mobihet,42,98942.9,241720.4,9531.0,10508.0,360702.3,1927232315,audited,kaggle nguyenminhtran060113/mlp-abl-a3-s42-h2/1 (former L4 ablation a3 = MobiHet; scripts/audit_ablation.py + scripts/promote_mobihet_rows.py)
-mobihet,43,98942.9,241720.4,9519.4,10516.0,360698.6,1927212615,audited,kaggle anhtruong1909/mlp-abl-a3-s43/1 (former L4 ablation a3 = MobiHet; scripts/audit_ablation.py + scripts/promote_mobihet_rows.py)
 a2,42,98942.9,241720.4,9348.1,9991.0,360002.4,1923492624,audited,kaggle chuchuotdaubep/mlp-mhabl-a2-s42/1 (scripts/audit_ablation.py: 50 CM -> 10 metrics)
 a1,41,0.0,0.0,0.0,0.0,0.0,0,audited,kaggle chuchimnon/mlp-mhabl-a1-s41/1 (scripts/audit_ablation.py: 50 CM -> 10 metrics)
 a1,43,0.0,0.0,0.0,0.0,0.0,0,audited,kaggle heykewtiie/mlp-mhabl-a1-s43/1 (scripts/audit_ablation.py: 50 CM -> 10 metrics)
@@ -10,3 +8,6 @@ a4,41,98942.9,241720.4,51200.0,51200.0,443063.2,2367286875,audited,kaggle trietb
 a2,43,98942.9,241720.4,9342.7,10009.0,360014.9,1923559551,audited,kaggle tamnp2807/mlp-mhabl-a2-s43/1 (scripts/audit_ablation.py: 50 CM -> 10 metrics)
 a4,43,98942.9,241720.4,51200.0,51200.0,443063.2,2367286875,audited,kaggle tamnp2807/mlp-mhabl-a4-s43/1 (scripts/audit_ablation.py: 50 CM -> 10 metrics)
 a1,42,0.0,0.0,0.0,0.0,0.0,0,audited,kaggle chuchuotdaubep/mlp-mhabl-a1-s42/1 (scripts/audit_ablation.py: 50 CM -> 10 metrics)
+a4,42,98942.9,241720.4,51200.0,51200.0,443063.2,2367286875,audited,kaggle tkayyy/mlp-mhabl-a4-s42/1 (scripts/audit_ablation.py: 50 CM -> 10 metrics)
+mobihet,41,98942.9,241720.4,9495.7,10560.0,360719.0,1927321544,audited,kaggle sunny0703/mlp-abl-a3-s41/1 (MobiHet rerun 27/11; scripts/audit_ablation.py + scripts/replace_mobihet_rows.py)
+mobihet,43,98942.9,241720.4,9519.4,10516.0,360698.6,1927212615,audited,kaggle sunny070306/mlp-abl-a3-s43/1 (MobiHet rerun 27/11; scripts/audit_ablation.py + scripts/replace_mobihet_rows.py)

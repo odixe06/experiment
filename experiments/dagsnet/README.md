@@ -25,8 +25,8 @@
 | NILM-FL | client | 0.88568 | 0.88460 | 0.88464 | 0.88497 ± 0.00061 |
 | FedTGP | client_proto | 0.87194 | 0.87186 | 0.87189 | 0.87190 ± 0.00004 |
 | PerFed-SKD | client | 0.87175 | 0.87098 | 0.87125 | 0.87133 ± 0.00039 |
-| FedProto | client_proto | 0.86821 | 0.86980 | 0.86986 | 0.86929 ± 0.00093 |
-| MobiHet | client | 0.90560 | 0.90565 | 0.90590 | 0.90572 ± 0.00016 |
+| FedProto | client_proto | 0.86821 | 0.86966 | 0.86986 | 0.86924 ± 0.00090 |
+| MobiHet | client | 0.90560 | 0.90534 | 0.90590 | 0.90561 ± 0.00028 |
 
 Không dấu = CM → 10 metric đã audit (đủ 10 cột trong [results.csv](results.csv)); ᶠ = CM cuối đã audit nhưng repo chỉ giữ macro-F1; ᵐ = marker cuối Kaggle, chưa audit CM độc lập. SD = sample SD (ddof = 1).
 

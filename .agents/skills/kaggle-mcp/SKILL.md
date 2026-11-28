@@ -37,7 +37,8 @@ under an explicit launch authorization, and append the push to the project's led
 - A private kernel reads only as its owner: status of `datle211206/x` through `ohkazu` returns
   `Permission 'kernels.get' was denied`. Pass the kernel's owner as OWNER.
 - Every tool takes `{"request": {...}}`; field names are camelCase (`userName`, `kernelSlug`, `versionLabel` +
-  `hasVersionLabel: true` to pin a version). `python scripts/kaggle_mcp.py OWNER --tools` lists the live tools.
+  `hasVersionLabel: true` to pin a version). Use the string `"v1"` for version 1.
+  `python scripts/kaggle_mcp.py OWNER --tools` lists current schemas.
 - `get_notebook_session_status` prints `{}` for QUEUED: the default enum value is omitted, so read an empty status as QUEUED.
 - Common reads: `get_notebook_session_status`, `get_notebook_info`, `list_notebook_session_output`,
   `get_accelerator_quota` (seconds; `total_time_allowed` 108000 s = 30 h), `get_dataset_info`, `list_dataset_files`.
