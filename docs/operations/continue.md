@@ -43,6 +43,11 @@ collector BERT P5 (`runs/recovery-20261120/after-boot/central-bert-p5-watch.log`
   qua dataset private mới (đủ file + byte so với bản staged trên ORICO `_shared/staging/bert-s4x-eNN/<owner>`):
   `tuntrnhvminh/exp-central-bert-s41-p5/1` (từ E27), `tkayyy/exp-central-bert-s42-p5/1` (từ E24), `nlphk252/exp-central-bert-s43-p5/1` (từ E25).
   Mỗi epoch ~67–98 phút, nên một phiên chỉ ~7–9 epoch: cần thêm P6 (và có thể P7) cho tới E50.
+  **P5 xong 28/11 ~17:30, PASS:** s41 E36, s42 E33, s43 E34. **P6 push 18:4x** (cùng owner, budget 11,25 h, quota còn 19,1–19,8 h):
+  `tuntrnhvminh/exp-central-bert-s41-p6/1` (từ E36), `tkayyy/exp-central-bert-s42-p6/1` (từ E33), `nlphk252/exp-central-bert-s43-p6/1` (từ E34);
+  dataset cha `<owner>/exp-central-bert-s4x-eE-state` khớp file + byte bản staged ORICO `_shared/staging/bert-s4x-eE/<owner>`.
+  Collector `central-bert-p6-watch` (log `runs/recovery-20261120/after-boot/central-bert-p6-watch.log`). Sau P6 (~E43–E46) cần P7 tới E50
+  (quota còn ~8 h/account sau P6: có thể phải đổi account hoặc chờ reset 05/12).
   Collector độc lập `runs/recovery-20261120/after-boot/collect_bert_child.py --name central-bert-p5-watch --all …`
   (log `central-bert-p5-watch.log`, receipt `central-bert-p5-watch.json`, pull vào `runs/central-20261120/pulls/exp-central-bert-s4x-p5`).
   P6: stage `central-bert/epoch_001..E` + `source_manifest.json` của P5 thành dataset `…-eE-state`, build
