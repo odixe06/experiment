@@ -24,6 +24,15 @@
   còn 16 GiB. 1.152 file (44,0 GiB) có QuickXorHash + kích thước trùng object chính thức → `rclone delete --files-from` (danh sách
   `runs/ablation-mh/checkpoint-backup-20261125/cloud-tmp-dups-20261128.tsv`: tmp, byte, hash, object). Giữ 34 `.tmp` không trùng (1,17 GiB).
   Quota cập nhật chậm (16 → 48 GiB sau vài phút); nếu không về ~60 GiB thì kiểm thùng rác OneDrive (web).
+- **Object 0 byte (rclone v1.60):** 22 object trên cloud rỗng trong khi `.tmp` cùng nội dung còn đủ (đổi tên lúc đang upload).
+  16 object thuộc 3 pointer (`tuntrnhvminh/dagsnet-mh-s42-h2` 11 model, `tkayyy/sae-mhabl-a1-s43` 4, `lcsinh/tabm-mh-s42-h2` `state.pt`)
+  upload lại từ bundle ORICO (MD5 = tên object; log `zero-object-repair-20261128.log`); 4 object khác lấy lại bằng đổi tên `.tmp` có
+  MD5 = tên object. Sau đó: 0 object rỗng, mọi object của 192 pointer 5k có trên cloud. `DVC_VERIFIED` của `backup.py` chỉ kiểm tồn tại
+  qua mount — không đủ: kiểm kích thước trên cloud (`rclone lsjson`) trước khi xóa bản local (`purge_verified_orico.py` đã làm vậy).
+- 18:30: dọn tiếp 91 `.tmp` (87 trùng → xóa, 4 → đổi tên thành object). OneDrive từng vượt quota (1,007/1,005 TiB, một upload
+  `quotaLimitReached` rồi lên được sau khi dọn); giờ trống 16,8 GiB. Còn 17 `.tmp` 0 byte trong thư mục con (không có dữ liệu).
+- 5 phiên cha 5k không vừa OneDrive (`DVC_BLOCKED`) giữ trên ORICO, đủ file/kích thước, đã kiểm SHA lúc pull: `nguyenminhtran060113`
+  mixl4-case1-s43 R49 + mlp-s42, `nlphk252` sae-s42, `tkayyy` cnnbigru-a4-s42 R23, `tuntrnhvminh` dagsnet-s42 (15,7 GiB).
 - **Đã xóa bản ORICO của 80 bundle 5k (203,7 GiB, owner 28/11)** để có chỗ cho 5k còn lại và checkpoint 10k:
   `purge_verified_orico.py --delete` chỉ xóa khi pointer đã commit (tìm theo md5 nếu tên đổi abl-a3 → mh), `.dir` và mọi object
   có trên cloud (`rclone lsjson`, không qua mount) cùng kích thước file local. Danh sách `purge-orico-20261128.log`

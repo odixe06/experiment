@@ -223,3 +223,5 @@ Bài học ở đây là quy tắc rút ra khi chạy thí nghiệm và hạ t�
 - **28/11/2026 — dọn `.tmp` DVC trên mount rclone phải xét cả cloud, không chỉ cache.** `.tmp` đã upload rời cache vẫn nằm trên OneDrive
   (1.186 file 45 GiB sau một ngày backup). Kiểm không cần tải: `rclone lsjson -R --hash --hash-type QuickXorHash` rồi so (kích thước,
   QuickXorHash) với object chính thức; quota OneDrive (`rclone about`) cập nhật chậm vài phút sau khi xóa.
+  **Không coi `.tmp` không trùng là rác:** 22 object chính thức bị 0 byte và `.tmp` là bản đúng duy nhất. Tải `.tmp`, tính MD5 (= tên
+  object DVC): object có đủ kích thước → xóa `.tmp`; object rỗng/thiếu → đổi tên `.tmp` thành object.
